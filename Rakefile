@@ -16,7 +16,11 @@ task :cruise do
     sh "cp garlic_example.rb garlic.rb"
     sh "rake get_garlic"
     sh "rake garlic:clean"
-    sh "rake garlic:all > garlic_report.txt"
+    sh "rake garlic:install_repos"
+    sh "rake garlic:update_repos"
+    sh "rake garlic:check_repos"
+    sh "rake garlic:prepare_targets"
+    sh "rake garlic:run_targets > garlic_report.txt"
     
     # send abridged rpeort
     report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
