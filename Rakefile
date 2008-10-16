@@ -13,6 +13,9 @@ task :default => :spec
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
   begin
+    sh "cp garlic_example.rb garlic.rb"
+    sh "rake get_garlic"
+    sh "rake garlic:clean"
     sh "rake garlic:all > garlic_report.txt"
     
     # send abridged rpeort
