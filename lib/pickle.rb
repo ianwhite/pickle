@@ -18,6 +18,7 @@ module Pickle
       end
 
       def factory_names
+        require 'factory_girl'
         @factory_names ||= Factory.factories.keys.map(&:to_s)
       end
 
