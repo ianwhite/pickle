@@ -6,15 +6,16 @@ module Pickle
       Prefix  = '(?:1 |a |an |the |that )'
       Quoted  = '(?:[^\\"]|\\.)*'
       Name    = '(?:: "' + Quoted + '")'
-      Field   = '(?:\w+: "' + Quoted + '")'
-      Fields  = "(?:#{Field}, )*#{Field}"
-    
+      
       # model matching - depends on Parse::Config, so load before this if non standard config requried
       ModelMapping  = "(?:#{Pickle::Config.mappings.map(&:first).map{|s| "(?:#{s})"}.join('|')})"
       ModelName     = "(?:#{Pickle::Config.names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
       IndexedModel  = "(?:(?:#{Index} )?#{ModelName})"
       NamedModel    = "(?:#{ModelName}#{Name}?)"
       Model         = "(?:#{ModelMapping}|#{Prefix}?(?:#{IndexedModel}|#{NamedModel}))"
+      Field         = '(?:\w+: (?:' + Model + '|"' + Quoted + '"))'
+      Fields        = "(?:#{Field}, )*#{Field}"
+      
     end
     
     # these are expressions which capture a sub expression
@@ -26,19 +27,28 @@ module Pickle
     
     # given a string like 'foo: "bar", bar: "baz"' returns {"foo" => "bar", "bar" => "baz"}
     def parse_fields(fields)
-      fields.to_s.split(',').inject({}) do |m, field|
-        m.merge(parse_field(field.squish))
+      if fields.blank?
+        {}
+      elsif fields =~ /^#{Match::Fields}$/
+        fields.scan(/#{Match::Field}/).inject({}) do |m, field|
+          m.merge(parse_field(field.squish))
+        end
+      else
+        raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{Match::Fields}" 
       end
     end
     
     # given a string like 'foo: "bar"' returns {key => value}
     def parse_field(field)
-      field =~ /^#{Capture::Field}$/ or raise ArgumentError, "Field should match /^#{Capture::Field}$/"
-      { $1 => $2 }
+      if field =~ /^#{Capture::Field}$/
+        { $1 => $2 }
+      else
+        raise ArgumentError, "The field argument is not in the correct format.\n\n'#{fields}' did not match: #{Match::Fields}"
+      end
     end
     
     # returns really underscored name
-    def pickle_name(str)
+    def canonical(str)
       str.to_s.gsub(' ','_').underscore
     end
     
@@ -55,11 +65,11 @@ module Pickle
     def parse_model(name)
       apply_mappings!(name)
       if /(#{Match::ModelName})#{Capture::Name}$/ =~ name
-        [pickle_name($1), pickle_name($2)]
+        [canonical($1), canonical($2)]
       elsif /(#{Match::Index}) (#{Match::ModelName})$/ =~ name
-        [pickle_name($2), parse_index($1)]
+        [canonical($2), parse_index($1)]
       else
-        /(#{Match::ModelName})#{Capture::Name}?$/ =~ name && [pickle_name($1), pickle_name($2)]
+        /(#{Match::ModelName})#{Capture::Name}?$/ =~ name && [canonical($1), canonical($2)]
       end
     end
     

@@ -46,6 +46,15 @@ module Pickle
         model.class.find(model.id)
       end
     end
+    
+    def parse_field_with_model(field)
+      if field =~ /^(\w+): (#{Match::Model})$/
+        {$1 => model($2)}
+      else
+        parse_field_without_model(field)
+      end
+    end
+    alias_method_chain :parse_field, :model
 
   private
     def models_by_name(factory)
@@ -60,7 +69,7 @@ module Pickle
     
     # if the factory name != the model name, store under both names
     def store_model(factory, name, record)
-      store_record(pickle_name(record.class.name), name, record) if pickle_name(record.class.name) != factory
+      store_record(canonical(record.class.name), name, record) if canonical(record.class.name) != factory
       store_record(factory, name, record)
     end
 

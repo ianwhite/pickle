@@ -206,4 +206,35 @@ describe Pickle::Session do
       end
     end
   end
+
+  describe "when 'the user: \"me\"' exists" do
+    before do
+      @user = mock_model(User)
+      User.stub!(:find).and_return(@user)
+      Factory.stub!(:create).and_return(@user)
+      @session.create_model('the user: "me"')
+    end
+  
+    it 'model("I") should return the user' do
+      @session.model('I').should == @user
+    end
+
+    it 'model("myself") should return the user' do
+      @session.model('myself').should == @user
+    end
+    
+    describe '#parse_fields' do
+      it "'author: the user' should return {\"author\" => <user>}" do
+        @session.parse_fields('author: the user').should == {"author" => @user}
+      end
+
+      it "'author: myself' should return {\"author\" => <user>}" do
+        @session.parse_fields('author: myself').should == {"author" => @user}
+      end
+      
+      it "'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
+        @session.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
+      end
+    end
+  end
 end
