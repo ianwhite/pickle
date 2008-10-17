@@ -97,7 +97,7 @@ task :cruise do
     `rake get_garlic`
     `rake garlic:clean`
     sh "rake garlic:all"
-    sh "rake garlic:run_targets > garlic_report.txt"
+    sh "rake garlic:run_targets TARGET=edge > garlic_report.txt"
     
     # send abridged rpeort
     report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
