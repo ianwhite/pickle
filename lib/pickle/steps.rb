@@ -3,7 +3,7 @@ Pickle::Injector.inject Pickle::Session, :into => ActionController::Integration:
 
 # make some Regexp shortcuts for use in steps
 MatchModel  = Pickle::Parser::Match::Model
-MatchFields = Pickle::Pickle::Match::Fields
+MatchFields = Pickle::Parser::Match::Fields
 
 # start with some obvious steps
 Given(/^(#{MatchModel}) exists$/) do |name|
