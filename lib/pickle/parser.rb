@@ -10,8 +10,8 @@ module Pickle
       Fields  = "(?:#{Field}, )*#{Field}"
     
       # model matching - depends on Parse::Config, so load before this if non standard config requried
-      ModelMapping  = "(?:#{Pickle::Config.model_mappings.map(&:first).map{|s| "(?:#{s})"}.join('|')})"
-      ModelName     = "(?:#{Pickle::Config.model_names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
+      ModelMapping  = "(?:#{Pickle::Config.mappings.map(&:first).map{|s| "(?:#{s})"}.join('|')})"
+      ModelName     = "(?:#{Pickle::Config.names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
       IndexedModel  = "(?:(?:#{Index} )?#{ModelName})"
       NamedModel    = "(?:#{ModelName}#{Name}?)"
       Model         = "(?:#{ModelMapping}|#{Prefix}?(?:#{IndexedModel}|#{NamedModel}))"
@@ -64,7 +64,7 @@ module Pickle
     end
     
     def apply_mappings!(string)
-      Pickle::Config.model_mappings.each do |(search, replace)|
+      Pickle::Config.mappings.each do |(search, replace)|
         string.sub! /^(?:#{search})$/, replace
       end
     end

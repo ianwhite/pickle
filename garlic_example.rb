@@ -36,7 +36,7 @@ garlic do
   
     run do
       cd "vendor/plugins/pickle" do
-        sh "rake spec"
+        sh "rake spec:rcov:verify"
       end
     end
   end
