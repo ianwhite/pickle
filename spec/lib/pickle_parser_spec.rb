@@ -2,12 +2,10 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 require 'factory_girl'
 
 describe Pickle::Parser do
-  Pickle::Parser.factory_names = ['user', 'fast_car']
-  Pickle::Parser.active_record_names = ['event/create', 'event/update', 'user']
   include Pickle::Parser
   
   it "model_match_names should be regexps for factory and active record names" do
-    Pickle::Parser.model_match_names.should == ['event[\/: ]create', 'event[\/: ]update', 'fast[_ ]car', 'user']
+    Pickle::Parser.model_match_names.should == ['event[\/: ]create', 'event[\/: ]update', 'fast[_ ]car', 'super[_ ]admin', 'user']
   end
       
   describe "Match atoms" do

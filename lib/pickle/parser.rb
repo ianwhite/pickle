@@ -8,7 +8,7 @@ module Pickle
     MatchPrefix     = '(?:1 |a |an |the |that )'
     MatchName       = '(?:: ".*?")'
     CaptureName     = '(?:: "(.*?)")'
-    MatchField      = '(?:\w+: ".*?")'
+    MatchField      = '(?:\w+: "(?:[^\\"]|\\.)*")'
     MatchFields     = "(?:#{MatchField}, )*#{MatchField}"
     
     module Matchers

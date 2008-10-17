@@ -8,8 +8,6 @@ class FastCar < ActiveRecord::Base
 end
 
 describe Pickle::Session do
-  Pickle::Parser.model_names = ['user', 'super_admin']
-  
   before do
     @session = Pickle::Session.new
   end
