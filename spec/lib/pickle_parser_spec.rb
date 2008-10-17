@@ -1,13 +1,8 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
-require 'factory_girl'
 
 describe Pickle::Parser do
   include Pickle::Parser
-  
-  it "model_match_names should be regexps for factory and active record names" do
-    Pickle::Parser.model_match_names.should == ['event[\/: ]create', 'event[\/: ]update', 'fast[_ ]car', 'super[_ ]admin', 'user']
-  end
-      
+        
   describe "Match atoms" do
     def self.atom_should_match(atom, strings)
       Array(strings).each do |string|
@@ -25,29 +20,32 @@ describe Pickle::Parser do
       end
     end
     
-    atom_should_match     'MatchOrdinal', ['1st', '2nd', '23rd', '104th']
-    atom_should_not_match 'MatchOrdinal', ['1', '2']
+    atom_should_match     'Match::Ordinal', ['1st', '2nd', '23rd', '104th']
+    atom_should_not_match 'Match::Ordinal', ['1', '2']
 
-    atom_should_match     'MatchIndex', ['first', 'last', '23rd', '104th']
-    atom_should_not_match 'MatchIndex', ['1', '2', 'foo']
+    atom_should_match     'Match::Index', ['first', 'last', '23rd', '104th']
+    atom_should_not_match 'Match::Index', ['1', '2', 'foo']
 
-    atom_should_match     'MatchField', ['foo: "this is the life"', 'bar_man: "and so is this"']
-    atom_should_not_match 'MatchField', ['foo bar: "this aint workin"']
+    atom_should_match     'Match::Name', [': "gday"', ': "gday mate"']
+    atom_should_not_match 'Match::Name', [': "gday""', ': gday']
     
-    atom_should_match     'MatchFields', ['foo: "bar"', 'foo: "bar", baz: "bah"']
-    atom_should_not_match 'MatchFields', ['foo bar: "baz"', 'email: "a", password: "b", and password_confirmation: "c"']
+    atom_should_match     'Match::Field', ['foo: "this is the life"', 'bar_man: "and so is this"']
+    atom_should_not_match 'Match::Field', ['foo bar: "this aint workin"']
+    
+    atom_should_match     'Match::Fields', ['foo: "bar"', 'foo: "bar", baz: "bah"']
+    atom_should_not_match 'Match::Fields', ['foo bar: "baz"', 'email: "a", password: "b", and password_confirmation: "c"']
   
-    atom_should_match     'match_model', ['a user', '1st fast car', 'the 23rd fast_car', 'an event:create', 'the 2nd event/create', 'that event create: "zing"']
-    atom_should_not_match 'match_model', ['a giraffe', 'a 1st faster car: "jim"', 'an event created']
+    atom_should_match     'Match::Model', ['a user', '1st fast car', 'the 23rd fast_car', 'an event:create', 'the 2nd event/create', 'that event create: "zing"']
+    atom_should_not_match 'Match::Model', ['a giraffe', 'a 1st faster car: "jim"', 'an event created']
     
-    atom_should_match     'match_model_name', ['user', 'fast car', 'fast_car', 'event:create', 'event/create', 'event create']
-    atom_should_not_match 'match_model_name', ['users', 'faster car', 'event created']
+    atom_should_match     'Match::ModelName', ['user', 'fast car', 'fast_car', 'event:create', 'event/create', 'event create']
+    atom_should_not_match 'Match::ModelName', ['users', 'faster car', 'event created']
   end
   
   describe 'misc regexps' do
-    describe '/^(#{match_model}) exists/' do
+    describe '/^(#{Pickle::Parser::Match::Model}) exists/' do
       before do
-        @regexp = /^(#{match_model}) exists$/
+        @regexp = /^(#{Pickle::Parser::Match::Model}) exists$/
       end
       
       it "should match 'a user exists'" do
@@ -131,23 +129,19 @@ describe Pickle::Parser do
   end
   
   describe "customised mappings" do
-    describe '.map "I|myself", :to => \'user: "me"\'' do
-      before do
-        Pickle::Parser.map "I|myself", :to => 'user: "me"'
+    describe 'Pickle::Config.map "I|myself", :to => \'user: "me"\'' do      
+      it "'I' should match /\#{Pickle::Parser::Match::Model}/" do
+        'I'.should match(/#{Pickle::Parser::Match::Model}/)
       end
       
-      it "'I' should match /\#{match_model}/" do
-        'I'.should match(/#{match_model}/)
-      end
-      
-      it "'myself' should match /\#{match_model}/" do
-        'myself'.should match(/#{match_model}/)
+      it "'myself' should match /\#{Pickle::Parser::Match::Model}/" do
+        'myself'.should match(/#{Pickle::Parser::Match::Model}/)
       end
       
       it "parse_the_model_name('I') should == ['user', 'me']" do
         parse_model('I').should == ["user", "me"]
       end
-
+  
       it "parse_the_model_name('myself') should == ['user', 'me']" do
         parse_model('I').should == ["user", "me"]
       end

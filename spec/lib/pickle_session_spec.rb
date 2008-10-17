@@ -1,11 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
-require 'factory_girl'
-
-class User < ActiveRecord::Base
-end
-
-class FastCar < ActiveRecord::Base
-end
 
 describe Pickle::Session do
   before do
