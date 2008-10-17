@@ -11,8 +11,11 @@ module Pickle
 
     def find_model(a_model_name, fields)
       model, name = *parse_model(a_model_name)
-      record = model.classify.constantize.find :first, :conditions => parse_fields(fields)
-      store_model(model, name, record)
+      if record = model.classify.constantize.find(:first, :conditions => convert_models_to_ids(parse_fields(fields)))
+        store_model(model, name, record)
+      else
+        raise ActiveRecord::RecordNotFound, "Couldn't find #{model} with #{fields}"
+      end
     end
     
     # return the original model stored by create_model or find_model
@@ -24,15 +27,25 @@ module Pickle
       elsif name_or_index.is_a?(Integer)
         models_by_factory(factory)[name_or_index]
       else
-        models_by_name(factory)[name_or_index]
+        models_by_name(factory)[name_or_index] or raise "model: #{a_model_name} does not refer to known model in this scenario"
       end
     end
 
+    # predicate version which raises no errors
+    def original_model?(a_model_name)
+      (original_model(a_model_name) rescue nil) ? true : false
+    end
+    
     # return a newly selected model
     def model(a_model_name)
       if model = original_model(a_model_name)
-        model.class.find(model.id)
+        model.class.find(model.id) or raise ActiveRecord::RecordNotFound, "model: #{a_model_name} could not be found in the database"
       end
+    end
+    
+    # predicate version which raises no errors
+    def model?(a_model_name)
+      (model(a_model_name) rescue nil) ? true : false
     end
     
     # return all original models of specified type
@@ -57,6 +70,15 @@ module Pickle
     alias_method_chain :parse_field, :model
 
   private
+    def convert_models_to_ids(attrs)
+      attrs.each do |key, val|
+        if val.is_a?(ActiveRecord::Base)
+          attrs["#{key}_id"] = val.id
+          attrs.delete(key)
+        end
+      end
+    end
+    
     def models_by_name(factory)
       @models_by_name ||= {}
       @models_by_name[factory] ||= {}

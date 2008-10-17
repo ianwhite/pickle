@@ -30,8 +30,8 @@ module Pickle
       if fields.blank?
         {}
       elsif fields =~ /^#{Match::Fields}$/
-        fields.scan(/#{Match::Field}/).inject({}) do |m, field|
-          m.merge(parse_field(field.squish))
+        fields.scan(/(#{Match::Field})(?:,|$)/).inject({}) do |m, match|
+          m.merge(parse_field(match[0]))
         end
       else
         raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{Match::Fields}" 

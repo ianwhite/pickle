@@ -58,10 +58,24 @@ describe Pickle::Parser do
     end
   end
   
+  describe '#parse_field' do
+    it "should return {'a' => 'b'} for 'a: \"b\"'" do
+      parse_field('a: "b"').should == {'a' => 'b'}
+    end
+  
+    it "should raise error for invalid field 'a : b'" do
+      lambda { parse_field('a : b') }.should raise_error(ArgumentError)
+    end
+  end
+  
   describe '#parse_fields' do
     it 'should return {} for blank argument' do
       parse_fields(nil).should == {}
       parse_fields('').should == {}
+    end
+    
+    it 'should raise error for invalid argument' do
+      lambda { parse_fields('foo foo') }.should raise_error(ArgumentError)
     end
     
     it '(\'foo: "bar"\') should == { "foo" => "bar"}' do

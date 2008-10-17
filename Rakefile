@@ -8,7 +8,7 @@ require 'rake/rdoctask'
 
 plugin_name = 'pickle'
 
-task :default => :spec
+task :default => [:spec]
 
 if cucumber_base = File.expand_path(File.dirname(__FILE__) + '/../cucumber/lib')
   $:.unshift(cucumber_base)
@@ -16,36 +16,7 @@ if cucumber_base = File.expand_path(File.dirname(__FILE__) + '/../cucumber/lib')
 
   desc "Run a test version of cucumber features"
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format pretty -r features/steps features"
-  end
-end
-
-task :cruise do
-  # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
-  begin
-    sh "cp garlic_example.rb garlic.rb"
-    sh "rake get_garlic"
-    sh "rake garlic:clean"
-    sh "rake garlic:install_repos"
-    sh "rake garlic:update_repos"
-    sh "rake garlic:check_repos"
-    sh "rake garlic:prepare_targets"
-    sh "rake garlic:run_targets > garlic_report.txt"
-    
-    # send abridged rpeort
-    report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
-    report = "garlic report for #{plugin_name}\n#{`git log -n 1 --pretty=oneline --no-color`}\n" + report
-    File.open('garlic_report.txt', 'w+') {|f| f << report }
-    sh "scp -i ~/.ssh/ardes garlic_report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt"
-
-    # build doc and send that
-    cd "garlic/work/edge/vendor/plugins/#{plugin_name}" do
-      sh "rake doc:all"
-      sh "scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}"
-    end
-    
-  ensure
-    puts File.read('garlic_report.txt')
+    t.cucumber_opts = "--format progress -r features/steps features"
   end
 end
 
@@ -115,4 +86,33 @@ end
 desc "clone the garlic repo (for running ci tasks)"
 task :get_garlic do
   sh "git clone git://github.com/ianwhite/garlic.git garlic"
+end
+
+task :cruise do
+  # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
+  begin
+    sh "cp garlic_example.rb garlic.rb"
+    sh "rake get_garlic"
+    sh "rake garlic:clean"
+    sh "rake garlic:install_repos"
+    sh "rake garlic:update_repos"
+    sh "rake garlic:check_repos"
+    sh "rake garlic:prepare_targets"
+    sh "rake garlic:run_targets > garlic_report.txt"
+    
+    # send abridged rpeort
+    report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
+    report = "garlic report for #{plugin_name}\n#{`git log -n 1 --pretty=oneline --no-color`}\n" + report
+    File.open('garlic_report.txt', 'w+') {|f| f << report }
+    sh "scp -i ~/.ssh/ardes garlic_report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt"
+
+    # build doc and send that
+    cd "garlic/work/edge/vendor/plugins/#{plugin_name}" do
+      sh "rake doc:all"
+      sh "scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}"
+    end
+    
+  ensure
+    puts File.read('garlic_report.txt')
+  end
 end

@@ -109,8 +109,12 @@ describe Pickle::Session do
           @session.original_model('the user: "fred"').should == @user
         end
       
-        it "original_model('the user: \"shirl\"') should NOT retrieve the user" do
-          @session.original_model('the user: "shirl"').should_not == @user
+        it "original_model?('the user: \"shirl\"') should be false" do
+          @session.original_model?('the user: "shirl"').should == false
+        end
+        
+        it "model?('the user: \"shirl\"') should be false" do
+          @session.model?('the user: "shirl"').should == false
         end
       end
     end  
@@ -129,6 +133,11 @@ describe Pickle::Session do
     it "should call User.find :first, :conditions => {'hair' => 'pink'}" do
       User.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'}).and_return(@user)
       do_find_model
+    end
+    
+    it "should raise RecordNotFound when no record returned" do
+      User.should_receive(:find).and_return(nil)
+      lambda { do_find_model }.should raise_error(ActiveRecord::RecordNotFound)
     end
     
     describe "after find," do
@@ -223,6 +232,10 @@ describe Pickle::Session do
       @session.model('myself').should == @user
     end
     
+    it "#parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
+      lambda { @session.parse_fields('author: user "JIM"') }.should raise_error
+    end
+    
     it "#parse_fields 'author: the user' should return {\"author\" => <user>}" do
       @session.parse_fields('author: the user').should == {"author" => @user}
     end
@@ -237,6 +250,10 @@ describe Pickle::Session do
     
     it "#parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
       @session.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
+    end
+  
+    it "#convert_models_to_ids('user' => <user>, 'rating' => '5') should return {\"user_id\" => <user.id>, 'rating' => '5'}" do
+      @session.send(:convert_models_to_ids, {'user' => @user, 'rating' => '5'}).should == {"user_id" => @user.id, 'rating' => '5'}
     end
   end
 end
