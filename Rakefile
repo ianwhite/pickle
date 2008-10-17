@@ -10,7 +10,8 @@ plugin_name = 'pickle'
 
 task :default => [:spec]
 
-if cucumber_base = File.expand_path(File.dirname(__FILE__) + '/../cucumber/lib')
+cucumber_base = File.expand_path(File.dirname(__FILE__) + '/../cucumber/lib')
+if cucumber_base && File.dirname(__FILE__) =~ /\/vendor\/plugins$/ # if we're in rails app
   $:.unshift(cucumber_base)
   require 'cucumber/rake/task'
 
