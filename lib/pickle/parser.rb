@@ -3,9 +3,9 @@ module Pickle
     module Match
       Ordinal = '(?:\d+(?:st|nd|rd|th))'
       Index   = "(?:first|last|#{Ordinal})"
-      Prefix  = '(?:1 |a |an |the |that )'
+      Prefix  = '(?:1 |a |an |another |the |that )'
       Quoted  = '(?:[^\\"]|\\.)*'
-      Name    = '(?:: "' + Quoted + '")'
+      Name    = '(?::? "' + Quoted + '")'
       
       # model matching - depends on Parse::Config, so load before this if non standard config requried
       ModelMapping  = "(?:#{Pickle::Config.mappings.map(&:first).map{|s| "(?:#{s})"}.join('|')})"
@@ -21,7 +21,7 @@ module Pickle
     # these are expressions which capture a sub expression
     module Capture
       Ordinal = '(?:(\d+)(?:st|nd|rd|th))'
-      Name    = '(?:: "(' + Match::Quoted + ')")'
+      Name    = '(?::? "(' + Match::Quoted + ')")'
       Field   = '(?:(\w+): "(' + Match::Quoted + ')")'
     end
     
@@ -43,7 +43,7 @@ module Pickle
       if field =~ /^#{Capture::Field}$/
         { $1 => $2 }
       else
-        raise ArgumentError, "The field argument is not in the correct format.\n\n'#{fields}' did not match: #{Match::Fields}"
+        raise ArgumentError, "The field argument is not in the correct format.\n\n'#{field}' did not match: #{Match::Field}"
       end
     end
     

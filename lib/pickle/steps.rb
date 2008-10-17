@@ -18,10 +18,10 @@ Then(/^(#{MatchModel}) should exist with (#{MatchFields})$/) do |name, fields|
   find_model(name, fields).should_not == nil
 end
 
-Then(/^(#{MatchModel}) should be (?:an? )?(\w+)$/) do |name, predicate|
-  model(name).should send("be_#{predicate}")
+Then(/^(#{MatchModel}) should be (?:an? )?"(.*?)"$/) do |name, predicate|
+  model(name).should send("be_#{predicate.gsub(' ','_')}")
 end
 
-Then(/^(#{MatchModel}) should not be (?:an? )?(\w+)$/) do |name, predicate|
-  model(name).should_not send("be_#{predicate}")
+Then(/^(#{MatchModel}) should not be (?:an? )?"(.*?)"$/) do |name, predicate|
+  model(name).should_not send("be_#{predicate.gsub(' ','_')}")
 end

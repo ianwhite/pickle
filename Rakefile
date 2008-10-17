@@ -10,6 +10,16 @@ plugin_name = 'pickle'
 
 task :default => :spec
 
+if cucumber_base = File.expand_path(File.dirname(__FILE__) + '/../cucumber/lib')
+  $:.unshift(cucumber_base)
+  require 'cucumber/rake/task'
+
+  desc "Run a test version of cucumber features"
+  Cucumber::Rake::Task.new(:features) do |t|
+    t.cucumber_opts = "--format pretty -r features/steps features"
+  end
+end
+
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
   begin

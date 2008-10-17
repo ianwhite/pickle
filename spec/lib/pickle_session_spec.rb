@@ -207,7 +207,7 @@ describe Pickle::Session do
     end
   end
 
-  describe "when 'the user: \"me\"' exists" do
+  describe "when 'the user: \"me\"' exists (and there is a mapping from 'I|myself' => 'user: \"me\")" do
     before do
       @user = mock_model(User)
       User.stub!(:find).and_return(@user)
@@ -223,18 +223,20 @@ describe Pickle::Session do
       @session.model('myself').should == @user
     end
     
-    describe '#parse_fields' do
-      it "'author: the user' should return {\"author\" => <user>}" do
-        @session.parse_fields('author: the user').should == {"author" => @user}
-      end
+    it "#parse_fields 'author: the user' should return {\"author\" => <user>}" do
+      @session.parse_fields('author: the user').should == {"author" => @user}
+    end
 
-      it "'author: myself' should return {\"author\" => <user>}" do
-        @session.parse_fields('author: myself').should == {"author" => @user}
-      end
-      
-      it "'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
-        @session.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
-      end
+    it "#parse_fields 'author: myself' should return {\"author\" => <user>}" do
+      @session.parse_fields('author: myself').should == {"author" => @user}
+    end
+    
+    it "#parse_fields 'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
+      @session.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
+    end
+    
+    it "#parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
+      @session.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
     end
   end
 end
