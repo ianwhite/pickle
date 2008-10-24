@@ -95,11 +95,12 @@ task :cruise do
   begin
     `cp garlic_example.rb garlic.rb`
     `rake get_garlic`
+    `cd garlic; git pull`
     `rake garlic:clean`
     sh "rake garlic:all"
-    sh "rake garlic:run_targets TARGET=edge > garlic_report.txt"
+    sh "rake garlic:run_targets > garlic_report.txt"
     
-    # send abridged rpeort
+    # send abridged report
     report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
     report = "garlic report for #{plugin_name}\n#{`git log -n 1 --pretty=oneline --no-color`}\n" + report
     File.open('garlic_report.txt', 'w+') {|f| f << report }
