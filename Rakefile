@@ -93,16 +93,14 @@ end
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
   begin
-    sh "cp garlic_example.rb garlic.rb"
-    sh "rake get_garlic"
-    sh "rake garlic:clean"
-    sh "rake garlic:install_repos"
-    sh "rake garlic:update_repos"
-    sh "rake garlic:check_repos"
-    sh "rake garlic:prepare_targets"
+    `cp garlic_example.rb garlic.rb`
+    `rake get_garlic`
+    `cd garlic; git pull`
+    `rake garlic:clean`
+    sh "rake garlic:all"
     sh "rake garlic:run_targets > garlic_report.txt"
     
-    # send abridged rpeort
+    # send abridged report
     report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
     report = "garlic report for #{plugin_name}\n#{`git log -n 1 --pretty=oneline --no-color`}\n" + report
     File.open('garlic_report.txt', 'w+') {|f| f << report }
@@ -113,8 +111,5 @@ task :cruise do
       sh "rake doc:all"
       sh "scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}"
     end
-    
-  ensure
-    puts File.read('garlic_report.txt')
   end
 end
