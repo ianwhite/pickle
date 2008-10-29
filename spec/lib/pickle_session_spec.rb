@@ -251,9 +251,31 @@ describe Pickle::Session do
     it "#parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
       @session.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
     end
+  end
   
-    it "#convert_models_to_ids('user' => <user>, 'rating' => '5') should return {\"user_id\" => <user.id>, 'rating' => '5'}" do
-      @session.send(:convert_models_to_ids, {'user' => @user, 'rating' => '5'}).should == {"user_id" => @user.id, 'rating' => '5'}
+  describe "convert_models_to_attributes(ar_class, :user => <a user>)" do
+    before do 
+      @user = mock_model(User)
+    end
+    
+    describe "(when ar_class has column 'user_id')" do
+      before do
+        @ar_class = mock('ActiveRecord', :column_names => ['user_id'])
+      end
+      
+      it "should return {'user_id' => <the user.id>}" do
+        @session.send(:convert_models_to_attributes, @ar_class, :user => @user).should == {'user_id' => @user.id}
+      end
+    end
+    
+    describe "(when ar_class has columns 'user_id', 'user_type')" do
+      before do
+        @ar_class = mock('ActiveRecord', :column_names => ['user_id', 'user_type'])
+      end
+      
+      it "should return {'user_id' => <the user.id>, 'user_type' => <the user.type>}" do
+        @session.send(:convert_models_to_attributes, @ar_class, :user => @user).should == {'user_id' => @user.id, 'user_type' => @user.class.name}
+      end
     end
   end
 end
