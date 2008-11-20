@@ -11,7 +11,9 @@ module Pickle
 
     def find_model(a_model_name, fields)
       model, name = *parse_model(a_model_name)
-      if record = model.classify.constantize.find(:first, :conditions => convert_models_to_ids(parse_fields(fields)))
+      raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
+      model_class = model.classify.constantize
+      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parse_fields(fields)))
         store_model(model, name, record)
       else
         raise ActiveRecord::RecordNotFound, "Couldn't find #{model} with #{fields}"
@@ -70,10 +72,11 @@ module Pickle
     alias_method_chain :parse_field, :model
 
   private
-    def convert_models_to_ids(attrs)
+    def convert_models_to_attributes(ar_class, attrs)
       attrs.each do |key, val|
-        if val.is_a?(ActiveRecord::Base)
+        if val.is_a?(ActiveRecord::Base) && ar_class.column_names.include?("#{key}_id")
           attrs["#{key}_id"] = val.id
+          attrs["#{key}_type"] = val.class.name if ar_class.column_names.include?("#{key}_type")
           attrs.delete(key)
         end
       end
