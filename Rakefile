@@ -79,37 +79,13 @@ namespace :doc do
   task :all => ["spec:doc:html", "spec:doc", "spec:rcov", "doc"]
 end
 
-# load up garlic if it's here
-if File.directory?(File.join(File.dirname(__FILE__), 'garlic'))
-  require File.join(File.dirname(__FILE__), 'garlic/lib/garlic_tasks')
-  require File.join(File.dirname(__FILE__), 'garlic')
-end
-
-desc "clone the garlic repo (for running ci tasks)"
-task :get_garlic do
-  sh "git clone git://github.com/ianwhite/garlic.git garlic"
-end
-
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
-  begin
-    `cp garlic_example.rb garlic.rb`
-    `rake get_garlic`
-    `cd garlic; git pull`
-    `rake garlic:clean`
-    sh "rake garlic:all"
-    sh "rake garlic:run_targets > garlic_report.txt"
-    
-    # send abridged report
-    report = File.read('garlic_report.txt').sub(/^.*?==========/m, '==========')
-    report = "garlic report for #{plugin_name}\n#{`git log -n 1 --pretty=oneline --no-color`}\n" + report
-    File.open('garlic_report.txt', 'w+') {|f| f << report }
-    sh "scp -i ~/.ssh/ardes garlic_report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt"
-
-    # build doc and send that
-    cd "garlic/work/edge/vendor/plugins/#{plugin_name}" do
-      sh "rake doc:all"
-      sh "scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}"
-    end
+  sh "garlic clean && mkdir -p .garlic && (garlic all > .garlic/report.txt)"
+  `scp -i ~/.ssh/ardes .garlic/report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt`
+  cd ".garlic/2.2-stable/vendor/plugins/#{plugin_name}" do
+    `rake doc:all`
+    `scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}`
   end
+  puts "The build is GOOD"
 end
