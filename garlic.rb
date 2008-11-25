@@ -6,26 +6,27 @@ garlic do
   repo 'cucumber', :url => 'git://github.com/aslakhellesoy/cucumber.git'
   repo 'pickle', :path => '.'
 
-  target '2.1-stable', :branch => 'origin/2-1-stable'
-  target '2.2-stable', :branch => 'origin/2-2-stable'
+  ['origin/2-1-stable', 'origin/2-2-stable'].each do |rails|
   
-  all_targets do
-    prepare do
-      plugin 'pickle', :clone => true
-      plugin 'rspec'
-      plugin 'rspec-rails' do
-        sh "script/generate rspec -f"
+    target "Rails: #{rails}", :tree_ish => rails do
+      prepare do
+        plugin 'pickle', :clone => true
+        plugin 'rspec'
+        plugin 'rspec-rails' do
+          sh "script/generate rspec -f"
+        end
+        plugin 'factory_girl'
+        plugin 'cucumber' do
+          sh "script/generate cucumber -f"
+        end
       end
-      plugin 'factory_girl'
-      plugin 'cucumber' do
-        sh "script/generate cucumber -f"
+  
+      run do
+        cd "vendor/plugins/pickle" do
+          sh "rake spec:rcov:verify && rake features"
+        end
       end
     end
-  
-    run do
-      cd "vendor/plugins/pickle" do
-        sh "rake spec:rcov:verify && rake features"
-      end
-    end
+    
   end
 end
