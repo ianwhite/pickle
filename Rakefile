@@ -81,11 +81,9 @@ end
 
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
-  sh "garlic clean && mkdir -p .garlic && (garlic all > .garlic/report.txt)"
+  sh "garlic clean && garlic all"
+  `garlic run > .garlic/report.txt`
   `scp -i ~/.ssh/ardes .garlic/report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt`
-  cd ".garlic/2.2-stable/vendor/plugins/#{plugin_name}" do
-    `rake doc:all`
-    `scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}`
-  end
+  `cd .garlic/*/vendor/plugins/#{plugin_name}; rake doc:all; scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}`
   puts "The build is GOOD"
 end
