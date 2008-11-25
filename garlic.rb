@@ -13,11 +13,11 @@ garlic do
         plugin 'pickle', :clone => true
         plugin 'rspec'
         plugin 'rspec-rails' do
-          sh "script/generate rspec -f"
+          `script/generate rspec -f`
         end
         plugin 'factory_girl'
         plugin 'cucumber' do
-          sh "script/generate cucumber -f"
+          `script/generate cucumber -f`
         end
       end
   
