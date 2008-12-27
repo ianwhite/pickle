@@ -16,22 +16,6 @@ describe Pickle::Config do
     end
   end
   
-  it "#factory_names should default to stringified keys of Factory.factories" do
-    Factory.factories.should_receive(:keys).and_return([:one, :two])
-    Pickle::Config.factory_names.should == ['one', 'two']
-  end
-  
-  it "when factory_girl not available, #factory_names.should == []" do
-    Factory.should_receive(:factories).and_raise(NoMethodError)
-    Pickle::Config.factory_names.should == []
-  end
-  
-  it "#model_names should default to subclasses of AR" do
-    mock_classes = [mock('One', :name => 'One'), mock('One::A', :name => 'One::A'), mock('One::A::B', :name => 'One::A::B')]
-    ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)
-    Pickle::Config.model_names.should == ['one', 'one/a', 'one/a/b']
-  end
-  
   it "#names should default to set of (Array) #blueprint, #factory, and #model names" do
     Pickle::Config.blueprint_names = ['one', 'two_a']
     Pickle::Config.factory_names = ['one', 'two']

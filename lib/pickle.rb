@@ -56,5 +56,3 @@ module Pickle
     end
   end
 end
-
-Pickle::Config.load_frameworks rescue nil
