@@ -10,9 +10,13 @@
 #   require 'pickle/steps'
 module Pickle
   module Version
+    Major = 0
+    Minor = 1
+    Tiny  = 1
     
+    String = [Major, Minor, Tiny].join('.')
   end
-  
+    
   module Config
     class << self
       attr_writer :model_names, :factory_names, :names, :mappings

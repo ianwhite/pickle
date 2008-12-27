@@ -20,13 +20,11 @@ if File.exists?(cucumber_base) && plugins_base =~ /\/vendor\/plugins$/ # if we'r
   $:.unshift(cucumber_base)
   require 'cucumber/rake/task'
 
-  desc "Run a test version of cucumber features"
   Cucumber::Rake::Task.new(:features) do |t|
     t.cucumber_opts = "--format progress -r features/steps features"
   end
   
   namespace :features do
-    desc "Run a test version of cucumber features with full output"
     Cucumber::Rake::Task.new(:full) do |t|
       t.cucumber_opts = '-r features/steps features'
     end
