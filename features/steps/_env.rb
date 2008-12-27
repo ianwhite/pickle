@@ -17,6 +17,11 @@ ActiveRecord::Migration.suppress_messages do
       t.string :name
     end
     
+    create_table :spoons, :force => true do |t|
+      t.string :name
+      t.boolean :round, :default => true, :null => false
+    end
+    
     create_table :tines, :force => true do |t|
       t.belongs_to :fork
       t.boolean :rusty, :default => false, :null => false
@@ -40,6 +45,9 @@ class Tine < ActiveRecord::Base
   belongs_to :fork
 end
 
+class Spoon < ActiveRecord::Base
+  validates_presence_of :name
+end
 
 # Factories
 require 'factory_girl'
@@ -65,8 +73,13 @@ Factory.define :fancy_fork, :class => Fork do |t|
   t.name { "Fancy " + Factory.next(:fork_name) }
 end
 
-#### End of app setup
+# Blueprints
+require 'machinist'
+Spoon.blueprint do
+  name "fred"
+end
 
+#### End of app setup
 
 # require pickle, and set up a mapping
 Pickle::Config.map 'I|me', :to => 'fancy fork: "of morgoth"'
