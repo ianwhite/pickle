@@ -1,13 +1,3 @@
-# Pickle == cucumber + factory
-#
-# = Usage
-#   # in features/steps/_env.rb
-#   require 'pickle/steps'
-#
-# If you need to configure pickle, do it like this
-#
-#   Pickle::Config.map 'I|me|my', :to => 'user: "me"'
-#   require 'pickle/steps'
 module Pickle
   module Version
     Major = 0
@@ -22,21 +12,15 @@ module Pickle
       attr_writer :model_names, :factory_names, :blueprint_names, :names, :mappings
       
       def model_names
-        @model_names ||= ActiveRecord::Base.send(:subclasses).map(&:name).map(&:underscore)
+        @model_names ||= Pickle::Adapter::ActiveRecord.factories.map(&:name)
       end
 
       def blueprint_names
-        require 'machinist'
-        @blueprint_names ||= machinist_make_methods
-      rescue LoadError
-        @blueprint_names = []
+        @blueprint_names ||= Pickle::Adapter::Machinist.factories.map(&:name)
       end
       
       def factory_names
-        require 'factory_girl'
-        @factory_names ||= Factory.factories.keys.map(&:to_s)
-      rescue LoadError
-        @factory_names = []
+        @factory_names ||= Pickle::Adapter::FactoryGirl.factories.map(&:name)
       end
 
       def names
@@ -51,18 +35,26 @@ module Pickle
         raise ArgumentError, "Usage: map 'search', :to => 'replace'" unless search.is_a?(String) && options[:to].is_a?(String)
         self.mappings << [search, options[:to]]
       end
-    
-    protected
-      def machinist_make_methods
-        returning Array.new do |methods|
-          ActiveRecord::Base.send(:subclasses).each do |ar|
-            ar.respond_to?(:make) && methods.push(ar.name.underscore)
-            ar.methods.select{|m| m =~ /^make_/}.each do |method|
-              methods.push("#{method.sub('make_','')}_#{ar.name.underscore}")
-            end
-          end
+      
+      def require_frameworks
+        # try and require factory_girl
+        begin
+          require "factory_girl"
+        rescue LoadError
+        end
+
+        # try and require machinist, and bueprints while we're at it
+        begin
+          require "machinist"
+          require "#{Rails.root}/blueprints"
+          require "#{Rails.root}/features/blueprints"
+          require "#{Rails.root}/spec/blueprints"
+          require "#{Rails.root}/test/blueprints"
+        rescue LoadError
         end
       end
     end
   end
 end
+
+Pickle::Config.load_frameworks rescue nil

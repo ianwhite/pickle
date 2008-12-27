@@ -22,7 +22,7 @@ describe Pickle::Config do
   end
   
   it "when factory_girl not available, #factory_names.should == []" do
-    Pickle::Config.should_receive(:require).with('factory_girl').and_raise(LoadError)
+    Factory.should_receive(:factories).and_raise(NoMethodError)
     Pickle::Config.factory_names.should == []
   end
   
@@ -38,8 +38,8 @@ describe Pickle::Config do
     Pickle::Config.blueprint_names.should include('special_model')
   end
   
-  it "when machinist not available, #blueprint_names.should == []" do
-    Pickle::Config.should_receive(:require).with('machinist').and_raise(LoadError)
+  it "when no 'make' methods available, #blueprint_names.should == []" do
+    ActiveRecord::Base.should_receive(:subclasses).and_return([mock('One'), mock('Two'), mock('Three')])    
     Pickle::Config.blueprint_names.should == []
   end
   
