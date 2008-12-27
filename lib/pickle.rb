@@ -57,6 +57,9 @@ module Pickle
         returning Array.new do |methods|
           ActiveRecord::Base.send(:subclasses).each do |ar|
             ar.respond_to?(:make) && methods.push(ar.name.underscore)
+            ar.methods.select{|m| m =~ /^make_/}.each do |method|
+              methods.push("#{method.sub('make_','')}_#{ar.name.underscore}")
+            end
           end
         end
       end

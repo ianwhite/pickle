@@ -32,6 +32,12 @@ describe Pickle::Config do
     Pickle::Config.blueprint_names.should == ['one']
   end
   
+  it "when Model#make_special exists, blueprint_names should include 'special_model'" do
+    mock_class = mock('Model', :make_special => true, :name => 'Model')
+    ActiveRecord::Base.should_receive(:subclasses).and_return([mock_class])
+    Pickle::Config.blueprint_names.should include('special_model')
+  end
+  
   it "when machinist not available, #blueprint_names.should == []" do
     Pickle::Config.should_receive(:require).with('machinist').and_raise(LoadError)
     Pickle::Config.blueprint_names.should == []
