@@ -117,9 +117,7 @@ Rake::GemPackageTask.new(spec) do |p|
   p.need_zip = true
 end
 
-desc "Generate garlic.gemspec file"
+desc "Generate pickle.gemspec file"
 task :build do
-  File.open('garlic.gemspec', 'w') { |f|
-    f.write spec.to_ruby
-  }
+  File.open('pickle.gemspec', 'w') {|f| f.write spec.to_ruby }
 end
