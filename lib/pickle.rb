@@ -26,7 +26,10 @@ module Pickle
       end
 
       def blueprint_names
-        @blueprint_names ||= []
+        require 'machinist'
+        @blueprint_names ||= machinist_make_methods
+      rescue LoadError
+        @blueprint_names = []
       end
       
       def factory_names
@@ -47,6 +50,15 @@ module Pickle
       def map(search, options)
         raise ArgumentError, "Usage: map 'search', :to => 'replace'" unless search.is_a?(String) && options[:to].is_a?(String)
         self.mappings << [search, options[:to]]
+      end
+    
+    protected
+      def machinist_make_methods
+        returning Array.new do |methods|
+          ActiveRecord::Base.send(:subclasses).each do |ar|
+            ar.respond_to?(:make) && methods.push(ar.name.underscore)
+          end
+        end
       end
     end
   end
