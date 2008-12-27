@@ -27,10 +27,11 @@ describe Pickle::Config do
     Pickle::Config.model_names.should == ['one', 'one/a', 'one/a/b']
   end
   
-  it ":names should default to set (Array) :factory and :model names" do
+  it ":names should default to set of (Array) :blueprint, :factory, and :model names" do
+    Pickle::Config.blueprint_names = ['one', 'two_a']
     Pickle::Config.factory_names = ['one', 'two']
     Pickle::Config.model_names = ['two', 'one/a', 'one/b']
-    Pickle::Config.names.sort.should == ['one', 'one/a', 'one/b', 'two']
+    Pickle::Config.names.sort.should == ['one', 'one/a', 'one/b', 'two', 'two_a']
   end
   
   it ":mappings should default to []" do

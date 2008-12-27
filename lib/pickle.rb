@@ -19,19 +19,23 @@ module Pickle
     
   module Config
     class << self
-      attr_writer :model_names, :factory_names, :names, :mappings
+      attr_writer :model_names, :factory_names, :blueprint_names, :names, :mappings
       
       def model_names
         @model_names ||= ActiveRecord::Base.send(:subclasses).map(&:name).map(&:underscore)
       end
 
+      def blueprint_names
+        @blueprint_names ||= []
+      end
+      
       def factory_names
         require 'factory_girl'
         @factory_names ||= Factory.factories.keys.map(&:to_s)
       end
 
       def names
-        @names ||= (model_names | factory_names)
+        @names ||= (model_names | factory_names | blueprint_names)
       end
       
       def mappings
