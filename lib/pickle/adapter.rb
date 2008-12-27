@@ -18,6 +18,26 @@ module Pickle
       raise "Implement me to return an object with the given attributes"
     end
     
+    # machinist adapter
+    class Machinist < Adapter
+      def self.factories
+        ::ActiveRecord::Base.send(:subclasses).map do |klass|
+          klass.methods.select{|m| m =~ /^make/}.map do |method|
+            new(klass, method)
+          end
+        end.flatten
+      end
+      
+      def initialize(klass, method)
+        @klass, @method = klass, method
+        @name = (@method == 'make' ? @klass.name.underscore :  "#{@method.sub('make_','')}_#{@klass.name.underscore}")
+      end
+      
+      def create(attrs = {})
+        @klass.send(@method, attrs)
+      end
+    end
+    
     # factory-girl adapter
     class FactoryGirl < Adapter
       def self.factories
@@ -32,8 +52,8 @@ module Pickle
         ::Factory.send(@name, attrs)
       end
     end
-    
-    # simple active record adapter
+        
+    # fallback active record adapter
     class ActiveRecord < Adapter
       def self.factories
         ::ActiveRecord::Base.send(:subclasses).map {|klass| new(klass) }
@@ -45,28 +65,6 @@ module Pickle
 
       def create(attrs = {})
         @klass.send(:create!, attrs)
-      end
-    end
-    
-    # machinist adapter
-    class Machinist < Adapter
-      def self.factories
-        returning(Array.new) do |f|
-          ::ActiveRecord::Base.send(:subclasses).each do |klass|
-            klass.methods.select{|m| m =~ /^make/}.each do |method|
-              f << new(klass, method)
-            end
-          end
-        end
-      end
-      
-      def initialize(klass, method)
-        @klass, @method = klass, method
-        @name = (@method == 'make' ? @klass.name.underscore :  "#{@method.sub('make_','')}_#{@klass.name.underscore}")
-      end
-      
-      def create(attrs = {})
-        @klass.send(@method, attrs)
       end
     end
   end
