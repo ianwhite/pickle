@@ -4,18 +4,18 @@ module Pickle
   #
   # The factory adaptor must have a #factories class method that returns 
   # its instances, and each instance must respond to a #name method which
-  # identifies the factory by name (default is attr_reader), and a
+  # identifies the factory by name (default is attr_reader for @name), and a
   # #create method which takes an optional attributes hash,
   # and returns a newly created object
   class Adapter
     attr_reader :name
     
     def self.factories
-      raise "Implement me to return an array, each element of which is suitable as a splat for initializing an instance of this class"
+      raise NotImplementedError, "return an array of factory adapter objects"
     end
   
     def create(attrs = {})
-      raise "Implement me to return an object with the given attributes"
+      raise NotImplementedError, "create and return an object with the given attributes"
     end
     
     # machinist adapter
