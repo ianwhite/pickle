@@ -1,3 +1,5 @@
+* make a gem release with version number
+
 * create a generator for the pickle steps
 
 * add machinist, and fallback to no factory pattern if none available
