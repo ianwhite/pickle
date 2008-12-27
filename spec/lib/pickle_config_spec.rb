@@ -27,10 +27,9 @@ describe Pickle::Config do
   end
   
   it "#blueprint_names should default to models with make methods" do
-    mock_classes = [mock('One', :make => true, :name => 'One'), mock('Two', :make => false, :name => 'Two')]
+    mock_classes = [mock('One', :make => true, :name => 'One'), mock('Two', :name => 'Two')]
     ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)
-    Pickle::Config.blueprint_names
-#    Pickle::Config.blueprint_names.should == ['one']
+    Pickle::Config.blueprint_names.should == ['one']
   end
   
   it "when machinist not available, #blueprint_names.should == []" do
