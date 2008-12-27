@@ -9,6 +9,10 @@
 #   Pickle::Config.map 'I|me|my', :to => 'user: "me"'
 #   require 'pickle/steps'
 module Pickle
+  module Version
+    
+  end
+  
   module Config
     class << self
       attr_writer :model_names, :factory_names, :names, :mappings

@@ -70,7 +70,7 @@ Rake::RDocTask.new(:doc) do |t|
   t.title    = "#{plugin_name}"
   t.template = ENV['RDOC_TEMPLATE']
   t.options  = ['--line-numbers', '--inline-source', '--all']
-  t.rdoc_files.include('README.rdoc', 'SPECDOC', 'MIT-LICENSE', 'CHANGELOG')
+  t.rdoc_files.include('README.rdoc', 'SPECDOC', 'License.txt', 'History.txt', 'Todo.txt')
   t.rdoc_files.include('lib/**/*.rb')
 end
 
@@ -81,7 +81,7 @@ end
 
 task :cruise do
   # run the garlic task, capture the output, if succesful make the docs and copy them to ardes
-  sh "garlic clean && garlic all"
+  sh "garlic all"
   `garlic run > .garlic/report.txt`
   `scp -i ~/.ssh/ardes .garlic/report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt`
   `cd .garlic/*/vendor/plugins/#{plugin_name}; rake doc:all; scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}`

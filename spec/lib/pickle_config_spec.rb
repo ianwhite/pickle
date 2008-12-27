@@ -2,6 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
 describe Pickle::Config do
   before do
+    # zero pickle config before each example
     [:names, :model_names, :factory_names, :mappings].each do |config_var|
       instance_variable_set "@orig_#{config_var}", Pickle::Config.send(config_var)
       Pickle::Config.send("#{config_var}=", nil)
@@ -9,6 +10,7 @@ describe Pickle::Config do
   end
   
   after do
+    # restore pickle config back after each example
     [:model_names, :factory_names, :names, :mappings].each do |config_var|
       Pickle::Config.send "#{config_var}=", instance_variable_get("@orig_#{config_var}")
     end
