@@ -1,3 +1,9 @@
+== Current
+
+* 1 minor enhancement
+  * model_names now defaults to subclasses of AR::Base
+
+
 == 0.1.1
 
 * 1 major enhancement:
@@ -5,6 +11,7 @@
 
 * 1 minor enhancement:
   * Added intentions for pickle in README.textile
+
 
 == Prior to gems
 

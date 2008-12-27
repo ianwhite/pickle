@@ -22,7 +22,7 @@ module Pickle
       attr_writer :model_names, :factory_names, :names, :mappings
       
       def model_names
-        @model_names ||= Dir["#{RAILS_ROOT}/app/models/**/*.rb"].reject{|f| f =~ /observer.rb$/}.map{|f| f.sub("#{RAILS_ROOT}/app/models/",'').sub(".rb",'')}
+        @model_names ||= ActiveRecord::Base.send(:subclasses).map(&:name).map(&:underscore)
       end
 
       def factory_names

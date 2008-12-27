@@ -21,17 +21,10 @@ describe Pickle::Config do
     Pickle::Config.factory_names.should == ['one', 'two']
   end
   
-  it ":model_names should default to directory listing of app/models excluding observers" do
-    models_path = "#{RAILS_ROOT}/app/models"
-    Dir.should_receive(:[]).with("#{models_path}/**/*.rb").and_return([
-      "#{models_path}/one.rb",
-      "#{models_path}/one/a.rb",
-      "#{models_path}/one/b.rb",
-      "#{models_path}/one/b/i.rb",
-      "#{models_path}/one_observer.rb",
-      "#{models_path}/two.rb"
-    ])
-    Pickle::Config.model_names.should == ['one', 'one/a', 'one/b', 'one/b/i', 'two']
+  it ":model_names should default to subclasses of AR" do
+    mock_classes = [mock('One', :name => 'One'), mock('One::A', :name => 'One::A'), mock('One::A::B', :name => 'One::A::B')]
+    ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)
+    Pickle::Config.model_names.should == ['one', 'one/a', 'one/a/b']
   end
   
   it ":names should default to set (Array) :factory and :model names" do
