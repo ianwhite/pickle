@@ -75,8 +75,11 @@ end
 
 # Blueprints
 require 'machinist'
+
+Sham.spoon_name { |i| "Spoon #{i}" }
+
 Spoon.blueprint do
-  name "fred"
+  name { Sham.spoon_name }
 end
 
 #### End of app setup
