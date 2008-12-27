@@ -1,0 +1,67 @@
+h1. Pickle [Experimental: In development]
+
+Stick this in vendor/plugins to have cucumber steps that create your models easily from factory_girl/machinist
+
+References to the models are stored, not for the purpose of checking the db (although you could use it for
+that), but for enabling easy reference to urls, and for building complex givens which require a bunch of
+models collaborating
+
+h2. Example
+
+If you have a user model, which has admin? and moderator? predicate methods
+and let's say you have an :admin, :user, and :moderator factory, you can do this in a Scenario:
+
+  And an admin exists
+  And a moderator exists
+  
+  # the following is just to show how refs work, obviously you'd not want to test this
+  Then the moderator should be a moderator
+  And the admin should be an admin
+  And the moderator should not be an admin
+  
+h2. Usage
+
+  script/generate pickle
+
+h2. API
+
+h3. Regexps for us in your own steps
+
+If you want to use pickle expressions in your own steps, make sure you 
+require pickle in that file
+
+  require 'pickle'
+
+For matching english versions of model names you get 
+
+  #match_model, #capture_model
+
+  Given /^#{capture_model} exists$/ do |model_name|
+    model(model_name).should_not == nil
+  end
+
+  Then /^I should be at the (.*?) page$/ |page|
+	if page =~ /#{match_model}'s/
+	  url_for(model(page.sub("'s",''))
+	else
+	  # ...
+	end
+  end
+  
+For matching a field string, you get
+
+  #match_fields, #capture_fields
+  
+  Given /^#{capture_model} exists with #{capture_fields}$/ do |model_name, fields|
+    create_model(model_name, fields)
+  end
+  
+Take a look at features/step_definitions/pickle_steps.rb for more examples
+
+h3. Creating and tracking models
+
+ #create_model(<model_name>[, <field string>])
+ 
+ #find_model(<model_name>[, <field string>])
+ 
+ #model(<model_model>) # refers to a model that has already been created/found (ie. referred to in a scenario)

@@ -5,6 +5,10 @@ $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base) and !$LOAD_PATH.includ
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'rake/rdoctask'
+require 'rake/gempackagetask'
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/lib'
+require 'pickle'
 
 plugin_name = 'pickle'
 
@@ -77,7 +81,7 @@ Rake::RDocTask.new(:doc) do |t|
   t.title    = "#{plugin_name}"
   t.template = ENV['RDOC_TEMPLATE']
   t.options  = ['--line-numbers', '--inline-source', '--all']
-  t.rdoc_files.include('README.rdoc', 'SPECDOC', 'License.txt', 'History.txt', 'Todo.txt')
+  t.rdoc_files.include('README.textile', 'SPECDOC', 'License.txt', 'History.txt', 'Todo.txt')
   t.rdoc_files.include('lib/**/*.rb')
 end
 
@@ -93,4 +97,31 @@ task :cruise do
   `scp -i ~/.ssh/ardes .garlic/report.txt ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}_garlic_report.txt`
   `cd .garlic/*/vendor/plugins/#{plugin_name}; rake doc:all; scp -i ~/.ssh/ardes -r doc ardes@ardes.com:~/subdomains/plugins/httpdocs/doc/#{plugin_name}`
   puts "The build is GOOD"
+end
+
+spec = Gem::Specification.new do |s|
+  s.name          = plugin_name
+  s.version       = Pickle::Version::String
+  s.summary       = "Easy model creation and reference in your cucumber features"
+  s.description   = "Easy model creation and reference in your cucumber features"
+  s.author        = "Ian White"
+  s.email         = "ian.w.white@gmail.com"
+  s.homepage      = "http://github.com/ianwhite/pickle/tree"
+  s.has_rdoc      = true
+  s.rdoc_options << "--title" << "Pickle" << "--line-numbers"
+  s.test_files    = FileList["spec/**/*_spec.rb"]
+  s.files         = FileList["lib/**/*.rb", "License.txt", "README.textile", "Todo.txt", "History.txt"]
+end
+
+Rake::GemPackageTask.new(spec) do |p|
+  p.gem_spec = spec
+  p.need_tar = true
+  p.need_zip = true
+end
+
+desc "Generate garlic.gemspec file"
+task :build do
+  File.open('garlic.gemspec', 'w') { |f|
+    f.write spec.to_ruby
+  }
 end

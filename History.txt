@@ -1,1 +1,11 @@
+== 0.1.1
+
+* 1 major enhancement:
+  * made pickle a github gem
+
+* 1 minor enhancement:
+  * Added intentions for pickle in README.textile
+
+== Prior to gems
+
 * Initial release: everything is subject to sweeping change
