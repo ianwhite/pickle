@@ -21,6 +21,11 @@ describe Pickle::Config do
     Pickle::Config.factory_names.should == ['one', 'two']
   end
   
+  it "when factory_girl not available, #factory_names.should == []" do
+    Pickle::Config.should_receive(:require).with('factory_girl').and_raise(LoadError)
+    Pickle::Config.factory_names.should == []
+  end
+  
   it ":model_names should default to subclasses of AR" do
     mock_classes = [mock('One', :name => 'One'), mock('One::A', :name => 'One::A'), mock('One::A::B', :name => 'One::A::B')]
     ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)

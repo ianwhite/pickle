@@ -32,6 +32,8 @@ module Pickle
       def factory_names
         require 'factory_girl'
         @factory_names ||= Factory.factories.keys.map(&:to_s)
+      rescue LoadError
+        @factory_names = []
       end
 
       def names
