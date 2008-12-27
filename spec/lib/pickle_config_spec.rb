@@ -26,23 +26,6 @@ describe Pickle::Config do
     Pickle::Config.factory_names.should == []
   end
   
-  it "#blueprint_names should default to models with make methods" do
-    mock_classes = [mock('One', :make => true, :name => 'One'), mock('Two', :name => 'Two')]
-    ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)
-    Pickle::Config.blueprint_names.should == ['one']
-  end
-  
-  it "when Model#make_special exists, blueprint_names should include 'special_model'" do
-    mock_class = mock('Model', :make_special => true, :name => 'Model')
-    ActiveRecord::Base.should_receive(:subclasses).and_return([mock_class])
-    Pickle::Config.blueprint_names.should include('special_model')
-  end
-  
-  it "when no 'make' methods available, #blueprint_names.should == []" do
-    ActiveRecord::Base.should_receive(:subclasses).and_return([mock('One'), mock('Two'), mock('Three')])    
-    Pickle::Config.blueprint_names.should == []
-  end
-  
   it "#model_names should default to subclasses of AR" do
     mock_classes = [mock('One', :name => 'One'), mock('One::A', :name => 'One::A'), mock('One::A::B', :name => 'One::A::B')]
     ActiveRecord::Base.should_receive(:subclasses).and_return(mock_classes)
