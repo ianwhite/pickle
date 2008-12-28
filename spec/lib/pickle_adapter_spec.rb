@@ -14,12 +14,16 @@ describe Pickle::Adapter do
     lambda{ Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
   end
   
+  it ".active_record_classes should not include CGI::Session::ActiveRecordStore" do
+    Pickle::Adapter.active_record_classes.should_not include(CGI::Session::ActiveRecordStore)
+  end
+  
   describe '::ActiveRecord' do
     before do
       # set up a fake object space
       @klass1 = mock('One', :name => 'One')
       @klass2 = mock('One::Two', :name => 'One::Two')
-      ::ActiveRecord::Base.stub!(:subclasses).and_return([@klass1, @klass2])
+      Pickle::Adapter::ActiveRecord.stub!(:active_record_classes).and_return([@klass1, @klass2])
     end
     
     describe ".factories" do
@@ -82,7 +86,7 @@ describe Pickle::Adapter do
       @klass1 = mock('One', :name => 'One', :make => true, :make_unsaved => true)
       @klass2 = mock('Two', :name => 'Two')
       @klass3 = mock('Two::Sub', :name => 'Two::Sub', :make_special => true, :make => true, :make_unsaved => true)
-      ::ActiveRecord::Base.stub!(:subclasses).and_return([@klass1, @klass2, @klass3])
+      Pickle::Adapter::Machinist.stub!(:active_record_classes).and_return([@klass1, @klass2, @klass3])
     end
     
     describe ".factories" do

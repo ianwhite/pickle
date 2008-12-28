@@ -1,5 +1,3 @@
-require 'pickle/adapter'
-
 module Pickle
   module Version
     Major = 0
@@ -14,11 +12,11 @@ module Pickle
       attr_writer :adapters, :factories, :mappings
       
       def adapters
-        @adapters ||= [Adapter::Machinist, Adapter::FactoryGirl, Adapter::ActiveRecord]
+        @adapters ||= [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::ActiveRecord]
       end
       
       def factories
-        @factories ||= adapters.inject({}) {|factories, adapter| factories.merge(adapter.factories_hash) }
+        @factories ||= adapters.reverse.inject({}) {|factories, adapter| factories.merge(adapter.factories_hash) }
       end
 
       def names

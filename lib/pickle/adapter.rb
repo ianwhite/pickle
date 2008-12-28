@@ -22,20 +22,26 @@ module Pickle
       raise NotImplementedError, "create and return an object with the given attributes"
     end
     
+    # override this to exclude any non application classes
+    def self.active_record_classes
+      returning ::ActiveRecord::Base.send(:subclasses) do |classes|
+        defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
+      end
+    end
+    
     # machinist adapter
     class Machinist < Adapter
       def self.factories
-        ::ActiveRecord::Base.send(:subclasses).map do |klass|
-          klass.methods.select{|m| m =~ /^make/}.map do |method|
-            new(klass, method) unless method =~ /_unsaved$/
+        active_record_classes.map do |klass|
+          klass.methods.select{|m| m =~ /^make/ && m !~ /_unsaved$/}.map do |method|
+            new(klass, method)
           end
         end.flatten
       end
       
       def initialize(klass, method)
         @klass, @method = klass, method
-        @name = @klass.name.underscore.gsub('/','_')
-        @name = "#{@method.sub('make_','')}_#{@name}" unless @method == 'make'
+        @name = (@method =~ /make_/ ? "#{@method.sub('make_','')}_" : "") + @klass.name.underscore.gsub('/','_')
       end
       
       def create(attrs = {})
@@ -61,7 +67,7 @@ module Pickle
     # fallback active record adapter
     class ActiveRecord < Adapter
       def self.factories
-        ::ActiveRecord::Base.send(:subclasses).map {|klass| new(klass) }
+        active_record_classes.map {|klass| new(klass) }
       end
 
       def initialize(klass)

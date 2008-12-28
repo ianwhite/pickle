@@ -35,10 +35,10 @@ describe Pickle::Parser do
     atom_should_match     'Match::Fields', ['foo: "bar"', 'foo: "bar", baz: "bah"']
     atom_should_not_match 'Match::Fields', ['foo bar: "baz"', 'email: "a", password: "b", and password_confirmation: "c"']
   
-    atom_should_match     'Match::Model', ['a user', '1st fast car', 'the 23rd fast_car', 'an event:create', 'the 2nd event/create', 'that event create: "zing"']
+    atom_should_match     'Match::Model', ['a user', '1st fast car', 'the 23rd fast_car', 'an event_create', 'the 2nd event_create', 'that event create: "zing"']
     atom_should_not_match 'Match::Model', ['a giraffe', 'a 1st faster car: "jim"', 'an event created']
     
-    atom_should_match     'Match::ModelName', ['user', 'fast car', 'fast_car', 'event:create', 'event/create', 'event create']
+    atom_should_match     'Match::ModelName', ['user', 'fast car', 'fast_car', 'event_create', 'event_create', 'event create']
     atom_should_not_match 'Match::ModelName', ['users', 'faster car', 'event created']
   end
   
