@@ -10,6 +10,10 @@ module Pickle
   class Adapter
     attr_reader :name
     
+    def self.factories_hash
+      factories.inject({}) {|hash, factory| hash.merge(factory.name => factory)}
+    end
+    
     def self.factories
       raise NotImplementedError, "return an array of factory adapter objects"
     end
@@ -23,14 +27,15 @@ module Pickle
       def self.factories
         ::ActiveRecord::Base.send(:subclasses).map do |klass|
           klass.methods.select{|m| m =~ /^make/}.map do |method|
-            new(klass, method)
+            new(klass, method) unless method =~ /_unsaved$/
           end
         end.flatten
       end
       
       def initialize(klass, method)
         @klass, @method = klass, method
-        @name = (@method == 'make' ? @klass.name.underscore :  "#{@method.sub('make_','')}_#{@klass.name.underscore}")
+        @name = @klass.name.underscore.gsub('/','_')
+        @name = "#{@method.sub('make_','')}_#{@name}" unless @method == 'make'
       end
       
       def create(attrs = {})
@@ -60,7 +65,7 @@ module Pickle
       end
 
       def initialize(klass)
-        @klass, @name = klass, klass.name.underscore
+        @klass, @name = klass, klass.name.underscore.gsub('/','_')
       end
 
       def create(attrs = {})

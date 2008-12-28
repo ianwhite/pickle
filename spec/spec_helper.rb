@@ -35,5 +35,4 @@ end
 
 # Pickle Config
 
-Pickle::Config.model_names = ['user', 'fast_car', 'event/create', 'event/update']
 Pickle::Config.map 'I|myself', :to => 'user: "me"'

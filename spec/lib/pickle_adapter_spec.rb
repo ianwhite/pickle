@@ -29,8 +29,8 @@ describe Pickle::Adapter do
           @factory = Pickle::Adapter::ActiveRecord.new(@klass2)
         end
         
-        it "should have underscored name of Class as #name" do
-          @factory.name.should == 'one/two'
+        it "should have underscored (s/_) name of Class as #name" do
+          @factory.name.should == 'one_two'
         end
         
         it "#create(attrs) should call Class.create!(attrs)" do
@@ -74,14 +74,14 @@ describe Pickle::Adapter do
   describe '::Machinist' do
     before do
       # set up a fake object space
-      @klass1 = mock('One', :name => 'One', :make => true)
+      @klass1 = mock('One', :name => 'One', :make => true, :make_unsaved => true)
       @klass2 = mock('Two', :name => 'Two')
-      @klass3 = mock ('Two::Sub', :name => 'Two::Sub', :make_special => true, :make => true)
+      @klass3 = mock('Two::Sub', :name => 'Two::Sub', :make_special => true, :make => true, :make_unsaved => true)
       ::ActiveRecord::Base.stub!(:subclasses).and_return([@klass1, @klass2, @klass3])
     end
     
     describe ".factories" do
-      it "should create one for each machinist make method" do
+      it "should create one for each machinist make method, except make_unsaved" do
         Pickle::Adapter::Machinist.should_receive(:new).with(@klass1, 'make').once
         Pickle::Adapter::Machinist.should_receive(:new).with(@klass3, 'make').once
         Pickle::Adapter::Machinist.should_receive(:new).with(@klass3, 'make_special').once
@@ -93,7 +93,7 @@ describe Pickle::Adapter do
           @factory = Pickle::Adapter::Machinist.new(@klass1, 'make')
         end
         
-        it "should have underscored name of Class as #name" do
+        it "should have underscored (s/_) name of Class as #name" do
           @factory.name.should == 'one'
         end
         
@@ -109,7 +109,7 @@ describe Pickle::Adapter do
         end
         
         it "should have 'special_<Class name>' as #name" do
-          @factory.name.should == 'special_two/sub'
+          @factory.name.should == 'special_two_sub'
         end
         
         it "#create(attrs) should call Class.make_special(attrs)" do
