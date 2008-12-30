@@ -2,8 +2,8 @@ module Pickle
   class Parser
     attr_reader :config
     
-    def initialize(config = Pickle::Config.default)
-      @config = config
+    def initialize(options = {})
+      @config = options[:config] || Pickle::Config.default
     end
     
     module Matchers

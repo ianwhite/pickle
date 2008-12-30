@@ -9,6 +9,11 @@ describe Pickle::Parser do
     @parser.config.should == Pickle::Config.default
   end
   
+  it "should use the passed config when created with :config option" do
+    parser = Pickle::Parser.new :config => (cfg = mock('config'))
+    parser.config.should == cfg
+  end
+  
   describe 'misc regexps' do
     describe '/^#{capture_model} exists/' do
       before do
@@ -115,7 +120,7 @@ describe Pickle::Parser do
         @config = Pickle::Config.new do |c|
           c.map 'I', 'myself', :to => 'user: "me"'
         end
-        @parser = Pickle::Parser.new(@config)
+        @parser = Pickle::Parser.new(:config => @config)
       end
 
       it "'I' should match /\#{match_model}/" do
