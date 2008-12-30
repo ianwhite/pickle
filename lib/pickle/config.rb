@@ -25,8 +25,8 @@ module Pickle
       end
     end
 
-    def names
-      factories.keys.sort
+    def factory_names
+      factories.keys
     end
     
     def mappings

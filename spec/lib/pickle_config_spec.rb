@@ -49,9 +49,9 @@ describe Pickle::Config do
     end
   end
   
-  it "#names should be keys of .factories" do
+  it "#factory_names should be keys of #factories" do
     @config.should_receive(:factories).and_return('one' => nil, 'two' => nil)
-    @config.names.should == ['one', 'two']
+    @config.factory_names.sort.should == ['one', 'two'].sort
   end
   
   it "#mappings should default to []" do
