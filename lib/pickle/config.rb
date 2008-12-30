@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Pickle
   class Config
     attr_writer :adapters, :factories, :mappings
@@ -31,11 +33,12 @@ module Pickle
       @mappings ||= []
     end
     
+    # Usage: map 'me', 'myself', 'I', :to => 'user: "me"'
     def map(*args)
       options = args.extract_options!
       raise ArgumentError, "Usage: map 'search' [, 'search2', ...] :to => 'replace'" unless args.any? && options[:to].is_a?(String)
       search = args.size == 1 ? args.first.to_s : "(?:#{args.join('|')})"
-      self.mappings << {:search => search, :replace => options[:to]}
+      self.mappings << OpenStruct.new(:search => search, :replace => options[:to])
     end
   end
 end
