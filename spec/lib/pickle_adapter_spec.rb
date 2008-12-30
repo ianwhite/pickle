@@ -67,8 +67,8 @@ describe Pickle::Adapter do
           @factory.name.should == 'one'
         end
         
-        it "#create(attrs) should call Factory.<:key>(attrs)" do
-          Factory.should_receive(:one).with({:key => "val"})
+        it "#create(attrs) should call Factory(<:key>, attrs)" do
+          Factory.should_receive(:create).with("one", {:key => "val"})
           @factory.create(:key => "val")
         end
       end
@@ -79,8 +79,10 @@ describe Pickle::Adapter do
     before do
       # set up a fake object space
       @klass1 = mock('One', :name => 'One', :make => true, :make_unsaved => true)
+      @klass1.instance_variable_set('@blueprint', true)
       @klass2 = mock('Two', :name => 'Two')
       @klass3 = mock('Two::Sub', :name => 'Two::Sub', :make_special => true, :make => true, :make_unsaved => true)
+      @klass3.instance_variable_set('@blueprint', true)
       Pickle::Adapter::Machinist.stub!(:active_record_classes).and_return([@klass1, @klass2, @klass3])
     end
     

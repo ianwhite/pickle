@@ -28,11 +28,15 @@ module Pickle
     # machinist adapter
     class Machinist < Adapter
       def self.factories
-        active_record_classes.map do |klass|
-          klass.methods.select{|m| m =~ /^make/ && m !~ /_unsaved$/}.map do |method|
-            new(klass, method)
+        factories = []
+        active_record_classes.each do |klass|
+          factories << new(klass, "make") if klass.instance_variable_get('@blueprint')
+          # if there are special make_special methods, add blueprints for them
+          klass.methods.select{|m| m =~ /^make_/ && m !~ /_unsaved$/}.each do |method|
+            factories << new(klass, method)
           end
-        end.flatten
+        end
+        factories
       end
       
       def initialize(klass, method)
@@ -56,7 +60,7 @@ module Pickle
       end
     
       def create(attrs = {})
-        ::Factory.send(@name, attrs)
+        Factory.create(@name, attrs)
       end
     end
         
