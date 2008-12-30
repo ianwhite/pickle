@@ -10,10 +10,6 @@ module Pickle
   class Adapter
     attr_reader :name
     
-    def self.factories_hash
-      factories.inject({}) {|hash, factory| hash.merge(factory.name => factory)}
-    end
-    
     def self.factories
       raise NotImplementedError, "return an array of factory adapter objects"
     end

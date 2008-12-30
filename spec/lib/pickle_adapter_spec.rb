@@ -5,11 +5,6 @@ describe Pickle::Adapter do
     lambda{ Pickle::Adapter.factories }.should raise_error(NotImplementedError)
   end
   
-  it ".factories_hash should create a hash using .factories and indexing by name" do
-    Pickle::Adapter.should_receive(:factories).and_return([@one = mock('One', :name => 'one'), @two = mock('Two', :name => 'two')])
-    Pickle::Adapter.factories_hash.should == {'one' => @one, 'two' => @two}
-  end
-  
   it "#create should raise NotImplementedError" do
     lambda{ Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
   end
