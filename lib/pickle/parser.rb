@@ -7,9 +7,9 @@ module Pickle
       Quoted  = '(?:[^\\"]|\\.)*'
       Name    = '(?::? "' + Quoted + '")'
       
-      # model matching - depends on Parse::Config, so load before this if non standard config requried
-      ModelMapping  = "(?:#{Pickle::Config.mappings.map(&:first).map{|s| "(?:#{s})"}.join('|')})"
-      ModelName     = "(?:#{Pickle::Config.names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
+      # model matching - depends on Parse.config, so load before this if non standard config requried
+      ModelMapping  = "(?:#{Pickle.config.mappings.map{|m| m[:search]}.map{|s| "(?:#{s})"}.join('|')})"
+      ModelName     = "(?:#{Pickle.config.names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
       IndexedModel  = "(?:(?:#{Index} )?#{ModelName})"
       NamedModel    = "(?:#{ModelName}#{Name}?)"
       Model         = "(?:#{ModelMapping}|#{Prefix}?(?:#{IndexedModel}|#{NamedModel}))"
@@ -74,8 +74,8 @@ module Pickle
     end
     
     def apply_mappings!(string)
-      Pickle::Config.mappings.each do |(search, replace)|
-        string.sub! /^(?:#{search})$/, replace
+      Pickle.config.mappings.each do |mapping|
+        string.sub! /^(?:#{mapping[:search]})$/, mapping[:replace]
       end
     end
   end
