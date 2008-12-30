@@ -5,10 +5,16 @@ module Pickle
     attr_writer :adapters, :factories, :mappings
     
     # default configuration object
-    def self.default
-      returning(@default ||= new) do |config|
-        yield(config) if block_given?
-      end
+    def self.default(&block)
+      returning(@default ||= new) {|config| config.configure(&block) if block_given?}
+    end
+    
+    def initialize(&block)
+      configure(&block) if block_given?
+    end
+    
+    def configure(&block)
+      yield(self)
     end
     
     def adapters

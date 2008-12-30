@@ -73,11 +73,18 @@ describe Pickle::Config do
       @config.map 'foo', 'bar', :to => 'faz'
     end
     
-    it "should create {:search => '(?:foo|bar)', :replace => 'faz'} mapping" do
+    it "should create OpenStruct(search: '(?:foo|bar)', replace: 'faz') mapping" do
       @config.mappings.first.should == OpenStruct.new(:search => '(?:foo|bar)', :replace => 'faz')
     end
   end
-    
+  
+  it "#configure(&block) should execiute on self" do
+    @config.should_receive(:foo).with(:bar)
+    @config.configure do |c|
+      c.foo :bar
+    end
+  end
+  
   describe ".default (class method)" do
     it "should refer to same object" do
       Pickle::Config.default.should == Pickle::Config.default
