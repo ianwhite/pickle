@@ -1,5 +1,9 @@
 require 'active_support'
+require 'pickle/adapter'
 require 'pickle/config'
+require 'pickle/parser'
+require 'pickle/session'
+require 'pickle/injector'
 
 module Pickle
   module Version
@@ -10,8 +14,15 @@ module Pickle
     String = [Major, Minor, Tiny].join('.')
   end
   
-  def self.config
-    yield(Config.default) if block_given?
-    Config.default
+  class << self
+    def match_model
+      
+    end
   end
 end
+
+# inject the pickle session into integration session if we have one
+if defined?(ActionController::Integration::Session)
+  Pickle::Injector.inject Pickle::Session, :into => ActionController::Integration::Session
+end
+# TODO - inject into other contexts here? 

@@ -33,9 +33,3 @@ end
 Factory.define :fast_car do |c|
 end
 
-# Pickle Config
-require 'pickle'
-
-Pickle.config do |c|
-  c.map 'I|myself', :to => 'user: "me"'
-end

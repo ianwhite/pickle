@@ -1,19 +1,25 @@
 module Pickle
   class Session
-    include Parser
+    attr_reader :parser, :config
+    
+    def initialize(options = {})
+      @config = options[:config] || Config.default
+      @parser = options[:parser] || Parser.new(:config => @config)
+      decorate_parser_to_be_model_aware
+    end
     
     def create_model(a_model_name, fields = nil)
-      factory, name = *parse_model(a_model_name)
-      raise ArgumentError, "Can't create a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
-      record = Factory(factory, parse_fields(fields))
-      store_model(factory, name, record)
+      factory, label = *parser.parse_model(a_model_name)
+      raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
+      record = config.factories[factory].create(parser.parse_fields(fields))
+      store_model(factory, label, record)
     end
 
     def find_model(a_model_name, fields)
-      model, name = *parse_model(a_model_name)
+      model, name = *parser.parse_model(a_model_name)
       raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
       model_class = model.classify.constantize
-      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parse_fields(fields)))
+      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
         store_model(model, name, record)
       else
         raise ActiveRecord::RecordNotFound, "Couldn't find #{model} with #{fields}"
@@ -22,7 +28,7 @@ module Pickle
     
     # return the original model stored by create_model or find_model
     def original_model(a_model_name)
-      factory, name_or_index = *parse_model(a_model_name)
+      factory, name_or_index = *parser.parse_model(a_model_name)
       
       if name_or_index.blank?
         models_by_factory(factory).last
@@ -61,15 +67,6 @@ module Pickle
         model.class.find(model.id)
       end
     end
-    
-    def parse_field_with_model(field)
-      if field =~ /^(\w+): (#{Match::Model})$/
-        {$1 => model($2)}
-      else
-        parse_field_without_model(field)
-      end
-    end
-    alias_method_chain :parse_field, :model
 
   private
     def convert_models_to_attributes(ar_class, attrs)
@@ -94,13 +91,35 @@ module Pickle
     
     # if the factory name != the model name, store under both names
     def store_model(factory, name, record)
-      store_record(canonical(record.class.name), name, record) if canonical(record.class.name) != factory
+      store_record(parser.canonical(record.class.name), name, record) if parser.canonical(record.class.name) != factory
       store_record(factory, name, record)
     end
 
     def store_record(factory, name, record)
       models_by_name(factory)[name] = record
       models_by_factory(factory) << record
+    end
+    
+    # add ability to parse model names as fields to our parser
+    # to do this, the parser need to be able to find models, so it
+    # needs a reference to this session
+    def decorate_parser_to_be_model_aware
+      class << parser
+        attr_accessor :session
+        
+        def match_field
+          "(?:\\w+: (?:#{match_model}|\"#{match_quoted}\"))"
+        end
+        
+        def parse_field(field)
+          if field =~ /^(\w+): #{capture_model}$/
+            {$1 => session.model($2)}
+          else
+            super
+          end
+        end
+      end
+      parser.session = self
     end
   end
 end

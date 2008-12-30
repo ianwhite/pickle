@@ -89,4 +89,5 @@ require 'pickle'
 Pickle.config do |c|
   c.map 'I|me', :to => 'fancy fork: "of morgoth"'
 end
-require 'pickle/steps'
+
+require 'pickle/cucumber'
