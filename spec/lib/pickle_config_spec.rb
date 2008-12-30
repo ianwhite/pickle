@@ -57,19 +57,25 @@ describe Pickle::Config do
   it "#mappings should default to []" do
     @config.mappings.should == []
   end
+
+  it "#map 'foo', :to => 'faz', should create {:search => 'foo', :replace => 'faz'} mapping" do
+    @config.map 'foo', :to => 'faz'
+    @config.mappings.first.should == {:search => 'foo', :replace => 'faz'}
+  end
+  
+  it "#map 'foo', 'bar' :to => 'faz', should create {:search => '(?:foo|bar)', :replace => 'faz'} mapping" do
+    @config.map 'foo', 'bar', :to => 'faz'
+    @config.mappings.first.should == {:search => '(?:foo|bar)', :replace => 'faz'}
+  end
   
   describe ".default (class method)" do
     it "should refer to same object" do
       Pickle::Config.default.should == Pickle::Config.default
     end
     
-    it "Pickle.config should refer to the default config object" do
-      Pickle.config.should == Pickle::Config.default
-    end
-    
-    it "Pickle.config(&block) should execute on the config" do
+    it "called with (&block) should execute on the config" do
       Pickle::Config.default.should_receive(:foo).with(:bar)
-      Pickle.config do |c|
+      Pickle::Config.default do |c|
         c.foo :bar
       end
     end
