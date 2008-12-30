@@ -1,49 +1,104 @@
 module Pickle
-  module Parser
-    module Match
-      Ordinal = '(?:\d+(?:st|nd|rd|th))'
-      Index   = "(?:first|last|#{Ordinal})"
-      Prefix  = '(?:1 |a |an |another |the |that )'
-      Quoted  = '(?:[^\\"]|\\.)*'
-      Name    = '(?::? "' + Quoted + '")'
-      
-      # model matching - depends on Parse.config, so load before this if non standard config requried
-      ModelMapping  = "(?:#{Pickle.config.mappings.map{|m| m[:search]}.map{|s| "(?:#{s})"}.join('|')})"
-      ModelName     = "(?:#{Pickle.config.names.map{|n| n.to_s.gsub('_','[_ ]').gsub('/','[:\/ ]')}.join('|')})"
-      IndexedModel  = "(?:(?:#{Index} )?#{ModelName})"
-      NamedModel    = "(?:#{ModelName}#{Name}?)"
-      Model         = "(?:#{ModelMapping}|#{Prefix}?(?:#{IndexedModel}|#{NamedModel}))"
-      Field         = '(?:\w+: (?:' + Model + '|"' + Quoted + '"))'
-      Fields        = "(?:#{Field}, )*#{Field}"
-      
+  class Parser
+    attr_reader :config
+    
+    def initialize(config = Pickle::Config.default)
+      @config = config
     end
     
-    # these are expressions which capture a sub expression
-    module Capture
-      Ordinal = '(?:(\d+)(?:st|nd|rd|th))'
-      Name    = '(?::? "(' + Match::Quoted + ')")'
-      Field   = '(?:(\w+): "(' + Match::Quoted + ')")'
+    module Matchers
+      def match_ordinal
+        '(?:\d+(?:st|nd|rd|th))'
+      end
+      
+      def match_index
+        "(?:first|last|#{match_ordinal})"
+      end
+      
+      def match_prefix
+        '(?:(?:1|a|an|another|the|that) )'
+      end
+      
+      def match_quoted
+        '(?:[^\\"]|\\.)*'
+      end
+      
+      def match_label
+        "(?:: \"#{match_quoted}\")"
+      end
+    
+      def match_mapping
+        config.mappings.any? ? "(?:#{config.mappings.map(&:search).join('|')})" : ""
+      end
+      
+      def match_factory
+        "(?:#{config.factory_names.map{|n| n.gsub('_','[_ ]')}.join('|')})"
+      end
+      
+      def match_indexed_model
+        "(?:(?:#{match_index} )?#{match_factory})"
+      end
+      
+      def match_labeled_model
+        "(?:#{match_factory}#{match_label})"
+      end
+      
+      def match_model
+        "(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))"
+      end
+
+      def match_field
+        "(?:\\w+: (?:#{match_model}|\"#{match_quoted}\"))"
+      end
+      
+      def match_fields
+        "(?:#{match_field}, )*#{match_field}"
+      end
+      
+      # create capture analogues of match methods
+      instance_methods.select{|m| m =~ /^match_/}.each do |method|
+        eval <<-end_eval                   
+          def #{method.sub('match_', 'capture_')}         # def capture_field
+            "(" + #{method} + ")"                         #   "(" + match_field + ")"
+          end                                             # end
+        end_eval
+      end
+      
+      # special capture methods
+      def capture_number_in_ordinal
+        '(?:(\d+)(?:st|nd|rd|th))'
+      end
+      
+      def capture_name_in_label
+        "(?::? \"(#{match_quoted})\")"
+      end
+      
+      def capture_key_and_value_in_field
+        "(?:(\\w+): \"(#{match_quoted})\")"
+      end
     end
+    
+    include Matchers
     
     # given a string like 'foo: "bar", bar: "baz"' returns {"foo" => "bar", "bar" => "baz"}
     def parse_fields(fields)
       if fields.blank?
         {}
-      elsif fields =~ /^#{Match::Fields}$/
-        fields.scan(/(#{Match::Field})(?:,|$)/).inject({}) do |m, match|
+      elsif fields =~ /^#{match_fields}$/
+        fields.scan(/(#{match_field})(?:,|$)/).inject({}) do |m, match|
           m.merge(parse_field(match[0]))
         end
       else
-        raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{Match::Fields}" 
+        raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{match_fields}" 
       end
     end
     
     # given a string like 'foo: "bar"' returns {key => value}
     def parse_field(field)
-      if field =~ /^#{Capture::Field}$/
+      if field =~ /^#{capture_key_and_value_in_field}$/
         { $1 => $2 }
       else
-        raise ArgumentError, "The field argument is not in the correct format.\n\n'#{field}' did not match: #{Match::Field}"
+        raise ArgumentError, "The field argument is not in the correct format.\n\n'#{field}' did not match: #{match_field}"
       end
     end
     
@@ -52,30 +107,28 @@ module Pickle
       str.to_s.gsub(' ','_').underscore
     end
     
+    # return [factory_name, name or integer index]
+    def parse_model(model_name)
+      apply_mappings!(model_name)
+      if /#{capture_index} #{capture_factory}$/ =~ model_name
+        [canonical($2), parse_index($1)]
+      elsif /#{capture_factory}#{capture_name_in_label}?$/ =~ model_name
+        [canonical($1), canonical($2)]
+      end
+    end
+  
     def parse_index(index)
       case index
       when '', /last/ then -1
-      when /#{Capture::Ordinal}/ then $1.to_i - 1
+      when /#{capture_number_in_ordinal}/ then $1.to_i - 1
       when /first/ then 0
       end
     end
-    
+
   private
-    # return [factory, name or integer index]
-    def parse_model(name)
-      apply_mappings!(name)
-      if /(#{Match::ModelName})#{Capture::Name}$/ =~ name
-        [canonical($1), canonical($2)]
-      elsif /(#{Match::Index}) (#{Match::ModelName})$/ =~ name
-        [canonical($2), parse_index($1)]
-      else
-        /(#{Match::ModelName})#{Capture::Name}?$/ =~ name && [canonical($1), canonical($2)]
-      end
-    end
-    
     def apply_mappings!(string)
-      Pickle.config.mappings.each do |mapping|
-        string.sub! /^(?:#{mapping[:search]})$/, mapping[:replace]
+      config.mappings.each do |mapping|
+        string.sub! /^#{mapping.search}$/, mapping.replace
       end
     end
   end
