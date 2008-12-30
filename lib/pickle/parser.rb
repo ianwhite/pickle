@@ -3,7 +3,7 @@ module Pickle
     attr_reader :config
     
     def initialize(options = {})
-      @config = options[:config] || Pickle::Config.default
+      @config = options[:config] || Config.default
     end
     
     module Matchers
@@ -27,6 +27,14 @@ module Pickle
         "(?:: \"#{match_quoted}\")"
       end
     
+      def match_field
+        "(?:\\w+: \"#{match_quoted}\")"
+      end
+      
+      def match_fields
+        "(?:#{match_field}, )*#{match_field}"
+      end
+      
       def match_mapping
         config.mappings.any? ? "(?:#{config.mappings.map(&:search).join('|')})" : ""
       end
@@ -45,14 +53,6 @@ module Pickle
       
       def match_model
         "(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))"
-      end
-
-      def match_field
-        "(?:\\w+: (?:#{match_model}|\"#{match_quoted}\"))"
-      end
-      
-      def match_fields
-        "(?:#{match_field}, )*#{match_field}"
       end
       
       # create capture analogues of match methods

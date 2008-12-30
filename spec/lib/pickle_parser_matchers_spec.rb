@@ -1,6 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
-describe Pickle::Parser::Matchers do
+describe Pickle::Parser::Matchers, "with config defining factories: user, car, fast_car" do
   include Pickle::Parser::Matchers
   
   def config
