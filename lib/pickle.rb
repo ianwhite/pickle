@@ -1,3 +1,6 @@
+require 'active_support'
+require 'pickle/config'
+
 module Pickle
   module Version
     Major = 0
@@ -6,31 +9,9 @@ module Pickle
     
     String = [Major, Minor, Tiny].join('.')
   end
-    
-  module Config
-    class << self
-      attr_writer :adapters, :factories, :mappings
-      
-      def adapters
-        @adapters ||= [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::ActiveRecord]
-      end
-      
-      def factories
-        @factories ||= adapters.reverse.inject({}) {|factories, adapter| factories.merge(adapter.factories_hash) }
-      end
-
-      def names
-        @names ||= factories.keys.sort
-      end
-      
-      def mappings
-        @mappings ||= []
-      end
-      
-      def map(search, options)
-        raise ArgumentError, "Usage: map 'search', :to => 'replace'" unless search.is_a?(String) && options[:to].is_a?(String)
-        self.mappings << [search, options[:to]]
-      end
-    end
+  
+  def self.config
+    yield(Config.default) if block_given?
+    Config.default
   end
 end
