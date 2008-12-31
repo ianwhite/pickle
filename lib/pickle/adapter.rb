@@ -18,10 +18,14 @@ module Pickle
       raise NotImplementedError, "create and return an object with the given attributes"
     end
     
-    # override this to exclude any non application classes
-    def self.active_record_classes
-      returning ::ActiveRecord::Base.send(:subclasses) do |classes|
-        defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
+    # by default the models are active_record subclasses, but you can set this to whatever classes you want
+    class << self
+      attr_writer :model_classes
+      
+      def model_classes
+        @model_classes ||= returning(::ActiveRecord::Base.send(:subclasses)) do |classes|
+          defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
+        end
       end
     end
     
@@ -29,7 +33,7 @@ module Pickle
     class Machinist < Adapter
       def self.factories
         factories = []
-        active_record_classes.each do |klass|
+        model_classes.each do |klass|
           factories << new(klass, "make") if klass.instance_variable_get('@blueprint')
           # if there are special make_special methods, add blueprints for them
           klass.methods.select{|m| m =~ /^make_/ && m !~ /_unsaved$/}.each do |method|
@@ -67,7 +71,7 @@ module Pickle
     # fallback active record adapter
     class ActiveRecord < Adapter
       def self.factories
-        active_record_classes.map {|klass| new(klass) }
+        model_classes.map {|klass| new(klass) }
       end
 
       def initialize(klass)
