@@ -14,5 +14,5 @@ Feature: I can easily create models from my blueprints
 
   Scenario: I create a named spoon, and see if it has the name
     Given a spoon exists with name: "Pete"
-	Then a spoon should exist with name: "Pete"
-	And the spoon should be round
+	  Then a spoon should exist with name: "Pete"
+	  And the spoon should be round

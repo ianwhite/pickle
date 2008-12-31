@@ -10,6 +10,6 @@ Feature: I can easily create models from my blueprints
 
   Scenario: I create a user, and see if it looks right
   	Given a user exists with name: "Fred", status: "crayzee"
-	Then a user should exist with name: "Fred"
-	And a user should exist with status: "crayzee"
+	  Then a user should exist with name: "Fred"
+	  And a user should exist with status: "crayzee"
   

@@ -9,7 +9,7 @@ Given(/^#{CaptureModel} exists with #{CaptureFields}$/) do |name, fields|
 end
 
 Then(/^#{CaptureModel} should exist with #{CaptureFields}$/) do |name, fields|
-  find_model(name, fields).should be_present
+  find_model(name, fields).should_not be_nil
 end
 
 Then(/^#{CaptureModel} should (?:be|have) (?:an? )?([\w ]+)$/) do |name, predicate|
