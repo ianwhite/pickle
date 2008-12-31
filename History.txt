@@ -1,3 +1,9 @@
+== 0.1.3 - Bugfix release
+
+* 1 minor enhancement
+  * make generated steps compatible with Rails 2.1
+
+
 == 0.1.2
 
 * 2 major enhancements
