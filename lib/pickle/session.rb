@@ -24,7 +24,7 @@ module Pickle
     end
     
     # return the original model stored by create_model or find_model
-    def original_model(a_model_name)
+    def created_model(a_model_name)
       factory, name_or_index = *parser.parse_model(a_model_name)
       
       if name_or_index.blank?
@@ -37,13 +37,13 @@ module Pickle
     end
 
     # predicate version which raises no errors
-    def original_model?(a_model_name)
-      (original_model(a_model_name) rescue nil) ? true : false
+    def created_model?(a_model_name)
+      (created_model(a_model_name) rescue nil) ? true : false
     end
     
     # return a newly selected model
     def model(a_model_name)
-      if model = original_model(a_model_name)
+      if model = created_model(a_model_name)
         model.class.find(model.id) or raise ActiveRecord::RecordNotFound, "model: #{a_model_name} could not be found in the database"
       end
     end
@@ -54,13 +54,13 @@ module Pickle
     end
     
     # return all original models of specified type
-    def original_models(factory)
+    def created_models(factory)
       models_by_factory(factory)
     end
       
     # return all models of specified type (freshly selected from the database)
     def models(factory)
-      original_models(factory).map do |model|
+      created_models(factory).map do |model|
         model.class.find(model.id)
       end
     end

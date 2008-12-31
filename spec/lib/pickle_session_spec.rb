@@ -6,21 +6,21 @@ describe Pickle::Session do
   end
 
   describe "after storing a single user", :shared => true do
-    it "original_models('user') should be array containing the original user" do
-      @session.original_models('user').should == [@user]
+    it "created_models('user') should be array containing the original user" do
+      @session.created_models('user').should == [@user]
     end
 
     describe "the original user should be retrievable with" do
-      it "original_model('the user')" do
-        @session.original_model('the user').should == @user
+      it "created_model('the user')" do
+        @session.created_model('the user').should == @user
       end
 
-      it "original_model('1st user')" do
-        @session.original_model('1st user').should == @user
+      it "created_model('1st user')" do
+        @session.created_model('1st user').should == @user
       end
 
-      it "original_model('last user')" do
-        @session.original_model('last user').should == @user
+      it "created_model('last user')" do
+        @session.created_model('last user').should == @user
       end
     end
 
@@ -105,12 +105,12 @@ describe Pickle::Session do
         
         it_should_behave_like "after storing a single user"
               
-        it "original_model('the user: \"fred\"') should retrieve the user" do
-          @session.original_model('the user: "fred"').should == @user
+        it "created_model('the user: \"fred\"') should retrieve the user" do
+          @session.created_model('the user: "fred"').should == @user
         end
       
-        it "original_model?('the user: \"shirl\"') should be false" do
-          @session.original_model?('the user: "shirl"').should == false
+        it "created_model?('the user: \"shirl\"') should be false" do
+          @session.created_model?('the user: "shirl"').should == false
         end
         
         it "model?('the user: \"shirl\"') should be false" do
@@ -172,45 +172,45 @@ describe Pickle::Session do
         do_create_users
       end
       
-      it "original_models('user') should == [@fred, @shirl, @noname]" do
-        @session.original_models('user').should == [@fred, @shirl, @noname]
+      it "created_models('user') should == [@fred, @shirl, @noname]" do
+        @session.created_models('user').should == [@fred, @shirl, @noname]
       end
       
-      it "original_models('super_admin') should == [@fred, @noname]" do
-        @session.original_models('super_admin').should == [@fred, @noname]
+      it "created_models('super_admin') should == [@fred, @noname]" do
+        @session.created_models('super_admin').should == [@fred, @noname]
       end
       
-      describe "#original_model" do
+      describe "#created_model" do
         it "'that user' should be @noname (the last user created - as super_admins are users)" do
-          @session.original_model('that user').should == @noname
+          @session.created_model('that user').should == @noname
         end
 
         it "'the super admin' should be @noname (the last super admin created)" do
-          @session.original_model('that super admin').should == @noname
+          @session.created_model('that super admin').should == @noname
         end
         
         it "'the 1st super admin' should be @fred" do
-          @session.original_model('the 1st super admin').should == @fred
+          @session.created_model('the 1st super admin').should == @fred
         end
         
         it "'the first user' should be @fred" do
-          @session.original_model('the first user').should == @fred
+          @session.created_model('the first user').should == @fred
         end
         
         it "'the 2nd user' should be @shirl" do
-          @session.original_model('the 2nd user').should == @shirl
+          @session.created_model('the 2nd user').should == @shirl
         end
         
         it "'the last user' should be @noname" do
-          @session.original_model('the last user').should == @noname
+          @session.created_model('the last user').should == @noname
         end
         
         it "'the user: \"fred\" should be @fred" do
-          @session.original_model('the user: "fred"').should == @fred
+          @session.created_model('the user: "fred"').should == @fred
         end
         
         it "'the user: \"shirl\" should be @shirl" do
-          @session.original_model('the user: "shirl"').should == @shirl
+          @session.created_model('the user: "shirl"').should == @shirl
         end
       end
     end

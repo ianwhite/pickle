@@ -1,67 +1,98 @@
-h1. Pickle [Experimental: In development]
+h1. Pickle
 
-Stick this in vendor/plugins to have cucumber steps that create your models easily from factory_girl/machinist
+Stick this in vendor/plugins to have cucumber steps that create your models easily from factory_girl/machinist/active_record
 
 References to the models are stored, not for the purpose of checking the db (although you could use it for
 that), but for enabling easy reference to urls, and for building complex givens which require a bunch of
 models collaborating
-
-h2. Example
-
-If you have a user model, which has admin? and moderator? predicate methods
-and let's say you have an :admin, :user, and :moderator factory, you can do this in a Scenario:
-
-  And an admin exists
-  And a moderator exists
   
-  # the following is just to show how refs work, obviously you'd not want to test this
-  Then the moderator should be a moderator
-  And the admin should be an admin
-  And the moderator should not be an admin
-  
-h2. Usage
+h2. Get Started
 
   script/generate pickle
+
+Now have a look at features/step_definitions/pickle_steps.rb
 
 h2. API
 
 h3. Regexps for us in your own steps
 
-If you want to use pickle expressions in your own steps, make sure you 
-require pickle in that file
+For capturing english versions of model names you get 
 
-  require 'pickle'
+  *CaptureModel*
 
-For matching english versions of model names you get 
-
-  #match_model, #capture_model
-
-  Given /^#{capture_model} exists$/ do |model_name|
+<pre>
+  Given /^#{CaptureModel} exists$/ do |model_name|
     model(model_name).should_not == nil
   end
 
   Then /^I should be at the (.*?) page$/ |page|
-	if page =~ /#{match_model}'s/
-	  url_for(model(page.sub("'s",''))
-	else
-	  # ...
-	end
+  if page =~ /#{CaptureModel}'s/
+    url_for(model($1))
+  else
+    # ...
   end
-  
-For matching a field string, you get
+  end
+</pre>
 
-  #match_fields, #capture_fields
+For capturing a field string, you get
+
+*CaptureFields*
   
-  Given /^#{capture_model} exists with #{capture_fields}$/ do |model_name, fields|
+<pre>
+  Given /^#{CaptureModel} exists with #{CaptureFields}$/ do |model_name, fields|
     create_model(model_name, fields)
   end
-  
+</pre>
 Take a look at features/step_definitions/pickle_steps.rb for more examples
 
 h3. Creating and tracking models
 
- #create_model(<model_name>[, <field string>])
- 
- #find_model(<model_name>[, <field string>])
- 
- #model(<model_model>) # refers to a model that has already been created/found (ie. referred to in a scenario)
+h4. create_model(_model_name_[, _field_string_])
+
+This will create a model using the factory name, and optional model label, with the field_string provided.  The created model can be later referred to via its name.
+
+For example:
+
+<pre>
+  create_model 'a user'         					# => will create a User
+  create_model 'the user: "1"'      			# => will create a User, enabling later reference to it with 'user: "1"'
+  create_model 'the user', 'name: "Fred"'	# => will create a User with attributes {:name => "Fred"}
+</pre>
+
+If you don't use Machinist or FactoryGirl, you can still create models, but you must pass in all the fields required to make them valid.
+
+However, if you do use Machinist or FactoryGirl, then just use the factory or blueprint name, and will be super sweet.
+
+h4. find_model(_model_name_, _field_string_)
+
+This will find a model of the passed class matching the passed field string.  The found model can be later referred to by its name.
+
+For example:
+
+<pre>
+  find_model('a user', 'name: "Fred'")		# => find a user matching those attributes
+</pre>
+
+h4. model(_model_name_) 
+
+Refers to a model that has already been created/found (ie. referred to in a scenario)
+
+For example:
+
+<pre>
+  create_model('a user')
+  model('the user') # => refers to above user
+  model('a user')   # => refers to above user
+
+  create_model('a car: "herbie"')  		# => herbie
+  create_model('a car: "batmobile"')	# => the batmobile
+  model('the first car') 		# => herbie
+  model('the 2nd car') 			# => batmobile
+  model('the car "herbie")	# => herbie
+</pre>
+
+h4. created_model(_model_name_)
+
+*model* always pulls from the db to get a fresh copy.  If you need to access the originally created object for some reason (perhaps it has a one-time key on it that is used in a mailer for example), you can retreive it with *created_model*
+
+h4. more [TODO]

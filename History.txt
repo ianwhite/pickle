@@ -1,4 +1,4 @@
-== Current
+== 0.1.2
 
 * 2 major enhancements
   * create your pickle steps with script/generate pickle
@@ -6,7 +6,8 @@
   
 * 1 minor enhancement
   * model_names now defaults to subclasses of AR::Base
-  * 
+  * #original_model => #created_model
+
 
 == 0.1.1
 
