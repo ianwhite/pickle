@@ -1,8 +1,12 @@
 == Current
 
+* 2 major enhancements
+  * create your pickle steps with script/generate pickle
+  * Adapter based architecture, supports Machinist, FactoryGirl, and vanilla ActiveRecord
+  
 * 1 minor enhancement
   * model_names now defaults to subclasses of AR::Base
-
+  * 
 
 == 0.1.1
 

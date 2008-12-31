@@ -15,8 +15,8 @@ Feature: I can easily create models from my factories
     
   Scenario: I create some forks, and some tines
     Given a fork: "one" exists
-    And a tine exists with fork: fork: "one"
-    And another tine exists with fork: fork: "one"
+    And a tine exists with fork: fork "one"
+    And another tine exists with fork: fork "one"
     
     And a fancy fork exists
     And a tine exists with fork: the fancy fork
