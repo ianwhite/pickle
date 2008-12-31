@@ -84,10 +84,10 @@ end
 
 #### End of app setup
 
-# require pickle, and set up a mapping
-require 'pickle'
+# require pickle/config, and set up a mapping
+require 'pickle/config'
 Pickle.config do |c|
-  c.map 'I|me', :to => 'fancy fork: "of morgoth"'
+  c.map 'I', 'me', :to => 'fancy fork: "of morgoth"'
 end
 
-require 'pickle/cucumber'
+require 'pickle'

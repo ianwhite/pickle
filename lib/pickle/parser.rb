@@ -1,9 +1,13 @@
 module Pickle
+  def self.parser(options = {})
+    @parser ||= Parser.new(options)
+  end
+  
   class Parser
     attr_reader :config
     
     def initialize(options = {})
-      @config = options[:config] || Config.default
+      @config = options[:config] || Pickle.config
     end
     
     module Matchers

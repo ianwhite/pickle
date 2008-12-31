@@ -6,7 +6,7 @@ describe Pickle::Parser do
   end
   
   it "should use the default config when created with no args" do
-    @parser.config.should == Pickle::Config.default
+    @parser.config.should == Pickle.config
   end
   
   it "should use the passed config when created with :config option" do

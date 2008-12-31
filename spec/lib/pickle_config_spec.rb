@@ -85,14 +85,14 @@ describe Pickle::Config do
     end
   end
   
-  describe ".default (class method)" do
+  describe "Pickle.config" do
     it "should refer to same object" do
-      Pickle::Config.default.should == Pickle::Config.default
+      Pickle.config.should == Pickle.config
     end
     
     it "called with (&block) should execute on the config" do
-      Pickle::Config.default.should_receive(:foo).with(:bar)
-      Pickle::Config.default do |c|
+      Pickle.config.should_receive(:foo).with(:bar)
+      Pickle.config do |c|
         c.foo :bar
       end
     end

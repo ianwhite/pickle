@@ -3,9 +3,9 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 describe Pickle::Injector do
   describe ".inject Pickle::Session, :into => <a class>" do
     before do
-      @class = Class.new
-      Pickle::Injector.inject Pickle::Session, :into => @class
-      @object = @class.new
+      klass = Class.new
+      Pickle::Injector.inject Pickle::Session, :into => klass
+      @object = klass.new
     end
     
     it "object should respond_to Pickle:Session methods" do

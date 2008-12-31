@@ -221,7 +221,8 @@ describe Pickle::Session do
       @user = mock_model(User)
       User.stub!(:find).and_return(@user)
       Factory.stub!(:create).and_return(@user)
-      @session = Pickle::Session.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
+      parser = Pickle::Parser.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
+      @session = Pickle::Session.new(:parser => parser)
       @session.create_model('the user: "me"')
     end
   
@@ -233,24 +234,24 @@ describe Pickle::Session do
       @session.model('myself').should == @user
     end
     
-    it "#parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
-      lambda { @session.parse_fields('author: user "JIM"') }.should raise_error
+    it "#parser.parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
+      lambda { @session.send(:parser).parse_fields('author: user "JIM"') }.should raise_error
     end
     
-    it "#parse_fields 'author: the user' should return {\"author\" => <user>}" do
-      @session.parser.parse_fields('author: the user').should == {"author" => @user}
+    it "#parser.parse_fields 'author: the user' should return {\"author\" => <user>}" do
+      @session.send(:parser).parse_fields('author: the user').should == {"author" => @user}
     end
 
-    it "#parse_fields 'author: myself' should return {\"author\" => <user>}" do
-      @session.parser.parse_fields('author: myself').should == {"author" => @user}
+    it "#parser.parse_fields 'author: myself' should return {\"author\" => <user>}" do
+      @session.send(:parser).parse_fields('author: myself').should == {"author" => @user}
     end
     
-    it "#parse_fields 'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
-      @session.parser.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
+    it "#parser.parse_fields 'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
+      @session.send(:parser).parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
     end
     
-    it "#parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
-      @session.parser.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
+    it "#parser.parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
+      @session.send(:parser).parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
     end
   end
   

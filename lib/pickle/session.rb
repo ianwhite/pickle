@@ -1,13 +1,10 @@
 module Pickle
   class Session
-    attr_reader :parser, :config
-    
     def initialize(options = {})
-      @config = options[:config] || Config.default
-      @parser = options[:parser] || Parser.new(:config => @config)
-      decorate_parser_to_be_model_aware
+      self.parser = options[:parser] || Pickle.parser
+      @config = options[:config] || parser.config
     end
-    
+
     def create_model(a_model_name, fields = nil)
       factory, label = *parser.parse_model(a_model_name)
       raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
@@ -67,8 +64,15 @@ module Pickle
         model.class.find(model.id)
       end
     end
-
-  private
+    
+  protected
+    attr_reader :parser, :config
+  
+    def parser=(parser)
+      parser.session = self
+      @parser = parser
+    end
+    
     def convert_models_to_attributes(ar_class, attrs)
       attrs.each do |key, val|
         if val.is_a?(ActiveRecord::Base) && ar_class.column_names.include?("#{key}_id")
@@ -98,28 +102,6 @@ module Pickle
     def store_record(factory, name, record)
       models_by_name(factory)[name] = record
       models_by_factory(factory) << record
-    end
-    
-    # add ability to parse model names as fields to our parser
-    # to do this, the parser need to be able to find models, so it
-    # needs a reference to this session
-    def decorate_parser_to_be_model_aware
-      class << parser
-        attr_accessor :session
-        
-        def match_field
-          "(?:\\w+: (?:#{match_model}|\"#{match_quoted}\"))"
-        end
-        
-        def parse_field(field)
-          if field =~ /^(\w+): #{capture_model}$/
-            {$1 => session.model($2)}
-          else
-            super
-          end
-        end
-      end
-      parser.session = self
     end
   end
 end

@@ -1,13 +1,14 @@
 require 'ostruct'
 
 module Pickle
+  def self.config(&block)
+    returning(@config ||= Config.new) do |config|
+      config.configure(&block) if block_given?
+    end
+  end
+  
   class Config
     attr_writer :adapters, :factories, :mappings
-    
-    # default configuration object
-    def self.default(&block)
-      returning(@default ||= new) {|config| config.configure(&block) if block_given?}
-    end
     
     def initialize(&block)
       configure(&block) if block_given?
