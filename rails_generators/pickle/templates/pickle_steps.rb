@@ -12,12 +12,12 @@ Then(/^#{CaptureModel} should exist with #{CaptureFields}$/) do |name, fields|
   find_model(name, fields).should be_present
 end
 
-Then(/^#{CaptureModel} should be (?:an? )?([\w ]+)$/) do |name, predicate|
+Then(/^#{CaptureModel} should (?:be|have) (?:an? )?([\w ]+)$/) do |name, predicate|
   predicate_method = predicate.gsub(' ', '_')
   model(name).should send("be_#{predicate_method}")
 end
 
-Then(/^#{CaptureModel} should not be (?:an? )?([\w ]+)$/) do |name, predicate|
+Then(/^#{CaptureModel} should not (?:be|have) (?:an? )?([\w ]+)$/) do |name, predicate|
   predicate_method = predicate.gsub(' ', '_')
   model(name).should_not send("be_#{predicate_method}")
 end

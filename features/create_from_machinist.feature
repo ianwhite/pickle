@@ -8,6 +8,10 @@ Feature: I can easily create models from my blueprints
     Given a spoon exists
     Then the spoon should be round
 
+  Scenario: I create a non round spoon, and see if it looks right
+    Given a spoon exists with round: "false"
+    Then the spoon should not be round
+
   Scenario: I create a named spoon, and see if it has the name
     Given a spoon exists with name: "Pete"
 	Then a spoon should exist with name: "Pete"

@@ -26,11 +26,15 @@ ActiveRecord::Migration.suppress_messages do
       t.belongs_to :fork
       t.boolean :rusty, :default => false, :null => false
     end
+    
+    create_table :users, :force => true do |t|
+      t.string :name, :status
+    end
   end
 end
 
 
-# Models
+# Factories for these Fork & Spoon
 class Fork < ActiveRecord::Base
   validates_presence_of :name
   has_many :tines
@@ -45,9 +49,16 @@ class Tine < ActiveRecord::Base
   belongs_to :fork
 end
 
+# Machinist bluepriint for this
 class Spoon < ActiveRecord::Base
   validates_presence_of :name
 end
+
+# No factory or blueprint for this
+class User < ActiveRecord::Base
+  validates_presence_of :name
+end
+
 
 # Factories
 require 'factory_girl'
