@@ -8,12 +8,12 @@ Given(/^#{CaptureModel} exists with #{CaptureFields}$/) do |name, fields|
   create_model(name, fields)
 end
 
-Given(/^(\d+) #{CaptureFactories} exist$/) do |amount, factory|
-  amount.times { create_model(factory) }
+Given(/^(\d+) #{CapturePluralFactory} exist$/) do |amount, plural_factory|
+  amount.to_i.times { create_model(plural_factory.singularize) }
 end
 
-Given(/^(\d+) #{CaptureFactories} exist with #{CaptureFields}$/) do |amount, factory, fields|
-  amount.times { create_model(factory, fields) }
+Given(/^(\d+) #{CapturePluralFactory} exist with #{CaptureFields}$/) do |amount, plural_factory, fields|
+  amount.to_i.times { create_model(plural_factory.singularize, fields) }
 end
 
 Then(/^#{CaptureModel} should exist with #{CaptureFields}$/) do |name, fields|

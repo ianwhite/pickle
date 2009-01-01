@@ -37,7 +37,7 @@ module Pickle
         "(?:#{config.factory_names.map{|n| n.gsub('_','[_ ]')}.join('|')})"
       end
       
-      def match_factories
+      def match_plural_factory
         "(?:#{config.factory_names.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})"
       end
       
