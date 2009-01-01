@@ -1,4 +1,8 @@
-== Edge
+== 0.1.4
+
+* 1 major enhancement
+  * You can create multiple models with ease, for eg.
+      'Given 10 users exist with role: "admin"'
 
 * 1 minor enhancement
   * You can do Pickle.configure (just like Webrat.configure)
