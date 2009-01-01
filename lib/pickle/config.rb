@@ -1,10 +1,13 @@
 require 'ostruct'
 
 module Pickle
-  def self.config(&block)
-    returning(@config ||= Config.new) do |config|
-      config.configure(&block) if block_given?
+  class << self
+    def config(&block)
+      @config ||= Config.new
+    ensure
+      @config.configure(&block) if block_given?
     end
+    alias_method :configure, :config
   end
   
   class Config
