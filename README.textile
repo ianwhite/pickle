@@ -5,12 +5,93 @@ Stick this in vendor/plugins to have cucumber steps that create your models easi
 References to the models are stored, not for the purpose of checking the db (although you could use it for
 that), but for enabling easy reference to urls, and for building complex givens which require a bunch of
 models collaborating
+
+h2. Install
+
+Install pickle either as a rails plugin, or a gem
+
+<pre>
+	# plugin
+	script/plugin install git://github.com/ianwhite/pickle.git # or add it as a submodule
+	
+	# or, gem
+	sudo gem install ianwhite-pickle
+</pre>
   
 h2. Get Started
 
-  script/generate pickle
+(you'd better install cucumber)
+
+<pre>
+	script/generate pickle
+</pre>
 
 Now have a look at features/step_definitions/pickle_steps.rb
+
+h3. Using with plain ole Active Record
+
+If you have an AR called 'Post', with required fields 'title', and 'body', then you can now write 
+steps like this
+
+<pre>
+  Given a post exists with title: "My Post", body: "My body"
+</pre>
+
+h3. Using with a factory!
+
+But you're using Machinist or FactoryGirl right?!  So to leverage all of the factories/blueprints
+you've written, you can just do stuff like
+
+<pre>
+	Given a user exists
+	And another user exists with role: "admin"
+	
+	# later
+	Then a user should exist with name: "Fred"
+	And that user should be activated # this uses rspec predicate matchers
+</pre>
+
+h3. Using with Machinist
+
+In your features/support/env.rb add the following lines at the bottom
+
+<pre>
+  require "#{Rails.root}/spec/blueprints" # or wherever they live
+  Before { Sham.rest } # reset Shams in between scenarios
+</pre>
+
+h3. Referring to models, using models as field values
+
+You might want to set up a scenario with several models of the same type.
+You can label your models for easy reference.  The following example requires
+a post and complaint blueprint (or factory), and requires writing no 
+additional steps.
+
+<pre>
+	Given a post: "spam" exists with spam: "true"
+	And a post: "sane" exists
+	And a complaint exists with complaint_regarding: post "spam"
+	And a complaint exists with complaint_regarding: post "sane"
+</pre>
+
+h3. Configuring Pickle
+
+Pickle needs to be configured before steps are defined, so to change
+pickle's default config you must specify the config *before* the @require 'pickle'@ 
+command in features/support/env.rb
+
+<pre>
+	# example config
+	require 'pickle/config'
+	
+	Pickle.configure do |config|
+	  config.adapters = [:machinist, YourOwnAdapterClass]
+	  config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
+  end
+
+  # load up pickle
+  require 'pickle'
+</pre>
 
 h2. API
 
