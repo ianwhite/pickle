@@ -7,7 +7,7 @@ garlic do
   repo 'cucumber', :url => 'git://github.com/aslakhellesoy/cucumber'
   repo 'pickle', :path => '.'
 
-  ['origin/2-1-stable', 'origin/2-2-stable'].each do |rails|
+  ['origin/2-1-stable', 'origin/2-2-stable', 'origin/master'].each do |rails|
   
     target "Rails: #{rails}", :tree_ish => rails do
       prepare do
