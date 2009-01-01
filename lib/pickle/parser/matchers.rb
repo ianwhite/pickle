@@ -36,7 +36,11 @@ module Pickle
       def match_factory
         "(?:#{config.factory_names.map{|n| n.gsub('_','[_ ]')}.join('|')})"
       end
-  
+      
+      def match_factories
+        "(?:#{config.factory_names.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})"
+      end
+      
       def match_indexed_model
         "(?:(?:#{match_index} )?#{match_factory})"
       end

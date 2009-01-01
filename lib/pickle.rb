@@ -15,5 +15,6 @@ if defined?(ActionController::Integration::Session)
 end
 
 # shortcuts for useful regexps when defining pickle steps
-CaptureModel = Pickle.parser.capture_model
-CaptureFields = Pickle.parser.capture_fields
+CaptureModel      = Pickle.parser.capture_model
+CaptureFactories  = Pickle.parser.capture_factories
+CaptureFields     = Pickle.parser.capture_fields
