@@ -2,7 +2,7 @@ module Pickle
   class Session
     def initialize(options = {})
       self.parser = options[:parser] || Pickle.parser
-      @config = options[:config] || parser.config
+      @config = parser.config
     end
 
     def create_model(a_model_name, fields = nil)

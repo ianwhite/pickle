@@ -1,5 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
-require 'pickle/config'
 
 describe Pickle::Config do
   before do
@@ -58,6 +57,21 @@ describe Pickle::Config do
     @config.mappings.should == []
   end
 
+  describe '#predicates' do
+    it "should be list of all ? public instance methods + columns methods of Adapter.model_classes" do
+      class1 = mock('Class1', :public_instance_methods => ['nope', 'foo?', 'bar?'], :column_names => ['one', 'two'])
+      class2 = mock('Class2', :public_instance_methods => ['not', 'foo?', 'faz?'], :column_names => ['two', 'three'])
+      Pickle::Adapter.stub!(:model_classes).and_return([class1, class2])
+      
+      @config.predicates.to_set.should == ['foo?', 'faz?', 'bar?', 'one', 'two', 'three'].to_set
+    end
+    
+    it "should be overridable" do
+      @config.predicates = %w(lame?)
+      @config.predicates.should == %w(lame?)
+    end
+  end
+  
   describe "#map 'foo', :to => 'faz'" do
     before do
       @config.map 'foo', :to => 'faz'
@@ -82,19 +96,6 @@ describe Pickle::Config do
     @config.should_receive(:foo).with(:bar)
     @config.configure do |c|
       c.foo :bar
-    end
-  end
-  
-  describe "Pickle.config" do
-    it "should refer to same object" do
-      Pickle.config.should == Pickle.config
-    end
-    
-    it "called with (&block) should execute on the config" do
-      Pickle.config.should_receive(:foo).with(:bar)
-      Pickle.config do |c|
-        c.foo :bar
-      end
     end
   end
 end

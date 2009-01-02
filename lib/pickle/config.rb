@@ -1,17 +1,8 @@
 require 'ostruct'
 
 module Pickle
-  class << self
-    def config(&block)
-      @config ||= Config.new
-    ensure
-      @config.configure(&block) if block_given?
-    end
-    alias_method :configure, :config
-  end
-  
   class Config
-    attr_writer :adapters, :factories, :mappings
+    attr_writer :adapters, :factories, :mappings, :predicates
     
     def initialize(&block)
       configure(&block) if block_given?
@@ -37,6 +28,12 @@ module Pickle
 
     def factory_names
       factories.keys
+    end
+    
+    def predicates
+      @predicates ||= Pickle::Adapter.model_classes.map do |klass|
+        klass.public_instance_methods.select{|m| m =~ /\?$/} + klass.column_names
+      end.flatten.uniq
     end
     
     def mappings

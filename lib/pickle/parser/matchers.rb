@@ -53,6 +53,10 @@ module Pickle
         "(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))"
       end
   
+      def match_predicate
+        "(?:#{config.predicates.map{|m| m.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
+      end
+      
       # create capture analogues of match methods
       instance_methods.select{|m| m =~ /^match_/}.each do |method|
         eval <<-end_eval                   

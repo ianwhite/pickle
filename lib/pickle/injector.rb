@@ -1,18 +1,18 @@
 module Pickle
   module Injector
-    def self.inject(session_class, options = {})
-      target = options[:into] || ActionController::Integration::Session
-      session_method = options[:name] || session_class.name.underscore.gsub('/','_')
-      session_options = options[:options] || {}
+    def self.inject(delegate_class, options = {})
+      target_class  = options[:into] || raise('inject requires a target class specified with :into')
+      delegate_name = options[:name] || delegate_class.name.underscore.gsub('/','_')
+      init_delegate = options[:init] || lambda { new }
       
       # create a session object on demand (in target)
-      target.send(:define_method, session_method) do
-        instance_variable_get("@#{session_method}") || instance_variable_set("@#{session_method}", session_class.new(session_options))
+      target_class.send(:define_method, delegate_name) do
+        instance_variable_get("@#{delegate_name}") || instance_variable_set("@#{delegate_name}", delegate_class.instance_eval(&init_delegate))
       end
       
-      # delegate session methods to the session object (in target)
-      delegate_methods = session_class.public_instance_methods - Object.instance_methods
-      target.delegate *(delegate_methods + [{:to => session_method}])
+      # in the target, delegate the public instance methods of delegate_class to the delegate_name method
+      delegate_methods = delegate_class.public_instance_methods - Object.instance_methods
+      target_class.delegate *(delegate_methods + [{:to => delegate_name}])
     end
   end
 end

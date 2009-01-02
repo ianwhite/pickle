@@ -35,7 +35,7 @@ module Pickle
         factories = []
         model_classes.each do |klass|
           factories << new(klass, "make") if klass.instance_variable_get('@blueprint')
-          # if there are special make_special methods, add blueprints for them
+          # if there are make_<special> methods, add blueprints for them
           klass.methods.select{|m| m =~ /^make_/ && m !~ /_unsaved$/}.each do |method|
             factories << new(klass, method)
           end

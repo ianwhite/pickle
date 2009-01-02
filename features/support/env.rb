@@ -7,98 +7,19 @@ Cucumber::Rails.use_transactional_fixtures
 # Comment out the next line if you're not using RSpec's matchers (should / should_not) in your steps.
 require 'cucumber/rails/rspec'
 
-###############################################
-# Set up a complete app here for testing Pickle
-
-# Migrations
-ActiveRecord::Migration.suppress_messages do
-  ActiveRecord::Schema.define(:version => 0) do
-    create_table :forks, :force => true do |t|
-      t.string :name
-    end
-    
-    create_table :spoons, :force => true do |t|
-      t.string :name
-      t.boolean :round, :default => true, :null => false
-    end
-    
-    create_table :tines, :force => true do |t|
-      t.belongs_to :fork
-      t.boolean :rusty, :default => false, :null => false
-    end
-    
-    create_table :users, :force => true do |t|
-      t.string :name, :status
-    end
-  end
-end
-
-
-# Factories for these Fork & Spoon
-class Fork < ActiveRecord::Base
-  validates_presence_of :name
-  has_many :tines
-  
-  def completely_rusty?
-    tines.map(&:rusty?).uniq == [true]
-  end
-end
-
-class Tine < ActiveRecord::Base
-  validates_presence_of :fork
-  belongs_to :fork
-end
-
-# Machinist bluepriint for this
-class Spoon < ActiveRecord::Base
-  validates_presence_of :name
-end
-
-# No factory or blueprint for this
-class User < ActiveRecord::Base
-  validates_presence_of :name
-end
-
-
-# Factories
-require 'factory_girl'
-
-Factory.sequence :fork_name do |n|
-  "fork %d04" % n
-end
-
-Factory.define :fork do |f|
-  f.name { Factory.next(:fork_name) }
-end
-
-Factory.define :tine do |t|
-  t.association :fork
-end
-
-Factory.define :rusty_tine, :class => Tine do |t|
-  t.association :fork
-  t.rusty true
-end
-
-Factory.define :fancy_fork, :class => Fork do |t|
-  t.name { "Fancy " + Factory.next(:fork_name) }
-end
-
-# Blueprints
-require 'machinist'
-
-Sham.spoon_name { |i| "Spoon #{i}" }
-
-Spoon.blueprint do
-  name { Sham.spoon_name }
-end
-
-#### End of app setup
-
-# require pickle/config, and set up a mapping
-require 'pickle/config'
-Pickle.config do |c|
-  c.map 'I', 'me', :to => 'fancy fork: "of morgoth"'
-end
-
+# Pickle
 require 'pickle'
+
+Pickle.configure do |c|
+  c.map 'I', :to => 'user: "me"'
+  c.map 'killah fork', :to => 'fancy fork: "of cornwood"'
+end
+
+# test app setup
+__APP__ = File.expand_path(File.join(File.dirname(__FILE__), '../app'))
+require "#{__APP__}/app"
+require "#{__APP__}/factories"
+require "#{__APP__}/blueprints"
+
+# reset shams between scenarios
+Before { Sham.reset }

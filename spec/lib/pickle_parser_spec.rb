@@ -2,16 +2,11 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
 describe Pickle::Parser do
   before do
-    @parser = Pickle::Parser.new
+    @parser = Pickle::Parser.new(:config => Pickle::Config.new)
   end
   
-  it "should use the default config when created with no args" do
-    @parser.config.should == Pickle.config
-  end
-  
-  it "should use the passed config when created with :config option" do
-    parser = Pickle::Parser.new :config => (cfg = mock('config'))
-    parser.config.should == cfg
+  it "should raise error when created with no config" do
+    lambda{ Pickle::Parser.new }.should raise_error(ArgumentError)
   end
   
   describe 'misc regexps' do

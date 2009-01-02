@@ -1,6 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
-describe Pickle::Parser::Matchers, "with config defining factories: user, car, fast_car" do
+describe Pickle::Parser::Matchers, "with config defining factories: user, car, fast_car, predicates: name, status, fancy?, super_fancy?" do
   include Pickle::Parser::Matchers
   
   def config
@@ -10,6 +10,7 @@ describe Pickle::Parser::Matchers, "with config defining factories: user, car, f
         'car'       => mock('factory'),
         'fast_car'  => mock('factory')
       }
+      c.predicates = %w(name status fancy? super_fancy?)
     end
   end
   
@@ -48,6 +49,9 @@ describe Pickle::Parser::Matchers, "with config defining factories: user, car, f
     atom_should_match     :match_model, ['a user', '1st fast car', 'the 23rd fast_car', 'the user: "fred flinstone"']
     atom_should_not_match :match_model, ['a giraffe', 'a 1st faster car: "jim"', 'an event created']
   
+    atom_should_match     :match_predicate, ['name', 'status', 'fancy', 'super fancy', 'super_fancy']
+    atom_should_not_match :match_predicate, ['nameo', 'increment', 'not a predicate']
+    
     atom_should_match     :match_factory, ['user', 'fast car', 'fast_car', 'car']
     atom_should_not_match :match_factory, ['users', 'faster car', 'event created']
   end

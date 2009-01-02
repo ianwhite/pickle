@@ -1,17 +1,13 @@
 require 'pickle/parser/matchers'
 
 module Pickle
-  def self.parser(options = {})
-    @parser ||= Parser.new(options)
-  end
-  
   class Parser
     include Matchers
     
     attr_reader :config
     
     def initialize(options = {})
-      @config = options[:config] || Pickle.config
+      @config = options[:config] || raise(ArgumentError, "Parser.new requires a :config")
     end
     
     # given a string like 'foo: "bar", bar: "baz"' returns {"foo" => "bar", "bar" => "baz"}

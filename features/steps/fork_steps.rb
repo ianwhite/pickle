@@ -1,4 +1,4 @@
 # example of making your own matcher with the pickle backend
-Then(/^#{CaptureModel} should belong to #{CaptureModel}$/) do |tine, fork|
+Then(/^#{capture_model} should be tine of #{capture_model}$/) do |tine, fork|
   model(fork).tines.should include(model(tine))
 end

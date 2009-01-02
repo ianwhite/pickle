@@ -1,3 +1,19 @@
+== edge
+
+* API change
+  * CaptureModel, etc are now 'capture_model' methods
+
+* 2 major enhancements
+  * Steps for asserting associations added to generated pickle steps
+      'Then the user should be in the post's commenters'
+      'Then the forum: "awesome" should be the 2nd post's forum'
+  * configuration can now occur any time before a step is defined, which makes
+    for much more intuitive env.rb
+
+* 1 minor enhancement
+  * predicate matching is less prone to step conflicts because we preload a 
+    big list of all the predicate and column methods
+
 == 0.1.4
 
 * 1 major enhancement
