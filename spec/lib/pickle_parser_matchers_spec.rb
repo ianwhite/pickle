@@ -55,4 +55,10 @@ describe Pickle::Parser::Matchers, "with config defining factories: user, car, f
     atom_should_match     :match_factory, ['user', 'fast car', 'fast_car', 'car']
     atom_should_not_match :match_factory, ['users', 'faster car', 'event created']
   end
+  
+  describe "capture methods" do
+    it "capture_field should == '(' + match_field + ')'" do
+      capture_field.should == '(' + match_field + ')'
+    end
+  end
 end
