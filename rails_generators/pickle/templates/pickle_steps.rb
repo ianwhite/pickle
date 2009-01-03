@@ -22,7 +22,7 @@ Then(/^(\d+) #{capture_plural_factory} should exist(?: with #{capture_fields})?$
 end
 
 # assert model is in another model's has_many assoc
-Then(/^#{capture_model} should be in #{capture_model}'s (\w+)$/) do |target, owner, association|
+Then(/^#{capture_model} should be (?:in|one of|amongst) #{capture_model}'s (\w+)$/) do |target, owner, association|
   model(owner).send(association).should include(model(target))
 end
 

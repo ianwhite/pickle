@@ -1,0 +1,191 @@
+= Pickle
+
+Pickle gives you cucumber steps that create your models easily from factory-girl or
+machinist factories/blueprints.  You can also just use ActiveRecord but it's not as cool.
+
+References to the models are stored, not necessarily for the purpose of checking the db
+(although you could use it for that), but for enabling easy reference to urls, and for
+building complex givens which require a bunch of models collaborating
+
+== Install
+
+Install pickle either as a rails plugin, or a gem
+
+  # plugin
+  script/plugin install git://github.com/ianwhite/pickle.git
+  
+  # or, plugin as submodule
+  git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle
+
+  # or, gem
+  sudo gem install ianwhite-pickle
+  
+== Get Started
+
+(you'd better install cucumber)
+
+  script/generate pickle
+
+Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
+
+=== Using with plain ole Active Record
+
+If you have an AR called 'Post', with required fields 'title', and 'body', then you can now write 
+steps like this
+
+  Given a post exists with title: "My Post", body: "My body"
+
+=== Using with factory-girl or machinist
+
+But you're using Machinist or FactoryGirl right?!  To leverage all of the factories/blueprints
+you've written, you can just do stuff like
+
+  Given a user exists
+  And another user exists with role: "admin"
+
+  # later
+  Then a user should exist with name: "Fred"
+  And that user should be activated # this uses rspec predicate matchers
+
+==== Machinst: require your blueprints and rest Shams
+
+In your <tt>features/support/env.rb</tt> add the following lines at the bottom
+
+  require "#{Rails.root}/spec/blueprints" # or wherever they live
+  Before { Sham.rest } # reset Shams in between scenarios
+
+=== Configuring Pickle
+
+You can tell pickle to use another factory adapter (see Pickle::Adapter), or
+create mappings from english expressions to pickle model names.  You can also
+override many of the options on the Pickle::Config object if you so choose 
+
+  require 'pickle'
+
+  Pickle.configure do |config|
+    config.adapters = [:machinist, YourOwnAdapterClass]
+    config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
+  end
+
+== API
+
+=== Steps
+
+When you run <tt>script/generate pickle</tt> you get the following steps
+
+==== Given steps
+
+"Given <b>a model</b> exists",  e.g.
+
+  Given a user exists
+  Given a user: "fred" exists
+  Given the user exists
+  
+"Given <b>a model</b> exists with <b>fields</b>",  e.g.
+
+  Given a user exists with name: "Fred"
+  Given a user exists with name: "Fred", activated: false
+  
+You can refer to other models in the fields
+
+  Given a user exists
+  And a post exists with author: the user
+  
+  Given a person: "fred" exists
+  And a person: "ethel" exists
+  And a fatherhood exists with parent: user "fred", child: user "ethel"
+  
+"Given <b>n</b> models exist", e.g.
+  
+  Given 10 users exist
+  
+"Given <b>n</b> <b>models</b> exist with <b>fields</b>", examples:
+
+  Given 10 users exist with activated: false
+
+==== Then steps
+
+===== Asserting existence of models
+
+"Then <b>a model</b> should exist",  e.g.
+
+  Then a user should exist
+
+"Then <b>a model</b> should exist with <b>fields</b>", e.g.
+
+  Then a user: "fred" should exist with name: "Fred" # we can label the found user for later use
+  
+You can use other models, booleans, numerics, and strings as fields
+
+  Then a person should exist with child: person "ethel"
+  Then a user should exist with activated: false
+  Then a user should exist with activated: true, email: "fred@gmail.com"
+  
+"Then <b>n</b> <b>models</b> should exist", e.g.
+
+  Then 10 events should exist
+  
+"Then <b>n</b> <b>models</b> should exist with <b>fields</b>", e.g.
+
+  Then 2 people should exist with father: person "fred"
+  
+===== Asserting associations
+
+One-to-one assocs: "Then <b>a model</b> should be <b>other model</b>'s <b>association</b>", e.g.
+
+  Then the person: "fred" should be person: "ethel"'s father
+  
+Many-to-one assocs: "Then <b>a model</b> should be [in|one of] <b>other model</b>'s <b>association</b>", e.g.
+
+  Then the person: "ethel" should be one of person: "fred"'s children
+  Then the comment should be in the post's comments
+  
+===== Asserting predicate methods
+
+"Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>", e.g.
+
+  Then the user should have a status # => user.status?.should == true
+  Then the car: "batmobile" should be fast # => car.fast?.should == true
+  
+"Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>", e.g.
+
+  Then person: "fred" should not be childless # => fred.childless?.should == false
+  
+=== Regexps for use in your own steps
+
+By default you get some regexps available in the main namespace for use
+in creating your own steps: `capture_model`, `capture_fields`, and others (see lib/pickle.rb)
+
+(You can use any of the regexps that Pickle uses by using the Pickle.parser namespace, see
+Pickle::Parser::Matchers for the methods available)
+
+*capture_model*
+
+  Given /^#{capture_model} exists$/ do |model_name|
+    model(model_name).should_not == nil
+  end
+
+  Then /^I should be at the (.*?) page$/ |page|
+    if page =~ /#{capture_model}'s/
+      url_for(model($1))
+    else
+      # ...
+    end
+  end
+
+  Then /^#{capture_model} should be one of #{capture_model}'s posts$/ do |post, forum|
+    model(forum).posts.should include(post)
+  end 
+
+*capture_fields*
+
+This is useful for setting attributes, and knows about pickle model names so that you
+can build up composite objects with ease
+
+  Given /^#{capture_model} exists with #{capture_fields}$/ do |model_name, fields|
+    create_model(model_name, fields)
+  end
+
+  # example of use
+  Given a user exists
+  And a post exists with author: the user # this step will assign the above user as :author on the post

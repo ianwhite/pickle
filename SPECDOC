@@ -1,0 +1,306 @@
+
+Pickle::Adapter
+- .factories should raise NotImplementedError
+- #create should raise NotImplementedError
+- .model_classes should not include CGI::Session::ActiveRecordStore
+
+Pickle::Adapter ::ActiveRecord.factories
+- should create one for each active record class
+
+Pickle::Adapter ::ActiveRecord.factories.new(Class)
+- should have underscored (s/_) name of Class as #name
+- #create(attrs) should call Class.create!(attrs)
+
+Pickle::Adapter ::FactoryGirl.factories
+- should create one for each factory
+
+Pickle::Adapter ::FactoryGirl.factories.new(factory)
+- should have name of factory_name
+- should have klass of build_class
+- #create(attrs) should call Factory(<:key>, attrs)
+
+Pickle::Adapter ::Machinist.factories
+- should create one for each machinist make method, except make_unsaved
+
+Pickle::Adapter ::Machinist.factories.new(Class, 'make')
+- should have underscored (s/_) name of Class as #name
+- #create(attrs) should call Class.make(attrs)
+
+Pickle::Adapter ::Machinist.factories.new(Class, 'make_special')
+- should have 'special_<Class name>' as #name
+- #create(attrs) should call Class.make_special(attrs)
+
+Pickle::Config
+- #adapters should default to :machinist, :factory_girl, :active_record
+- #adapter_classes should default to Adapter::Machinist, Adapter::FactoryGirl, Adapter::ActiveRecord
+- #factory_names should be keys of #factories
+- #mappings should default to []
+- #configure(&block) should execiute on self
+
+Pickle::Config setting adapters to [:machinist, SomeAdapter]
+- #adapter_classes should be Adapter::Machinist, SomeAdapter
+
+Pickle::Config#factories
+- should call adaptor.factories for each adaptor
+- should aggregate factories into a hash using factory name as key
+- should give preference to adaptors first in the list
+
+Pickle::Config#predicates
+- should be list of all ? public instance methods + columns methods of Adapter.model_classes
+- should be overridable
+
+Pickle::Config#map 'foo', :to => 'faz'
+- should create OpenStruct(search: 'foo', replace: 'faz') mapping
+
+Pickle::Config#map 'foo', 'bar' :to => 'faz'
+- should create OpenStruct(search: '(?:foo|bar)', replace: 'faz') mapping
+
+Pickle::Injector.inject Pickle::Session, :into => <a class>
+- object should respond_to Pickle:Session methods
+- object.model (a pickle method) should call object.pickle_session.model
+
+Pickle::Parser::Matchers (config: [factories: user, car, fast_car] [predicates: name, status, fancy?, super_fancy?] Match atoms
+- match_ordinal should match '1st'
+- match_ordinal should match '2nd'
+- match_ordinal should match '23rd'
+- match_ordinal should match '104th'
+- match_ordinal should NOT match '1'
+- match_ordinal should NOT match '2'
+- match_index should match 'first'
+- match_index should match 'last'
+- match_index should match '23rd'
+- match_index should match '104th'
+- match_index should NOT match '1'
+- match_index should NOT match '2'
+- match_index should NOT match 'foo'
+- match_label should match ': "gday"'
+- match_label should match ': "gday mate"'
+- match_label should NOT match ': "gday""'
+- match_label should NOT match ': gday'
+- match_field should match 'foo: "this is the life"'
+- match_field should match 'bar_man: "and so is this"'
+- match_field should match 'boolean: false'
+- match_field should match 'boolean: true'
+- match_field should match 'numeric: 10'
+- match_field should match 'numeric: 12.5'
+- match_field should NOT match 'foo bar: "this aint workin"'
+- match_fields should match 'foo: "bar"'
+- match_fields should match 'foo: "bar", baz: "bah"'
+- match_fields should NOT match 'foo bar: "baz"'
+- match_fields should NOT match 'email: "a", password: "b", and password_confirmation: "c"'
+- match_model should match 'a user'
+- match_model should match '1st fast car'
+- match_model should match 'the 23rd fast_car'
+- match_model should match 'the user: "fred flinstone"'
+- match_model should NOT match 'a giraffe'
+- match_model should NOT match 'a 1st faster car: "jim"'
+- match_model should NOT match 'an event created'
+- match_predicate should match 'name'
+- match_predicate should match 'status'
+- match_predicate should match 'fancy'
+- match_predicate should match 'super fancy'
+- match_predicate should match 'super_fancy'
+- match_predicate should NOT match 'nameo'
+- match_predicate should NOT match 'increment'
+- match_predicate should NOT match 'not a predicate'
+- match_factory should match 'user'
+- match_factory should match 'fast car'
+- match_factory should match 'fast_car'
+- match_factory should match 'car'
+- match_factory should NOT match 'users'
+- match_factory should NOT match 'faster car'
+- match_factory should NOT match 'event created'
+- match_plural_factory should match 'users'
+- match_plural_factory should match 'fast cars'
+- match_plural_factory should NOT match 'usereres'
+- match_plural_factory should NOT match 'fasts cars'
+
+Pickle::Parser::Matchers capture methods
+- capture_field should == '(' + match_field + ')'
+
+Pickle::Parser
+- should raise error when created with no config
+
+Pickle::Parser misc regexps /^#{capture_model} exists/
+- should match 'a user exists'
+- should caputure 'a user' from  'a user exists'
+
+Pickle::Parser#parse_field
+- should return {'a' => 'b'} for 'a: "b"'
+- should raise error for invalid field 'a : b'
+
+Pickle::Parser#parse_fields
+- should return {} for blank argument
+- should raise error for invalid argument
+- ('foo: "bar"') should == { "foo" => "bar"}
+- ("bool: true") should == { "bool" => true}
+- ("bool: false") should == { "bool" => false}
+- ("int: 10") should == { "int" => 10 }
+- ("float: 10.1") should == { "float" => 10.1 }
+- ('foo: "bar", bar_man: "wonga wonga", gump: 123') should == {"foo" => "bar", "bar_man" => "wonga wonga", "gump" => 123}
+
+Pickle::Parser#parse_model
+- ("a user") should == ["user", ""]
+- ("the user") should == ["user", ""]
+- ("1 fast car") should == ["fast_car", ""]
+- ('an user: "jim jones"') should == ["user", "jim_jones"]
+- ('that fast car: "herbie"') should == ["fast_car", "herbie"]
+- ('the 12th user') should == ["user", 11]
+- ('the last user') should == ["user", -1]
+- ("the first user") should == ["user", 0]
+- ("the 1st user") should == ["user", 0]
+
+Pickle::Parser#parse_index
+- ("1st") should == 0
+- ("24th") should == 23
+- ("first") should == 0
+- ("last") should == -1
+
+Pickle::Parser customised mappings config maps 'I|myself' to 'user: "me"'
+- 'I' should match /#{match_model}/
+- 'myself' should match /#{match_model}/
+- parse_model('I') should == ['user', 'me']
+- parse_model('myself') should == ['user', 'me']
+
+Pickle::Session#create_model ('a user')
+- should call Factory.create('user', {})
+
+Pickle::Session#create_model ('a user') after create,
+- created_models('user') should be array containing the original user
+
+Pickle::Session#create_model ('a user') after create, the original user should be retrievable with
+- created_model('the user')
+- created_model('1st user')
+- created_model('last user')
+
+Pickle::Session#create_model ('a user') after create, (found from db)
+- models('user') should be array containing user
+
+Pickle::Session#create_model ('a user') after create, (found from db) user should be retrievable with
+- model('the user')
+- model('1st user')
+- model('last user')
+
+Pickle::Session#create_model ('1 user', 'foo: "bar", baz: "bing bong"')
+- should call Factory.create('user', {'foo' => 'bar', 'baz' => 'bing bong'})
+
+Pickle::Session#create_model ('1 user', 'foo: "bar", baz: "bing bong"') after create,
+- created_models('user') should be array containing the original user
+
+Pickle::Session#create_model ('1 user', 'foo: "bar", baz: "bing bong"') after create, the original user should be retrievable with
+- created_model('the user')
+- created_model('1st user')
+- created_model('last user')
+
+Pickle::Session#create_model ('1 user', 'foo: "bar", baz: "bing bong"') after create, (found from db)
+- models('user') should be array containing user
+
+Pickle::Session#create_model ('1 user', 'foo: "bar", baz: "bing bong"') after create, (found from db) user should be retrievable with
+- model('the user')
+- model('1st user')
+- model('last user')
+
+Pickle::Session#create_model ('an user: "fred")
+- should call Factory.create('user', {})
+
+Pickle::Session#create_model ('an user: "fred") after create,
+- created_models('user') should be array containing the original user
+- created_model('the user: "fred"') should retrieve the user
+- created_model?('the user: "shirl"') should be false
+- model?('the user: "shirl"') should be false
+
+Pickle::Session#create_model ('an user: "fred") after create, the original user should be retrievable with
+- created_model('the user')
+- created_model('1st user')
+- created_model('last user')
+
+Pickle::Session#create_model ('an user: "fred") after create, (found from db)
+- models('user') should be array containing user
+
+Pickle::Session#create_model ('an user: "fred") after create, (found from db) user should be retrievable with
+- model('the user')
+- model('1st user')
+- model('last user')
+
+Pickle::Session#find_model
+- should call User.find :first, :conditions => {'hair' => 'pink'}
+
+Pickle::Session#find_model after find,
+- created_models('user') should be array containing the original user
+
+Pickle::Session#find_model after find, the original user should be retrievable with
+- created_model('the user')
+- created_model('1st user')
+- created_model('last user')
+
+Pickle::Session#find_model after find, (found from db)
+- models('user') should be array containing user
+
+Pickle::Session#find_model after find, (found from db) user should be retrievable with
+- model('the user')
+- model('1st user')
+- model('last user')
+
+Pickle::Session#find_models
+- should call User.find :all, :conditions => {'hair' => 'pink'}
+
+Pickle::Session#find_models after find,
+- created_models('user') should be array containing the original user
+
+Pickle::Session#find_models after find, the original user should be retrievable with
+- created_model('the user')
+- created_model('1st user')
+- created_model('last user')
+
+Pickle::Session#find_models after find, (found from db)
+- models('user') should be array containing user
+
+Pickle::Session#find_models after find, (found from db) user should be retrievable with
+- model('the user')
+- model('1st user')
+- model('last user')
+
+Pickle::Session#clear_models(<factory_name>)
+- should clear the storage for that factory name
+
+Pickle::Session creating 'a super admin: "fred"', then 'a user: "shirl"', 'then 1 super_admin'
+- should call Factory.create with <'super_admin'>, <'user'>, <'super_admin'>
+
+Pickle::Session creating 'a super admin: "fred"', then 'a user: "shirl"', 'then 1 super_admin' after create,
+- created_models('user') should == [@fred, @shirl, @noname]
+- created_models('super_admin') should == [@fred, @noname]
+
+Pickle::Session creating 'a super admin: "fred"', then 'a user: "shirl"', 'then 1 super_admin' after create,#created_model
+- 'that user' should be @noname (the last user created - as super_admins are users)
+- 'the super admin' should be @noname (the last super admin created)
+- 'the 1st super admin' should be @fred
+- 'the first user' should be @fred
+- 'the 2nd user' should be @shirl
+- 'the last user' should be @noname
+- 'the user: "fred" should be @fred
+- 'the user: "shirl" should be @shirl
+
+Pickle::Session when 'the user: "me"' exists and there is a mapping from 'I', 'myself' => 'user: "me"
+- model("I") should return the user
+- model("myself") should return the user
+- #parser.parse_fields 'author: user "JIM"' should raise Error, as model deos not refer
+- #parser.parse_fields 'author: the user' should return {"author" => <user>}
+- #parser.parse_fields 'author: myself' should return {"author" => <user>}
+- #parser.parse_fields 'author: the user, approver: I, rating: "5"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}
+- #parser.parse_fields 'author: user: "me", approver: ""' should return {'author' => <user>, 'approver' => ""}
+
+Pickle::Session convert_models_to_attributes(ar_class, :user => <a user>) (when ar_class has column 'user_id')
+- should return {'user_id' => <the user.id>}
+
+Pickle::Session convert_models_to_attributes(ar_class, :user => <a user>) (when ar_class has columns 'user_id', 'user_type')
+- should return {'user_id' => <the user.id>, 'user_type' => <the user.type>}
+
+Pickle
+- .config should be same object on multiple calls
+- .configure should configure the .config object
+- .parser should create a parser with the default config
+- .parser should be same object on multiple calls
+
+Finished in 0.752032 seconds
+
+188 examples, 0 failures

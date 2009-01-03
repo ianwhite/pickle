@@ -79,7 +79,7 @@ Rake::RDocTask.new(:doc) do |t|
   t.title    = "#{plugin_name}"
   t.template = ENV['RDOC_TEMPLATE']
   t.options  = ['--line-numbers', '--inline-source', '--all']
-  t.rdoc_files.include('README.textile', 'SPECDOC', 'License.txt', 'History.txt', 'Todo.txt')
+  t.rdoc_files.include('README.rdoc', 'SPECDOC', 'License.txt', 'History.txt', 'Todo.txt')
   t.rdoc_files.include('lib/**/*.rb')
 end
 
