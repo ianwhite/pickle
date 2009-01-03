@@ -33,5 +33,5 @@ end
 
 # shortcuts to regexps for use in step definitions
 class << self
-  delegate :capture_model, :capture_fields, :capture_plural_factory, :capture_predicate, :to => 'Pickle.parser'
+  delegate :capture_model, :capture_fields, :capture_factory, :capture_plural_factory, :capture_predicate, :to => 'Pickle.parser'
 end

@@ -12,45 +12,57 @@ module Pickle
       store_model(factory, label, record)
     end
 
-    def find_model(a_model_name, fields)
-      model, name = *parser.parse_model(a_model_name)
+    def find_model(a_model_name, fields = nil)
+      factory, name = *parser.parse_model(a_model_name)
       raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
-      model_class = model.classify.constantize
+      model_class = config.factories[factory].klass
       if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
-        store_model(model, name, record)
+        store_model(factory, name, record)
       else
-        raise ActiveRecord::RecordNotFound, "Couldn't find #{model} with #{fields}"
+        raise ActiveRecord::RecordNotFound, "Couldn't find #{model}#{" with #{fields}" if fields}"
       end
     end
     
+    def find_models(factory, fields = nil)
+      model_class = config.factories[factory].klass
+      if records = model_class.find(:all, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
+        records.each {|record| store_model(factory, nil, record)}
+      else
+        raise ActiveRecord::RecordNotFound, "Couldn't find any #{factory_name.pluralize}#{" with #{fields}" if fields}"
+      end
+    end
+    
+    def clear_models(factory)
+      models_by_name(factory).clear
+      models_by_factory(factory).clear
+    end
+      
     # return the original model stored by create_model or find_model
-    def created_model(a_model_name)
-      factory, name_or_index = *parser.parse_model(a_model_name)
+    def created_model(name)
+      factory, name_or_index = *parser.parse_model(name)
       
       if name_or_index.blank?
         models_by_factory(factory).last
       elsif name_or_index.is_a?(Integer)
         models_by_factory(factory)[name_or_index]
       else
-        models_by_name(factory)[name_or_index] or raise "model: #{a_model_name} does not refer to known model in this scenario"
+        models_by_name(factory)[name_or_index] or raise "model: #{name} does not refer to known model in this scenario"
       end
     end
 
     # predicate version which raises no errors
-    def created_model?(a_model_name)
-      (created_model(a_model_name) rescue nil) ? true : false
+    def created_model?(name)
+      (created_model(name) rescue nil) ? true : false
     end
     
     # return a newly selected model
-    def model(a_model_name)
-      if model = created_model(a_model_name)
-        model.class.find(model.id) or raise ActiveRecord::RecordNotFound, "model: #{a_model_name} could not be found in the database"
-      end
+    def model(name)
+      (model = created_model(name)) && model.class.find(model.id)
     end
     
     # predicate version which raises no errors
-    def model?(a_model_name)
-      (model(a_model_name) rescue nil) ? true : false
+    def model?(name)
+      (model(name) rescue nil) ? true : false
     end
     
     # return all original models of specified type
@@ -60,9 +72,7 @@ module Pickle
       
     # return all models of specified type (freshly selected from the database)
     def models(factory)
-      created_models(factory).map do |model|
-        model.class.find(model.id)
-      end
+      created_models(factory).map{|model| model.class.find(model.id) }
     end
     
   protected

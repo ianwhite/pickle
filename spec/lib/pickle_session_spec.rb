@@ -135,11 +135,6 @@ describe Pickle::Session do
       do_find_model
     end
     
-    it "should raise RecordNotFound when no record returned" do
-      User.should_receive(:find).and_return(nil)
-      lambda { do_find_model }.should raise_error(ActiveRecord::RecordNotFound)
-    end
-    
     describe "after find," do
       before { do_find_model }
       
