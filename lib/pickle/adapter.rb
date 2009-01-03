@@ -3,12 +3,13 @@ module Pickle
   # can easily create an adaptor to make it work with Pickle.
   #
   # The factory adaptor must have a #factories class method that returns 
-  # its instances, and each instance must respond to a #name method which
-  # identifies the factory by name (default is attr_reader for @name), and a
-  # #create method which takes an optional attributes hash,
-  # and returns a newly created object
+  # its instances, and each instance must respond to:
+  #
+  #   #name : identifies the factory by name (default is attr_reader)
+  #   #klass : returns the associated model class for this factory (default is attr_reader)
+  #   #create(attrs = {}) : returns a newly created object
   class Adapter
-    attr_reader :name
+    attr_reader :name, :klass
     
     def self.factories
       raise NotImplementedError, "return an array of factory adapter objects"
@@ -17,18 +18,16 @@ module Pickle
     def create(attrs = {})
       raise NotImplementedError, "create and return an object with the given attributes"
     end
+  
+    cattr_writer :model_classes
+    self.model_classes = nil
     
-    # by default the models are active_record subclasses, but you can set this to whatever classes you want
-    class << self
-      attr_writer :model_classes
-      
-      def model_classes
-        @model_classes ||= returning(::ActiveRecord::Base.send(:subclasses)) do |classes|
-          defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
-        end
+    def self.model_classes
+      @@model_classes ||= returning(::ActiveRecord::Base.send(:subclasses)) do |classes|
+        defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
       end
     end
-    
+  
     # machinist adapter
     class Machinist < Adapter
       def self.factories
@@ -56,11 +55,11 @@ module Pickle
     # factory-girl adapter
     class FactoryGirl < Adapter
       def self.factories
-        (::Factory.factories.keys rescue []).map {|key| new(key)}
+        (::Factory.factories.values rescue []).map {|factory| new(factory)}
       end
       
-      def initialize(key)
-        @name = key.to_s
+      def initialize(factory)
+        @klass, @name = factory.build_class, factory.factory_name.to_s
       end
     
       def create(attrs = {})

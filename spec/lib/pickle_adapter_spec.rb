@@ -48,23 +48,29 @@ describe Pickle::Adapter do
   describe '::FactoryGirl' do
     before do
       # set up a fake object space
-      Factory.stub!(:factories).and_return(:one => nil, :two => nil)
+      @factory1 = mock('factory1', :factory_name => :one, :build_class => (@class1 = mock('Class1')))
+      @factory2 = mock('factory2', :factory_name => :two, :build_class => (@class2 = mock('Class2')))
+      Factory.stub!(:factories).and_return(:factory1 => @factory1, :factory2 => @factory2)
     end
     
     describe ".factories" do
       it "should create one for each factory" do
-        Pickle::Adapter::FactoryGirl.should_receive(:new).with(:one).once
-        Pickle::Adapter::FactoryGirl.should_receive(:new).with(:two).once
+        Pickle::Adapter::FactoryGirl.should_receive(:new).with(@factory1).once
+        Pickle::Adapter::FactoryGirl.should_receive(:new).with(@factory2).once
         Pickle::Adapter::FactoryGirl.factories
       end
       
-      describe ".new(:factory_name)" do
+      describe ".new(factory)" do
         before do
-          @factory = Pickle::Adapter::FactoryGirl.new(:one)
+          @factory = Pickle::Adapter::FactoryGirl.new(@factory1)
         end
         
-        it "should have name of factory key" do
+        it "should have name of factory_name" do
           @factory.name.should == 'one'
+        end
+        
+        it "should have klass of build_class" do
+          @factory.klass.should == @class1
         end
         
         it "#create(attrs) should call Factory(<:key>, attrs)" do
