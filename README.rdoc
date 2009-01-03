@@ -47,12 +47,12 @@ you've written, you can just do stuff like
   Then a user should exist with name: "Fred"
   And that user should be activated # this uses rspec predicate matchers
 
-==== Machinst: require your blueprints and rest Shams
+==== Machinst: require your blueprints and reset Shams
 
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
   require "#{Rails.root}/spec/blueprints" # or wherever they live
-  Before { Sham.rest } # reset Shams in between scenarios
+  Before { Sham.reset } # reset Shams in between scenarios
 
 === Configuring Pickle
 
