@@ -6,8 +6,8 @@ Given(/^#{capture_model} exists?(?: with #{capture_fields})?$/) do |name, fields
 end
 
 # create n models
-Given(/^(\d+) #{capture_plural_factory} exist(?: with #{capture_fields})?$/) do |amount, plural_factory, fields|
-  amount.to_i.times { create_model(plural_factory.singularize, fields) }
+Given(/^(\d+) #{capture_plural_factory} exist(?: with #{capture_fields})?$/) do |count, plural_factory, fields|
+  count.to_i.times { create_model(plural_factory.singularize, fields) }
 end
 
 # find a model

@@ -1,9 +1,10 @@
-== edge
+== 0.1.5
 
 * API change
   * CaptureModel, etc are now 'capture_model' methods
 
-* 2 major enhancements
+* 3 major enhancements
+  * Steps for asserting that <n> models exist, matching certain criteria
   * Steps for asserting associations added to generated pickle steps
       'Then the user should be in the post's commenters'
       'Then the forum: "awesome" should be the 2nd post's forum'
@@ -13,6 +14,7 @@
 * 1 minor enhancement
   * predicate matching is less prone to step conflicts because we preload a 
     big list of all the predicate and column methods
+  * field values now handle booleans and numerics
 
 == 0.1.4
 

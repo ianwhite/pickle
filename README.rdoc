@@ -79,7 +79,7 @@ create mappings from english expressions to pickle model names
 === Regexps for us in your own steps
 
 By default you get three regexps available in the main namespace for use
-in creating your own steps: *capture_model*, *capture_fields*, and *capture_plural_factory*
+in creating your own steps: *capture_model*, *capture_fields*, and others (see lib/pickle.rb)
 
 (You can use any of the regexps that Pickle uses by using the Pickle.parser namespace, see
 Pickle::Parser::Matchers for the methods available)

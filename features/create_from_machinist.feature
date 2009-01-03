@@ -13,29 +13,29 @@ Feature: I can easily create models from my blueprints
     Then the spoon should not be round
 
   Scenario: I create a named spoon, and see if it has the name
-    Given a spoon exists with name: "Pete"
+    Given a spoon exists with name: "Pete", round: false
 	  Then a spoon should exist with name: "Pete"
-	  And the spoon should be round
+	  And the spoon should not be round
 	
 	Scenario: I create 7 spoons of various roundness
-		Given 3 spoons exist with round: false
-		And 4 spoons exist with round: true
+		Given 2 spoons exist with round: false
+		And 2 spoons exist with round: true
+		And 1 spoon exists with round: false
+		
+		# ordinal refs refer to order of introducirton to the scenario
 		Then the 1st spoon should not be round
 		And the 2nd spoon should not be round
-		And the 3rd spoon should not be round
+		And the 3rd spoon should be round
 		And the 4th spoon should be round
-		And the 5th spoon should be round
-		And the 6th spoon should be round
-		And the 7th spoon should be round
+		And the 5th spoon should not be round
 		
-		# multiple matching, which changes what models we are focusing on
+		# assert <n> models, this resets the ordinal refernces
 		And 3 spoons should exist with round: false
 		And the 1st spoon should not be round
 		And the 2nd spoon should not be round
 		And the last spoon should not be round
 		
-		And 4 spoons should exist with round: true
-		And the 1st spoon should be round
-		And the 2nd spoon should be round
-		And the 3rd spoon should be round
+		# another assert <n> models, this resets the ordinal refs
+		And 2 spoons should exist with round: true
+		And the first spoon should be round
 		And the last spoon should be round
