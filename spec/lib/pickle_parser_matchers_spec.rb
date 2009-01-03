@@ -40,7 +40,7 @@ describe Pickle::Parser::Matchers, "with config defining factories: user, car, f
     atom_should_match     :match_label, [': "gday"', ': "gday mate"']
     atom_should_not_match :match_label, [': "gday""', ': gday']
   
-    atom_should_match     :match_field, ['foo: "this is the life"', 'bar_man: "and so is this"']
+    atom_should_match     :match_field, ['foo: "this is the life"', 'bar_man: "and so is this"', 'boolean: false', 'boolean: true', 'numeric: 10', 'numeric: 12.5']
     atom_should_not_match :match_field, ['foo bar: "this aint workin"']
   
     atom_should_match     :match_fields, ['foo: "bar"', 'foo: "bar", baz: "bah"']

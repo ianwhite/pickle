@@ -9,7 +9,7 @@ module Pickle
       attr_accessor :session
 
       def match_field
-        "(?:\\w+: (?:#{match_model}|\"#{match_quoted}\"))"
+        "(?:\\w+: (?:#{match_model}|#{match_value}))"
       end
 
       def parse_field_with_model(field)

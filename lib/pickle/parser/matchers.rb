@@ -21,8 +21,12 @@ module Pickle
         "(?::? \"#{match_quoted}\")"
       end
 
+      def match_value
+        "(?:\"#{match_quoted}\"|true|false|\\d+(?:\\.\\d+)?)"
+      end
+
       def match_field
-        "(?:\\w+: \"#{match_quoted}\")"
+        "(?:\\w+: #{match_value})"
       end
   
       def match_fields
@@ -76,7 +80,7 @@ module Pickle
       end
   
       def capture_key_and_value_in_field
-        "(?:(\\w+): \"(#{match_quoted})\")"
+        "(?:(\\w+): #{capture_value})"
       end
     end
   end

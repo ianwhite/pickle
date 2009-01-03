@@ -23,10 +23,10 @@ module Pickle
       end
     end
     
-    # given a string like 'foo: "bar"' returns {key => value}
+    # given a string like 'foo: expr' returns {key => value}
     def parse_field(field)
       if field =~ /^#{capture_key_and_value_in_field}$/
-        { $1 => $2 }
+        { $1 => eval($2) }
       else
         raise ArgumentError, "The field argument is not in the correct format.\n\n'#{field}' did not match: #{match_field}"
       end

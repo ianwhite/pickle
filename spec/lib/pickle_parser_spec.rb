@@ -49,8 +49,24 @@ describe Pickle::Parser do
       @parser.parse_fields('foo: "bar"').should == { "foo" => "bar"}
     end
     
-    it '(\'foo: "bar", bar_man: "wonga wonga", gump: "123"\') should == {"foo" => "bar", "bar_man" => "wonga wonga", "gump" => "123"}' do
-      @parser.parse_fields('foo: "bar", bar_man: "wonga wonga", gump: "123"').should == {"foo" => "bar", "bar_man" => "wonga wonga", "gump" => "123"}
+    it '("bool: true") should == { "bool" => true}' do
+      @parser.parse_fields('bool: true').should == {"bool" => true}
+    end
+    
+    it '("bool: false") should == { "bool" => false}' do
+      @parser.parse_fields('bool: false').should == {"bool" => false}
+    end
+    
+    it '("int: 10") should == { "int" => 10 }' do
+      @parser.parse_fields('int: 10').should == {"int" => 10}
+    end
+
+    it '("float: 10.1") should == { "float" => 10.1 }' do
+      @parser.parse_fields('float: 10.1').should == {"float" => 10.1}
+    end
+
+    it '(\'foo: "bar", bar_man: "wonga wonga", gump: 123\') should == {"foo" => "bar", "bar_man" => "wonga wonga", "gump" => 123}' do
+      @parser.parse_fields('foo: "bar", bar_man: "wonga wonga", gump: 123').should == {"foo" => "bar", "bar_man" => "wonga wonga", "gump" => 123}
     end
   end
   
