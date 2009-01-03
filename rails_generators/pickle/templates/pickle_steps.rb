@@ -17,9 +17,8 @@ end
 
 # find exactly n models
 Then(/^(\d+) #{capture_plural_factory} should exist(?: with #{capture_fields})?$/) do |count, plural_factory, fields|
-  factory = plural_factory.singularize
-  clear_models(factory)
-  find_models(factory, fields).size.should == count.to_i
+  clear_models(plural_factory.singularize)
+  find_models(plural_factory.singularize, fields).size.should == count.to_i
 end
 
 # assert model is in another model's has_many assoc

@@ -142,6 +142,38 @@ describe Pickle::Session do
     end
   end
   
+  describe "#find_models" do
+    before do
+      @user = mock_model(User)
+      User.stub!(:find).and_return([@user])
+    end
+
+    def do_find_models
+      @session.find_models('user', 'hair: "pink"')
+    end
+
+    it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
+      User.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'}).and_return([@user])
+      do_find_models
+    end
+
+    describe "after find," do
+      before { do_find_models }
+
+      it_should_behave_like "after storing a single user"
+    end
+  end
+  
+  describe '#clear_models(<factory_name>)' do
+    it "should clear the storage for that factory name" do
+      @session.send :store_model, 'user', nil, mock('user')
+      @session.send :store_model, 'car', nil, mock('user')
+      @session.clear_models('user')
+      @session.created_models('user').size.should == 0
+      @session.created_models('car').size.should == 1
+    end
+  end
+    
   describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\'' do
     before do
       @user = @fred = mock_model(User)

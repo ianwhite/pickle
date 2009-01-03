@@ -18,18 +18,13 @@ module Pickle
       model_class = config.factories[factory].klass
       if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
         store_model(factory, name, record)
-      else
-        raise ActiveRecord::RecordNotFound, "Couldn't find #{model}#{" with #{fields}" if fields}"
       end
     end
     
     def find_models(factory, fields = nil)
       model_class = config.factories[factory].klass
-      if records = model_class.find(:all, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
-        records.each {|record| store_model(factory, nil, record)}
-      else
-        raise ActiveRecord::RecordNotFound, "Couldn't find any #{factory_name.pluralize}#{" with #{fields}" if fields}"
-      end
+      records = model_class.find(:all, :conditions => convert_models_to_attributes(model_class, parser.parse_fields(fields)))
+      records.each {|record| store_model(factory, nil, record)}
     end
     
     def clear_models(factory)
