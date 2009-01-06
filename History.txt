@@ -1,3 +1,9 @@
+== edge
+
+* 1 minor enhancement
+  * Improved documentation
+
+
 == 0.1.5
 
 * API change
@@ -11,10 +17,11 @@
   * configuration can now occur any time before a step is defined, which makes
     for much more intuitive env.rb
 
-* 1 minor enhancement
+* 2 minor enhancement
   * predicate matching is less prone to step conflicts because we preload a 
     big list of all the predicate and column methods
   * field values now handle booleans and numerics
+
 
 == 0.1.4
 
