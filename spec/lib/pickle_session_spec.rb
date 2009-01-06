@@ -163,16 +163,6 @@ describe Pickle::Session do
       it_should_behave_like "after storing a single user"
     end
   end
-  
-  describe '#clear_models(<factory_name>)' do
-    it "should clear the storage for that factory name" do
-      @session.send :store_model, 'user', nil, mock('user')
-      @session.send :store_model, 'car', nil, mock('user')
-      @session.clear_models('user')
-      @session.created_models('user').size.should == 0
-      @session.created_models('car').size.should == 1
-    end
-  end
     
   describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\'' do
     before do
