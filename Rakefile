@@ -21,12 +21,12 @@ if File.exists?(cucumber_base) && plugins_base =~ /\/vendor\/plugins$/ # if we'r
   require 'cucumber/rake/task'
 
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format progress -r features/steps features"
+    t.cucumber_opts = "--format progress -r features/step_definitions features"
   end
   
   namespace :features do
     Cucumber::Rake::Task.new(:full) do |t|
-      t.cucumber_opts = '-r features/steps features'
+      t.cucumber_opts = '-r features/step_definitions features'
     end
   end
 end
