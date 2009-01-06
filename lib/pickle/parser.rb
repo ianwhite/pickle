@@ -34,7 +34,7 @@ module Pickle
     
     # returns really underscored name
     def canonical(str)
-      str.to_s.gsub(' ','_').underscore
+      str.to_s.underscore.gsub(' ','_').gsub('/','_')
     end
     
     # return [factory_name, name or integer index]

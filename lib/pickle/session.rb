@@ -68,6 +68,7 @@ module Pickle
     
   protected
     attr_reader :parser, :config
+    delegate :canonical, :to => :parser
   
     def parser=(parser)
       parser.session = self
@@ -86,20 +87,20 @@ module Pickle
     
     def models_by_name(factory)
       @models_by_name ||= {}
-      @models_by_name[parser.canonical(factory)] ||= {}
+      @models_by_name[canonical(factory)] ||= {}
     end
     
     def models_by_index(factory)
       @models_by_index ||= {}
-      @models_by_index[parser.canonical(factory)] ||= []
+      @models_by_index[canonical(factory)] ||= []
     end
     
     # if the factory name != the model name, store under both names
     def store_model(factory, name, record)
-      store_record(record.class.name, name, record) if parser.canonical(record.class.name) != factory
+      store_record(record.class.name, name, record) unless canonical(factory) == canonical(record.class.name)
       store_record(factory, name, record)
     end
-
+    
     def store_record(factory, name, record)
       models_by_name(factory)[name] = record
       models_by_index(factory) << record
