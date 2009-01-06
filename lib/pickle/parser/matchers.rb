@@ -34,7 +34,7 @@ module Pickle
       end
   
       def match_mapping
-        config.mappings.any? ? "(?:#{config.mappings.map(&:search).join('|')})" : ""
+        "(?:#{config.mappings.map(&:search).join('|')})"
       end
   
       def match_factory
