@@ -48,17 +48,12 @@ describe Pickle::Config do
     end
   end
   
-  it "#factory_names should be keys of #factories" do
-    @config.should_receive(:factories).and_return('one' => nil, 'two' => nil)
-    @config.factory_names.sort.should == ['one', 'two'].sort
-  end
-  
   it "#mappings should default to []" do
     @config.mappings.should == []
   end
 
   describe '#predicates' do
-    it "should be list of all ? public instance methods + columns methods of Adapter.model_classes" do
+    it "should be list of all non object ? public instance methods + columns methods of Adapter.model_classes" do
       class1 = mock('Class1', :public_instance_methods => ['nope', 'foo?', 'bar?'], :column_names => ['one', 'two'])
       class2 = mock('Class2', :public_instance_methods => ['not', 'foo?', 'faz?'], :column_names => ['two', 'three'])
       Pickle::Adapter.stub!(:model_classes).and_return([class1, class2])

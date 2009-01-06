@@ -25,14 +25,10 @@ module Pickle
         factories.merge(adapter.factories.inject({}){|h, f| h.merge(f.name => f)})
       end
     end
-
-    def factory_names
-      factories.keys
-    end
     
     def predicates
-      @predicates ||= Pickle::Adapter.model_classes.map do |klass|
-        klass.public_instance_methods.select{|m| m =~ /\?$/} + klass.column_names
+      @predicates ||= Pickle::Adapter.model_classes.map do |k|
+        k.public_instance_methods.select{|m| m =~ /\?$/} + k.column_names
       end.flatten.uniq
     end
     
