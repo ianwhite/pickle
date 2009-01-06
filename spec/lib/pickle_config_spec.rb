@@ -82,8 +82,9 @@ describe Pickle::Config do
       @config.map 'foo', 'bar', :to => 'faz'
     end
     
-    it "should create OpenStruct(search: '(?:foo|bar)', replace: 'faz') mapping" do
-      @config.mappings.first.should == OpenStruct.new(:search => '(?:foo|bar)', :replace => 'faz')
+    it "should create 2 mappings" do
+      @config.mappings.first.should == OpenStruct.new(:search => 'foo', :replace => 'faz')
+      @config.mappings.last.should == OpenStruct.new(:search => 'bar', :replace => 'faz')
     end
   end
   
