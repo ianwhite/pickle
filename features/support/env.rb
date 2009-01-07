@@ -20,6 +20,7 @@ __APP__ = File.expand_path(File.join(File.dirname(__FILE__), '../app'))
 require "#{__APP__}/app"
 require "#{__APP__}/factories"
 require "#{__APP__}/blueprints"
+require "#{__APP__}/faux_webrat"
 
 # reset shams between scenarios
 Before { Sham.reset }

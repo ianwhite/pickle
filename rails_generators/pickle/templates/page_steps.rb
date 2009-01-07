@@ -28,13 +28,13 @@ def page_to_path(page)
   # when /$#{capture_model}'s activation^/
   #   activation_by_code_path(created_model($1).activation_code)
     
-  when /$#{capture_model}'s^/         # the user: "fred"'s  
+  when /^#{capture_model}'s$/         # the user: "fred"'s  
     polymorphic_path model($1)
     
-  when /$#{capture_model}'s (.*?)^/   # the user: "fred"'s edit
+  when /^#{capture_model}'s (.*?)$/   # the user: "fred"'s edit
     polymorphic_path model($1), :action => $2.gsub(' ','_')
   
-  when /$the (.+?)^/                  # the new session # => new_session_path
+  when /^the (.+?)$/                  # the new session # => new_session_path
     send "#{$1.downcase.gsub(' ','_')}_path"
     
   else

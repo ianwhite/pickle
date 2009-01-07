@@ -1,3 +1,10 @@
+# Routes
+ActionController::Routing::Routes.draw do |map|
+  map.resources :spoons, :controller => 'default' do |spoon|
+    spoon.resources :tines, :controller => 'default'
+  end
+end
+
 # Migrations
 ActiveRecord::Migration.suppress_messages do
   ActiveRecord::Schema.define(:version => 0) do
@@ -49,4 +56,24 @@ end
 # No factory or blueprint for this
 class User < ActiveRecord::Base
   validates_presence_of :name
+end
+
+
+# controllers
+class DefaultController < ActionController::Base
+  def index
+    render :text => "index: I was invoked with #{request.path}"
+  end
+  
+  def show
+    render :text => "show: I was invoked with #{request.path}"
+  end
+  
+  def new
+    render :text => "new: I was invoked with #{request.path}"
+  end
+  
+  def edit
+    render :text => "edit: I was invoked with #{request.path}"
+  end
 end
