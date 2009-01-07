@@ -1,9 +1,9 @@
-Given(/^cucumber has not been generated$/) do
+Given(/^features does not exist$/) do
   `rm -rf #{Rails.root}/features`
 end
 
-Given(/^cucumber has been generated$/) do
-  Given "cucumber has not been generated"
+Given(/^cucumber has been freshly generated$/) do
+  Given "features does not exist"
   `cd #{Rails.root}; script/generate cucumber -f`
 end
 
