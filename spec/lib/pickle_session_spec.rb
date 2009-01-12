@@ -1,26 +1,35 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
 describe Pickle::Session do
-  before do
-    @session = Pickle::Session.new
-  end
+  include Pickle::Session
 
+  describe "missing methods" do
+    it "should forward to pickle_parser it responds_to them" do
+      pickle_parser.should_receive(:parse_model)
+      parse_model
+    end
+    
+    it "should raise error if pickle_parser don't know about em" do
+      lambda { parse_infinity }.should raise_error
+    end
+  end
+  
   describe "after storing a single user", :shared => true do
     it "created_models('user') should be array containing the original user" do
-      @session.created_models('user').should == [@user]
+      created_models('user').should == [@user]
     end
 
     describe "the original user should be retrievable with" do
       it "created_model('the user')" do
-        @session.created_model('the user').should == @user
+        created_model('the user').should == @user
       end
 
       it "created_model('1st user')" do
-        @session.created_model('1st user').should == @user
+        created_model('1st user').should == @user
       end
 
       it "created_model('last user')" do
-        @session.created_model('last user').should == @user
+        created_model('last user').should == @user
       end
     end
 
@@ -31,20 +40,20 @@ describe Pickle::Session do
       end
     
       it "models('user') should be array containing user" do
-        @session.models('user').should == [@user_from_db]
+        models('user').should == [@user_from_db]
       end
   
       describe "user should be retrievable with" do
         it "model('the user')" do
-          @session.model('the user').should == @user_from_db
+          model('the user').should == @user_from_db
         end
 
         it "model('1st user')" do
-          @session.model('1st user').should == @user_from_db
+          model('1st user').should == @user_from_db
         end
 
         it "model('last user')" do
-          @session.model('last user').should == @user_from_db
+          model('last user').should == @user_from_db
         end
       end
     end
@@ -58,7 +67,7 @@ describe Pickle::Session do
     
     describe "('a user')" do
       def do_create_model
-        @session.create_model('a user')
+        create_model('a user')
       end
   
       it "should call Factory.create('user', {})" do
@@ -75,7 +84,7 @@ describe Pickle::Session do
     
     describe "('1 user', 'foo: \"bar\", baz: \"bing bong\"')" do
       def do_create_model
-        @session.create_model('1 user', 'foo: "bar", baz: "bing bong"')
+        create_model('1 user', 'foo: "bar", baz: "bing bong"')
       end
   
       it "should call Factory.create('user', {'foo' => 'bar', 'baz' => 'bing bong'})" do
@@ -92,7 +101,7 @@ describe Pickle::Session do
 
     describe "('an user: \"fred\")" do
       def do_create_model
-        @session.create_model('an user: "fred"')
+        create_model('an user: "fred"')
       end
   
       it "should call Factory.create('user', {})" do
@@ -106,15 +115,15 @@ describe Pickle::Session do
         it_should_behave_like "after storing a single user"
               
         it "created_model('the user: \"fred\"') should retrieve the user" do
-          @session.created_model('the user: "fred"').should == @user
+          created_model('the user: "fred"').should == @user
         end
       
         it "created_model?('the user: \"shirl\"') should be false" do
-          @session.created_model?('the user: "shirl"').should == false
+          created_model?('the user: "shirl"').should == false
         end
         
         it "model?('the user: \"shirl\"') should be false" do
-          @session.model?('the user: "shirl"').should == false
+          model?('the user: "shirl"').should == false
         end
       end
     end  
@@ -127,7 +136,7 @@ describe Pickle::Session do
     end
     
     def do_find_model
-      @session.find_model('a user', 'hair: "pink"')
+      find_model('a user', 'hair: "pink"')
     end
     
     it "should call User.find :first, :conditions => {'hair' => 'pink'}" do
@@ -149,7 +158,7 @@ describe Pickle::Session do
     end
 
     def do_find_models
-      @session.find_models('user', 'hair: "pink"')
+      find_models('user', 'hair: "pink"')
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
@@ -173,9 +182,9 @@ describe Pickle::Session do
     end
     
     def do_create_users
-      @session.create_model('a super admin: "fred"')
-      @session.create_model('a user: "shirl"')
-      @session.create_model('1 super_admin')
+      create_model('a super admin: "fred"')
+      create_model('a user: "shirl"')
+      create_model('1 super_admin')
     end
     
     it "should call Factory.create with <'super_admin'>, <'user'>, <'super_admin'>" do
@@ -190,44 +199,44 @@ describe Pickle::Session do
       end
       
       it "created_models('user') should == [@fred, @shirl, @noname]" do
-        @session.created_models('user').should == [@fred, @shirl, @noname]
+        created_models('user').should == [@fred, @shirl, @noname]
       end
       
       it "created_models('super_admin') should == [@fred, @noname]" do
-        @session.created_models('super_admin').should == [@fred, @noname]
+        created_models('super_admin').should == [@fred, @noname]
       end
       
       describe "#created_model" do
         it "'that user' should be @noname (the last user created - as super_admins are users)" do
-          @session.created_model('that user').should == @noname
+          created_model('that user').should == @noname
         end
 
         it "'the super admin' should be @noname (the last super admin created)" do
-          @session.created_model('that super admin').should == @noname
+          created_model('that super admin').should == @noname
         end
         
         it "'the 1st super admin' should be @fred" do
-          @session.created_model('the 1st super admin').should == @fred
+          created_model('the 1st super admin').should == @fred
         end
         
         it "'the first user' should be @fred" do
-          @session.created_model('the first user').should == @fred
+          created_model('the first user').should == @fred
         end
         
         it "'the 2nd user' should be @shirl" do
-          @session.created_model('the 2nd user').should == @shirl
+          created_model('the 2nd user').should == @shirl
         end
         
         it "'the last user' should be @noname" do
-          @session.created_model('the last user').should == @noname
+          created_model('the last user').should == @noname
         end
         
         it "'the user: \"fred\" should be @fred" do
-          @session.created_model('the user: "fred"').should == @fred
+          created_model('the user: "fred"').should == @fred
         end
         
         it "'the user: \"shirl\" should be @shirl" do
-          @session.created_model('the user: "shirl"').should == @shirl
+          created_model('the user: "shirl"').should == @shirl
         end
       end
     end
@@ -238,37 +247,36 @@ describe Pickle::Session do
       @user = mock_model(User)
       User.stub!(:find).and_return(@user)
       Factory.stub!(:create).and_return(@user)
-      parser = Pickle::Parser.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
-      @session = Pickle::Session.new(:parser => parser)
-      @session.create_model('the user: "me"')
+      self.pickle_parser = Pickle::Parser.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
+      create_model('the user: "me"')
     end
   
     it 'model("I") should return the user' do
-      @session.model('I').should == @user
+      model('I').should == @user
     end
 
     it 'model("myself") should return the user' do
-      @session.model('myself').should == @user
+      model('myself').should == @user
     end
     
     it "#parser.parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
-      lambda { @session.send(:parser).parse_fields('author: user "JIM"') }.should raise_error
+      lambda { pickle_parser.parse_fields('author: user "JIM"') }.should raise_error
     end
     
     it "#parser.parse_fields 'author: the user' should return {\"author\" => <user>}" do
-      @session.send(:parser).parse_fields('author: the user').should == {"author" => @user}
+      pickle_parser.parse_fields('author: the user').should == {"author" => @user}
     end
 
     it "#parser.parse_fields 'author: myself' should return {\"author\" => <user>}" do
-      @session.send(:parser).parse_fields('author: myself').should == {"author" => @user}
+      pickle_parser.parse_fields('author: myself').should == {"author" => @user}
     end
     
     it "#parser.parse_fields 'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
-      @session.send(:parser).parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
+      pickle_parser.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
     end
     
     it "#parser.parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
-      @session.send(:parser).parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
+      pickle_parser.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
     end
   end
   
@@ -283,7 +291,7 @@ describe Pickle::Session do
       end
       
       it "should return {'user_id' => <the user.id>}" do
-        @session.send(:convert_models_to_attributes, @ar_class, :user => @user).should == {'user_id' => @user.id}
+        convert_models_to_attributes(@ar_class, :user => @user).should == {'user_id' => @user.id}
       end
     end
     
@@ -293,7 +301,7 @@ describe Pickle::Session do
       end
       
       it "should return {'user_id' => <the user.id>, 'user_type' => <the user.type>}" do
-        @session.send(:convert_models_to_attributes, @ar_class, :user => @user).should == {'user_id' => @user.id, 'user_type' => @user.class.name}
+        convert_models_to_attributes(@ar_class, :user => @user).should == {'user_id' => @user.id, 'user_type' => @user.class.name}
       end
     end
   end

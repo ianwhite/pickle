@@ -6,10 +6,12 @@
       When I go to the comment's page
       Then I should be at the user's new comment page
 
-* 3 minor enhancements
+* 4 minor enhancements
   * Improved documentation
-  * absract models no longer kill pickle
+  * abstract models no longer kill pickle
   * Actually test that the generators work
+  * Made Pickle::Session a plain ole mixin, as a separate class was unnecessary
+
 
 == 0.1.5
 

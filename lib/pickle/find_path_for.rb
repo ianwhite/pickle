@@ -1,5 +1,5 @@
 module Pickle
-  module Page
+  module FindPathFor
     # given args of pickle model name, and an optional extra action, or segment, will attempt to find
     # a matching named route
     #

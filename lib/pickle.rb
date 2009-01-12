@@ -5,8 +5,6 @@ require 'pickle/config'
 require 'pickle/parser'
 require 'pickle/parser/with_session'
 require 'pickle/session'
-require 'pickle/injector'
-require 'pickle/page'
 
 # make the parser aware of models in the session (for fields refering to models)
 Pickle::Parser.send :include, Pickle::Parser::WithSession
@@ -27,13 +25,14 @@ module Pickle
   end
 end
 
-# shortcuts to regexps for use in step definition regexps, *and* in steps
-delegations = %w(capture_model capture_fields capture_factory capture_plural_factory capture_predicate)
-(class << self; self; end).delegate *(delegations + [{:to => 'Pickle.parser'}])
-Pickle::Session.delegate *(delegations + [{:to => :parser}])
+if defined? ActionController::Integration::Session
+  class ActionController::Integration::Session
+    include Pickle::Session
+    include Pickle::FindPathFor
+  end
+end
 
-# inject the pickle session into integration session if we have one (TODO: inject into merb etc?)
-if defined?(ActionController::Integration::Session)
-  Pickle::Injector.inject Pickle::Session, :into => ActionController::Integration::Session
-  ActionController::Integration::Session.send :include, Pickle::Page
+# shortcuts to regexps for use in step definition regexps
+class << self
+  delegate :capture_model, :capture_fields, :capture_factory, :capture_plural_factory, :capture_predicate, :to => 'Pickle.parser'
 end
