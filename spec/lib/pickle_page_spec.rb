@@ -47,17 +47,6 @@ describe Pickle::Page do
       lambda { find_path_for('a user', :action => 'new', :segment => 'comment') }.should raise_error(Exception, /Could not figure out a path for/)
     end
     
-    describe "('a user', :extra => 'new ish comment')" do
-      it "should call #find_path_for with (<user>, 'new ish comment', nil), (<user>, nil, 'new ish comment'), (<user>, 'new, 'ish_comment'), (<user>, 'new_ish', 'comment') (in order, if they all return nil) and then raise informative error message" do
-        stub!(:model).and_return(user = mock_model(User))
-        should_receive(:find_path_for_models_action_segment).with([user], 'new', 'ish_comment').once.ordered
-        should_receive(:find_path_for_models_action_segment).with([user], 'new_ish', 'comment').once.ordered
-        should_receive(:find_path_for_models_action_segment).with([user], nil, 'new ish comment').once.ordered
-        should_receive(:find_path_for_models_action_segment).with([user], 'new ish comment', nil).once.ordered
-        lambda { find_path_for('a user', :extra => 'new ish comment') }.should raise_error(Exception, /Could not figure out a path for/)
-      end
-    end
-    
     it "('a user', :extra => 'new comment') should return new_user_comment_path(<user>)" do
       stub!(:model).and_return(user = mock_model(User))
       should_receive(:new_user_comment_path).with(user).and_return('the path')
@@ -68,6 +57,17 @@ describe Pickle::Page do
       stub!(:model).and_return(user = mock_model(User))
       should_receive(:new_user_comment_path).with(user).and_raise(NoMethodError)
       lambda { find_path_for('a user', :extra => 'new comment') }.should raise_error(Exception, /Could not figure out a path for/)
+    end
+    
+    describe "(private API)" do
+      it "should try combinations of (<action>, <segment>)" do
+        stub!(:model).and_return(user = mock_model(User))
+        should_receive(:path_for_models_action_segment).with([user], '', 'new_ish_comment').once
+        should_receive(:path_for_models_action_segment).with([user], 'new', 'ish_comment').once
+        should_receive(:path_for_models_action_segment).with([user], 'new_ish', 'comment').once
+        should_receive(:path_for_models_action_segment).with([user], 'new_ish_comment', '').once
+        lambda { find_path_for('a user', :extra => 'new ish comment') }.should raise_error(Exception, /Could not figure out a path for/)
+      end
     end
   end
 end

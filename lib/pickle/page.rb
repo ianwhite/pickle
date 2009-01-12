@@ -15,22 +15,29 @@ module Pickle
       options = pickle_names.extract_options!
       models = pickle_names.map{|m| model(m)}
       if options[:extra]
-        path, extra = nil, options[:extra].underscore.gsub(' ','_').split("_")
-        (1..extra.length-1).each do |idx|
-          break if (path = find_path_for_models_action_segment(models, extra[0..idx-1].join("_"), extra[idx..-1].join("_")))
-        end
-        path || find_path_for_models_action_segment(models, nil, options[:extra]) || find_path_for_models_action_segment(models, options[:extra], nil)
+        parts = options[:extra].underscore.gsub(' ','_').split("_")
+        find_path_using_action_segment_combinations(models, parts)
       else
-        find_path_for_models_action_segment(models, options[:action], options[:segment])
+        path_for_models_action_segment(models, options[:action], options[:segment])
       end or raise "Could not figure out a path for #{pickle_names.inspect} #{options.inspect}"
     end
     
   protected
-    def find_path_for_models_action_segment(models, action, segment)
-      action.nil? || action = action.underscore.gsub(' ','_')
-      segment.nil? || segment = segment.underscore.gsub(' ','_')
+    def find_path_using_action_segment_combinations(models, parts)
+      path = nil
+      (0..parts.length).each do |idx|
+        action  = parts.slice(0, idx).join('_')
+        segment = parts.slice(idx, parts.length).join('_')
+        path = path_for_models_action_segment(models, action, segment) and break
+      end
+      path
+    end
+    
+    def path_for_models_action_segment(models, action, segment)
+      action.blank? or action = action.downcase.gsub(' ','_')
+      segment.blank? or segment = segment.downcase.gsub(' ','_')
       model_names = models.map{|m| m.class.name.underscore}.join("_")
-      parts = [action, model_names, segment].compact
+      parts = [action, model_names, segment].reject(&:blank?)
       send("#{parts.join('_')}_path", *models) rescue nil
     end
   end
