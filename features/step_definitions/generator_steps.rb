@@ -7,12 +7,7 @@ After do
   `mv #{Rails.root}/features.orig/ #{Rails.root}/features/`
 end
 
-Given(/^features does not exist$/) do
-  `rm -rf #{Rails.root}/features`  
-end
-
 Given(/^cucumber has been freshly generated$/) do
-  Given "features does not exist"
   `cd #{Rails.root}; script/generate cucumber -f`
 end
 

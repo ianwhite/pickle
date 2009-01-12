@@ -4,7 +4,6 @@ Feature: allow pickle to generate steps
   I want to be able to generate steps
 
   Scenario: cucumber is not yet installed
-    Given features does not exist
     When I run "script/generate pickle"
     Then I should see "try running script/generate cucumber"
     
