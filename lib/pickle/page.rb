@@ -1,21 +1,37 @@
 module Pickle
   module Page
-    # given a array of models, and an optional segment, will attempt to find a matching named route
-    def find_path_for(models, segment = nil)
-      model_names = models.map{|m| m.class.name.underscore}.join("_")
-      unless segment
-        return send("#{model_names}_path", *models)
-      else
-        segment = segment.underscore.gsub(' ','_')
-        path = (send("#{model_names}_#{segment}_path", *models) rescue nil) and return path
-        path = (send("#{segment}_#{model_names}_path", *models) rescue nil) and return path
-        # try splitting up the segment
-        if (segments = segment.split('_')).length > 1
-          action, segment = segments[0], segments[1..-1].join('_')
-          path = (send("#{action}_#{model_names}_#{segment}_path", *models) rescue nil) and return path
+    # given args of pickle model name, and an optional extra action, or segment, will attempt to find
+    # a matching named route
+    #
+    #   find_path_for 'the user', :action => 'edit'       # => /users/3/edit
+    #   find_path_for 'the user', 'the comment'           # => /users/3/comments/1
+    #   find_path_for 'the user', :segment => 'comments'  # => /users/3/comments
+    #
+    # If you don;t know if the 'extra' part of the path is an action or a segment, then just
+    # pass it as 'extra' and this method will run through the possibilities
+    #
+    #   find_path_for 'the user', :extra => 'new comment' # => /users/3/comments/new
+    def find_path_for(*pickle_names)
+      options = pickle_names.extract_options!
+      models = pickle_names.map{|m| model(m)}
+      if options[:extra]
+        path, extra = nil, options[:extra].underscore.gsub(' ','_').split("_")
+        (1..extra.length-1).each do |idx|
+          break if (path = find_path_for_models_action_segment(models, extra[0..idx-1].join("_"), extra[idx..-1].join("_")))
         end
-      end
-      raise "Could not figure out a path for '#{model_names}' and '#{segment}'"
+        path || find_path_for_models_action_segment(models, nil, options[:extra]) || find_path_for_models_action_segment(models, options[:extra], nil)
+      else
+        find_path_for_models_action_segment(models, options[:action], options[:segment])
+      end or raise "Could not figure out a path for #{pickle_names.inspect} #{options.inspect}"
+    end
+    
+  protected
+    def find_path_for_models_action_segment(models, action, segment)
+      action.nil? || action = action.underscore.gsub(' ','_')
+      segment.nil? || segment = segment.underscore.gsub(' ','_')
+      model_names = models.map{|m| m.class.name.underscore}.join("_")
+      parts = [action, model_names, segment].compact
+      send("#{parts.join('_')}_path", *models) rescue nil
     end
   end
 end

@@ -28,17 +28,17 @@ def page_to_path(page)
   # when /$#{capture_model}'s activation^/
   #   activation_by_code_path(created_model($1).activation_code)
     
-  when /^#{capture_model}'s$/                           # the user: "fred"'s  
-    find_path_for [model($1)]
+  when /^#{capture_model}'s$/                           # the forum's
+    find_path_for $1
     
-  when /^#{capture_model}'s #{capture_model}'s$/        # the user's post's
-    find_path_for [model($1), model($2)]
+  when /^#{capture_model}'s #{capture_model}'s$/        # the forum's post's
+    find_path_for $1, $2
 
-  when /^#{capture_model}'s #{capture_model}'s (.+?)$/  # the user's post's comments
-    find_path_for [model($1), model($2)], $3
+  when /^#{capture_model}'s #{capture_model}'s (.+?)$/  # the forum's post's comments
+    find_path_for $1, $2, :extra => $3
 
   when /^#{capture_model}'s (.+?)$/                     # the post's comments
-    find_path_for [model($1)], $2
+    find_path_for $1, :extra => $2
 
   when /^the (.+?)$/            # the new session # => new_session_path
     send "#{$1.downcase.gsub(' ','_')}_path"
