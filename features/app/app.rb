@@ -2,7 +2,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :spoons, :controller => 'default'
   map.resources :forks, :controller => 'default' do |fork|
-    fork.resources :tines, :controller => 'default'
+    fork.resources :tines, :controller => 'default' do |tine|
+      tine.resources :comments, :controller => 'default'
+    end
   end
 end
 
