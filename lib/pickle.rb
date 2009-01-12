@@ -6,6 +6,7 @@ require 'pickle/parser'
 require 'pickle/parser/with_session'
 require 'pickle/session'
 require 'pickle/injector'
+require 'pickle/page'
 
 # make the parser aware of models in the session (for fields refering to models)
 Pickle::Parser.send :include, Pickle::Parser::WithSession
@@ -34,4 +35,5 @@ Pickle::Session.delegate *(delegations + [{:to => :parser}])
 # inject the pickle session into integration session if we have one (TODO: inject into merb etc?)
 if defined?(ActionController::Integration::Session)
   Pickle::Injector.inject Pickle::Session, :into => ActionController::Integration::Session
+  ActionController::Integration::Session.send :include, Pickle::Page
 end
