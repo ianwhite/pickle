@@ -24,9 +24,11 @@ Install pickle either as a rails plugin, or a gem
 
 (you'd better install cucumber)
 
-  script/generate pickle
+  script/generate pickle [page] [email]
 
 Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
+
+If you want page steps and email steps then just add 'page' and/or 'email'
 
 === Using with plain ole Active Record
 

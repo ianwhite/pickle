@@ -27,9 +27,9 @@ module Pickle
 end
 
 # shortcuts to regexps for use in step definition regexps, *and* in steps
-parser_delegations = %w(capture_model capture_fields capture_factory capture_plural_factory capture_predicate)
-(class << self; self; end).delegate *(parser_delegations + [{:to => 'Pickle.parser'}])
-Pickle::Session.delegate *(parser_delegations + [{:to => 'parser'}])
+delegations = %w(capture_model capture_fields capture_factory capture_plural_factory capture_predicate)
+(class << self; self; end).delegate *(delegations + [{:to => 'Pickle.parser'}])
+Pickle::Session.delegate *(delegations + [{:to => :parser}])
 
 # inject the pickle session into integration session if we have one (TODO: inject into merb etc?)
 if defined?(ActionController::Integration::Session)

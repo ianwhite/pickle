@@ -1,8 +1,15 @@
 == edge
 
-* 1 minor enhancement
-  * Improved documentation
+* 1 major enhancement
+  * generate page steps with script/generate pickle page
+    page steps allow you to do things like this
+      When I go to the comment's page
+      Then I should be at the user's new comment page
 
+* 3 minor enhancements
+  * Improved documentation
+  * absract models no longer kill pickle
+  * Actually test that the generators work
 
 == 0.1.5
 
