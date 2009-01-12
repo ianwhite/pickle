@@ -23,8 +23,8 @@ module Pickle
     self.model_classes = nil
     
     def self.model_classes
-      @@model_classes ||= returning(::ActiveRecord::Base.send(:subclasses)) do |classes|
-        defined?(CGI::Session::ActiveRecordStore::Session) && classes.delete(CGI::Session::ActiveRecordStore::Session)
+      @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).reject do |klass|
+        klass.abstract_class? || [CGI::Session::ActiveRecordStore::Session].include?(klass)
       end
     end
   

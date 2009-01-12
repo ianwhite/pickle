@@ -1,7 +1,8 @@
 # Routes
 ActionController::Routing::Routes.draw do |map|
-  map.resources :spoons, :controller => 'default' do |spoon|
-    spoon.resources :tines, :controller => 'default'
+  map.resources :spoons, :controller => 'default'
+  map.resources :forks, :controller => 'default' do |fork|
+    fork.resources :tines, :controller => 'default'
   end
 end
 
@@ -53,8 +54,13 @@ class Spoon < ActiveRecord::Base
   validates_presence_of :name
 end
 
+# we don;t want abstract classes getting in there
+class AbstractUser < ActiveRecord::Base
+  self.abstract_class = true
+end
+
 # No factory or blueprint for this
-class User < ActiveRecord::Base
+class User < AbstractUser
   validates_presence_of :name
 end
 
