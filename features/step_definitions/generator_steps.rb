@@ -1,5 +1,14 @@
-Given(/^features does not exist$/) do
+Before do
+  `mv #{Rails.root}/features/ #{Rails.root}/features.orig/`
+end
+
+After do
   `rm -rf #{Rails.root}/features`
+  `mv #{Rails.root}/features.orig/ #{Rails.root}/features/`
+end
+
+Given(/^features does not exist$/) do
+  `rm -rf #{Rails.root}/features`  
 end
 
 Given(/^cucumber has been freshly generated$/) do
@@ -32,5 +41,3 @@ end
 Then(/^the file (.+?) should not contain "(.*?)"$/) do |file, text|
   File.read("#{Rails.root}/#{file}").should_not include(text)
 end
-
-
