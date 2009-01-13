@@ -25,7 +25,22 @@ Feature: allow pickle to generate steps
     When I run "script/generate pickle page"
     Then the file features/step_definitions/page_steps.rb should exist
     And the file features/step_definitions/pickle_steps.rb should exist
-    
-    
+
+  Scenario: script/generate pickle email
+    Given cucumber has been freshly generated
+    When I run "script/generate pickle email"
+    Then the file features/step_definitions/email_steps.rb should exist
+    And the file features/step_definitions/pickle_steps.rb should exist
   
+  Scenario: script/generate pickle page email
+    Given cucumber has been freshly generated
+    When I run "script/generate pickle page email"
+    Then the file features/step_definitions/email_steps.rb should exist
+    And the file features/step_definitions/page_steps.rb should exist
+    And the file features/step_definitions/pickle_steps.rb should exist
+
+
+
+
+
   

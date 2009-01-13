@@ -1,10 +1,11 @@
 == edge
 
 * 1 major enhancement
-  * generate page steps with script/generate pickle page
+  * generate page steps with `script/generate pickle page`
     page steps allow you to do things like this
       When I go to the comment's page
       Then I should be at the user's new comment page
+    take a look at features/step_definitions/page_steps.rb, and modify page_to_path to suit your needs
 
 * 4 minor enhancements
   * Improved documentation

@@ -2,6 +2,7 @@ class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
     @generate_page_steps = args.include?('page')
+    @generate_email_steps = args.include?('email')
     File.exists?('features/support/env.rb') or raise "features/support/env.rb not found, try running script/generate cucumber"
   end
   
@@ -18,6 +19,7 @@ class PickleGenerator < Rails::Generator::Base
       
       m.template 'pickle_steps.rb', File.join('features/step_definitions', "pickle_steps.rb")
       m.template 'page_steps.rb', File.join('features/step_definitions', "page_steps.rb") if @generate_page_steps
+      m.template 'email_steps.rb', File.join('features/step_definitions', "email_steps.rb") if @generate_email_steps
     end
   end
 end
