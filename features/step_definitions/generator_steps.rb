@@ -11,9 +11,9 @@ Given(/^cucumber has been freshly generated$/) do
   `cd #{Rails.root}; script/generate cucumber -f`
 end
 
-Given /^env\.rb already requires pickle$/ do
+Given(/^env\.rb already requires (\w+)$/) do |file|
   File.open("#{Rails.root}/features/support/env.rb", "a") do |env|
-    env << "require 'pickle'\n"
+    env << "require '#{file}'\n"
   end
 end
 
@@ -29,10 +29,10 @@ Then(/^the file (.+?) should exist$/) do |file|
   File.exist?("#{Rails.root}/#{file}").should == true
 end
 
-Then(/^the file (.+?) should contain "(.*?)"$/) do |file, text|
-  File.read("#{Rails.root}/#{file}").should include(text)
+Then(/^the file (.+?) should match \/(.*?)\/$/) do |file, regexp|
+  File.read("#{Rails.root}/#{file}").should match(/#{regexp}/m)
 end
 
-Then(/^the file (.+?) should not contain "(.*?)"$/) do |file, text|
-  File.read("#{Rails.root}/#{file}").should_not include(text)
+Then(/^the file (.+?) should not match \/(.*?)\/$/) do |file, regexp|
+  File.read("#{Rails.root}/#{file}").should_not match(/#{regexp}/m)
 end

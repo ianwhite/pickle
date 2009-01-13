@@ -3,11 +3,11 @@ require 'pickle/version'
 require 'pickle/adapter'
 require 'pickle/config'
 require 'pickle/parser'
-require 'pickle/parser/with_session'
 require 'pickle/session'
+require 'pickle/session/parser'
 
 # make the parser aware of models in the session (for fields refering to models)
-Pickle::Parser.send :include, Pickle::Parser::WithSession
+Pickle::Parser.send :include, Pickle::Session::Parser
 
 module Pickle
   class << self
@@ -26,10 +26,7 @@ module Pickle
 end
 
 if defined? ActionController::Integration::Session
-  class ActionController::Integration::Session
-    include Pickle::Session
-    include Pickle::FindPathFor
-  end
+  ActionController::Integration::Session.send :include, Pickle::Session
 end
 
 # shortcuts to regexps for use in step definition regexps

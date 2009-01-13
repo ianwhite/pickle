@@ -9,6 +9,8 @@ require 'cucumber/rails/rspec'
 
 # Pickle
 require 'pickle'
+require 'pickle_page'
+require 'pickle_email'
 
 Pickle.configure do |c|
   c.map 'I', :to => 'user: "me"'

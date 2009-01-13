@@ -1,1 +1,0 @@
-../../rails_generators/pickle/templates/page_steps.rb

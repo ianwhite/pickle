@@ -1,1 +1,0 @@
-../../rails_generators/pickle/templates/email_steps.rb

@@ -1,7 +1,7 @@
 module Pickle
-  class Parser
+  module Session
     # add ability to parse model names as fields, using a session
-    module WithSession
+    module Parser
       def self.included(parser_class)
         parser_class.alias_method_chain :parse_field, :model
       end
