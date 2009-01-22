@@ -1,17 +1,17 @@
 module Pickle
   module Session
     class << self
-      def included(world)
-        proxy_to_pickle_parser(world)
+      def included(world_class)
+        proxy_to_pickle_parser(world_class)
       end
       
-      def extended(world)
-        proxy_to_pickle_parser(world)
+      def extended(world_object)
+        proxy_to_pickle_parser(class << world_object; self; end) # metaclass is not 2.1 compatible
       end
       
     protected
-      def proxy_to_pickle_parser(world)
-        world.class_eval do
+      def proxy_to_pickle_parser(world_class)
+        world_class.class_eval do
           alias_method_chain :method_missing, :pickle_parser
           alias_method_chain :respond_to?, :pickle_parser
         end
