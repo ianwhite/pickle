@@ -24,12 +24,3 @@ module Pickle
     end
   end
 end
-
-if defined? ActionController::Integration::Session
-  ActionController::Integration::Session.send :include, Pickle::Session
-end
-
-# shortcuts to regexps for use in step definition regexps
-class << self
-  delegate :capture_model, :capture_fields, :capture_factory, :capture_plural_factory, :capture_predicate, :to => 'Pickle.parser'
-end

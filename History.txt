@@ -1,5 +1,9 @@
 == edge
 
+* 1 API change
+  * to use pickle env.rb shoudl contain "require 'pickle/world'".  You should remove all trace of
+    pickle from features/support/env.rb and re run script/generate pickle
+
 * 1 major enhancement
   * generate page steps with `script/generate pickle page`
     page steps allow you to do things like this

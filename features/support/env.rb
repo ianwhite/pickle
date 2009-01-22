@@ -8,9 +8,9 @@ Cucumber::Rails.use_transactional_fixtures
 require 'cucumber/rails/rspec'
 
 # Pickle
-require 'pickle'
-require 'pickle_page'
-require 'pickle_email'
+require 'pickle/world'
+require 'pickle/page/world'
+require 'pickle/email/world'
 
 Pickle.configure do |c|
   c.map 'I', :to => 'user: "me"'

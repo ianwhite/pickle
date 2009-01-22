@@ -11,13 +11,13 @@ Feature: allow pickle to generate steps
     Given cucumber has been freshly generated
     When I run "script/generate pickle"
     Then the file features/step_definitions/pickle_steps.rb should exist
-    And the file features/support/env.rb should match /require 'pickle'/
+    And the file features/support/env.rb should match /require 'pickle\/world'/
     
   More Examples:
     | WHEN I RUN                  | THE FILE SHOULD EXIST                           | AND THE FILE            | SHOULD MATCH                  |
     | script/generate pickle      | features/step_definitions/pickle_steps.rb       | features/support/env.rb | Example of configuring pickle:|
-    | script/generate pickle page | features/step_definitions/pickle_page_steps.rb  | features/support/env.rb | require 'pickle_page'         |
-    | script/generate pickle email| features/step_definitions/pickle_email_steps.rb | features/support/env.rb | require 'pickle_email'        |
+    | script/generate pickle page | features/step_definitions/pickle_page_steps.rb  | features/support/env.rb | require 'pickle\/page\/world'   |
+    | script/generate pickle email| features/step_definitions/pickle_email_steps.rb | features/support/env.rb | require 'pickle\/email\/world'  |
     
   Scenario: script/generate pickle, when env.rb has already requires pickle
     Given cucumber has been freshly generated
@@ -26,10 +26,10 @@ Feature: allow pickle to generate steps
     Then the file features/support/env.rb should not match /Example of configuring pickle:/
   
   More Examples:
-    | ENV.RB REQUIRES | WHEN I RUN                    | THE FILE                | SHOULD NOT MATCH                              |
-    | pickle          | script/generate pickle        | features/support/env.rb | require 'pickle'.*require 'pickle'            |
-    | pickle_page     | script/generate pickle page   | features/support/env.rb | require 'pickle_path'.*require 'pickle_path'  |
-    | pickle_email    | script/generate pickle email  | features/support/env.rb | require 'pickle_email'.*require 'pickle_email'|
+    | ENV.RB REQUIRES | WHEN I RUN                    | THE FILE                | SHOULD NOT MATCH                                      |
+    | pickle          | script/generate pickle        | features/support/env.rb | require 'pickle'.*require 'pickle\/world'             |
+    | pickle_page     | script/generate pickle page   | features/support/env.rb | require 'pickle_path'.*require 'pickle\/page\/world'  |
+    | pickle_email    | script/generate pickle email  | features/support/env.rb | require 'pickle_email'.*require 'pickle\/email\/world'|
     
   Scenario: script/generate pickle page email
     Given cucumber has been freshly generated
@@ -37,9 +37,9 @@ Feature: allow pickle to generate steps
     Then the file features/step_definitions/pickle_email_steps.rb should exist
     And the file features/step_definitions/pickle_page_steps.rb should exist
     And the file features/step_definitions/pickle_steps.rb should exist
-    And the file features/support/env.rb should match /require 'pickle'/
-    And the file features/support/env.rb should match /require 'pickle_page'/
-    And the file features/support/env.rb should match /require 'pickle_email'/
+    And the file features/support/env.rb should match /require 'pickle\/world'/
+    And the file features/support/env.rb should match /require 'pickle\/page\/world'/
+    And the file features/support/env.rb should match /require 'pickle\/email\/world'/
 
 
 

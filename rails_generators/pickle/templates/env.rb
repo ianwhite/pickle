@@ -1,7 +1,7 @@
 <%= current_env %>
-<% if pickle %>require 'pickle'<% end %>
-<% if pickle_page %>require 'pickle_page'<% end %>
-<% if pickle_email %>require 'pickle_email'<% end %>
+<% if pickle %>require 'pickle/world'<% end %>
+<% if pickle_page %>require 'pickle/page/world'<% end %>
+<% if pickle_email %>require 'pickle/email/world'<% end %>
 <% if pickle %>
 # Example of configuring pickle:
 #
