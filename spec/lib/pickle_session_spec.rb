@@ -2,18 +2,35 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 
 describe Pickle::Session do
   include Pickle::Session
-
-  describe "missing methods" do
+  
+  describe "Pickle::Session proxy missing methods to parser", :shared => true do
     it "should forward to pickle_parser it responds_to them" do
-      pickle_parser.should_receive(:parse_model)
-      parse_model
+      @it.pickle_parser.should_receive(:parse_model)
+      @it.parse_model
     end
-    
+
     it "should raise error if pickle_parser don't know about em" do
-      lambda { parse_infinity }.should raise_error
+      lambda { @it.parse_infinity }.should raise_error
     end
   end
-  
+
+  describe "including Pickle::Session" do
+    before do 
+      @it = self
+    end
+    
+    it_should_behave_like "Pickle::Session proxy missing methods to parser"
+  end
+
+  describe "extending Pickle::Session" do
+    before do 
+      @it = Object.new
+      @it.extend Pickle::Session
+    end
+    
+    it_should_behave_like "Pickle::Session proxy missing methods to parser"
+  end
+
   describe "after storing a single user", :shared => true do
     it "created_models('user') should be array containing the original user" do
       created_models('user').should == [@user]
