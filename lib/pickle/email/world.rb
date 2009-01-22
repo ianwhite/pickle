@@ -7,9 +7,7 @@ Pickle::Parser.send :include, Pickle::Email::Parser
 
 # make world pickle/email aware
 World do |world|
-  class << world
-    include Pickle::Email
-  end
+  world.extend Pickle::Email
   world
 end
 

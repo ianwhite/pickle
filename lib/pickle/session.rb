@@ -1,9 +1,20 @@
 module Pickle
   module Session
-    def self.included(session)
-      session.class_eval do
-        alias_method_chain :method_missing, :pickle_parser
-        alias_method_chain :respond_to?, :pickle_parser
+    class << self
+      def included(world)
+        proxy_to_pickle_parser(world)
+      end
+      
+      def extended(world)
+        proxy_to_pickle_parser(world)
+      end
+      
+    protected
+      def proxy_to_pickle_parser(world)
+        world.class_eval do
+          alias_method_chain :method_missing, :pickle_parser
+          alias_method_chain :respond_to?, :pickle_parser
+        end
       end
     end
     

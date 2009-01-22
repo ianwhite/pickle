@@ -3,8 +3,6 @@ require 'pickle/path'
 
 # make world pickle/path aware
 World do |world|
-  class << world
-    include Pickle::Path
-  end
+  world.extend Pickle::Path
   world
 end

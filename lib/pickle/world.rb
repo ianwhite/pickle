@@ -2,9 +2,7 @@ require 'pickle'
 
 # make cucumber world pickle aware
 World do |world|
-  class << world
-    include Pickle::Session
-  end
+  world.extend Pickle::Session
   world
 end
 
