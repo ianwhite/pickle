@@ -1,0 +1,1 @@
+../../rails_generators/pickle/templates/pickle_path_steps.rb
