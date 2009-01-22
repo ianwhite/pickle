@@ -9,7 +9,7 @@ require 'cucumber/rails/rspec'
 
 # Pickle
 require 'pickle/world'
-require 'pickle/page/world'
+require 'pickle/path/world'
 require 'pickle/email/world'
 
 Pickle.configure do |c|

@@ -24,12 +24,12 @@ Install pickle either as a rails plugin, or a gem
 
 (you'd better install cucumber)
 
-  script/generate pickle [page] [email]
+  script/generate pickle [path] [email]
 
 Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
 
-If you want page steps and email steps then just add 'page' and/or 'email'.  The steps will be
-written to <tt>features/step_definitions/pickle_page_steps.rb</tt> and
+If you want path steps and email steps then just add 'path' and/or 'email'.  The steps will be
+written to <tt>features/step_definitions/pickle_path_steps.rb</tt> and
 <tt>features/step_definitions/pickle_email_steps.rb</tt> respectively.
 
 === Using with plain ole Active Record
@@ -64,7 +64,7 @@ You can tell pickle to use another factory adapter (see Pickle::Adapter), or
 create mappings from english expressions to pickle model names.  You can also
 override many of the options on the Pickle::Config object if you so choose 
 
-  require 'pickle'
+  require 'pickle/world'
 
   Pickle.configure do |config|
     config.adapters = [:machinist, YourOwnAdapterClass]

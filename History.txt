@@ -1,15 +1,15 @@
 == edge
 
 * 1 API change
-  * to use pickle env.rb shoudl contain "require 'pickle/world'".  You should remove all trace of
+  * to use pickle env.rb should contain "require 'pickle/world'".  You should remove all trace of
     pickle from features/support/env.rb and re run script/generate pickle
 
 * 1 major enhancement
-  * generate page steps with `script/generate pickle page`
-    page steps allow you to do things like this
+  * generate path steps with `script/generate pickle path`
+    path steps allow you to do things like this
       When I go to the comment's page
       Then I should be at the user's new comment page
-    take a look at features/step_definitions/pickle_page_steps.rb, and modify page_to_path to suit your needs
+    take a look at features/step_definitions/pickle_path_steps.rb, and modify page_to_path to suit your needs
 
 * 4 minor enhancements
   * Improved documentation

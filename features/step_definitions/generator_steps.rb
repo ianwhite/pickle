@@ -11,7 +11,7 @@ Given(/^cucumber has been freshly generated$/) do
   `cd #{Rails.root}; script/generate cucumber -f`
 end
 
-Given(/^env\.rb already requires (\w+)$/) do |file|
+Given(/^env\.rb already requires (.+)$/) do |file|
   File.open("#{Rails.root}/features/support/env.rb", "a") do |env|
     env << "require '#{file}'\n"
   end
