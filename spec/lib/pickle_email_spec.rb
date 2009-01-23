@@ -45,8 +45,37 @@ describe Pickle::Email do
         email('the 3rd email').should == nil
       end
     end
+    
+    describe "when email1 is to fred & joe, and email2 is to joe" do
+      before do
+        @email1.stub!(:to).and_return(['fred@gmail.com', 'joe@gmail.com'])
+        @email2.stub!(:to).and_return('joe@gmail.com')
+      end
+      
+      it "#emails('to: \"fred@gmail.com\"') should just return email1" do
+        emails('to: "fred@gmail.com"').should == [@email1]
+      end
+      
+      it "#emails('to: \"joe@gmail.com\"') should return both emails" do
+        emails('to: "joe@gmail.com"').should == [@email1, @email2]
+      end
+      
+      describe "and emails have subjects 'email1', 'email2'" do
+        before do
+          @email1.stub!(:subject).and_return('email1')
+          @email2.stub!(:subject).and_return('email2')
+        end
+        
+        it "#emails('to: \"joe@gmail.com\", subject: \"email1\"') should return email1" do
+          emails('to: "joe@gmail.com", subject: "email1"').should == [@email1]
+        end
+        
+        it "#emails('to: \"fred@gmail.com\", subject: \"email2\"') should return empty array" do
+          emails('to: "fred@gmail.com", subject: "email2"').should == []
+        end
+      end
+    end
   end
-  
   
   describe "#save_and_open_emails" do
     before do
