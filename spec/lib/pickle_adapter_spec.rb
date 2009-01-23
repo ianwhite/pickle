@@ -9,8 +9,16 @@ describe Pickle::Adapter do
     lambda{ Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
   end
   
-  it ".model_classes should not include CGI::Session::ActiveRecordStore" do
-    Pickle::Adapter.model_classes.should_not include(CGI::Session::ActiveRecordStore)
+  if defined?(CGI::Session::ActiveRecordStore::Session)
+    it ".model_classes should not include CGI::Session::ActiveRecordStore::Session" do
+      Pickle::Adapter.model_classes.should_not include(CGI::Session::ActiveRecordStore)
+    end
+  end
+  
+  if defined?(ActiveRecord::SessionStore::Session)
+    it ".model_classes should not include ActiveRecord::SessionStore::Session" do
+      Pickle::Adapter.model_classes.should_not include(ActiveRecord::SessionStore::Session)
+    end
   end
   
   describe '::ActiveRecord' do

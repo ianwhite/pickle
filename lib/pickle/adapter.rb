@@ -23,8 +23,11 @@ module Pickle
     self.model_classes = nil
     
     def self.model_classes
+      # remove abstract and framework classes
       @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).reject do |klass|
-        klass.abstract_class? || [CGI::Session::ActiveRecordStore::Session].include?(klass)
+        klass.abstract_class? ||
+         (defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session) ||
+         (defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session)
       end
     end
   
