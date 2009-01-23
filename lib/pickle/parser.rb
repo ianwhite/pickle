@@ -49,9 +49,9 @@ module Pickle
   
     def parse_index(index)
       case index
-      when '', /last/ then -1
+      when nil, '', 'last' then -1
       when /#{capture_number_in_ordinal}/ then $1.to_i - 1
-      when /first/ then 0
+      when 'first' then 0
       end
     end
 

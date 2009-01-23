@@ -12,8 +12,10 @@ module Pickle
     protected
       def proxy_to_pickle_parser(world_class)
         world_class.class_eval do
-          alias_method_chain :method_missing, :pickle_parser
-          alias_method_chain :respond_to?, :pickle_parser
+          unless methods.include?('method_missing_with_pickle_parser')
+            alias_method_chain :method_missing, :pickle_parser
+            alias_method_chain :respond_to?, :pickle_parser
+          end
         end
       end
     end

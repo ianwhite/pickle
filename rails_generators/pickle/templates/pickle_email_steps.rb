@@ -16,25 +16,29 @@ Given(/^(\d)+ emails? should be delivered$/) do |count|
 end
 
 Then(/^(\d)+ emails? should be delivered to (.*)$/) do |count, to|
-  to =~ /^#{capture_model}$/ and to = model($1).email
-  emails(:to => to).size.should == count.to_i
+  to =~ /^#{capture_model}$/ && to = model($1).email
+  emails("to: #{to}").size.should == count.to_i
 end
 
-Then(/^(\d)+ emails? should have #{capture_fields}$/) do |count, fields|
+Then(/^(\d)+ emails? should be delivered with #{capture_fields}$/) do |count, fields|
   emails(fields).size.should == count.to_i
 end
 
 Then(/^#{capture_email} should be delivered to (.+)$/) do |email_ref, to|
-  to =~ /^#{capture_model}$/ and to = model($1).email
-  email(email_ref) # match fields
+  to =~ /^#{capture_model}$/ && to = model($1).email
+  email(email_ref, "to: \"#{to}\"").should_not be_nil
 end
 
 Then(/^#{capture_email} should have #{capture_fields}$/) do |email_ref, fields|
-  find_email(email_ref, fields).should_not be_nil
+  email(email_ref, fields).should_not be_nil
 end
 
 Then(/^#{capture_email} should contain "(.*)"$/) do |email_ref, text|
   email(email_ref).body.should =~ /#{text}/
+end
+
+Then(/^#{capture_email} should not contain "(.*)"$/) do |email_ref, text|
+  email(email_ref).body.should_not =~ /#{text}/
 end
 
 Then(/^#{capture_email} should link to (.+) page$/) do |email_ref, page|

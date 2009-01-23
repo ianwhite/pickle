@@ -3,11 +3,15 @@ module Pickle
     # add ability to parse emails
     module Parser
       def match_email
-        "foo"
+        "(?:#{match_prefix}?(?:#{match_index} )?email)"
       end
 
       def capture_email
-        "foo"
+        "(#{match_email})"
+      end
+      
+      def capture_index_in_email
+        "(?:#{match_prefix}?(?:#{capture_index} )?email)"
       end
     end
   end
