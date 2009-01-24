@@ -3,7 +3,7 @@ module Pickle
     # return the deliveries array, optionally selected by the passed fields
     def emails(fields = nil)
       returning @emails = ActionMailer::Base.deliveries do |emails|
-        emails.reject!{|m| !email_matches?(m, fields)}
+        emails.reject!{|m| !email_has_fields?(m, fields)}
       end
     end
 
@@ -11,11 +11,10 @@ module Pickle
       (match = ref.match(/^#{capture_index_in_email}$/)) or raise ArgumentError, "argument should match #{match_email}"
       @emails or raise RuntimeError, "Call #emails before calling #email"
       index = parse_index(match[1])
-      email_matches?(@emails[index], fields) && @emails[index]
+      email_has_fields?(@emails[index], fields) ? @emails[index] : nil
     end
     
-    def email_matches?(email, fields)
-      return true if fields.blank?
+    def email_has_fields?(email, fields)
       parse_fields(fields).each do |key, val|
         return false unless (Array(email.send(key)) & Array(val)).any?
       end

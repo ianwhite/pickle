@@ -56,6 +56,25 @@ describe Pickle::Email do
         emails('to: "fred@gmail.com"').should == [@email1]
       end
       
+      describe "after #emails('to: \"fred@gmail.com\"')" do
+        before do
+          emails('to: "fred@gmail.com"')
+        end
+        
+        it "#email('first') should be #email('last')" do
+          email('first email').should == email('last email')
+          email('first email').should == @email1
+        end
+        
+        it "#email('the email', 'to: \"blah\") should be nil" do
+          email('the email', 'to: "blah"').should == nil
+        end
+
+        it "#email('the email', 'to: \"fred@gmail.com\") should be email1" do
+          email('the email', 'to: "fred@gmail.com"').should == @email1
+        end
+      end
+      
       it "#emails('to: \"joe@gmail.com\"') should return both emails" do
         emails('to: "joe@gmail.com"').should == [@email1, @email2]
       end
