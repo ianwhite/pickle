@@ -5,18 +5,33 @@
     pickle from features/support/env.rb and re run script/generate pickle
 
 * 2 major enhancements
+
+  * generate email steps with `script/generate pickle email`
+    email steps allow you to do things like this:
+    
+      Then 2 emails should be delivered
+      And the first email should be delivered to fred@gmail.com
+      And the 2nd email should be delivered to the user: "ethel"
+      
+      Then 1 email should be delivered with subject: "Activate your account"
+      And the email should link to the user's page
+    
+    take a look at features/step_definitions/pickle_email_steps.rb
+      
   * generate path steps with `script/generate pickle path`
     path steps allow you to do things like this
+    
       When I go to the comment's page
       Then I should be at the user's new comment page
+    
     take a look at features/step_definitions/pickle_path_steps.rb, and modify page_to_path to suit your needs
-  * Pickle uses the cucumber World API
 
 * 4 minor enhancements
   * Improved documentation
   * abstract models no longer kill pickle
   * Actually test that the generators work
   * Made Pickle::Session a plain ole mixin, as a separate class was unnecessary
+  * Pickle uses the cucumber World API
 
 
 == 0.1.5
