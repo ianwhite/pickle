@@ -90,7 +90,12 @@ end
 class Notifier < ActionMailer::Base
   include ActionController::UrlWriter
   
-  self.view_paths << "#{File.dirname(__FILE__)}/views"
+  # BC 2.1
+  if respond_to?(:view_paths)
+    view_paths << "#{File.dirname(__FILE__)}/views"
+  else
+    self.template_root = "#{File.dirname(__FILE__)}/views"
+  end
   
   def user_email(user)
     @recipients  = user.email
