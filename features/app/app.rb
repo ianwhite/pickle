@@ -26,7 +26,7 @@ ActiveRecord::Migration.suppress_messages do
     end
     
     create_table :users, :force => true do |t|
-      t.string :name, :status
+      t.string :name, :status, :email
     end
   end
 end
@@ -66,7 +66,6 @@ class User < AbstractUser
   validates_presence_of :name
 end
 
-
 # controllers
 class DefaultController < ActionController::Base
   def index
@@ -83,5 +82,19 @@ class DefaultController < ActionController::Base
   
   def edit
     render :text => "edit: I was invoked with #{request.path}"
+  end
+end
+
+# notifiers
+class Notifier < ActionMailer::Base
+  def user_email(user)
+    @recipients = user.email
+    @subject    += 'A user email'
+    @body[:path]  = user_path(user)
+  end
+  
+  def other_email(to, subject)
+    @recipients = to
+    @subject = subject
   end
 end
