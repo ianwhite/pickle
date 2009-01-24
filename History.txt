@@ -1,4 +1,4 @@
-== edge
+== 0.1.6
 
 * 1 API change
   * to use pickle env.rb should contain "require 'pickle/world'".  You should remove all trace of
