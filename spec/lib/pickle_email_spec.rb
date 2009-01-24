@@ -109,11 +109,6 @@ describe Pickle::Email do
       save_and_open_emails
     end
     
-    it "should call open_in_browser" do
-      should_receive(:open_in_browser)
-      save_and_open_emails
-    end
-
     describe "when emails have been already been found" do
       before { @emails = [] }
       
@@ -126,6 +121,11 @@ describe Pickle::Email do
     it "should create a file in Rails/tmp with the emails in it" do
       save_and_open_emails
       File.read("#{RAILS_ROOT}/tmp/webrat-email-#{@now.to_i}.html").should == "<h1>Email 1</h1><pre>Contents of Email 1</pre><hr />"
+    end
+
+    it "should call open_in_browser on created tmp file" do
+      should_receive(:open_in_browser).with("#{RAILS_ROOT}/tmp/webrat-email-#{@now.to_i}.html")
+      save_and_open_emails
     end
   end
 end
