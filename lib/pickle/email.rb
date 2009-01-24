@@ -2,9 +2,7 @@ module Pickle
   module Email
     # return the deliveries array, optionally selected by the passed fields
     def emails(fields = nil)
-      returning @emails = ActionMailer::Base.deliveries do |emails|
-        emails.reject!{|m| !email_has_fields?(m, fields)}
-      end
+      @emails = ActionMailer::Base.deliveries.select {|m| email_has_fields?(m, fields)}
     end
 
     def email(ref, fields = nil)

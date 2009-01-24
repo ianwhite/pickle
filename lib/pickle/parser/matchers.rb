@@ -10,7 +10,7 @@ module Pickle
       end
   
       def match_prefix
-        '(?:(?:1|a|an|another|the|that) )'
+        '(?:(?:a|an|another|the|that) )'
       end
   
       def match_quoted

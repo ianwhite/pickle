@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
       tine.resources :comments, :controller => 'default'
     end
   end
+  map.resources :users, :controller => 'default'
 end
 
 # Migrations
@@ -87,14 +88,20 @@ end
 
 # notifiers
 class Notifier < ActionMailer::Base
+  include ActionController::UrlWriter
+  
+  self.view_paths << "#{File.dirname(__FILE__)}/views"
+  
   def user_email(user)
-    @recipients = user.email
-    @subject    += 'A user email'
-    @body[:path]  = user_path(user)
+    @recipients  = user.email
+    @subject     = 'A user email'
+    @body[:user] = user
+    @body[:path] = user_path(user)
   end
   
-  def other_email(to, subject)
-    @recipients = to
-    @subject = subject
+  def email(to, subject, body)
+    @recipients  = to
+    @subject     = subject
+    @body[:body] = body
   end
 end

@@ -17,7 +17,7 @@ end
 
 Then(/^(\d)+ emails? should be delivered to (.*)$/) do |count, to|
   to =~ /^#{capture_model}$/ && to = model($1).email
-  emails("to: #{to}").size.should == count.to_i
+  emails("to: \"#{to}\"").size.should == count.to_i
 end
 
 Then(/^(\d)+ emails? should be delivered with #{capture_fields}$/) do |count, fields|

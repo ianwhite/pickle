@@ -20,7 +20,7 @@ Feature: I can easily create models from my blueprints
 	Scenario: I create 7 spoons of various roundness
 		Given 2 spoons exist with round: false
 		And 2 spoons exist with round: true
-		And 1 spoon exists with round: false
+		And a spoon exists with round: false
 		
 		# ordinal refs refer to order of introducirton to the scenario
 		Then the 1st spoon should not be round
