@@ -1,9 +1,11 @@
 class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
-    @generate_path_steps = args.include?('page') || args.include?('path')
-    @generate_email_steps = args.include?('email')
     File.exists?('features/support/env.rb') or raise "features/support/env.rb not found, try running script/generate cucumber"
+    @generate_email_steps = args.include?('email')
+    if @generate_path_steps = args.include?('path') || args.include?('paths')
+      File.exists?('features/support/paths.rb') or raise "features/support/paths.rb not found, is your cucumber up to date?"
+    end
   end
   
   def manifest
@@ -15,12 +17,19 @@ class PickleGenerator < Rails::Generator::Base
       
       if @generate_path_steps
         env_assigns[:pickle_path] = true unless current_env.include?("require 'pickle/path/world'")
-        m.template 'pickle_path_steps.rb', File.join('features/step_definitions', "pickle_path_steps.rb") 
+        current_paths = File.read('features/support/paths.rb')
+        unless current_paths.include?('#{capture_model}')
+          if current_paths =~ /^(.*)(\n\s+else\n\s+raise ".*"\n\s+end\nend\s*)$/m
+            env_assigns[:current_paths_header] = $1
+            env_assigns[:current_paths_footer] = $2
+            m.template 'paths.rb', File.join('features/support', "paths.rb"), :assigns => env_assigns, :collision => :force
+          end
+        end
       end
       
       if @generate_email_steps
         env_assigns[:pickle_email] = true unless current_env.include?("require 'pickle/email/world'")
-        m.template 'pickle_email_steps.rb', File.join('features/step_definitions', "pickle_email_steps.rb") 
+        m.template 'email_steps.rb', File.join('features/step_definitions', "email_steps.rb") 
       end
       
       env_assigns[:pickle] = true unless current_env.include?("require 'pickle/world'")

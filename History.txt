@@ -1,3 +1,11 @@
+== 0,1,7
+
+* 2 API changes
+  * script/generate pickle path[s] now amends the features/support/paths.rb file
+    instead of creating pge_to_path and path_steps.
+    
+  * pickle_email_steps is renamed email_steps
+
 == 0.1.6
 
 * 1 API change

@@ -5,4 +5,6 @@ Feature: I can visit a page by named route
 
   Scenario: visit the new spoons page
     When I go to the new spoon page
-    Then I should be at /spoons/new
+    Then I should be at the new spoon page
+    And the new spoon page should match route /spoons/new
+   

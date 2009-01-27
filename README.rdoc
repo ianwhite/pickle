@@ -24,13 +24,13 @@ Install pickle either as a rails plugin, or a gem
 
 (you'd better install cucumber)
 
-  script/generate pickle [path] [email]
+  script/generate pickle [paths] [email]
 
 Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
 
-If you want path steps and email steps then just add 'path' and/or 'email'.  The steps will be
-written to <tt>features/step_definitions/pickle_path_steps.rb</tt> and
-<tt>features/step_definitions/pickle_email_steps.rb</tt> respectively.
+If you want path steps and email steps then just add 'paths' and/or 'email'.  The code/steps will be
+written to <tt>features/env/paths.rb</tt> and
+<tt>features/step_definitions/email_steps.rb</tt> respectively.
 
 === Using with plain ole Active Record
 

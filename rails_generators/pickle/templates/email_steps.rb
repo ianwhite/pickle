@@ -41,8 +41,8 @@ Then(/^#{capture_email} should not contain "(.*)"$/) do |email_ref, text|
   email(email_ref).body.should_not =~ /#{text}/
 end
 
-Then(/^#{capture_email} should link to (.+) page$/) do |email_ref, page|
-  email(email_ref).body.should =~ /#{page_to_path(page)}/
+Then(/^#{capture_email} should link to (.+)$/) do |email_ref, page|
+  email(email_ref).body.should =~ /#{path_to(page)}/
 end
 
 Then(/^show me the emails?$/) do
