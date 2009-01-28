@@ -21,27 +21,23 @@ Feature: I can easily create models from my factories
     And a fancy fork exists
     And a tine exists with fork: the fancy fork
     
-		# these use a step created in fork_steps
     Then the first tine should be tine of the fork: "one"
     And the 2nd tine should be tine of fork: "one"
     And the last tine should be tine of the fancy fork
 
-    # the same as above, with the default assoc step defined by pickle_steps
     Then the first tine should be in fork "one"'s tines
-		And the 2nd tine should be in fork: "one"'s tines
-		And the last tine should be in the fancy fork's tines
+    And the 2nd tine should be in fork: "one"'s tines
+    And the last tine should be in the fancy fork's tines
     
   Scenario: I create a fork with a tine, and find the tine by the fork
     Given a fork exists
     And a tine exists with fork: the fork
-		
-		# find a tine using attributes
+    
     Then a tine should exist with fork: the fork
 
-		# assert belongs_to association
-		And the fork should be the tine's fork
+    And the fork should be the tine's fork
 
   Scenario: I create fork via a mapping
     Given killah fork exists
-		Then the fork should be fancy
-		And the fancy fork: "of cornwood" should be fancy
+    Then the fork should be fancy
+    And the fancy fork: "of cornwood" should be fancy

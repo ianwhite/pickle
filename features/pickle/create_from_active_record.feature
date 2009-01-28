@@ -9,12 +9,12 @@ Feature: I can easily create models from my blueprints
     Then the user should not have a status
 
   Scenario: I create a user, and see if it looks right
-  	Given a user exists with name: "Fred", status: "crayzee"
-	  Then a user should exist with name: "Fred"
-	  And a user should exist with status: "crayzee"
-	
-	Scenario: I create a user via a mapping
-		Given I exist with status: "pwned", name: "fred"
-		Then I should have a status
-		And the user: "me" should have a status
+    Given a user exists with name: "Fred", status: "crayzee"
+    Then a user should exist with name: "Fred"
+    And a user should exist with status: "crayzee"
+  
+  Scenario: I create a user via a mapping
+    Given I exist with status: "pwned", name: "fred"
+    Then I should have a status
+    And the user: "me" should have a status
   

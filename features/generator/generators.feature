@@ -7,16 +7,17 @@ Feature: allow pickle to generate steps
     When I run "script/generate pickle"
     Then I should see "try running script/generate cucumber"
     
-  Scenario: script/generate pickle on fresh cuc install
+  Scenario Outline: script/generate pickle on fresh cuc install
     Given cucumber has been freshly generated
-    When I run "script/generate pickle"
-    Then the file features/step_definitions/pickle_steps.rb should exist
-    And the file features/support/env.rb should match /require 'pickle\/world'/
+    When I run "<GENERATE PICKLE>"
+    Then the file <STEPS FILE> should exist
+    And the file features/support/env.rb should match /<ENV.RB SHOULD MATCH>/
     
-  More Examples:
-    | WHEN I RUN                  | THE FILE SHOULD EXIST                     | AND THE FILE            | SHOULD MATCH                  |
-    | script/generate pickle      | features/step_definitions/pickle_steps.rb | features/support/env.rb | Example of configuring pickle:|
-    | script/generate pickle email| features/step_definitions/email_steps.rb  | features/support/env.rb | require 'pickle\/email\/world'|
+  Examples:
+    | GENERATE PICKLE             | STEPS FILE                                | ENV.RB SHOULD MATCH             |
+    | script/generate pickle      | features/step_definitions/pickle_steps.rb | require 'pickle\/world'         |
+    | script/generate pickle      | features/step_definitions/pickle_steps.rb | Example of configuring pickle:  |
+    | script/generate pickle email| features/step_definitions/email_steps.rb  | require 'pickle\/email\/world'  |
     
   Scenario: script/generate pickle path on fresh cuc install
     Given cucumber has been freshly generated
@@ -24,17 +25,18 @@ Feature: allow pickle to generate steps
     Then the file features/support/env.rb should match /require 'pickle\/world'/
     And the file features/support/paths.rb should match /added by script/generate pickle path/
 
-  Scenario: script/generate pickle, when env.rb has already requires pickle
+  Scenario Outline: script/generate pickle, when env.rb has already requires pickle
     Given cucumber has been freshly generated
-    And env.rb already requires pickle/world
-    When I run "script/generate pickle"
-    Then the file features/support/env.rb should not match /Example of configuring pickle:/
+    And env.rb already requires <ENV.RB CONTAINS>
+    When I run "<GENERATE PICKLE>"
+    Then the file features/support/env.rb should not match /<ENV.RB SHOULD NOT MATCH>/
   
-  More Examples:
-    | ENV.RB REQUIRES   | WHEN I RUN                    | THE FILE                | SHOULD NOT MATCH                                      |
-    | pickle/world      | script/generate pickle        | features/support/env.rb | require 'pickle\/world'.*require 'pickle\/world'              |
-    | pickle/path/world | script/generate pickle path   | features/support/env.rb | require 'pickle\/path\/world'.*require 'pickle\/path\/world'  |
-    | pickle/email/world| script/generate pickle email  | features/support/env.rb | require 'pickle\/email\/world'.*require 'pickle\/email\/world'|
+  Examples:
+    | ENV.RB CONTAINS   | GENERATE PICKLE               | ENV.RB SHOULD NOT MATCH                                       |
+    | pickle/world      | script/generate pickle        | Example of configuring pickle:                                |
+    | pickle/world      | script/generate pickle        | require 'pickle\/world'.*require 'pickle\/world'              |
+    | pickle/path/world | script/generate pickle path   | require 'pickle\/path\/world'.*require 'pickle\/path\/world'  |
+    | pickle/email/world| script/generate pickle email  | require 'pickle\/email\/world'.*require 'pickle\/email\/world'|
     
   Scenario: script/generate pickle page email
     Given cucumber has been freshly generated
