@@ -1,3 +1,9 @@
+== 0.1.9 - 29 Jan 2009
+
+* 1 minor enhancement
+  * Adapter.model_classes excludes those without tables
+
+
 == 0.1.8 - 29 Jan 2009
 
 * API change

@@ -2,7 +2,11 @@
 Pickle::Adapter
 - .factories should raise NotImplementedError
 - #create should raise NotImplementedError
-- .model_classes should not include ActiveRecord::SessionStore::Session
+
+Pickle::Adapter.model_classes
+- should not include ActiveRecord::SessionStore::Session
+- should not include classes without a table
+- should not include abstract classes without a table
 
 Pickle::Adapter ::ActiveRecord.factories
 - should create one for each active record class
@@ -362,6 +366,6 @@ Pickle
 - .parser should create a parser with the default config
 - .parser should be same object on multiple calls
 
-Finished in 0.898 seconds
+Finished in 0.624776 seconds
 
-225 examples, 0 failures
+227 examples, 0 failures

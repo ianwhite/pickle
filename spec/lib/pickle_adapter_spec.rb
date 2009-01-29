@@ -9,15 +9,32 @@ describe Pickle::Adapter do
     lambda{ Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
   end
   
-  if defined?(CGI::Session::ActiveRecordStore::Session)
-    it ".model_classes should not include CGI::Session::ActiveRecordStore::Session" do
-      Pickle::Adapter.model_classes.should_not include(CGI::Session::ActiveRecordStore)
+  describe ".model_classes" do
+    before do
+      Pickle::Adapter.model_classes = nil
     end
-  end
+    
+    if defined?(CGI::Session::ActiveRecordStore::Session)
+      it "should not include CGI::Session::ActiveRecordStore::Session" do
+        Pickle::Adapter.model_classes.should_not include(CGI::Session::ActiveRecordStore)
+      end
+    end
   
-  if defined?(ActiveRecord::SessionStore::Session)
-    it ".model_classes should not include ActiveRecord::SessionStore::Session" do
-      Pickle::Adapter.model_classes.should_not include(ActiveRecord::SessionStore::Session)
+    if defined?(ActiveRecord::SessionStore::Session)
+      it "should not include ActiveRecord::SessionStore::Session" do
+        Pickle::Adapter.model_classes.should_not include(ActiveRecord::SessionStore::Session)
+      end
+    end
+  
+    it "should not include classes without a table" do
+      klass = Class.new(ActiveRecord::Base)
+      Pickle::Adapter.model_classes.should_not include(klass)
+    end
+
+    it "should not include abstract classes without a table" do
+      klass = Class.new(ActiveRecord::Base)
+      klass.abstract_class = true
+      Pickle::Adapter.model_classes.should_not include(klass)
     end
   end
   
