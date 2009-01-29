@@ -2,7 +2,7 @@
 Pickle::Adapter
 - .factories should raise NotImplementedError
 - #create should raise NotImplementedError
-- .model_classes should not include CGI::Session::ActiveRecordStore
+- .model_classes should not include ActiveRecord::SessionStore::Session
 
 Pickle::Adapter ::ActiveRecord.factories
 - should create one for each active record class
@@ -33,7 +33,6 @@ Pickle::Adapter ::Machinist.factories.new(Class, 'make_special')
 Pickle::Config
 - #adapters should default to :machinist, :factory_girl, :active_record
 - #adapter_classes should default to Adapter::Machinist, Adapter::FactoryGirl, Adapter::ActiveRecord
-- #factory_names should be keys of #factories
 - #mappings should default to []
 - #configure(&block) should execiute on self
 
@@ -46,18 +45,61 @@ Pickle::Config#factories
 - should give preference to adaptors first in the list
 
 Pickle::Config#predicates
-- should be list of all ? public instance methods + columns methods of Adapter.model_classes
+- should be list of all non object ? public instance methods + columns methods of Adapter.model_classes
 - should be overridable
 
 Pickle::Config#map 'foo', :to => 'faz'
 - should create OpenStruct(search: 'foo', replace: 'faz') mapping
 
 Pickle::Config#map 'foo', 'bar' :to => 'faz'
-- should create OpenStruct(search: '(?:foo|bar)', replace: 'faz') mapping
+- should create 2 mappings
 
-Pickle::Injector.inject Pickle::Session, :into => <a class>
-- object should respond_to Pickle:Session methods
-- object.model (a pickle method) should call object.pickle_session.model
+Pickle::Email::Parser
+- #capture_email should just capture match_email
+
+Pickle::Email::Parser#match_email
+- should match 'the email'
+- should match 'the first email'
+- should match 'the last email'
+- should match 'the 3rd email'
+- should match 'an email'
+
+Pickle::Email::Parser#capture_index_in_email
+- should extract the '2nd' from 'the 2nd email'
+- should extract nil from 'the email'
+- should extract the 'last' from 'the last email'
+
+Pickle::Email#emails
+- should return ordered deliveries
+
+Pickle::Email#emails (after)
+- #email('the email') should return the last delivery
+- #email('the 1st email') should return the first delivery
+- #email('the first email') should return the first delivery
+- #email('the 2nd email') should return the second delivery
+- #email('the last email') should return the second delivery
+- #email2('the 3rd email') should be nil
+
+Pickle::Email#emails when email1 is to fred & joe, and email2 is to joe
+- #emails('to: "fred@gmail.com"') should just return email1
+- #emails('to: "joe@gmail.com"') should return both emails
+
+Pickle::Email#emails when email1 is to fred & joe, and email2 is to joe after #emails('to: "fred@gmail.com"')
+- #email('first') should be #email('last')
+- #email('the email', 'to: "blah") should be nil
+- #email('the email', 'to: "fred@gmail.com") should be email1
+
+Pickle::Email#emails when email1 is to fred & joe, and email2 is to joe and emails have subjects 'email1', 'email2'
+- #emails('to: "joe@gmail.com", subject: "email1"') should return email1
+- #emails('to: "fred@gmail.com", subject: "email2"') should return empty array
+
+Pickle::Email#save_and_open_emails
+- should call #emails to get emails
+- should create a file in Rails/tmp with the emails in it
+- should call open_in_browser on created tmp file
+
+Pickle::Email#save_and_open_emails when emails have been already been found
+- should not call #emails
 
 Pickle::Parser::Matchers (config: [factories: user, car, fast_car] [predicates: name, status, fancy?, super_fancy?] Match atoms
 - match_ordinal should match '1st'
@@ -162,6 +204,28 @@ Pickle::Parser customised mappings config maps 'I|myself' to 'user: "me"'
 - parse_model('I') should == ['user', 'me']
 - parse_model('myself') should == ['user', 'me']
 
+Pickle::Path#path_to_pickle
+- ('a user', 'the user: "fred"') should retrieve 'a user', and 'the user: "fred"' models
+- ('a user', :action => 'foo') should return foo_user_path(<user>)
+- ('a user', :action => 'foo') should raise informative error if foo_user_path not defined
+- ('a user', :segment => 'foo') should return user_foo_path(<user>)
+- ('a user', :segment => 'foo') should raise informative error if foo_user_path not defined
+- ('a user', :action => 'new', :segment => 'comment') should return new_user_comment_path(<user>)
+- ('a user', :action => 'new', :segment => 'comment') should raise informative error if new_user_comment_path not defined
+- ('a user', :extra => 'new comment') should return new_user_comment_path(<user>)
+- ('a user', :extra => 'new comment') should raise informative error if new_user_comment_path not defined
+
+Pickle::Path#path_to_pickle (private API)
+- ('a user', :extra => 'new ish comment') should try combinations of 'new', 'ish', 'comment'
+
+Pickle::Session including Pickle::Session
+- should forward to pickle_parser it responds_to them
+- should raise error if pickle_parser don't know about em
+
+Pickle::Session extending Pickle::Session
+- should forward to pickle_parser it responds_to them
+- should raise error if pickle_parser don't know about em
+
 Pickle::Session#create_model ('a user')
 - should call Factory.create('user', {})
 
@@ -260,9 +324,6 @@ Pickle::Session#find_models after find, (found from db) user should be retrievab
 - model('1st user')
 - model('last user')
 
-Pickle::Session#clear_models(<factory_name>)
-- should clear the storage for that factory name
-
 Pickle::Session creating 'a super admin: "fred"', then 'a user: "shirl"', 'then 1 super_admin'
 - should call Factory.create with <'super_admin'>, <'user'>, <'super_admin'>
 
@@ -301,6 +362,6 @@ Pickle
 - .parser should create a parser with the default config
 - .parser should be same object on multiple calls
 
-Finished in 0.752032 seconds
+Finished in 0.898 seconds
 
-188 examples, 0 failures
+225 examples, 0 failures
