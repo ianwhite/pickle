@@ -36,3 +36,7 @@ end
 Then(/^the file (.+?) should not match \/(.*?)\/$/) do |file, regexp|
   File.read("#{Rails.root}/#{file}").should_not match(/#{regexp}/m)
 end
+
+Then /^the file features\/support\/paths\.rb should be identical to the local support\/paths\.rb$/ do
+  File.read("#{Rails.root}/features/support/paths.rb").should == File.read("#{File.dirname(__FILE__)}/../support/paths.rb")
+end

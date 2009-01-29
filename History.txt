@@ -1,3 +1,10 @@
+== Edge
+
+* 2 minor enhancements
+  * Updated features for cucumber 0.2 compat
+  * Made paths allow for optional possesives
+
+
 == 0,1,7
 
 * 2 API changes
@@ -5,6 +12,7 @@
     instead of creating pge_to_path and path_steps.
     
   * pickle_email_steps is renamed email_steps
+
 
 == 0.1.6
 

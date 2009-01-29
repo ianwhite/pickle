@@ -24,6 +24,7 @@ Feature: allow pickle to generate steps
     When I run "script/generate pickle path"
     Then the file features/support/env.rb should match /require 'pickle\/world'/
     And the file features/support/paths.rb should match /added by script/generate pickle path/
+    And the file features/support/paths.rb should be identical to the local support/paths.rb
 
   Scenario Outline: script/generate pickle, when env.rb has already requires pickle
     Given cucumber has been freshly generated
