@@ -1,5 +1,8 @@
 == Edge
 
+* API change
+  * pickle_path becomes path_to_pickle, to avoid named route clashes
+
 * 2 minor enhancements
   * Updated features for cucumber 0.2 compat
   * Made paths allow for optional possesives

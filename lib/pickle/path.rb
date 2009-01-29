@@ -3,15 +3,15 @@ module Pickle
     # given args of pickle model name, and an optional extra action, or segment, will attempt to find
     # a matching named route
     #
-    #   pickle_path 'the user', :action => 'edit'       # => /users/3/edit
-    #   pickle_path 'the user', 'the comment'           # => /users/3/comments/1
-    #   pickle_path 'the user', :segment => 'comments'  # => /users/3/comments
+    #   path_to_pickle 'the user', :action => 'edit'       # => /users/3/edit
+    #   path_to_pickle 'the user', 'the comment'           # => /users/3/comments/1
+    #   path_to_pickle 'the user', :segment => 'comments'  # => /users/3/comments
     #
     # If you don;t know if the 'extra' part of the path is an action or a segment, then just
     # pass it as 'extra' and this method will run through the possibilities
     #
-    #   pickle_path 'the user', :extra => 'new comment' # => /users/3/comments/new
-    def pickle_path(*pickle_names)
+    #   path_to_pickle 'the user', :extra => 'new comment' # => /users/3/comments/new
+    def path_to_pickle(*pickle_names)
       options = pickle_names.extract_options!
       models = pickle_names.map{|m| model(m)}
       if options[:extra]
