@@ -7,9 +7,9 @@ garlic do
   repo 'cucumber', :url => 'git://github.com/aslakhellesoy/cucumber'
   repo 'pickle', :path => '.'
 
-  ['origin/2-1-stable', 'origin/2-2-stable', 'origin/master'].each do |rails|
+  ['master', '2-2-stable', '2-1-stable'].each do |rails|
   
-    target "Rails: #{rails}", :tree_ish => rails do
+    target rails, :tree_ish => "origin/#{rails}" do
       prepare do
         plugin 'pickle', :clone => true
         plugin 'rspec'
@@ -25,7 +25,7 @@ garlic do
   
       run do
         cd "vendor/plugins/pickle" do
-          sh "rake spec:rcov:verify && rake features"
+          sh "rake rcov:verify && rake features"
         end
       end
     end
