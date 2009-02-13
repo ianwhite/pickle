@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base) and !$LOAD_PATH.includ
 
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
-require 'rake/rdoctask'
+require 'hanna/rdoctask'
 require 'rake/gempackagetask'
 
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/lib'
@@ -56,14 +56,12 @@ end
 task :rdoc => :doc
 
 desc "Generate rdoc for #{plugin_name}"
-Rake::RDocTask.new(:doc) do |t|
-  t.rdoc_dir = 'doc'
-  t.main     = 'README.rdoc'
-  t.title    = "#{plugin_name}"
-  t.template = ENV['RDOC_TEMPLATE']
-  t.options  = ['--line-numbers', '--inline-source']
-  t.rdoc_files.include('README.rdoc', 'History.txt', 'License.txt')
-  t.rdoc_files.include('lib/**/*.rb')
+Rake::RDocTask.new(:doc) do |d|
+  d.rdoc_dir = 'doc'
+  d.main     = 'README.rdoc'
+  d.title    = "#{plugin_name} API Docs (#{`git log HEAD -1 --pretty=format:"%H"`[0..6]})"
+  d.rdoc_files.include('README.rdoc', 'History.txt', 'License.txt', 'Todo.txt').
+    include('lib/**/*.rb')
 end
 
 namespace :doc do
@@ -71,12 +69,14 @@ namespace :doc do
     `git branch -m gh-pages orig-gh-pages`
     `mv doc doctmp`
     `git checkout -b gh-pages origin/gh-pages`
-    `rm -rf doc`
-    `mv doctmp doc`
-    `git add doc`
-    `git commit -m "Update API docs"`
-    `git push`
-    `git checkout master`
+    if `cat doc/index.html | grep "<title>"` != `cat doctmp/index.html | grep "<title>"`
+      `rm -rf doc`
+      `mv doctmp doc`
+      `git add doc`
+      `git commit -m "Update API docs"`
+      `git push`
+      `git checkout master`
+    end
     `git branch -D gh-pages`
     `git branch -m orig-gh-pages gh-pages`
   end
