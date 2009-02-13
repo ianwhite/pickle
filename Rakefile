@@ -73,7 +73,7 @@ namespace :doc do
       `rm -rf doc`
       `mv doctmp doc`
       `git add doc`
-      `git commit -m "Update API docs"`
+      `git commit -a -m "Update API docs"`
       `git push`
     else
       `rm -rf doctmp`
