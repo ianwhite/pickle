@@ -1,3 +1,5 @@
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
+
 Then(/^(.+?) should match route \/(.+?)$/) do |page, route|
   regexp = route.gsub(/:(\w*?)id/,'\d+')
   path_to(page).should =~ /#{regexp}/
