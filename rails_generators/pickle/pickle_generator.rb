@@ -19,7 +19,7 @@ class PickleGenerator < Rails::Generator::Base
         env_assigns[:pickle_path] = true unless current_env.include?("require 'pickle/path/world'")
         current_paths = File.read('features/support/paths.rb')
         unless current_paths.include?('#{capture_model}')
-          if current_paths =~ /^(.*)(\n\s+else\n\s+raise ".*"\n\s+end\nend\s*)$/m
+          if current_paths =~ /^(.*)(\n\s+else\n\s+raise "Can't find.*".*$)/m
             env_assigns[:current_paths_header] = $1
             env_assigns[:current_paths_footer] = $2
             m.template 'paths.rb', File.join('features/support', "paths.rb"), :assigns => env_assigns, :collision => :force
