@@ -101,7 +101,7 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc      = true
   s.rdoc_options << "--title" << "Pickle" << "--line-numbers"
   s.test_files    = FileList["spec/**/*_spec.rb"]
-  s.files         = FileList["lib/**/*.rb", "rails_generators/**/*.rb", "License.txt", "README.textile", "Todo.txt", "History.txt"]
+  s.files         = FileList["lib/**/*.rb", "rails_generators/**/*.rb", "License.txt", "README.rdoc", "Todo.txt", "History.txt"]
 end
 
 Rake::GemPackageTask.new(spec) do |p|
