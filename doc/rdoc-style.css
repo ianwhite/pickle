@@ -1,320 +1,319 @@
-
-/*;
-Allison 2 template;
-Copyright 2007, 2008 Cloudburst, LLC. Licensed under the AFL 3. See the included LICENSE file.;
-*/;
-
-/* default styles */
-
-* {
-margin: 0;
-padding: 0;
-border: none;
-}
-
-
-
-
-
-
-
-
-
-
-.clear {
-clear: both;
-}
-
-a {
-color: #304878;
-font-weight: bold;
-text-decoration: none;
-}
-
-a:hover {
-text-decoration: underline;
-}
-
 html, body {
-color: #000;
-font-size: 13px;
-font-family: helvetica, verdana, sans;
-background-color: #fff;
-text-align: center;
-margin: 0;
-padding: 0;
-}
+  height: 100%; }
 
-p, ul, ol {
-line-height: 16px;
-} li {
-margin: 3px;
-_margin-left: 40px;
-} p, pre, table, ol, ul {
-margin: 16px;
-} #item_name {
-margin-top: -8px;
-}
+body {
+  font-family: Lucida Grande , Verdana, Arial, Helvetica, sans-serif;
+  font-size: 90%;
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: black; }
 
-h1 {
-font-size: 22px;
-margin-top: 16px;
-} h2, h3 {
-font-size: 18px;
-margin: 6px;
-margin-right: 0;
-padding-top: 12px;
-}
+#wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -43px; }
 
-/* center everything */
+#footer-push {
+  height: 43px; }
 
-#container {
-margin: 20px auto 0 auto;
-width: 900px;
-text-align: left;
-}
-
-/* header stuff */
-
-#header {
-padding: 6px;
-padding-top: 3px;
-width: 888px;
-height: 52px;
-_height: 58px;
-margin-bottom: 12px;
-vertical-align: baseline;
-background-color: #181848;
-overflow: hidden;
-} .curve {
-background-color: #181848;
-margin: 0;
-padding: 0;
-height: 1px;
-overflow: hidden /* again, ie problem */;
-}
-
-
-
-
-
-#preheader_curve_5{border-left: 1px solid #fff; border-right: 1px solid #fff; width: 898px; _width: 888px; }
-#preheader_curve_4{border-left: 1px solid #fff; border-right: 1px solid #fff; width: 898px; _width: 888px; }
-#preheader_curve_3{border-left: 2px solid #fff; border-right: 2px solid #fff; width: 896px; _width: 888px; }
-#preheader_curve_2{border-left: 3px solid #fff; border-right: 3px solid #fff; width: 894px; _width: 888px; }
-#preheader_curve_1{border-left: 4px solid #fff; border-right: 4px solid #fff; width: 892px; _width: 888px; }
-#preheader_curve_0{border-left: 6px solid #fff; border-right: 6px solid #fff; width: 888px; _width: 888px; }
-
-#header h1 {
-color: #fff;
-font-size: 30px;
-margin: 4px 0 0 0;
-} #header p {
-margin: 0;
-padding: 0;
-padding-left: 3px;
-font-size: 16px;
-color: #fff;
-} #header a {
-color: #fff;
-text-decoration: none;
-font-weight: bold;
-}
-
-/* basic layout and navigation bars */
-
-#left {
-background-color: #181848;
-width: 220px;
-float: left;
-_width: 208px;
-margin-bottom: 24px;
-} #left a {
-line-height: 14px;
-}
-
-/* navigation bar colors and text styles */
-
-.navigation {
-width: 196px;
-margin: 6px;
-padding: 6px;
-text-align: left;
-background-color: #fff;
-overflow: hidden;
-} .navigation h3 {
-font-weight: bold;
-margin-bottom: 5px;
-} .navigation span, .navigation a {
-margin-left: 6px;
-} #includes .navigation span, #includes .navigation a {
-margin-left: 0;
-} .darker {
-background-color: #e4ebed;
-} #spacer {
-background-color: #fff;
-height: 18px;
-display: none;
-}
-
-/* content area */
-
-#content {
-padding: 20px;
-width: 640px;
-float: left;
-min-height: 450px;
-margin: 0;
-margin-bottom: -4px;
-} #content img {
-padding-top: 6px;
-padding-bottom: 12px;
-}
-
-#content h1, h2 {
-border-top: 1px solid #e4ebed;
-} #content h1 {
-padding-top: 18px;
-} #content #item_name { /* why does this need to be fully qualified? */
-padding-top: 0;
-border: none;
-}
-
-/* footer */
+div.header, #footer {
+  background: #eee; }
 
 #footer {
-text-align: center;
-background-color: #fff;
-padding: 18px;
-border-top: 1px solid #e4ebed;
-color: #ccd5dc;
-} #footer a {
-font-weight: normal;
-color: #ccd5dc;
-}
+  border-top: 1px solid silver;
+  margin-top: 12px;
+  padding: 0 2em;
+  line-height: 30px;
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 95%; }
 
-/* for that dumb redirect index page I can't avoid */
+.clearing:after {
+  content: ".";
+  visibility: hidden;
+  height: 0;
+  display: block;
+  clear: both; }
+* html .clearing {
+  height: 1px; }
+.clearing *:first-child + html {
+  overflow: hidden; }
 
-#redirect {
-text-align: center;
-} #redirect a {
-color: #181848;
-}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal; }
 
-/* tables */
+a {
+  color: #0b3e71; }
+  a:hover {
+    background: #336699;
+    text-decoration: none;
+    color: #eef; }
+
+#diagram img {
+  border: 0; }
+
+#description a, .method .description a, .header a {
+  color: #336699; }
+  #description a:hover,   .method .description a:hover,   .header a:hover {
+    color: #eee; }
+#description h1 a, #description h2 a, #description h3 a, #description h4 a, #description h5 a, #description h6 a, .method .description h1 a, .method .description h2 a, .method .description h3 a, .method .description h4 a, .method .description h5 a, .method .description h6 a, .header h1 a, .header h2 a, .header h3 a, .header h4 a, .header h5 a, .header h6 a {
+  color: #0b3e71; }
+
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  ol li {
+    margin-left: 0;
+    white-space: nowrap; }
+    ol li.other {
+      display: none; }
+
+ol.expanded li.other {
+  display: list-item; }
 
 table {
-width: 585px;
-margin-right: 0;
-border-collapse: collapse;
-border: 1px solid #e4ebed;
-} td, th {
-background-color: #fff;
-text-align: left;
-padding: 6px;
-line-height: 14px;
-font-size: 13px;
-} td.normal {
-font-family: Courier, Courier New, monospace;
-font-size: 12px;
-} td.highlight {
-color: #304878;
-}
+  margin-bottom: 1em;
+  font-size: 1em;
+  border-collapse: collapse; }
+  table td, table th {
+    padding: .4em .8em; }
+  table thead {
+    background-color: #e8e8e8; }
+    table thead th {
+      font-variant: small-caps;
+      color: #666666; }
+  table tr {
+    border-bottom: 1px solid silver; }
 
-/* method_block details */
+#index a.show, div.header a.show {
+  text-decoration: underline;
+  font-style: italic;
+  color: #666666; }
+  #index a.show:after,   div.header a.show:after {
+    content: " ..."; }
+  #index a.show:hover,   div.header a.show:hover {
+    color: black;
+    background: #ffe; }
 
-div.method_block {
-border-bottom: 1px solid #e4ebed;
-margin-left: 20px;
-margin-bottom: -17px;
-margin-top: 17px;
-} div.method_block h3 {
-color: #181848;
-margin-left: 0;
-padding: 0;
-} #content div.method_block h1, #content #description h1 {
-margin-left: 6px;
-color: #ccd5dc;
-} div.method_block a.small { /* where is this used? */
-font-size: 3px;
-line-height: 3px;
-}
+#index {
+  font: 85%/1.2 Arial, Helvetica, sans-serif; }
+  #index a {
+    text-decoration: none; }
+  #index h1 {
+    padding: .2em .5em .1em;
+    background: #ccc;
+    font: small-caps 1.2em Georgia, serif;
+    color: #333;
+    border-bottom: 1px solid gray; }
+  #index form {
+    margin: 0;
+    padding: 0; }
+    #index form input {
+      margin: .4em;
+      margin-bottom: 0;
+      width: 90%; }
+    #index form #search.untouched {
+      color: #777777; }
+  #index ol {
+    padding: .4em .5em; }
+    #index ol li {
+      white-space: nowrap; }
+  #index #index-entries li a {
+    padding: 1px 2px; }
+  #index #index-entries.classes {
+    font-size: 1.1em; }
+    #index #index-entries.classes ol {
+      padding: 0; }
+    #index #index-entries.classes span.nodoc {
+      display: none; }
+    #index #index-entries.classes span.nodoc, #index #index-entries.classes a {
+      font-weight: bold; }
+    #index #index-entries.classes .parent {
+      font-weight: normal; }
+  #index #index-entries.methods li,   #index #search-results.methods li {
+    margin-bottom: 0.2em; }
+    #index #index-entries.methods li a .method_name,     #index #search-results.methods li a .method_name {
+      margin-right: 0.25em; }
+    #index #index-entries.methods li a .module_name,     #index #search-results.methods li a .module_name {
+      color: #666666; }
+    #index #index-entries.methods li a:hover .module_name,     #index #search-results.methods li a:hover .module_name {
+      color: #ddd; }
 
-/* index includes on the navigation bar */
+div.header {
+  font-size: 80%;
+  padding: .5em 2%;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid silver; }
+  div.header .name {
+    font-size: 1.6em;
+    font-family: Georgia, serif; }
+    div.header .name .type {
+      color: #666666;
+      font-size: 80%;
+      font-variant: small-caps; }
+  div.header h1.name {
+    font-size: 2.2em; }
+  div.header .paths, div.header .last-update, div.header .parent {
+    color: #666666; }
+  div.header .last-update .datetime {
+    color: #484848; }
+  div.header .parent {
+    margin-top: .3em; }
+    div.header .parent strong {
+      font-weight: normal;
+      color: #484848; }
 
-div.index a {
-font-size: 13px;
-} #method {
-display: none;
-} #file, #class {
-display: block;
-} div.list_header {
-float: left;
-} div.list_header_link {
-float: right;
-padding-top: 3px;
-} div.list_header_link a {
-font-weight: normal;
-} div.navigation h3, .list_header_link {
-margin: 0;
-margin-top: 6px;
-margin-bottom: 6px;
-padding: 0;
-}
+#content {
+  padding: 12px 2%; }
+  div.class #content {
+    position: relative;
+    width: 72%; }
+  #content pre, #content .method .synopsis {
+    font: 14px Monaco, DejaVu Sans Mono , Bitstream Vera Sans Mono , Courier New , monospace; }
+  #content pre {
+    color: black;
+    background: #eee;
+    border: 1px solid silver;
+    padding: .5em .8em;
+    overflow: auto; }
+  #content p code, #content p tt,   #content li code, #content li tt,   #content dl code, #content dl tt {
+    font: 14px Monaco, DejaVu Sans Mono , Bitstream Vera Sans Mono , Courier New , monospace;
+    background: #ffffe3;
+    padding: 2px 3px;
+    line-height: 1.4; }
+  #content h1 code, #content h1 tt,   #content h2 code, #content h2 tt,   #content h3 code, #content h3 tt,   #content h4 code, #content h4 tt,   #content h5 code, #content h5 tt,   #content h6 code, #content h6 tt {
+    font-size: 1.1em; }
+  #content #text {
+    position: relative; }
+  #content #description p {
+    margin-top: .5em; }
+  #content #description h1, #content #description h2, #content #description h3, #content #description h4, #content #description h5, #content #description h6 {
+    font-family: Georgia, serif; }
+  #content #description h1 {
+    font-size: 2.2em;
+    margin-bottom: .2em;
+    border-bottom: 3px double #d8d8d8;
+    padding-bottom: .1em; }
+  #content #description h2 {
+    font-size: 1.8em;
+    color: #0e3062;
+    margin: .8em 0 .3em 0; }
+  #content #description h3 {
+    font-size: 1.6em;
+    margin: .8em 0 .3em 0;
+    color: #666666; }
+  #content #description h4 {
+    font-size: 1.4em;
+    margin: .8em 0 .3em 0; }
+  #content #description h5 {
+    font-size: 1.2em;
+    margin: .8em 0 .3em 0;
+    color: #0e3062; }
+  #content #description h6 {
+    font-size: 1.0em;
+    margin: .8em 0 .3em 0;
+    color: #666666; }
+  #content #description ul, #content #description ol,   #content .method .description ul, #content .method .description ol {
+    margin: .8em 0;
+    padding-left: 1.5em; }
+  #content #description ol,   #content .method .description ol {
+    list-style: decimal; }
+    #content #description ol li,     #content .method .description ol li {
+      white-space: normal; }
 
-.index label {
-font-size: 13px;
-} .index form input {
-width: 136px;
-} .index form {
-margin-bottom: 6px;
-}
+#method-list {
+  position: absolute;
+  top: 0px;
+  right: -33%;
+  width: 28%;
+  background: #eee;
+  border: 1px solid silver;
+  padding: .4em 1%;
+  overflow: hidden; }
+  #method-list h2 {
+    font-size: 1.3em; }
+  #method-list h3 {
+    font-variant: small-caps;
+    text-transform: capitalize;
+    font-family: Georgia, serif;
+    color: #666;
+    font-size: 1.1em; }
+  #method-list ol {
+    padding: 0 0 .5em .5em; }
 
-ol, ul {
-margin-left: 6px;
-}
+#context {
+  border-top: 1px dashed silver;
+  margin-top: 1em;
+  margin-bottom: 1em; }
 
-p.source_link a {
-text-align: right;
-font-weight: normal;
-} div.source {
-display: none;
-} pre, tt {
-color: #181848;
-font-weight: normal;
-font-family: Courier, Courier New, monospace;
-font-size: 12px;
-} pre {
-line-height: 14px;
-margin-left: 12px;
-overflow: auto;
-/* next 4 lines because IE sucks */
-_position: relative;
-_width: 587px;
-_overflow-x:scroll;
-_overflow-y:visible;
-} b tt, tt b {
-font-weight: bold;
-} div.source g {
-margin-left: 0;
-} p.source_link {
-text-align: center;
-}
+#context h2, #section h2 {
+  font: small-caps 1.2em Georgia, serif;
+  color: #444;
+  margin: 1em 0 .2em 0; }
 
-/* source code highlighting */
+#methods .method {
+  border: 1px solid silver;
+  margin-top: .5em;
+  background: #eee; }
+  #methods .method .synopsis {
+    color: black;
+    background: silver;
+    padding: .2em 1em; }
+    #methods .method .synopsis .name {
+      font-weight: bold; }
+    #methods .method .synopsis a {
+      text-decoration: none; }
+  #methods .method .description {
+    padding: 0 1em; }
+    #methods .method .description pre {
+      background: #f8f8f8; }
+  #methods .method .source {
+    margin: .5em 0; }
+  #methods .method .source-toggle {
+    font-size: 85%;
+    margin-left: 1em; }
+#methods .public-class {
+  background: #ffffe4; }
+#methods .public-instance .synopsis {
+  color: #eee;
+  background: #336699; }
 
-.source pre {
-color: black;
-}
-pre .ruby-value, pre .ruby-symbol {
-color: #1104bb;
-} pre .ruby-value.str, pre .ruby-node {
-color: #181848;
-} pre .ruby-ivar, pre .ruby-cvar {
-} pre .ruby-comment {
-color: #009500;
-} pre .ruby-constant {
-color: #cd8802;
-} pre .ruby-keyword {
-color: #8d04aa;
-}
+#content .method .source pre {
+  background: #262626;
+  color: #ffdead;
+  margin: 1em;
+  padding: 0.5em;
+  border: 1px dashed #999;
+  overflow: auto; }
+  #content .method .source pre .ruby-constant {
+    color: #7fffd4;
+    background: transparent; }
+  #content .method .source pre .ruby-keyword {
+    color: #00ffff;
+    background: transparent; }
+  #content .method .source pre .ruby-ivar {
+    color: #eedd82;
+    background: transparent; }
+  #content .method .source pre .ruby-operator {
+    color: #00ffee;
+    background: transparent; }
+  #content .method .source pre .ruby-identifier {
+    color: #ffdead;
+    background: transparent; }
+  #content .method .source pre .ruby-node {
+    color: #ffa07a;
+    background: transparent; }
+  #content .method .source pre .ruby-comment {
+    color: #b22222;
+    font-weight: bold;
+    background: transparent; }
+  #content .method .source pre .ruby-regexp {
+    color: #ffa07a;
+    background: transparent; }
+  #content .method .source pre .ruby-value {
+    color: #7fffd4;
+    background: transparent; }
