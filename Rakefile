@@ -75,6 +75,8 @@ namespace :doc do
       `git add doc`
       `git commit -m "Update API docs"`
       `git push`
+    else
+      `rm -rf doctmp`
     end
     `git checkout master`
     `git branch -D gh-pages`
