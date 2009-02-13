@@ -66,7 +66,7 @@ end
 
 namespace :doc do
   task :gh_pages => :doc do
-    `git branch -m gh-pages orig-gh-pages`
+    `git branch -m gh-pages orig-gh-pages > /dev/null 2>&1`
     `mv doc doctmp`
     `git checkout -b gh-pages origin/gh-pages`
     if `cat doc/index.html | grep "<title>"` != `cat doctmp/index.html | grep "<title>"`
@@ -75,10 +75,10 @@ namespace :doc do
       `git add doc`
       `git commit -m "Update API docs"`
       `git push`
-      `git checkout master`
     end
+    `git checkout master`
     `git branch -D gh-pages`
-    `git branch -m orig-gh-pages gh-pages`
+    `git branch -m orig-gh-pages gh-pages > /dev/null 2>&1`
   end
 end
 
