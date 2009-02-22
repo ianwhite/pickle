@@ -43,10 +43,13 @@ describe Pickle::Adapter do
       @klass1 = returning(Class.new(ActiveRecord::Base)) {|k| k.stub!(:name).and_return('One')}
       @klass2 = returning(Class.new(ActiveRecord::Base)) {|k| k.stub!(:name).and_return('One::Two')}
       @klass3 = returning(Class.new(ActiveRecord::Base)) {|k| k.stub!(:name).and_return('Three')}
-      Pickle::Adapter::ActiveRecord.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
     end
     
-    describe 'ActiveRecord' do    
+    describe 'ActiveRecord' do
+      before do
+        Pickle::Adapter::ActiveRecord.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+      end
+      
       it ".factories should create one for each active record class" do
         Pickle::Adapter::ActiveRecord.should_receive(:new).with(@klass1).once
         Pickle::Adapter::ActiveRecord.should_receive(:new).with(@klass2).once
@@ -72,7 +75,9 @@ describe Pickle::Adapter do
   
     describe 'FactoryGirl' do
       before do
+        Pickle::Adapter::FactoryGirl.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
         @orig_factories, Factory.factories = Factory.factories, {}
+        
         Factory.define(:one, :class => @klass1) {}
         Factory.define(:two, :class => @klass2) {}
         @factory1 = Factory.factories[:one]
@@ -111,6 +116,8 @@ describe Pickle::Adapter do
   
     describe 'Machinist' do
       before do
+        Pickle::Adapter::Machinist.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+        
         @klass1.blueprint {}
         @klass3.blueprint {}
         @klass3.blueprint(:special) {}

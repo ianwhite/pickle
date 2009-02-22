@@ -36,22 +36,21 @@ module Pickle
       def self.factories
         factories = []
         model_classes.each do |klass|
-          factories << new(klass, "make") if klass.instance_variable_get('@blueprint')
-          # if there are make_<special> methods, add blueprints for them
-          klass.methods.select{|m| m =~ /^make_/ && m !~ /_unsaved$/}.each do |method|
-            factories << new(klass, method)
+          if blueprints = klass.instance_variable_get('@blueprints')
+            blueprints.keys.each {|blueprint| factories << new(klass, blueprint)}
           end
         end
         factories
       end
       
-      def initialize(klass, method)
-        @klass, @method = klass, method
-        @name = (@method =~ /make_/ ? "#{@method.sub('make_','')}_" : "") + @klass.name.underscore.gsub('/','_')
+      def initialize(klass, blueprint)
+        @klass, @blueprint = klass, blueprint
+        @name = @klass.name.underscore.gsub('/','_')
+        @name = "#{@blueprint}_#{@name}" unless @blueprint == :master
       end
       
       def create(attrs = {})
-        @klass.send(@method, attrs)
+        @klass.send(:make, @blueprint, attrs)
       end
     end
     
