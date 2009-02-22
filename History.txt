@@ -1,3 +1,10 @@
+== 0.1.11 - 22 Feb 2009
+
+* 2 minor enhancements
+  * Pickle now supports multiple machinist blueprints
+  * Fix confusing adapter/adaptor comment generator comment 
+
+
 == 0.1.10 - 13 Feb 2009
 
 * 2 minor enhancements

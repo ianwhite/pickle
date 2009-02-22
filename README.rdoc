@@ -53,6 +53,9 @@ you've written, you can just do stuff like
 
 ==== Machinst: require your blueprints and reset Shams
 
+(The latest version of pickle supports {multiple blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496], for 
+earlier versions of machinist use pickle <= 0.1.10)
+
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
   require "#{Rails.root}/spec/blueprints" # or wherever they live
