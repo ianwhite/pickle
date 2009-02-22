@@ -72,11 +72,15 @@ describe Pickle::Adapter do
   
     describe 'FactoryGirl' do
       before do
-        Factory.factories = {}
+        @orig_factories, Factory.factories = Factory.factories, {}
         Factory.define(:one, :class => @klass1) {}
         Factory.define(:two, :class => @klass2) {}
         @factory1 = Factory.factories[:one]
         @factory2 = Factory.factories[:two]
+      end
+      
+      after do
+        Factory.factories = @orig_factories
       end
     
       it ".factories should create one for each factory" do
