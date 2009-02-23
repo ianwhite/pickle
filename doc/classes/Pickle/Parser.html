@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>Class: Pickle::Parser [pickle API Docs (8ef6ccb)]</title>
+    <title>Class: Pickle::Parser [pickle API docs]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../.././rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -188,6 +188,20 @@
                     [show source]
                   </a>
                   <pre id='M000043-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">model_name</span>)&#x000A;      <span class="ruby-identifier">apply_mappings!</span>(<span class="ruby-identifier">model_name</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-node">/#{capture_index} #{capture_factory}$/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">model_name</span>&#x000A;        [<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$2</span>), <span class="ruby-identifier">parse_index</span>(<span class="ruby-identifier">$1</span>)]&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-node">/#{capture_factory}#{capture_name_in_label}?$/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">model_name</span>&#x000A;        [<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$1</span>), <span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$2</span>)]&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <h2>Private instance methods</h2>
+              <div class='private-instance method' id='method-M000045'>
+                <a name='M000045'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>apply_mappings!</span>
+                  <span class='arguments'>(string)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000045-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000045-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 59</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">apply_mappings!</span>(<span class="ruby-identifier">string</span>)&#x000A;      <span class="ruby-identifier">config</span>.<span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mapping</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">string</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-node">/^#{mapping.search}$/</span>, <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">replace</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
