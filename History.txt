@@ -1,3 +1,9 @@
+== Edge
+
+* 1 minor enhancement
+  * rationalised Rakefile
+
+
 == 0.1.11 - 22 Feb 2009
 
 * 2 minor enhancements
