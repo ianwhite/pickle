@@ -37,7 +37,7 @@ end
 # cucumber features require an enclosing rails app
 plugins_base = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 cucumber_base = File.join(plugins_base, 'cucumber/lib')
-if File.exists?(cucumber_base) && plugins_base.ends_with?('/vendor/plugins') # if we're in rails app
+if File.exists?(cucumber_base) && plugins_base =~ /\/vendor\/plugins$/ # if we're in rails app
   $:.unshift(cucumber_base)
   require 'cucumber/rake/task'
 
