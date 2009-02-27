@@ -72,8 +72,12 @@ begin
   end
 
   namespace :doc do
-    Grancher::Task.new(:publish => :doc) do |g|
-      g.keep 'index.html', '.gitignore'
+    task :publish => :doc do
+      Rake::Task['doc:push'].invoke unless uptodate?('.git/refs/heads/gh-pages', 'doc')
+    end
+    
+    Grancher::Task.new(:push) do |g|
+      g.keep_all
       g.directory 'doc', 'doc'
       g.branch = 'gh-pages'
       g.push_to = 'origin'
