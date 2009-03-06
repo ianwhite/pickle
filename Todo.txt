@@ -1,2 +1,4 @@
+* Add email_for (same concept as path_to)
+* fix problem with save_and_open_emails
 * Translations
 * Investigate using Treetop for pre-parsing
