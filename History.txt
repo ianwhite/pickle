@@ -1,7 +1,8 @@
-== Edge
+== 0.1.12 - 7 Apr 2009
 
-* 1 minor enhancement
+* 2 minor enhancements
   * rationalised Rakefile
+  * update World extensions for latest cucumber changes
 
 
 == 0.1.11 - 22 Feb 2009
