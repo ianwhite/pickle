@@ -1,10 +1,7 @@
 require 'pickle'
 
 # make cucumber world pickle aware
-World do |world|
-  world.extend Pickle::Session
-  world
-end
+World(Pickle::Session)
 
 # shortcuts to regexps for use in step definition regexps
 class << self
