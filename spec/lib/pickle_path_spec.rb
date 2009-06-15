@@ -3,11 +3,20 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
 describe Pickle::Path do
   include Pickle::Path
   
-  before do
-    stub!(:model).and_return(@user = mock_model(User))
+  describe "#path_to_pickle, when the model doesn't exist" do
+    before do
+      stub!(:model).and_return(nil)
+    end
+    it "('that user', :extra => 'new comment') should return an informative message" do
+      lambda { path_to_pickle "that user", "new comment" }.should raise_error( Exception, /Unable to match model 'that user'/ )
+    end
+    
   end
   
   describe "#path_to_pickle" do
+    before do
+      stub!(:model).and_return(@user = mock_model(User))
+    end
     it "('a user', 'the user: \"fred\"') should retrieve 'a user', and 'the user: \"fred\"' models" do
       should_receive(:model).with('a user')
       should_receive(:model).with('the user: "fred"')
