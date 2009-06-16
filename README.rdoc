@@ -1,4 +1,4 @@
-= {ianwhite}[http://github.com/ianwhite] / {pickle}[http://github.com/ianwhite/pickle] >>{info}[http://ianwhite.github.com/pickle] >>{api}[http://ianwhite.github.com/pickle/doc]
+= pickle
 
 Pickle gives you cucumber steps that create your models easily from factory-girl or
 machinist factories/blueprints.  You can also just use ActiveRecord but it's not as cool.

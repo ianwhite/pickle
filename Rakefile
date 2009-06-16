@@ -59,7 +59,6 @@ begin
   require 'hanna/rdoctask'
   require 'garlic/tasks'
   require 'grancher/task'
-  require 'rake/gempackagetask'
   
   task :cruise => ['garlic:all', 'doc:publish']
   
@@ -83,7 +82,12 @@ begin
       g.push_to = 'origin'
     end
   end
+rescue LoadError
+end
 
+begin
+  require 'rake/gempackagetask'
+  
   spec = Gem::Specification.new do |s|
     s.name          = "pickle"
     s.version       = Pickle::Version::String
@@ -108,6 +112,5 @@ begin
   task :build do
     File.open('pickle.gemspec', 'w') {|f| f.write spec.to_ruby }
   end
-  
 rescue LoadError
 end
