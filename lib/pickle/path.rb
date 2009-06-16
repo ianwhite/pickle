@@ -13,7 +13,7 @@ module Pickle
     #   path_to_pickle 'the user', :extra => 'new comment' # => /users/3/comments/new
     def path_to_pickle(*pickle_names)
       options = pickle_names.extract_options!
-      models = pickle_names.map{|m| model(m)}
+      models = pickle_names.map{|m| model!(m)}
       if options[:extra]
         parts = options[:extra].underscore.gsub(' ','_').split("_")
         find_pickle_path_using_action_segment_combinations(models, parts)

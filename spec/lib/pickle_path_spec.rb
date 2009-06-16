@@ -5,21 +5,21 @@ describe Pickle::Path do
   
   describe "#path_to_pickle, when the model doesn't exist" do
     before do
-      stub!(:model).and_return(nil)
+      stub!(:model!).and_raise("foo")
     end
-    it "('that user', :extra => 'new comment') should return an informative message" do
-      lambda { path_to_pickle "that user", "new comment" }.should raise_error( Exception, /Unable to match model 'that user'/ )
+    it "('that user', :extra => 'new comment') should raise the error raised by model!" do
+      lambda { path_to_pickle "that user", "new comment" }.should raise_error("foo")
     end
     
   end
   
   describe "#path_to_pickle" do
     before do
-      stub!(:model).and_return(@user = mock_model(User))
+      stub!(:model!).and_return(@user = mock_model(User))
     end
     it "('a user', 'the user: \"fred\"') should retrieve 'a user', and 'the user: \"fred\"' models" do
-      should_receive(:model).with('a user')
-      should_receive(:model).with('the user: "fred"')
+      should_receive(:model!).with('a user')
+      should_receive(:model!).with('the user: "fred"')
       stub!(:user_user_path).and_return('the path')
       path_to_pickle 'a user', 'the user: "fred"'
     end

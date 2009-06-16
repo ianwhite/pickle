@@ -71,6 +71,16 @@ module Pickle
       (model(name) rescue nil) ? true : false
     end
     
+    # like model, but raise an error if it can't be found
+    def model!(name)
+      model(name) or raise "Can't find pickle model: '#{name}' in this scenario"
+    end
+    
+    # like created_model, but raise an error if it can't be found
+    def created_model!(name)
+      created_model(name) or raise "Can't find pickle model: '#{name}' in this scenario"
+    end
+    
     # return all original models of specified type
     def created_models(factory)
       models_by_index(factory)

@@ -72,6 +72,10 @@ describe Pickle::Session do
         it "model('last user')" do
           model('last user').should == @user_from_db
         end
+        
+        it "model!('last user')" do
+          model('last user').should == @user_from_db
+        end
       end
     end
   end
@@ -321,5 +325,13 @@ describe Pickle::Session do
         convert_models_to_attributes(@ar_class, :user => @user).should == {'user_id' => @user.id, 'user_type' => @user.class.name}
       end
     end
+  end
+  
+  it "#model!('unknown') should raise informative error message" do
+    lambda { model!('unknown') }.should raise_error("Can't find pickle model: 'unknown' in this scenario")
+  end
+
+  it "#created_model!('unknown') should raise informative error message" do
+    lambda { created_model!('unknown') }.should raise_error("Can't find pickle model: 'unknown' in this scenario")
   end
 end
