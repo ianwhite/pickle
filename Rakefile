@@ -43,13 +43,14 @@ if File.exists?(cucumber_base) && plugins_base =~ /\/vendor\/plugins$/ # if we'r
 
   desc "Run features for #{PluginName} (progress)"
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format progress -r features/step_definitions features"
+    t.fork = true
+    t.cucumber_opts = ['--format', 'progress', '--require', 'features']
   end
   
   desc "Run features for #{PluginName} (full output)"
   namespace :features do
     Cucumber::Rake::Task.new(:full) do |t|
-      t.cucumber_opts = '-r features/step_definitions features'
+      t.cucumber_opts = ['--format', 'pretty', '--require', 'features']
     end
   end
 end
