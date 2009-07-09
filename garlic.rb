@@ -5,6 +5,7 @@ garlic do
   repo 'factory_girl', :url => 'git://github.com/thoughtbot/factory_girl'
   repo 'machinist', :url => 'git://github.com/notahat/machinist'
   repo 'cucumber', :url => 'git://github.com/aslakhellesoy/cucumber'
+  repo 'webrat', :url => 'git://github.com/brynary/webrat'
   repo 'pickle', :path => '.'
 
   ['2-3-stable', '2-2-stable', '2-1-stable'].each do |rails|
