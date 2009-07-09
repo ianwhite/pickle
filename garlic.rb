@@ -13,8 +13,8 @@ garlic do
     target rails, :tree_ish => "origin/#{rails}" do
       prepare do
         plugin 'pickle', :clone => true
-        plugin 'rspec', :tag => '1.2.2'
-        plugin 'rspec-rails', :tag => '1.2.2' do
+        plugin 'rspec'
+        plugin 'rspec-rails' do
           `script/generate rspec -f`
         end
         plugin 'factory_girl'
