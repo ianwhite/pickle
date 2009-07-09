@@ -1,3 +1,9 @@
+== 0.1.14 - 9 July 2009
+
+* 1 minor enhancement
+  * update specs and features for latest cucumber and machinist changes
+
+
 == 0.1.13 - 16 June 2009
 
 * 2 minor enhancements
