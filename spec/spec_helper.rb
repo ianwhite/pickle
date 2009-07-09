@@ -33,3 +33,6 @@ end
 Factory.define :fast_car do |c|
 end
 
+# Machinist
+require 'machinist/active_record'
+
