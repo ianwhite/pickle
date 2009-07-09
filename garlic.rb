@@ -22,6 +22,7 @@ garlic do
           `script/generate cucumber -f`
         end
         plugin 'machinist'
+        plugin 'webrat'
       end
   
       run do
