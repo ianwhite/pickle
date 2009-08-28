@@ -58,7 +58,7 @@ module Pickle
   private
     def apply_mappings!(string)
       config.mappings.each do |mapping|
-        string.sub! /^#{mapping.search}$/, mapping.replace
+        string.sub! /^#{mapping.search}$/, mapping.replacement
       end
     end
   end

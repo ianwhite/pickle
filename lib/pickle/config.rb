@@ -41,7 +41,7 @@ module Pickle
       options = args.extract_options!
       raise ArgumentError, "Usage: map 'search' [, 'search2', ...] :to => 'replace'" unless args.any? && options[:to].is_a?(String)
       args.each do |search|
-        self.mappings << OpenStruct.new(:search => search, :replace => options[:to])
+        self.mappings << OpenStruct.new(:search => search, :replacement => options[:to])
       end
     end
   end
