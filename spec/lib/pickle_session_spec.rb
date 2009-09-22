@@ -147,7 +147,25 @@ describe Pickle::Session do
           model?('the user: "shirl"').should == false
         end
       end
-    end  
+    end
+    
+    describe "with hash" do
+      def do_create_model
+        create_model('a user', {'foo' => 'bar'})
+      end
+  
+      it "should call Factory.create('user', {'foo' => 'bar'})" do
+        Factory.should_receive(:create).with('user', {'foo' => 'bar'}).and_return(@user)
+        do_create_model
+      end
+      
+      describe "after create," do
+        before { do_create_model }
+        
+        it_should_behave_like "after storing a single user"
+      end
+    end
+    
   end
 
   describe '#find_model' do
