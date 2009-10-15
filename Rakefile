@@ -97,19 +97,9 @@ begin
     s.email = "ian.w.white@gmail.com"
     s.homepage = "http://github.com/ianwhite/pickle/tree"
     s.authors = ["Ian White"]
-    s.rubyforge_project = 'pickle'
   end
 
   Jeweler::GemcutterTasks.new
-
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "doc"
-  end
-
-  namespace :release do
-    desc "Release current version to github, gemcutter and rubyforge"
-    task :all => ['release', 'gemcutter:release', 'rubyforge:release']
-  end
 
 rescue LoadError
   puts "Jeweler not available for gem tasks. Install it with: sudo gem install jeweler"

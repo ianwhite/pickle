@@ -1,6 +1,12 @@
 == 0.1.16 - 13 Oct 2009
 
 * 1 minor enhancement
+  * release gem only on gemcutter
+
+
+== 0.1.16 - 13 Oct 2009
+
+* 1 minor enhancement
   * release gem on gemcutter and rubyforge
 
 

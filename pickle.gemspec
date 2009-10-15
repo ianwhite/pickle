@@ -79,7 +79,6 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/ianwhite/pickle/tree}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{pickle}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Easy model creation and reference in your cucumber features}
   s.test_files = [
