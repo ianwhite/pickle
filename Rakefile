@@ -101,6 +101,10 @@ begin
 
   Jeweler::GemcutterTasks.new
 
+  namespace :release do
+    task :all => ['release', 'gemcutter:release']
+  end
+  
 rescue LoadError
   puts "Jeweler not available for gem tasks. Install it with: sudo gem install jeweler"
 end
