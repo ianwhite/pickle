@@ -87,31 +87,30 @@ rescue LoadError
 end
 
 begin
-  require 'rake/gempackagetask'
+  require 'jeweler'
   
-  spec = Gem::Specification.new do |s|
-    s.name          = "pickle"
-    s.version       = Pickle::Version::String
-    s.summary       = "Easy model creation and reference in your cucumber features"
-    s.description   = "Easy model creation and reference in your cucumber features"
-    s.author        = "Ian White"
-    s.email         = "ian.w.white@gmail.com"
-    s.homepage      = "http://github.com/ianwhite/pickle/tree"
-    s.has_rdoc      = true
-    s.rdoc_options << "--title" << "Pickle" << "--line-numbers"
-    s.test_files    = FileList["spec/**/*_spec.rb"]
-    s.files         = FileList["lib/**/*.rb", "rails_generators/**/*.rb", "License.txt", "README.rdoc", "Todo.txt", "History.txt"]
+  Jeweler::Tasks.new do |s|
+    s.name = "pickle"
+    s.version = Pickle::Version::String
+    s.summary = "Easy model creation and reference in your cucumber features"
+    s.description = "Easy model creation and reference in your cucumber features"
+    s.email = "ian.w.white@gmail.com"
+    s.homepage = "http://github.com/ianwhite/pickle/tree"
+    s.authors = ["Ian White"]
+    s.rubyforge_project = 'garlic'
   end
 
-  Rake::GemPackageTask.new(spec) do |p|
-    p.gem_spec = spec
-    p.need_tar = true
-    p.need_zip = true
+  Jeweler::GemcutterTasks.new
+
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "doc"
   end
 
-  desc "Generate pickle.gemspec file"
-  task :build do
-    File.open('pickle.gemspec', 'w') {|f| f.write spec.to_ruby }
+  namespace :release do
+    desc "Release current version to github, gemcutter and rubyforge"
+    task :all => ['release', 'gemcutter:release', 'rubyforge:release']
   end
+
 rescue LoadError
+  puts "Jeweler not available for gem tasks. Install it with: sudo gem install jeweler"
 end

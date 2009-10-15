@@ -15,13 +15,16 @@ It's tested against all stable branches of 2.x rails, and edge, with the latest 
 
 Install pickle either as a rails plugin, or a gem
 
+  # gem form rubyforge or gemcutter
+  sudo gem install pickle
+
   # plugin
   script/plugin install git://github.com/ianwhite/pickle.git
   
   # or, plugin as submodule
   git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle
 
-  # or, gem
+  # or, github gem
   sudo gem install ianwhite-pickle
   
 == Get Started

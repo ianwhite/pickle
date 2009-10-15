@@ -1,9 +1,6 @@
 module Pickle
   module Version
-    Major = 0
-    Minor = 1
-    Tiny  = 15
-    
-    String = [Major, Minor, Tiny].join('.')
+    String = File.read(File.dirname(File.dirname(__FILE__)) + '/../VERSION').strip
+    Major, Minor, Patch = String.split('.').map{|i| i.to_i}
   end
 end
