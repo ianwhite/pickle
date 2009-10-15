@@ -5,8 +5,6 @@ require 'cucumber/rails/world'
 
 require 'cucumber/formatter/unicode'
 
-Cucumber::Rails.use_transactional_fixtures
-
 require 'webrat'
 
 Webrat.configure do |config|
