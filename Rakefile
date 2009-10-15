@@ -97,7 +97,7 @@ begin
     s.email = "ian.w.white@gmail.com"
     s.homepage = "http://github.com/ianwhite/pickle/tree"
     s.authors = ["Ian White"]
-    s.rubyforge_project = 'garlic'
+    s.rubyforge_project = 'pickle'
   end
 
   Jeweler::GemcutterTasks.new
