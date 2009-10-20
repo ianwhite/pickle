@@ -47,13 +47,13 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000030">email</a></li>
-              <li><a href="#M000031">email_has_fields?</a></li>
-              <li><a href="#M000029">emails</a></li>
+              <li><a href="#M000035">email</a></li>
+              <li><a href="#M000036">email_has_fields?</a></li>
+              <li><a href="#M000034">emails</a></li>
             </ol>
             <h3>protected instance</h3>
             <ol>
-              <li><a href="#M000032">save_and_open_emails</a></li>
+              <li><a href="#M000037">save_and_open_emails</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -63,34 +63,34 @@
             </div>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000030'>
-                <a name='M000030'>      </a>
+              <div class='public-instance method' id='method-M000035'>
+                <a name='M000035'>      </a>
                 <div class='synopsis'>
                   <span class='name'>email</span>
                   <span class='arguments'>(ref, fields = nil)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000030-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000035-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000030-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 8</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">email</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      (<span class="ruby-identifier">match</span> = <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">match</span>(<span class="ruby-node">/^#{capture_index_in_email}$/</span>)) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;argument should match #{match_email}&quot;</span>&#x000A;      <span class="ruby-ivar">@emails</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Call #emails before calling #email&quot;</span>&#x000A;      <span class="ruby-identifier">index</span> = <span class="ruby-identifier">parse_index</span>(<span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>])&#x000A;      <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-ivar">@emails</span>[<span class="ruby-identifier">index</span>], <span class="ruby-identifier">fields</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@emails</span>[<span class="ruby-identifier">index</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000035-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 8</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">email</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      (<span class="ruby-identifier">match</span> = <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">match</span>(<span class="ruby-node">/^#{capture_index_in_email}$/</span>)) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;argument should match #{match_email}&quot;</span>&#x000A;      <span class="ruby-ivar">@emails</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Call #emails before calling #email&quot;</span>&#x000A;      <span class="ruby-identifier">index</span> = <span class="ruby-identifier">parse_index</span>(<span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>])&#x000A;      <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-ivar">@emails</span>[<span class="ruby-identifier">index</span>], <span class="ruby-identifier">fields</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@emails</span>[<span class="ruby-identifier">index</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000031'>
-                <a name='M000031'>      </a>
+              <div class='public-instance method' id='method-M000036'>
+                <a name='M000036'>      </a>
                 <div class='synopsis'>
                   <span class='name'>email_has_fields?</span>
                   <span class='arguments'>(email, fields)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000031-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000036-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000031-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 15</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-identifier">email</span>, <span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-constant">Array</span>(<span class="ruby-identifier">email</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">key</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">val</span>)).<span class="ruby-identifier">any?</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">true</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000036-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 15</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-identifier">email</span>, <span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-constant">Array</span>(<span class="ruby-identifier">email</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">key</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">val</span>)).<span class="ruby-identifier">any?</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">true</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000029'>
-                <a name='M000029'>      </a>
+              <div class='public-instance method' id='method-M000034'>
+                <a name='M000034'>      </a>
                 <div class='synopsis'>
                   <span class='name'>emails</span>
                   <span class='arguments'>(fields = nil)</span>
@@ -101,15 +101,15 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000029-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000034-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000029-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 4</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">emails</span>(<span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-ivar">@emails</span> = <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">deliveries</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-identifier">m</span>, <span class="ruby-identifier">fields</span>)}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000034-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 4</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">emails</span>(<span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-ivar">@emails</span> = <span class="ruby-constant">ActionMailer</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">deliveries</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">email_has_fields?</span>(<span class="ruby-identifier">m</span>, <span class="ruby-identifier">fields</span>)}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Protected instance methods</h2>
-              <div class='protected-instance method' id='method-M000032'>
-                <a name='M000032'>      </a>
+              <div class='protected-instance method' id='method-M000037'>
+                <a name='M000037'>      </a>
                 <div class='synopsis'>
                   <span class='name'>save_and_open_emails</span>
                   <span class='arguments'>()</span>
@@ -121,10 +121,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000032-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000037-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000032-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_and_open_emails</span>&#x000A;      <span class="ruby-identifier">emails_to_open</span> = <span class="ruby-ivar">@emails</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">emails</span>&#x000A;      <span class="ruby-identifier">filename</span> = <span class="ruby-node">&quot;#{RAILS_ROOT}/tmp/webrat-email-#{Time.now.to_i}.html&quot;</span>&#x000A;      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;w&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">emails_to_open</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;&lt;h1&gt;Email #{i+1}&lt;/h1&gt;&lt;pre&gt;#{e}&lt;/pre&gt;&lt;hr /&gt;&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-identifier">open_in_browser</span>(<span class="ruby-identifier">filename</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000037-source'><span class="ruby-comment cmt"># File lib/pickle/email.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_and_open_emails</span>&#x000A;      <span class="ruby-identifier">emails_to_open</span> = <span class="ruby-ivar">@emails</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">emails</span>&#x000A;      <span class="ruby-identifier">filename</span> = <span class="ruby-node">&quot;#{RAILS_ROOT}/tmp/webrat-email-#{Time.now.to_i}.html&quot;</span>&#x000A;      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;w&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">emails_to_open</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;&lt;h1&gt;Email #{i+1}&lt;/h1&gt;&lt;pre&gt;#{e}&lt;/pre&gt;&lt;hr /&gt;&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-identifier">open_in_browser</span>(<span class="ruby-identifier">filename</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

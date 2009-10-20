@@ -43,24 +43,14 @@
               <div class='name-list'>
                 <table summary='Constants'>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>Major</td>
-                    <td>=</td>
-                    <td class='context-item-value'>0</td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>Minor</td>
-                    <td>=</td>
-                    <td class='context-item-value'>1</td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>Tiny</td>
-                    <td>=</td>
-                    <td class='context-item-value'>12</td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
                     <td class='context-item-name'>String</td>
                     <td>=</td>
-                    <td class='context-item-value'>[Major, Minor, Tiny].join('.')</td>
+                    <td class='context-item-value'>File.read(File.dirname(File.dirname(__FILE__)) + '/../VERSION').strip</td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>Patch</td>
+                    <td>=</td>
+                    <td class='context-item-value'>String.split('.').map{|i| i.to_i}</td>
                   </tr>
                 </table>
               </div>

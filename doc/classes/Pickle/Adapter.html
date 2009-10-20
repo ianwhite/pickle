@@ -49,7 +49,7 @@
             </p>
             <p>
             The factory adaptor must have a <a
-            href="Adapter.html#M000072">factories</a> class method that returns its
+            href="Adapter.html#M000074">factories</a> class method that returns its
             instances, and each instance must respond to:
             </p>
             <pre>#name : identifies the factory by name (default is attr_reader)&#x000A;#klass : returns the associated model class for this factory (default is attr_reader)&#x000A;#create(attrs = {}) : returns a newly created object</pre>
@@ -58,12 +58,12 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000072">factories</a></li>
-              <li><a href="#M000074">model_classes</a></li>
+              <li><a href="#M000074">factories</a></li>
+              <li><a href="#M000076">model_classes</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000073">create</a></li>
+              <li><a href="#M000075">create</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -92,44 +92,44 @@
             </div>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000072'>
-                <a name='M000072'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>factories</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000072-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000072-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 14</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factories</span>&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;return an array of factory adapter objects&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
               <div class='public-class method' id='method-M000074'>
                 <a name='M000074'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>model_classes</span>
+                  <span class='name'>factories</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000074-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000074-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_classes</span>&#x000A;      <span class="ruby-comment cmt"># remove abstract, framework, and non-table classes</span>&#x000A;      <span class="ruby-ivar">@@model_classes</span> <span class="ruby-operator">||=</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:subclasses</span>).<span class="ruby-identifier">reject</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">abstract_class?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">klass</span>.<span class="ruby-identifier">table_exists?</span> <span class="ruby-operator">||</span>&#x000A;         (<span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">CGI</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CGI</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">||</span>&#x000A;         (<span class="ruby-keyword kw">defined?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">SessionStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">SessionStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000074-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 14</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factories</span>&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;return an array of factory adapter objects&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-class method' id='method-M000076'>
+                <a name='M000076'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>model_classes</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000076-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000076-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model_classes</span>&#x000A;      <span class="ruby-comment cmt"># remove abstract, framework, and non-table classes</span>&#x000A;      <span class="ruby-ivar">@@model_classes</span> <span class="ruby-operator">||=</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:subclasses</span>).<span class="ruby-identifier">reject</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">abstract_class?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">klass</span>.<span class="ruby-identifier">table_exists?</span> <span class="ruby-operator">||</span>&#x000A;         (<span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">CGI</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CGI</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">||</span>&#x000A;         (<span class="ruby-keyword kw">defined?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">SessionStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">SessionStore</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000073'>
-                <a name='M000073'>      </a>
+              <div class='public-instance method' id='method-M000075'>
+                <a name='M000075'>      </a>
                 <div class='synopsis'>
                   <span class='name'>create</span>
                   <span class='arguments'>(attrs = {})</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000073-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000075-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000073-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 18</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attrs</span> = {})&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;create and return an object with the given attributes&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000075-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 18</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attrs</span> = {})&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;create and return an object with the given attributes&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
