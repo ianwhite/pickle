@@ -1,14 +1,13 @@
-== 0.1.16 - 13 Oct 2009
+== 0.1.19
 
 * 1 minor enhancement
-  * release gem only on gemcutter
+  * Add support for Cucumber tables [Tobi Knaup]
+  
 
-
-== 0.1.16 - 13 Oct 2009
+== 0.1.16, 0.1.17, 0.1.18 - 13 Oct 2009
 
 * 1 minor enhancement
-  * release gem on gemcutter and rubyforge
-
+  * release gem on gemcutter and code on github
 
 == 0.1.15 - 28 Aug 2009
 
