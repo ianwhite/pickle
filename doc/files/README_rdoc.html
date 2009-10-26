@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Thu Oct 15 20:54:14 +0100 2009</span>
+          <span class='datetime'>Mon Oct 26 07:41:40 +0000 2009</span>
         </div>
       </div>
       <div id='content'>
@@ -45,10 +45,10 @@
             as cool.
             </p>
             <p>
-            References to the models are stored, not necessarily for the purpose of
-            checking the db (although you could use it for that), but for enabling easy
-            reference to urls, and for building complex givens which require a bunch of
-            models collaborating
+            References to the models are stored in the current world, not necessarily
+            for the purpose of checking the db (although you could use it for that),
+            but for enabling easy reference to urls, and for building complex givens
+            which require a bunch of models collaborating
             </p>
             <h2>CI</h2>
             <p>
@@ -60,6 +60,22 @@
             Install pickle either as a rails plugin, or a gem
             </p>
             <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
+            <h2>Contributors</h2>
+            <p>
+            The following people have <a href="../classes/Pickle.html">Pickle</a>
+            better:
+            </p>
+            <ul>
+            <li><a href="http://github.com/nruth">Nick Rutherford</a>
+            
+            </li>
+            <li>Tobi Knaup
+            
+            </li>
+            <li><a href="http://github.com/schlick">Michael MacDonald</a>
+            
+            </li>
+            </ul>
             <h2>Get Started</h2>
             <p>
             (you&#8217;d better install cucumber)
@@ -127,12 +143,11 @@
             </p>
             <pre>Given a user exists&#x000A;And a post exists with author: the user&#x000A;&#x000A;Given a person: &quot;fred&quot; exists&#x000A;And a person: &quot;ethel&quot; exists&#x000A;And a fatherhood exists with parent: user &quot;fred&quot;, child: user &quot;ethel&quot;</pre>
             <p>
-            &#8220;Given <b>n</b> models exist&#8221;, e.g.
+            &#8220;Given <b>n models</b> exist&#8221;, e.g.
             </p>
             <pre>Given 10 users exist</pre>
             <p>
-            &#8220;Given <b>n</b> <b>models</b> exist with <b>fields</b>&#8220;,
-            examples:
+            &#8220;Given <b>n models</b> exist with <b>fields</b>&#8220;, examples:
             </p>
             <pre>Given 10 users exist with activated: false</pre>
             <h4>Then steps</h4>
@@ -150,12 +165,11 @@
             </p>
             <pre>Then a person should exist with child: person &quot;ethel&quot;&#x000A;Then a user should exist with activated: false&#x000A;Then a user should exist with activated: true, email: &quot;fred@gmail.com&quot;</pre>
             <p>
-            &#8220;Then <b>n</b> <b>models</b> should exist&#8221;, e.g.
+            &#8220;Then <b>n models</b> should exist&#8221;, e.g.
             </p>
             <pre>Then 10 events should exist</pre>
             <p>
-            &#8220;Then <b>n</b> <b>models</b> should exist with <b>fields</b>&#8220;,
-            e.g.
+            &#8220;Then <b>n models</b> should exist with <b>fields</b>&#8220;, e.g.
             </p>
             <pre>Then 2 people should exist with father: person &quot;fred&quot;</pre>
             <h5>Asserting associations</h5>
@@ -176,8 +190,8 @@
             </p>
             <pre>Then the user should have a status # =&gt; user.status?.should == true&#x000A;Then the car: &quot;batmobile&quot; should be fast # =&gt; car.fast?.should == true</pre>
             <p>
-            &#8220;Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>&#8220;,
-            e.g.
+            &#8220;Then <b>a model</b> should not [be|have] [a|an]
+            <b>predicate</b>&#8220;, e.g.
             </p>
             <pre>Then person: &quot;fred&quot; should not be childless # =&gt; fred.childless?.should == false</pre>
             <h3>Regexps for use in your own steps</h3>
@@ -196,7 +210,7 @@
             <p>
             <b>capture_model</b>
             </p>
-            <pre>Given /^#{capture_model} exists$/ do |model_name|&#x000A;  model(model_name).should_not == nil&#x000A;end&#x000A;&#x000A;Then /^I should be at the (.*?) page$/ |page|&#x000A;  if page =~ /#{capture_model}'s/&#x000A;    url_for(model($1))&#x000A;  else&#x000A;    # ...&#x000A;  end&#x000A;end&#x000A;&#x000A;Then /^#{capture_model} should be one of #{capture_model}'s posts$/ do |post, forum|&#x000A;  model(forum).posts.should include(post)&#x000A;end</pre>
+            <pre>Given /^#{capture_model} exists$/ do |model_name|&#x000A;  model(model_name).should_not == nil&#x000A;end&#x000A;&#x000A;Then /^I should be at the (.*?) page$/ |page|&#x000A;  if page =~ /#{capture_model}'s/&#x000A;    url_for(model($1))&#x000A;  else&#x000A;    # ...&#x000A;  end&#x000A;end&#x000A;&#x000A;Then /^#{capture_model} should be one of #{capture_model}'s posts$/ do |post, forum|&#x000A;  post = model!(post)&#x000A;  forum = model!(forum)&#x000A;  forum.posts.should include(post)&#x000A;end</pre>
             <p>
             <b>capture_fields</b>
             </p>
