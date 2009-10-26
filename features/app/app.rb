@@ -28,6 +28,7 @@ ActiveRecord::Migration.suppress_messages do
     
     create_table :users, :force => true do |t|
       t.string :name, :status, :email
+      t.decimal :attitude_score, :precision => 4, :scale => 2
     end
   end
 end
@@ -52,12 +53,12 @@ class Tine < ActiveRecord::Base
   belongs_to :fork
 end
 
-# Machinist bluepriint for this
+# Machinist blueprint for this
 class Spoon < ActiveRecord::Base
   validates_presence_of :name
 end
 
-# we don;t want abstract classes getting in there
+# we don't want abstract classes getting in there
 class AbstractUser < ActiveRecord::Base
   self.abstract_class = true
 end
@@ -65,6 +66,9 @@ end
 # No factory or blueprint for this
 class User < AbstractUser
   validates_presence_of :name
+  def positive_person?
+    !attitude_score.nil? && attitude_score > 0
+  end
 end
 
 # controllers

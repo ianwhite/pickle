@@ -107,11 +107,11 @@ You can refer to other models in the fields
   And a person: "ethel" exists
   And a fatherhood exists with parent: user "fred", child: user "ethel"
   
-"Given <b>n</b> models exist", e.g.
+"Given <b>n models</b> exist", e.g.
   
   Given 10 users exist
   
-"Given <b>n</b> <b>models</b> exist with <b>fields</b>", examples:
+"Given <b>n models</b> exist with <b>fields</b>", examples:
 
   Given 10 users exist with activated: false
 
@@ -133,11 +133,11 @@ You can use other models, booleans, numerics, and strings as fields
   Then a user should exist with activated: false
   Then a user should exist with activated: true, email: "fred@gmail.com"
   
-"Then <b>n</b> <b>models</b> should exist", e.g.
+"Then <b>n models</b> should exist", e.g.
 
   Then 10 events should exist
   
-"Then <b>n</b> <b>models</b> should exist with <b>fields</b>", e.g.
+"Then <b>n models</b> should exist with <b>fields</b>", e.g.
 
   Then 2 people should exist with father: person "fred"
   
@@ -159,7 +159,7 @@ Many-to-one assocs: "Then <b>a model</b> should be [in|one of] <b>other model</b
   Then the user should have a status # => user.status?.should == true
   Then the car: "batmobile" should be fast # => car.fast?.should == true
   
-"Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>", e.g.
+"Then <b>a model</b> should not [be|have] [a|an] <b>predicate</b>", e.g.
 
   Then person: "fred" should not be childless # => fred.childless?.should == false
   
