@@ -3,7 +3,7 @@
 Pickle gives you cucumber steps that create your models easily from factory-girl or
 machinist factories/blueprints.  You can also just use ActiveRecord but it's not as cool.
 
-References to the models are stored, not necessarily for the purpose of checking the db
+References to the models are stored in the current world, not necessarily for the purpose of checking the db
 (although you could use it for that), but for enabling easy reference to urls, and for
 building complex givens which require a bunch of models collaborating
 
@@ -24,7 +24,14 @@ Install pickle either as a rails plugin, or a gem
   # or, plugin as submodule
   git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle
 
-  
+== Contributors
+
+The following people have Pickle better:
+
+* {Nick Rutherford}[http://github.com/nruth]
+* Tobi Knaup
+* {Michael MacDonald}[http://github.com/schlick]
+
 == Get Started
 
 (you'd better install cucumber)
@@ -186,7 +193,9 @@ Pickle::Parser::Matchers for the methods available)
   end
 
   Then /^#{capture_model} should be one of #{capture_model}'s posts$/ do |post, forum|
-    model(forum).posts.should include(post)
+    post = model!(post)
+    forum = model!(forum)
+    forum.posts.should include(post)
   end 
 
 *capture_fields*

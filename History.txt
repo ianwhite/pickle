@@ -1,3 +1,9 @@
+== 0.1.20
+
+* 1 minor enhancement
+  * Pickle now matches numeric field values preceded with a positive and negative sign eg +1.5 and -1 [schlick]
+
+
 == 0.1.19
 
 * 1 minor enhancement
@@ -9,10 +15,11 @@
 * 1 minor enhancement
   * release gem on gemcutter and code on github
 
+
 == 0.1.15 - 28 Aug 2009
 
 * 1 minor enhancement
-	* avoid namespace collision on replace by renaming mapping#replace -> mapping#replacement [nruth]
+  * avoid namespace collision on replace by renaming mapping#replace -> mapping#replacement [nruth]
 
 
 == 0.1.14 - 9 July 2009
