@@ -28,6 +28,11 @@ Feature: I can easily create models from my factories
     Then the first tine should be in fork "one"'s tines
     And the 2nd tine should be in fork: "one"'s tines
     And the last tine should be in the fancy fork's tines
+    And the fancy fork should be the last tine's fork
+    
+    But the first tine should not be in the fancy fork's tines
+    And the last tine should not be in fork "one"'s tines
+    And the fancy fork should not be the first tine's fork
     
   Scenario: I create a fork with a tine, and find the tine by the fork
     Given a fork exists
