@@ -1,3 +1,9 @@
+== 0.1.21
+
+* 1 minor enhancement
+  * Added 'should not' steps corresponding to model existence, and association exitsence [schlick]
+
+
 == 0.1.20
 
 * 1 minor enhancement
