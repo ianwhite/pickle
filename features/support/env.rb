@@ -18,16 +18,6 @@ require 'webrat/core/matchers'
 
 Cucumber::Rails::World.use_transactional_fixtures = true
 
-# Pickle
-require 'pickle/world'
-require 'pickle/path/world'
-require 'pickle/email/world'
-
-Pickle.configure do |c|
-  c.map 'I', :to => 'user: "me"'
-  c.map 'killah fork', :to => 'fancy fork: "of cornwood"'
-end
-
 # test app setup
 __APP__ = File.expand_path(File.join(File.dirname(__FILE__), '../app'))
 require "#{__APP__}/app"

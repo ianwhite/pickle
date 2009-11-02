@@ -11,6 +11,10 @@ Given(/^cucumber has been freshly generated$/) do
   `cd #{Rails.root}; script/generate cucumber -f`
 end
 
+Given(/^pickle path email has been freshly generated$/) do
+  `cd #{Rails.root}; script/generate pickle path email`
+end
+
 Given(/^env\.rb already requires (.+)$/) do |file|
   File.open("#{Rails.root}/features/support/env.rb", "a") do |env|
     env << "require '#{file}'\n"
@@ -37,6 +41,6 @@ Then(/^the file (.+?) should not match \/(.*?)\/$/) do |file, regexp|
   File.read("#{Rails.root}/#{file}").should_not match(/#{regexp}/m)
 end
 
-Then /^the file features\/support\/paths\.rb should be identical to the local support\/paths\.rb$/ do
-  File.read("#{Rails.root}/features/support/paths.rb").should == File.read("#{File.dirname(__FILE__)}/../support/paths.rb")
+Then /^the file ([^ ]+) should be identical to the local (.+)$/ do |generated_file, source_file|
+  File.read("#{Rails.root}/#{generated_file}").should == File.read("#{File.dirname(__FILE__)}/../#{source_file}")
 end

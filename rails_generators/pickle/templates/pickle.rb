@@ -1,4 +1,3 @@
-<%= current_env -%>
 <%- if pickle -%>
 require 'pickle/world'
 # Example of configuring pickle:
