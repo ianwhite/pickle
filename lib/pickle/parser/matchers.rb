@@ -58,13 +58,13 @@ module Pickle
       end
   
       def match_predicate
-        "(?:#{config.predicates.map{|m| m.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
+        "(?:#{config.predicates.map{|m| m.to_s.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
       end
       
       # create capture analogues of match methods
       instance_methods.select{|m| m =~ /^match_/}.each do |method|
         eval <<-end_eval                   
-          def #{method.sub('match_', 'capture_')}         # def capture_field
+          def #{method.to_s.sub('match_', 'capture_')}         # def capture_field
             "(" + #{method} + ")"                         #   "(" + match_field + ")"
           end                                             # end
         end_eval
