@@ -19,7 +19,7 @@ building complex givens which require a bunch of models collaborating
 
 <b>Railscast</b> presentation: http://railscasts.com/episodes/186-pickle-with-cucumber
 
-<b>Blog articles</b>: http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/
+<b>Blog articles</b>: {dynamic50: Integration testing with cucumber and pickle}[http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/], {rubyflare: pickle my cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
 
 == Install
 

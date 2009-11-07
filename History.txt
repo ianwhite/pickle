@@ -1,7 +1,13 @@
+== master
+
+* 1 minor improvement
+  * docs: more links
+  
+
 == 0.1.22 - 7 Nov 2009
 
 * 2 minor enhancements
-  * Improved docs to include instructions for FactoryGirl users, and linksresources for pickle users
+  * Improved docs to include instructions for FactoryGirl users, and links/resources for pickle users
   * Ruby 1.9.1 compatibility changes
 
 
