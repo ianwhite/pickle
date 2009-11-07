@@ -7,6 +7,18 @@ References to the models are stored in the current world, not necessarily for th
 (although you could use it for that), but for enabling easy reference to urls, and for
 building complex givens which require a bunch of models collaborating
 
+== Resources
+
+<b>Github</b> for code: http://github.com/ianwhite/pickle
+
+<b>API</b> docs: http://ianwhite.github.com/pickle/doc
+
+<b>Google group</b> for questions: http://groups.google.com/group/pickle-cucumber
+
+<b>Lighthouse</b> for bugs: http://ianwhite.lighthouseapp.com/projects/25941-pickle
+
+<b>Railscast</b> presentation: http://railscasts.com/episodes/186-pickle-with-cucumber
+
 == CI
 
 It's tested against all stable branches of 2.x rails, and edge, with the latest versions of rspec, cucumber, factory_girl, machinist.
