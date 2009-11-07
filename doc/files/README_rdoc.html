@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Wed Oct 28 21:25:57 +0000 2009</span>
+          <span class='datetime'>Sat Nov 07 11:27:59 +0000 2009</span>
         </div>
       </div>
       <div id='content'>
@@ -50,19 +50,40 @@
             but for enabling easy reference to urls, and for building complex givens
             which require a bunch of models collaborating
             </p>
-            <h2>CI</h2>
+            <h2>Resources</h2>
             <p>
-            It&#8217;s tested against all stable branches of 2.x rails, and edge, with
-            the latest versions of rspec, cucumber, factory_girl, machinist.
+            <b>Github</b> for code: <a
+            href="http://github.com/ianwhite/pickle">github.com/ianwhite/pickle</a>
+            </p>
+            <p>
+            <b>API</b> docs: <a
+            href="http://ianwhite.github.com/pickle/doc">ianwhite.github.com/pickle/doc</a>
+            </p>
+            <p>
+            <b>Google group</b> for questions: <a
+            href="http://groups.google.com/group/pickle-cucumber">groups.google.com/group/pickle-cucumber</a>
+            </p>
+            <p>
+            <b>Lighthouse</b> for bugs: <a
+            href="http://ianwhite.lighthouseapp.com/projects/25941-pickle">ianwhite.lighthouseapp.com/projects/25941-pickle</a>
+            </p>
+            <p>
+            <b>Railscast</b> presentation: <a
+            href="http://railscasts.com/episodes/186-pickle-with-cucumber">railscasts.com/episodes/186-pickle-with-cucumber</a>
             </p>
             <h2>Install</h2>
             <p>
             Install pickle either as a rails plugin, or a gem
             </p>
-            <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
+            <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# gem dependency (in config/environments/cucumber.rb)&#x000A;gem 'pickle'&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
+            <h2>CI</h2>
+            <p>
+            It&#8217;s tested against all stable branches of 2.x rails, and edge, with
+            the latest versions of rspec, cucumber, factory_girl, machinist.
+            </p>
             <h2>Contributors</h2>
             <p>
-            The following people have <a href="../classes/Pickle.html">Pickle</a>
+            The following people have made <a href="../classes/Pickle.html">Pickle</a>
             better:
             </p>
             <ul>
@@ -114,6 +135,17 @@
             bottom
             </p>
             <pre>require &quot;#{Rails.root}/spec/blueprints&quot; # or wherever they live&#x000A;Before { Sham.reset } # reset Shams in between scenarios</pre>
+            <h4>FactoryGirl: make sure factories are loaded</h4>
+            <p>
+            In your config/environments/cucumber.rb file, make sure the factory-girl
+            gem is included (unless it&#8217;s installed as a plugin).
+            </p>
+            <p>
+            If that doesn&#8217;t solve loading issues then require your factories.rb
+            file directly in a file called
+            &#8216;features/support/factory_girl.rb&#8216;
+            </p>
+            <pre># example features/support/factory_girl.rb&#x000A;require File.dirname(__FILE__) + '/../../spec/factories'</pre>
             <h3>Configuring <a href="../classes/Pickle.html">Pickle</a></h3>
             <p>
             You can tell pickle to use another factory adapter (see <a
@@ -124,6 +156,13 @@
             choose
             </p>
             <pre>require 'pickle/world'&#x000A;&#x000A;Pickle.configure do |config|&#x000A;  config.adapters = [:machinist, YourOwnAdapterClass]&#x000A;  config.map 'me', 'myself', 'my', 'I', :to =&gt; 'user: &quot;me&quot;'&#x000A;end</pre>
+            <p>
+            Out of the box pickle looks for machinist, then factory-girl, then finally
+            active-record &#8216;factories&#8217;. If you find that your steps
+            aren&#8217;t working with your factories, it&#8217;s probably the case that
+            your factory setup is not being included in your cucumber environment (see
+            comments above regarding machinist and factory-girl).
+            </p>
             <h2>API</h2>
             <h3>Steps</h3>
             <p>
