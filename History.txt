@@ -1,3 +1,10 @@
+== 0.1.22 - 7 Nov 2009
+
+* 2 minor enhancements
+  * Improved docs to include instructions for FactoryGirl users, and linksresources for pickle users
+  * Ruby 1.9.1 compatibility changes
+
+
 == 0.1.21
 
 * 1 minor enhancement
