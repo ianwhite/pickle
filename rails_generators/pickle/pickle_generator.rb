@@ -1,3 +1,7 @@
+# WIP
+# fresh sg pickle => add example config comment
+# subsequent generations => only append/remove require statements; allow for custom code
+
 class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
@@ -17,10 +21,10 @@ class PickleGenerator < Rails::Generator::Base
       m.directory File.join('features/support')
       
       current_pickle = File.exists?('features/support/pickle.rb') ? File.read('features/support/pickle.rb') : ''
-      pickle_assigns = {:pickle => false, :pickle_path => false, :pickle_email => false}
+      pickle_assigns = {:pickle_path => false, :pickle_email => false}
       
       if @generate_path_steps
-        pickle_assigns[:pickle_path] = true unless current_pickle.include?("require 'pickle/path/world'")
+        pickle_assigns[:pickle_path] = true
         current_paths = File.read('features/support/paths.rb')
         unless current_paths.include?('#{capture_model}')
           if current_paths =~ /^(.*)(\n\s+else\n\s+raise "Can't find.*".*$)/m
@@ -32,14 +36,12 @@ class PickleGenerator < Rails::Generator::Base
       end
       
       if @generate_email_steps
-        pickle_assigns[:pickle_email] = true unless current_pickle.include?("require 'pickle/email/world'")
+        pickle_assigns[:pickle_email] = true
         m.template 'email_steps.rb', File.join('features/step_definitions', 'email_steps.rb')
       end
 
-      pickle_assigns[:pickle] = true unless current_pickle.include?("require 'pickle/world'")
-      m.template 'pickle_steps.rb', File.join('features/step_definitions', 'pickle_steps.rb')
-      
-      m.template 'pickle.rb', File.join('features/support', 'pickle.rb'), :assigns => pickle_assigns, :collision => :force
+      m.template 'pickle_steps.rb', File.join('features/step_definitions', 'pickle_steps.rb')      
+      m.template 'pickle.rb', File.join('features/support', 'pickle.rb'), :assigns => pickle_assigns
     end
   end
 end
