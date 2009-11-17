@@ -1,7 +1,3 @@
-# WIP
-# fresh sg pickle => add example config comment
-# subsequent generations => only append/remove require statements; allow for custom code
-
 class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
