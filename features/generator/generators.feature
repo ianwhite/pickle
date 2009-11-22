@@ -37,6 +37,7 @@ Feature: allow pickle to generate steps
     Given cucumber has been freshly generated
     When I run "script/generate pickle path email"
     Then the file features/support/pickle.rb should exist
+    And the file features/support/pickle.rb should be identical to the local support/pickle.rb
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/path\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/email\/world'/

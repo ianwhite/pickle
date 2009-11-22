@@ -1,9 +1,6 @@
 class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
-    # no longer require the following check if we are not appending to env.rb
-    # unless we are using this to ensure that Cucumber is already setup
-    # File.exists?('features/support/env.rb') or raise "features/support/env.rb not found, try running script/generate cucumber"
     @generate_email_steps = args.include?('email')
     if @generate_path_steps = args.include?('path') || args.include?('paths')
       File.exists?('features/support/paths.rb') or raise "features/support/paths.rb not found, is your cucumber up to date?"
@@ -11,7 +8,6 @@ class PickleGenerator < Rails::Generator::Base
   end
   
   def manifest
-    # renamed env_assigns to pickle_assigns and current_env to current_pickle
     record do |m|
       m.directory File.join('features/step_definitions')
       m.directory File.join('features/support')
