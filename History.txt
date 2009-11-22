@@ -1,4 +1,8 @@
-== master
+== 0.1.23 - 22 Nov 2009
+
+* 1 major improvement
+  * script/generate pickle now adds its own pickle.rb support file, making it easier to regenerate cucumber
+    when a new release of cucumber appears [schlick, ianwhite]
 
 * 1 minor improvement
   * docs: more links
