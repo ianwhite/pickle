@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pickle}
-  s.version = "0.1.22"
+  s.version = "0.1.23"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian White"]
-  s.date = %q{2009-11-07}
+  s.date = %q{2009-11-22}
   s.description = %q{Easy model creation and reference in your cucumber features}
   s.email = %q{ian.w.white@gmail.com}
   s.extra_rdoc_files = [
@@ -43,6 +43,8 @@ Gem::Specification.new do |s|
      "features/step_definitions/pickle_steps.rb",
      "features/support/env.rb",
      "features/support/paths.rb",
+     "features/support/pickle.rb",
+     "features/support/pickle_app.rb",
      "garlic.rb",
      "init.rb",
      "lib/pickle.rb",
@@ -62,8 +64,8 @@ Gem::Specification.new do |s|
      "pickle.gemspec",
      "rails_generators/pickle/pickle_generator.rb",
      "rails_generators/pickle/templates/email_steps.rb",
-     "rails_generators/pickle/templates/env.rb",
      "rails_generators/pickle/templates/paths.rb",
+     "rails_generators/pickle/templates/pickle.rb",
      "rails_generators/pickle/templates/pickle_steps.rb",
      "spec/lib/pickle_adapter_spec.rb",
      "spec/lib/pickle_config_spec.rb",
