@@ -39,8 +39,15 @@ Feature: I can easily create models from my factories
     And a tine exists with fork: the fork
     
     Then a tine should exist with fork: the fork
-
-    And the fork should be the tine's fork
+  
+  Scenario: create a tine with fork refs in a table
+    Given 2 forks exist
+    And the following tines exist:
+      | fork         |
+      | the 1st fork |
+      | the 2nd fork |
+    Then the 1st tine should be in the 1st fork's tines
+    And the 2nd tine should be in the 2nd fork's tines
 
   Scenario: I create fork via a mapping
     Given killah fork exists
