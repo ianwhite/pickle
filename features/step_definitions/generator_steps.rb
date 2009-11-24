@@ -1,8 +1,8 @@
-Before do
+Before('@gen') do
   `mv #{Rails.root}/features/ #{Rails.root}/features.orig/ > /dev/null 2>&1`
 end
 
-After do
+After('@gen') do
   `rm -rf #{Rails.root}/features`
   `mv #{Rails.root}/features.orig/ #{Rails.root}/features/ > /dev/null 2>&1`
 end

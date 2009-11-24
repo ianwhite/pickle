@@ -1,3 +1,4 @@
+@gen
 Feature: allow pickle to generate steps
   In order to get going with pickle
   As a dev
