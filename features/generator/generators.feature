@@ -3,11 +3,6 @@ Feature: allow pickle to generate steps
   As a dev
   I want to be able to generate steps
 
-  # Do we care anymore?
-  # Scenario: cucumber is not yet installed
-  #   When I run "script/generate pickle"
-  #   Then I should see "try running script/generate cucumber"
-
   Scenario: script/generate pickle on fresh cuke install
     Given cucumber has been freshly generated
     When I run "script/generate pickle"
@@ -28,8 +23,6 @@ Feature: allow pickle to generate steps
     Given cucumber has been freshly generated
     When I run "script/generate pickle email"
     Then the file features/support/pickle.rb should exist
-    And the file features/support/email.rb should exist
-    And the file features/step_definitions/email.rb should exist
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/email\/world'/
     And the file features/step_definitions/pickle_steps.rb should be identical to the local step_definitions/pickle_steps.rb
@@ -40,8 +33,6 @@ Feature: allow pickle to generate steps
     Given cucumber has been freshly generated
     When I run "script/generate pickle path email"
     Then the file features/support/pickle.rb should exist
-    And the file features/support/email.rb should exist
-    And the file features/support/paths.rb should exist
     And the file features/support/pickle.rb should be identical to the local support/pickle.rb
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/path\/world'/
