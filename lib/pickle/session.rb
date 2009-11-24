@@ -23,7 +23,7 @@ module Pickle
     def create_model(a_model_name, fields = nil)
       factory, label = *parse_model(a_model_name)
       raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
-      fields = fields.instance_of?(Hash) ? fields.dup : parse_fields(fields)
+      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
       record = pickle_config.factories[factory].create(fields)
       store_model(factory, label, record)
     end
@@ -32,7 +32,7 @@ module Pickle
       factory, name = *parse_model(a_model_name)
       raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
       model_class = pickle_config.factories[factory].klass
-      fields = fields.instance_of?(Hash) ? fields.dup : parse_fields(fields)
+      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
       if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, fields))
         store_model(factory, name, record)
       end

@@ -1,7 +1,6 @@
 == 0.2.0 - 24 Nov 2009
 
-
-* 3 major improvements
+* 4 major improvements
   * Added support for finding models using tables
     Example:
       Then the following users should exist:
@@ -11,6 +10,8 @@
       And the 1st user should be male
       And the 2nd user should be female
       
+  * tables now support pickle refs in cells (see features/pickle/create_from_factory_girl.rb#37)
+  
   * features/support/email.rb adds an email helper for mapping names to email addresses (similar to NavigationHelper in paths.rb)
   
   * Added ability for path_to_pickle to handle arbitrary segments
