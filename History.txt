@@ -1,7 +1,7 @@
 == 0.2.0 - 24 Nov 2009
 
 
-* 2 major improvements
+* 3 major improvements
   * Added support for finding models using tables
     Example:
       Then the following users should exist:
@@ -12,6 +12,10 @@
       And the 2nd user should be female
       
   * features/support/email.rb adds an email helper for mapping names to email addresses (similar to NavigationHelper in paths.rb)
+  
+  * Added ability for path_to_pickle to handle arbitrary segments
+    Example:
+      path_to_pickle('account', 'the enquiry') => account_enquiry_path(<enquiry>)
 
 * 2 minor improvements
   * fail faster in pickle steps when a pickle ref can't be found, by using model! in most places
