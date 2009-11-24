@@ -11,6 +11,8 @@ building complex givens which require a bunch of models collaborating
 
 <b>Github</b> for code: http://github.com/ianwhite/pickle
 
+<b>Gemcutter</b> for the gem: http://gemcutter.org/gems/pickle
+
 <b>API</b> docs: http://ianwhite.github.com/pickle/doc
 
 <b>Google group</b> for questions: http://groups.google.com/group/pickle-cucumber
