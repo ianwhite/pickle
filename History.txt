@@ -1,9 +1,21 @@
-== master
+== 0.2.0 - 24 Nov 2009
 
-* 1 major improvement
+
+* 2 major improvements
+  * Added support for finding models using tables
+    Example:
+      Then the following users should exist:
+        | name  |
+        | Fred  |
+        | Ethel |
+      And the 1st user should be male
+      And the 2nd user should be female
+      
   * features/support/email.rb adds an email helper for mapping names to email addresses (similar to NavigationHelper in paths.rb)
 
-* 1 minor improvement
+* 2 minor improvements
+  * fail faster in pickle steps when a pickle ref can't be found, by using model! in most places
+
   * generated pickle steps are less picky about possessives so that pickle mappings accepted in more places
     e.g. when you have
         config.map 'my', 'I', 'myself', :to => 'user: "me"'
@@ -11,6 +23,7 @@
         Given I exist
         ...
         Then the project should be one of my assigned projects
+
 
 == 0.1.23 - 22 Nov 2009
 
