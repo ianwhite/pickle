@@ -1,3 +1,17 @@
+== master
+
+* 1 major improvement
+  * features/support/email.rb adds an email helper for mapping names to email addresses (similar to NavigationHelper in paths.rb)
+
+* 1 minor improvement
+  * generated pickle steps are less picky about possessives so that pickle mappings accepted in more places
+    e.g. when you have
+        config.map 'my', 'I', 'myself', :to => 'user: "me"'
+      you can now do
+        Given I exist
+        ...
+        Then the project should be one of my assigned projects
+
 == 0.1.23 - 22 Nov 2009
 
 * 1 major improvement

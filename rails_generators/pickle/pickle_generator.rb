@@ -30,6 +30,7 @@ class PickleGenerator < Rails::Generator::Base
       if @generate_email_steps
         pickle_assigns[:pickle_email] = true
         m.template 'email_steps.rb', File.join('features/step_definitions', 'email_steps.rb')
+        m.template 'email.rb', File.join('features/support', 'email.rb')
       end
 
       m.template 'pickle_steps.rb', File.join('features/step_definitions', 'pickle_steps.rb')      
