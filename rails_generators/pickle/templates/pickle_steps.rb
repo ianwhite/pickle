@@ -11,7 +11,7 @@ Given(/^(\d+) #{capture_plural_factory} exist(?: with #{capture_fields})?$/) do 
 end
 
 # create models from a table
-Given /^the following #{capture_plural_factory} exist$/ do |plural_factory, table|
+Given /^the following #{capture_plural_factory} exist:?$/ do |plural_factory, table|
   name = plural_factory.singularize
   table.hashes.each { |hash| create_model(name, hash) }
 end
@@ -32,22 +32,22 @@ Then(/^(\d+) #{capture_plural_factory} should exist(?: with #{capture_fields})?$
 end
 
 # assert model is in another model's has_many assoc
-Then(/^#{capture_model} should be (?:in|one of|amongst) #{capture_model}'s (\w+)$/) do |target, owner, association|
+Then(/^#{capture_model} should be (?:in|one of|amongst) #{capture_model}(?:'s)? (\w+)$/) do |target, owner, association|
   model(owner).send(association).should include(model(target))
 end
 
 # assert model is not in another model's has_many assoc
-Then(/^#{capture_model} should not be (?:in|one of|amongst) #{capture_model}'s (\w+)$/) do |target, owner, association|
+Then(/^#{capture_model} should not be (?:in|one of|amongst) #{capture_model}(?:'s)? (\w+)$/) do |target, owner, association|
   model(owner).send(association).should_not include(model(target))
 end
 
 # assert model is another model's has_one/belongs_to assoc
-Then(/^#{capture_model} should be #{capture_model}'s (\w+)$/) do |target, owner, association|
+Then(/^#{capture_model} should be #{capture_model}(?:'s)? (\w+)$/) do |target, owner, association|
   model(owner).send(association).should == model(target)
 end
 
 # assert model is not another model's has_one/belongs_to assoc
-Then(/^#{capture_model} should not be #{capture_model}'s (\w+)$/) do |target, owner, association|
+Then(/^#{capture_model} should not be #{capture_model}(?:'s)? (\w+)$/) do |target, owner, association|
   model(owner).send(association).should_not == model(target)
 end
 
