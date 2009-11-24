@@ -32,9 +32,14 @@ module Pickle
       factory, name = *parse_model(a_model_name)
       raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
       model_class = pickle_config.factories[factory].klass
-      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, parse_fields(fields)))
+      fields = fields.instance_of?(Hash) ? fields.dup : parse_fields(fields)
+      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, fields))
         store_model(factory, name, record)
       end
+    end
+    
+    def find_model!(a_model_name, fields = nil)
+      find_model(a_model_name, fields) or raise "Can't find pickle model: '#{name}' in this scenario"
     end
     
     def find_models(factory, fields = nil)
@@ -53,7 +58,7 @@ module Pickle
       elsif name_or_index.is_a?(Integer)
         models_by_index(factory)[name_or_index]
       else
-        models_by_name(factory)[name_or_index] or raise "model: #{name} does not refer to known model in this scenario"
+        models_by_name(factory)[name_or_index] or raise "Can't find pickle model: '#{name}' in this scenario"
       end
     end
 

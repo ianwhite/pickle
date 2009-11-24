@@ -25,3 +25,19 @@ Feature: I can easily create models from my blueprints
     Then 2 users should exist
     And the 1st user should be a positive person
     And the 2nd user should not be a positive person
+    
+  Scenario: create and find using tables
+    Given the following users exist:
+      | name       | status                   |
+      | Jim        | married                  |
+      | Ethel      | in a relationship with x |
+    Then the following users should exist:
+      | name  |
+      | Jim   |
+      | Ethel |
+    And the following users should exist:
+      | status                   |
+      | married                  |
+      | in a relationship with x |
+    And the 1st user should be the 3rd user
+    And the 2nd user should be the last user

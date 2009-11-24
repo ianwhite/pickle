@@ -188,6 +188,35 @@ describe Pickle::Session do
       
       it_should_behave_like "after storing a single user"
     end
+    
+    describe "with hash" do
+      def do_create_model
+        find_model('a user', {'foo' => 'bar'})
+      end
+  
+      it "should call User.find('user', {'foo' => 'bar'})" do
+        User.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'}).and_return(@user)
+        do_create_model
+      end
+      
+      describe "after find," do
+        before { do_find_model }
+        
+        it_should_behave_like "after storing a single user"
+      end
+    end
+  end
+  
+  describe "#find_model!" do
+    it "should call find_model" do
+      should_receive(:find_model).with('name', 'fields').and_return(mock('User'))
+      find_model!('name', 'fields')
+    end
+
+    it "should call raise error if find_model returns nil" do
+      should_receive(:find_model).with('name', 'fields').and_return(nil)
+      lambda { find_model!('name', 'fields') }.should raise_error
+    end
   end
   
   describe "#find_models" do
