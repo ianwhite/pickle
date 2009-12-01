@@ -1,3 +1,9 @@
+== master
+
+* 1 minor improvement
+  * Added negative email step for delivered to
+
+
 == 0.2.0 - 24 Nov 2009
 
 * 4 major improvements
