@@ -6,6 +6,7 @@ Feature: I can test emails are sent
   Scenario: Deliver an email, and test it's properties
     Given an email "Gday" with body: "Gday Mate" is delivered to fred@gmail.com
     Then 1 email should be delivered
+    And the email should not be delivered to "frood@fmail.com"
     And the email should have subject: "Gday", to: "fred@gmail.com"
     And the email should contain "Mate"
     And the email should not contain "Foo"
