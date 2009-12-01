@@ -1,6 +1,7 @@
-== master
+== 0.2.1 - 1 Dec 2009
 
-* 1 minor improvement
+* 2 minor improvements
+  * Allow nil as field value [#14]
   * Added negative email step for delivered to
 
 

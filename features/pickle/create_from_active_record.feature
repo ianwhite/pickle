@@ -30,6 +30,7 @@ Feature: I can easily create models from my blueprints
     Given a user exists with name: "Fred", attitude_score: nil
     Then 1 users should exist with attitude_score: nil
     And that user should be the first user
+    And that user should have no attitude
     
   Scenario: create and find using tables
     Given the following users exist:

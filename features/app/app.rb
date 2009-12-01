@@ -66,8 +66,13 @@ end
 # No factory or blueprint for this
 class User < AbstractUser
   validates_presence_of :name
+  
   def positive_person?
-    !attitude_score.nil? && attitude_score > 0
+    !no_attitude? && attitude_score > 0
+  end
+  
+  def no_attitude?
+    attitude_score.nil?
   end
 end
 
