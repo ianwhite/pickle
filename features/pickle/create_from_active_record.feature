@@ -26,6 +26,11 @@ Feature: I can easily create models from my blueprints
     And the 1st user should be a positive person
     And the 2nd user should not be a positive person
     
+  Scenario: I create nil values
+    Given a user exists with name: "Fred", attitude_score: nil
+    Then 1 users should exist with attitude_score: nil
+    And that user should be the first user
+    
   Scenario: create and find using tables
     Given the following users exist:
       | name       | status                   |
