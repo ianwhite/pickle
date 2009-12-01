@@ -30,7 +30,7 @@ Then(/^#{capture_email} should be delivered to (.+)$/) do |email_ref, to|
   email(email_ref, "to: \"#{email_for(to)}\"").should_not be_nil
 end
 
-Then(/^#{capture_email} should not be delivered to (.+)$// do |email_ref, to|
+Then(/^#{capture_email} should not be delivered to (.+)$/) do |email_ref, to|
   email(email_ref, "to: \"#{email_for(to)}\"").should be_nil
 end
 
