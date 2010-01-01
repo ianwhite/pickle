@@ -8,7 +8,7 @@ After('@gen') do
 end
 
 Given(/^cucumber has been freshly generated$/) do
-  `cd #{Rails.root}; script/generate cucumber -f`
+  `cd #{Rails.root}; script/generate cucumber -f --webrat`
 end
 
 Given(/^pickle path email has been freshly generated$/) do
