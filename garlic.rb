@@ -20,11 +20,11 @@ garlic do
         end
         plugin 'factory_girl'
         plugin 'cucumber'
-        plugin 'cucumber-rails' do
-          `script/generate cucumber -f`
-        end
         plugin 'machinist'
         plugin 'webrat'
+        plugin 'cucumber-rails' do
+          `script/generate cucumber --webrat -f`
+        end
       end
   
       run do
