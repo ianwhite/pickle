@@ -43,6 +43,19 @@ Install pickle either as a rails plugin, or a gem
 
 It's tested against all stable branches of 2.x rails, and edge, with the latest versions of rspec, cucumber, factory_girl, machinist.
 
+== Run the tests
+
+  cd ~/wherever_you_work
+  rails pickle_test_project; cd pickle_test_project
+  script/generate rspec
+  script/generate cucumber --rspec
+  script/plugin install git://github.com/ianwhite/pickle.git
+  cd vendor/plugins/pickle
+  rake spec
+  cucumber features
+
+Instructions produced using: Ruby 1.8.6, rails 2.3.5, cucumber 0.5.3, cucumber-rails 0.2.2, rspec 1.2.9, rspec-rails 1.2.9, pickle 0.2.1
+
 == Contributors
 
 The following people have made Pickle better:
