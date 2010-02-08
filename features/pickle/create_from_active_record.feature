@@ -47,3 +47,20 @@ Feature: I can easily create models from my blueprints
       | in a relationship with x |
     And the 1st user should be the 3rd user
     And the 2nd user should be the last user
+    
+    Scenario: create and find using tables with referencable names
+      Given the following users exist:
+        | PickleRef | name | status |
+        | Jack      | Jack | alone  |
+        | Pete      | Pete | dead   |
+      Then the following users should exist:
+        | name  |
+        | Jack  |
+        | Pete  |
+      And the following users should exist:
+        | status |
+        | alone  |
+        | dead   |
+      And the 1st user should be the 3rd user
+      And the 2nd user should be the last user
+      

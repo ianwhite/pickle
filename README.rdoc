@@ -199,6 +199,17 @@ You can use other models, booleans, numerics, and strings as fields
 
   Then 2 people should exist with father: person "fred"
   
+"Then the following <b>models</b> exist". This allows the creation of multiple models
+using a table syntax. Using the optional column 'PickleRef' models referenceable in pickle can be created. E.g.
+
+  Then the following users exist:
+    | name | activated |
+    | Fred | false     |
+
+  Then the following users exist:
+    | PickleRef | name   | activated |
+    | Fred      | Freddy | false     |
+  
 ===== Asserting associations
 
 One-to-one assocs: "Then <b>a model</b> should be <b>other model</b>'s <b>association</b>", e.g.

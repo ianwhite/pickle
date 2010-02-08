@@ -27,6 +27,15 @@ module Pickle
       record = pickle_config.factories[factory].create(fields)
       store_model(factory, label, record)
     end
+    
+    def create_model_from_table(plural_factory, table)
+      model_class = model_class_for_factory(plural_factory)
+
+      table.hashes.each do |hash|
+        name = construct_name_from_pickleref_and_factory(hash.delete(config.reference_name_column.to_s), plural_factory)
+        create_model(name, hash)
+      end
+    end
 
     def find_model(a_model_name, fields = nil)
       factory, name = *parse_model(a_model_name)
@@ -154,4 +163,21 @@ module Pickle
       models_by_index(factory) << record
     end
   end
+  
+  private
+  
+    def model_class_for_factory(factory_name)
+      name = factory_name.singularize
+      factory, name_or_index = *parse_model(name)
+      pickle_config.factories[factory].klass
+    end
+
+    def construct_name_from_pickleref_and_factory(pickle_ref, plural_factory)
+      if pickle_ref && !pickle_ref.empty?
+        'the ' + plural_factory.singularize + ": \"#{pickle_ref}\""
+      else
+        plural_factory.singularize
+      end
+    end
+
 end

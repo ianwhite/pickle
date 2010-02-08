@@ -12,8 +12,7 @@ end
 
 # create models from a table
 Given(/^the following #{capture_plural_factory} exists?:?$/) do |plural_factory, table|
-  name = plural_factory.singularize
-  table.hashes.each { |hash| create_model(name, hash) }
+  create_model_from_table(plural_factory, table)
 end
 
 # find a model
