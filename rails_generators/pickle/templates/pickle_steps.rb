@@ -71,3 +71,19 @@ end
 Then(/^#{capture_model} should not (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
   model!(name).should_not send("be_#{predicate.gsub(' ', '_')}")
 end
+
+# model.attribute.should eql(value)
+# model.attribute.should_not eql(value)
+Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |name, attribute, expectation, expected|
+  actual_value  = model(name).send(attribute)
+  expectation   = expectation.gsub(' ', '_')
+  
+  case expected
+  when 'nil', 'true', 'false'
+    actual_value.send(expectation, send("be_#{expected}"))
+  when /^-?[0-9_]+$/
+    actual_value.send(expectation, eql(expected.to_i))
+  else
+    actual_value.to_s.send(expectation, eql(expected))
+  end
+end
