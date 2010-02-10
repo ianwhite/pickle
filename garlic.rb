@@ -5,6 +5,7 @@ garlic do
   repo 'factory_girl', :url => 'git://github.com/thoughtbot/factory_girl'
   repo 'machinist', :url => 'git://github.com/notahat/machinist'
   repo 'cucumber', :url => 'git://github.com/aslakhellesoy/cucumber'
+  repo 'cucumber-rails', :url => 'git://github.com/aslakhellesoy/cucumber-rails'
   repo 'webrat', :url => 'git://github.com/brynary/webrat'
   repo 'pickle', :path => '.'
 
@@ -18,11 +19,12 @@ garlic do
           `script/generate rspec -f`
         end
         plugin 'factory_girl'
-        plugin 'cucumber' do
-          `script/generate cucumber -f`
-        end
+        plugin 'cucumber'
         plugin 'machinist'
         plugin 'webrat'
+        plugin 'cucumber-rails' do
+          `script/generate cucumber --webrat -f`
+        end
       end
   
       run do
