@@ -45,6 +45,10 @@ It's tested against all stable branches of 2.x rails, and edge, with the latest 
 
 == Run the tests
 
+You can run the test with <b>garlic</b> http://github.com/ianwhite/garlic, which tests against different versions of rails.
+  
+Or, you can make a test rails app:
+
   cd ~/wherever_you_work
   rails pickle_test_project; cd pickle_test_project
   script/generate rspec
@@ -53,8 +57,6 @@ It's tested against all stable branches of 2.x rails, and edge, with the latest 
   cd vendor/plugins/pickle
   rake spec
   cucumber features
-
-Instructions produced using: Ruby 1.8.6, rails 2.3.5, cucumber 0.5.3, cucumber-rails 0.2.2, rspec 1.2.9, rspec-rails 1.2.9, pickle 0.2.1
 
 == Contributors
 
