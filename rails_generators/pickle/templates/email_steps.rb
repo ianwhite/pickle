@@ -22,7 +22,7 @@ When(/^(?:I|they) follow "([^"]*?)" in #{capture_email}$/) do |link, email_ref|
   visit_in_email(email(email_ref), link)
 end
 
-When(/^(?:I|they) click the first link in #{capture_email}$/) do
+When(/^(?:I|they) click the first link in #{capture_email}$/) do |email_ref|
   click_first_link_in_email(email(email_ref))
 end
 
