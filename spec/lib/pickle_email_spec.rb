@@ -128,4 +128,26 @@ describe Pickle::Email do
       save_and_open_emails
     end
   end
+  
+  describe "following links in emails" do
+    before do
+      stub!(:open_in_browser)
+      @email1.stub!(:body).and_return('some text <a href="http://example.com/page">example page</a> more text')
+    end
+    
+    it "should find a link for http://example.com/page" do
+      should_receive(:visit).with('/page')
+      visit_in_email(@email1, 'http://example.com/page')
+    end
+
+    it "should find a link for \"example page\"" do
+      should_receive(:visit).with('/page')
+      visit_in_email(@email1, 'example page')
+    end
+    
+    it "should follow the first link in an email" do
+      should_receive(:visit).with('/page')
+      click_first_link_in_email(@email1)
+    end
+  end
 end
