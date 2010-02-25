@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>File: README.rdoc [pickle API docs]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <div class='name'>README.rdoc</div>
+        <div class='paths'>
+          README.rdoc
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>Sat Nov 07 12:07:44 +0000 2009</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <h1>pickle</h1>
+            <p>
+            <a href="../classes/Pickle.html">Pickle</a> gives you cucumber steps that
+            create your models easily from factory-girl or machinist
+            factories/blueprints. You can also just use ActiveRecord but it&#8217;s not
+            as cool.
+            </p>
+            <p>
+            References to the models are stored in the current world, not necessarily
+            for the purpose of checking the db (although you could use it for that),
+            but for enabling easy reference to urls, and for building complex givens
+            which require a bunch of models collaborating
+            </p>
+            <h2>Resources</h2>
+            <p>
+            <b>Github</b> for code: <a
+            href="http://github.com/ianwhite/pickle">github.com/ianwhite/pickle</a>
+            </p>
+            <p>
+            <b>API</b> docs: <a
+            href="http://ianwhite.github.com/pickle/doc">ianwhite.github.com/pickle/doc</a>
+            </p>
+            <p>
+            <b>Google group</b> for questions: <a
+            href="http://groups.google.com/group/pickle-cucumber">groups.google.com/group/pickle-cucumber</a>
+            </p>
+            <p>
+            <b>Lighthouse</b> for bugs: <a
+            href="http://ianwhite.lighthouseapp.com/projects/25941-pickle">ianwhite.lighthouseapp.com/projects/25941-pickle</a>
+            </p>
+            <p>
+            <b>Railscast</b> presentation: <a
+            href="http://railscasts.com/episodes/186-pickle-with-cucumber">railscasts.com/episodes/186-pickle-with-cucumber</a>
+            </p>
+            <p>
+            <b>Blog articles</b>: <a
+            href="http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/">dynamic50:
+            Integration testing with cucumber and pickle</a>, <a
+            href="http://rubyflare.com/2009/10/28/pickle-my-cucumber/">rubyflare:
+            pickle my cucumber</a>
+            </p>
+            <h2>Install</h2>
+            <p>
+            Install pickle either as a rails plugin, or a gem
+            </p>
+            <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# gem dependency (in config/environments/cucumber.rb)&#x000A;gem 'pickle'&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
+            <h2>CI</h2>
+            <p>
+            It&#8217;s tested against all stable branches of 2.x rails, and edge, with
+            the latest versions of rspec, cucumber, factory_girl, machinist.
+            </p>
+            <h2>Contributors</h2>
+            <p>
+            The following people have made <a href="../classes/Pickle.html">Pickle</a>
+            better:
+            </p>
+            <ul>
+            <li><a href="http://github.com/nruth">Nick Rutherford</a>
+            
+            </li>
+            <li>Tobi Knaup
+            
+            </li>
+            <li><a href="http://github.com/schlick">Michael MacDonald</a>
+            
+            </li>
+            </ul>
+            <h2>Get Started</h2>
+            <p>
+            (you&#8217;d better install cucumber)
+            </p>
+            <pre>script/generate pickle [paths] [email]</pre>
+            <p>
+            Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
+            </p>
+            <p>
+            If you want path steps and email steps then just add &#8216;paths&#8217;
+            and/or &#8216;email&#8217;. The code/steps will be written to
+            <tt>features/env/paths.rb</tt> and
+            <tt>features/step_definitions/email_steps.rb</tt> respectively.
+            </p>
+            <h3>Using with plain ole Active Record</h3>
+            <p>
+            If you have an AR called &#8216;Post&#8217;, with required fields
+            &#8216;title&#8217;, and &#8216;body&#8217;, then you can now write steps
+            like this
+            </p>
+            <pre>Given a post exists with title: &quot;My Post&quot;, body: &quot;My body&quot;</pre>
+            <h3>Using with factory-girl or machinist</h3>
+            <p>
+            But you&#8217;re using Machinist or FactoryGirl right?! To leverage all of
+            the factories/blueprints you&#8217;ve written, you can just do stuff like
+            </p>
+            <pre>Given a user exists&#x000A;And another user exists with role: &quot;admin&quot;&#x000A;&#x000A;# later&#x000A;Then a user should exist with name: &quot;Fred&quot;&#x000A;And that user should be activated # this uses rspec predicate matchers</pre>
+            <h4>Machinst: require your blueprints and reset Shams</h4>
+            <p>
+            (The latest version of pickle supports <a
+            href="http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496">multiple
+            blueprints</a>, for earlier versions of machinist use pickle <= 0.1.10)
+            </p>
+            <p>
+            In your <tt>features/support/env.rb</tt> add the following lines at the
+            bottom
+            </p>
+            <pre>require &quot;#{Rails.root}/spec/blueprints&quot; # or wherever they live&#x000A;Before { Sham.reset } # reset Shams in between scenarios</pre>
+            <h4>FactoryGirl: make sure factories are loaded</h4>
+            <p>
+            In your config/environments/cucumber.rb file, make sure the factory-girl
+            gem is included (unless it&#8217;s installed as a plugin).
+            </p>
+            <p>
+            If that doesn&#8217;t solve loading issues then require your factories.rb
+            file directly in a file called
+            &#8216;features/support/factory_girl.rb&#8216;
+            </p>
+            <pre># example features/support/factory_girl.rb&#x000A;require File.dirname(__FILE__) + '/../../spec/factories'</pre>
+            <h3>Configuring <a href="../classes/Pickle.html">Pickle</a></h3>
+            <p>
+            You can tell pickle to use another factory adapter (see <a
+            href="../classes/Pickle/Adapter.html">Pickle::Adapter</a>), or create
+            mappings from english expressions to pickle model names. You can also
+            override many of the options on the <a
+            href="../classes/Pickle/Config.html">Pickle::Config</a> object if you so
+            choose
+            </p>
+            <pre>require 'pickle/world'&#x000A;&#x000A;Pickle.configure do |config|&#x000A;  config.adapters = [:machinist, YourOwnAdapterClass]&#x000A;  config.map 'me', 'myself', 'my', 'I', :to =&gt; 'user: &quot;me&quot;'&#x000A;end</pre>
+            <p>
+            Out of the box pickle looks for machinist, then factory-girl, then finally
+            active-record &#8216;factories&#8217;. If you find that your steps
+            aren&#8217;t working with your factories, it&#8217;s probably the case that
+            your factory setup is not being included in your cucumber environment (see
+            comments above regarding machinist and factory-girl).
+            </p>
+            <h2>API</h2>
+            <h3>Steps</h3>
+            <p>
+            When you run <tt>script/generate pickle</tt> you get the following steps
+            </p>
+            <h4>Given steps</h4>
+            <p>
+            &#8220;Given <b>a model</b> exists&#8221;, e.g.
+            </p>
+            <pre>Given a user exists&#x000A;Given a user: &quot;fred&quot; exists&#x000A;Given the user exists</pre>
+            <p>
+            &#8220;Given <b>a model</b> exists with <b>fields</b>&#8220;, e.g.
+            </p>
+            <pre>Given a user exists with name: &quot;Fred&quot;&#x000A;Given a user exists with name: &quot;Fred&quot;, activated: false</pre>
+            <p>
+            You can refer to other models in the fields
+            </p>
+            <pre>Given a user exists&#x000A;And a post exists with author: the user&#x000A;&#x000A;Given a person: &quot;fred&quot; exists&#x000A;And a person: &quot;ethel&quot; exists&#x000A;And a fatherhood exists with parent: user &quot;fred&quot;, child: user &quot;ethel&quot;</pre>
+            <p>
+            &#8220;Given <b>n models</b> exist&#8221;, e.g.
+            </p>
+            <pre>Given 10 users exist</pre>
+            <p>
+            &#8220;Given <b>n models</b> exist with <b>fields</b>&#8220;, examples:
+            </p>
+            <pre>Given 10 users exist with activated: false</pre>
+            <h4>Then steps</h4>
+            <h5>Asserting existence of models</h5>
+            <p>
+            &#8220;Then <b>a model</b> should exist&#8221;, e.g.
+            </p>
+            <pre>Then a user should exist</pre>
+            <p>
+            &#8220;Then <b>a model</b> should exist with <b>fields</b>&#8220;, e.g.
+            </p>
+            <pre>Then a user: &quot;fred&quot; should exist with name: &quot;Fred&quot; # we can label the found user for later use</pre>
+            <p>
+            You can use other models, booleans, numerics, and strings as fields
+            </p>
+            <pre>Then a person should exist with child: person &quot;ethel&quot;&#x000A;Then a user should exist with activated: false&#x000A;Then a user should exist with activated: true, email: &quot;fred@gmail.com&quot;</pre>
+            <p>
+            &#8220;Then <b>n models</b> should exist&#8221;, e.g.
+            </p>
+            <pre>Then 10 events should exist</pre>
+            <p>
+            &#8220;Then <b>n models</b> should exist with <b>fields</b>&#8220;, e.g.
+            </p>
+            <pre>Then 2 people should exist with father: person &quot;fred&quot;</pre>
+            <h5>Asserting associations</h5>
+            <p>
+            One-to-one assocs: &#8220;Then <b>a model</b> should be <b>other
+            model</b>&#8217;s <b>association</b>&#8220;, e.g.
+            </p>
+            <pre>Then the person: &quot;fred&quot; should be person: &quot;ethel&quot;'s father</pre>
+            <p>
+            Many-to-one assocs: &#8220;Then <b>a model</b> should be [in|one of]
+            <b>other model</b>&#8217;s <b>association</b>&#8220;, e.g.
+            </p>
+            <pre>Then the person: &quot;ethel&quot; should be one of person: &quot;fred&quot;'s children&#x000A;Then the comment should be in the post's comments</pre>
+            <h5>Asserting predicate methods</h5>
+            <p>
+            &#8220;Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>&#8220;,
+            e.g.
+            </p>
+            <pre>Then the user should have a status # =&gt; user.status?.should == true&#x000A;Then the car: &quot;batmobile&quot; should be fast # =&gt; car.fast?.should == true</pre>
+            <p>
+            &#8220;Then <b>a model</b> should not [be|have] [a|an]
+            <b>predicate</b>&#8220;, e.g.
+            </p>
+            <pre>Then person: &quot;fred&quot; should not be childless # =&gt; fred.childless?.should == false</pre>
+            <h3>Regexps for use in your own steps</h3>
+            <p>
+            By default you get some regexps available in the main namespace for use in
+            creating your own steps: `capture_model`, `capture_fields`, and others (see
+            <a href="lib/pickle_rb.html">lib/pickle.rb</a>)
+            </p>
+            <p>
+            (You can use any of the regexps that <a
+            href="../classes/Pickle.html">Pickle</a> uses by using the <a
+            href="../classes/Pickle.html#M000003">Pickle.parser</a> namespace, see <a
+            href="../classes/Pickle/Parser/Matchers.html">Pickle::Parser::Matchers</a>
+            for the methods available)
+            </p>
+            <p>
+            <b>capture_model</b>
+            </p>
+            <pre>Given /^#{capture_model} exists$/ do |model_name|&#x000A;  model(model_name).should_not == nil&#x000A;end&#x000A;&#x000A;Then /^I should be at the (.*?) page$/ |page|&#x000A;  if page =~ /#{capture_model}'s/&#x000A;    url_for(model($1))&#x000A;  else&#x000A;    # ...&#x000A;  end&#x000A;end&#x000A;&#x000A;Then /^#{capture_model} should be one of #{capture_model}'s posts$/ do |post, forum|&#x000A;  post = model!(post)&#x000A;  forum = model!(forum)&#x000A;  forum.posts.should include(post)&#x000A;end</pre>
+            <p>
+            <b>capture_fields</b>
+            </p>
+            <p>
+            This is useful for setting attributes, and knows about pickle model names
+            so that you can build up composite objects with ease
+            </p>
+            <pre>Given /^#{capture_model} exists with #{capture_fields}$/ do |model_name, fields|&#x000A;  create_model(model_name, fields)&#x000A;end&#x000A;&#x000A;# example of use&#x000A;Given a user exists&#x000A;And a post exists with author: the user # this step will assign the above user as :author on the post</pre>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

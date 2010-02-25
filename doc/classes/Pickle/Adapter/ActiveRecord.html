@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>: Pickle::Adapter::ActiveRecord [pickle API docs]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Class</span>
+          Pickle::Adapter::ActiveRecord
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../../../files/lib/pickle/adapter_rb.html">lib/pickle/adapter.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong><a href="../Adapter.html">Pickle::Adapter</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <p>
+            fallback active record adapter
+            </p>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>public class</h3>
+            <ol>
+              <li><a href="#M000080">factories</a></li>
+              <li><a href="#M000081">new</a></li>
+            </ol>
+            <h3>public instance</h3>
+            <ol>
+              <li><a href="#M000082">create</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public class methods</h2>
+              <div class='public-class method' id='method-M000080'>
+                <a name='M000080'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>factories</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000080-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000080-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 74</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factories</span>&#x000A;        <span class="ruby-identifier">model_classes</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>) }&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-class method' id='method-M000081'>
+                <a name='M000081'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>new</span>
+                  <span class='arguments'>(klass)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000081-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000081-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 78</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">klass</span>)&#x000A;        <span class="ruby-ivar">@klass</span>, <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'/'</span>,<span class="ruby-value str">'_'</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <h2>Public instance methods</h2>
+              <div class='public-instance method' id='method-M000082'>
+                <a name='M000082'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>create</span>
+                  <span class='arguments'>(attrs = {})</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000082-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000082-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 82</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attrs</span> = {})&#x000A;        <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:create!</span>, <span class="ruby-identifier">attrs</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>: Pickle::Parser [pickle API docs]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Class</span>
+          Pickle::Parser
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../../files/lib/pickle/parser/matchers_rb.html">lib/pickle/parser/matchers.rb</a>
+          </li>
+          <li class='other'>
+            <a href="../../files/lib/pickle/parser_rb.html">lib/pickle/parser.rb</a>
+          </li>
+          <li>
+            <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong>Object</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>public class</h3>
+            <ol>
+              <li><a href="#M000041">new</a></li>
+            </ol>
+            <h3>public instance</h3>
+            <ol>
+              <li><a href="#M000044">canonical</a></li>
+              <li><a href="#M000043">parse_field</a></li>
+              <li><a href="#M000042">parse_fields</a></li>
+              <li><a href="#M000046">parse_index</a></li>
+              <li><a href="#M000045">parse_model</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+            <div id='includes'>
+              <h2>Included modules</h2>
+              <ol>
+                <li><a href="Parser/Matchers.html">Matchers</a></li>
+              </ol>
+            </div>
+          </div>
+          <div id='section'>
+            <div id='class-list'>
+              <h2>Classes and Modules</h2>
+              Module <a href="Parser/Matchers.html" class="link">Pickle::Parser::Matchers</a><br />
+            </div>
+            <div id='attribute-list'>
+              <h2 class='section-bar'>Attributes</h2>
+              <div class='name-list'>
+                <table>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>config</td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='methods'>
+              <h2>Public class methods</h2>
+              <div class='public-class method' id='method-M000041'>
+                <a name='M000041'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>new</span>
+                  <span class='arguments'>(options = {})</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000041-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000041-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 9</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})&#x000A;      <span class="ruby-ivar">@config</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:config</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Parser.new requires a :config&quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <h2>Public instance methods</h2>
+              <div class='public-instance method' id='method-M000044'>
+                <a name='M000044'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>canonical</span>
+                  <span class='arguments'>(str)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  returns really underscored name
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000044-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000044-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 36</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">str</span>)&#x000A;      <span class="ruby-identifier">str</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>,<span class="ruby-value str">'_'</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'/'</span>,<span class="ruby-value str">'_'</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000043'>
+                <a name='M000043'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>parse_field</span>
+                  <span class='arguments'>(field)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  given a string like &#8216;foo: expr&#8217; returns {key => value}
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000043-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000043-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 27</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_field</span>(<span class="ruby-identifier">field</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">field</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^#{capture_key_and_value_in_field}$/</span>&#x000A;        { <span class="ruby-identifier">$1</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">$2</span>) }&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;The field argument is not in the correct format.\n\n'#{field}' did not match: #{match_field}&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000042'>
+                <a name='M000042'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>parse_fields</span>
+                  <span class='arguments'>(fields)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  given a string like &#8216;foo: &#8220;bar&#8221;, bar:
+                  &#8220;baz&#8221;&#8217; returns {&#8220;foo&#8221; => &#8220;bar&#8221;,
+                  &#8220;bar&#8221; => &#8220;baz&#8221;}
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000042-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000042-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 14</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">blank?</span>&#x000A;        {}&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fields</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^#{match_fields}$/</span>&#x000A;        <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-node">/(#{match_field})(?:,|$)/</span>).<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span>, <span class="ruby-identifier">match</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">m</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">parse_field</span>(<span class="ruby-identifier">match</span>[<span class="ruby-value">0</span>]))&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;The fields string is not in the correct format.\n\n'#{fields}' did not match: #{match_fields}&quot;</span> &#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000046'>
+                <a name='M000046'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>parse_index</span>
+                  <span class='arguments'>(index)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000046-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000046-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 50</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_index</span>(<span class="ruby-identifier">index</span>)&#x000A;      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">index</span>&#x000A;      <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">''</span>, <span class="ruby-value str">'last'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value">-1</span>&#x000A;      <span class="ruby-keyword kw">when</span> <span class="ruby-node">/#{capture_number_in_ordinal}/</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>&#x000A;      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'first'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value">0</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000045'>
+                <a name='M000045'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>parse_model</span>
+                  <span class='arguments'>(model_name)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  return [factory_name, name or integer index]
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000045-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000045-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">model_name</span>)&#x000A;      <span class="ruby-identifier">apply_mappings!</span>(<span class="ruby-identifier">model_name</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-node">/#{capture_index} #{capture_factory}$/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">model_name</span>&#x000A;        [<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$2</span>), <span class="ruby-identifier">parse_index</span>(<span class="ruby-identifier">$1</span>)]&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-node">/#{capture_factory}#{capture_name_in_label}?$/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">model_name</span>&#x000A;        [<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$1</span>), <span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">$2</span>)]&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <h2>Private instance methods</h2>
+              <div class='private-instance method' id='method-M000047'>
+                <a name='M000047'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>apply_mappings!</span>
+                  <span class='arguments'>(string)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000047-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000047-source'><span class="ruby-comment cmt"># File lib/pickle/parser.rb, line 59</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">apply_mappings!</span>(<span class="ruby-identifier">string</span>)&#x000A;      <span class="ruby-identifier">config</span>.<span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mapping</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">string</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-node">/^#{mapping.search}$/</span>, <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">replacement</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
