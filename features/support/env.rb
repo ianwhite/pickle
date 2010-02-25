@@ -8,14 +8,12 @@ ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../../../../config/environment')
 
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
-require 'cucumber/rails/rspec'
 require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
 require 'cucumber/web/tableish'
 
 require 'webrat'
 require 'webrat/core/matchers'
-require 'cucumber/webrat/element_locator' # Deprecated in favor of #tableish - remove this line if you don't use #element_at or #table_at
 
 Webrat.configure do |config|
   config.mode = :rails
@@ -52,4 +50,3 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 # http://github.com/bmabey/database_cleaner for more info.
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
-
