@@ -50,55 +50,55 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000083">factories</a></li>
-              <li><a href="#M000084">new</a></li>
+              <li><a href="#M000091">factories</a></li>
+              <li><a href="#M000092">new</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000085">create</a></li>
+              <li><a href="#M000093">create</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000083'>
-                <a name='M000083'>      </a>
+              <div class='method public-class' id='method-M000091'>
+                <a name='M000091'></a>
                 <div class='synopsis'>
                   <span class='name'>factories</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000083-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000091-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000083-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 59</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factories</span>&#x000A;        (<span class="ruby-operator">::</span><span class="ruby-constant">Factory</span>.<span class="ruby-identifier">factories</span>.<span class="ruby-identifier">values</span> <span class="ruby-keyword kw">rescue</span> []).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">factory</span><span class="ruby-operator">|</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">factory</span>)}&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000091-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 59</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">factories</span>&#x000A;        (<span class="ruby-operator">::</span><span class="ruby-constant">Factory</span>.<span class="ruby-identifier">factories</span>.<span class="ruby-identifier">values</span> <span class="ruby-keyword kw">rescue</span> []).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">factory</span><span class="ruby-operator">|</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">factory</span>)}&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-class method' id='method-M000084'>
-                <a name='M000084'>      </a>
+              <div class='method public-class' id='method-M000092'>
+                <a name='M000092'></a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(factory)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000084-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000092-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000084-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 63</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">factory</span>)&#x000A;        <span class="ruby-ivar">@klass</span>, <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">factory</span>.<span class="ruby-identifier">build_class</span>, <span class="ruby-identifier">factory</span>.<span class="ruby-identifier">factory_name</span>.<span class="ruby-identifier">to_s</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000092-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 63</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">factory</span>)&#x000A;        <span class="ruby-ivar">@klass</span>, <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">factory</span>.<span class="ruby-identifier">build_class</span>, <span class="ruby-identifier">factory</span>.<span class="ruby-identifier">factory_name</span>.<span class="ruby-identifier">to_s</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000085'>
-                <a name='M000085'>      </a>
+              <div class='method public-instance' id='method-M000093'>
+                <a name='M000093'></a>
                 <div class='synopsis'>
                   <span class='name'>create</span>
                   <span class='arguments'>(attrs = {})</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000085-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000093-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000085-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 67</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attrs</span> = {})&#x000A;        <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-ivar">@name</span>, <span class="ruby-identifier">attrs</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000093-source'><span class="ruby-comment cmt"># File lib/pickle/adapter.rb, line 67</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attrs</span> = {})&#x000A;        <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-ivar">@name</span>, <span class="ruby-identifier">attrs</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

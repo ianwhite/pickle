@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Sat Nov 07 12:07:44 +0000 2009</span>
+          <span class='datetime'>Thu Feb 25 10:18:19 +0000 2010</span>
         </div>
       </div>
       <div id='content'>
@@ -56,8 +56,12 @@
             href="http://github.com/ianwhite/pickle">github.com/ianwhite/pickle</a>
             </p>
             <p>
-            <b>API</b> docs: <a
-            href="http://ianwhite.github.com/pickle/doc">ianwhite.github.com/pickle/doc</a>
+            <b>Gemcutter</b> for the gem: <a
+            href="http://gemcutter.org/gems/pickle">gemcutter.org/gems/pickle</a>
+            </p>
+            <p>
+            <b>API</b> docs: <a href="http://ianwhite.github.com/pickle/doc/">Pickle
+            rdoc on github</a>
             </p>
             <p>
             <b>Google group</b> for questions: <a
@@ -82,12 +86,22 @@
             <p>
             Install pickle either as a rails plugin, or a gem
             </p>
-            <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# gem dependency (in config/environments/cucumber.rb)&#x000A;gem 'pickle'&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
+            <pre># gem from gemcutter&#x000A;sudo gem install pickle&#x000A;&#x000A;# gem dependency (in config/environments/cucumber.rb)&#x000A;config.gem 'pickle'&#x000A;&#x000A;# plugin&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;&#x000A;# or, plugin as submodule&#x000A;git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle</pre>
             <h2>CI</h2>
             <p>
             It&#8217;s tested against all stable branches of 2.x rails, and edge, with
             the latest versions of rspec, cucumber, factory_girl, machinist.
             </p>
+            <h2>Run the tests</h2>
+            <p>
+            You can run the test with <b>garlic</b> <a
+            href="http://github.com/ianwhite/garlic">github.com/ianwhite/garlic</a>,
+            which tests against different versions of rails.
+            </p>
+            <p>
+            Or, you can make a test rails app:
+            </p>
+            <pre>cd ~/wherever_you_work&#x000A;rails pickle_test_project; cd pickle_test_project&#x000A;script/generate rspec&#x000A;script/generate cucumber --rspec&#x000A;script/plugin install git://github.com/ianwhite/pickle.git&#x000A;cd vendor/plugins/pickle&#x000A;rake spec&#x000A;cucumber features</pre>
             <h2>Contributors</h2>
             <p>
             The following people have made <a href="../classes/Pickle.html">Pickle</a>
@@ -97,10 +111,13 @@
             <li><a href="http://github.com/nruth">Nick Rutherford</a>
             
             </li>
-            <li>Tobi Knaup
+            <li><a href="http://github.com/guenter">Tobi Knaup</a>
             
             </li>
             <li><a href="http://github.com/schlick">Michael MacDonald</a>
+            
+            </li>
+            <li><a href="http://github.com/UnderpantsGnome">Michael Moen</a>
             
             </li>
             </ul>
@@ -160,7 +177,10 @@
             mappings from english expressions to pickle model names. You can also
             override many of the options on the <a
             href="../classes/Pickle/Config.html">Pickle::Config</a> object if you so
-            choose
+            choose.
+            </p>
+            <p>
+            In: <tt>features/support/pickle.rb</tt>
             </p>
             <pre>require 'pickle/world'&#x000A;&#x000A;Pickle.configure do |config|&#x000A;  config.adapters = [:machinist, YourOwnAdapterClass]&#x000A;  config.map 'me', 'myself', 'my', 'I', :to =&gt; 'user: &quot;me&quot;'&#x000A;end</pre>
             <p>

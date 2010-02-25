@@ -31,14 +31,94 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Sat Nov 07 11:46:20 +0000 2009</span>
+          <span class='datetime'>Thu Feb 25 10:18:19 +0000 2010</span>
         </div>
       </div>
       <div id='content'>
         <div id='text'>
           <div id='description'>
-            <h2>master</h2>
+            <h2>0.2.2 - 25 Feb 2010</h2>
             <ul>
+            <li>3 improvements
+            
+            <ul>
+            <li>Added ability to follow links in emails (see email_steps.rb) [Michael Moen]
+            
+            </li>
+            <li>Added a step definition for doing stuff like: Then the user&#8217;s name
+            should be &#8220;Tobi&#8221; [Tobi Knaup]
+            
+            </li>
+            <li>Docfixes, mostly about testing [Nicholas Rutherford]
+            
+            </li>
+            </ul>
+            </li>
+            </ul>
+            <h2>0.2.1 - 1 Dec 2009</h2>
+            <ul>
+            <li>2 minor improvements
+            
+            <ul>
+            <li>Allow nil as field value [14]
+            
+            </li>
+            <li>Added negative email step for delivered to
+            
+            </li>
+            </ul>
+            </li>
+            </ul>
+            <h2>0.2.0 - 24 Nov 2009</h2>
+            <ul>
+            <li>4 major improvements
+            
+            <ul>
+            <li>Added support for finding models using tables Example:
+            
+            <pre>Then the following users should exist:&#x000A;  | name  |&#x000A;  | Fred  |&#x000A;  | Ethel |&#x000A;And the 1st user should be male&#x000A;And the 2nd user should be female</pre>
+            </li>
+            <li>tables now support pickle refs in cells (see
+            features/pickle/create_from_factory_girl.rb#37)
+            
+            </li>
+            <li>features/support/email.rb adds an email helper for mapping names to email
+            addresses (similar to NavigationHelper in paths.rb)
+            
+            </li>
+            <li>Added ability for path_to_pickle to handle arbitrary segments Example:
+            
+            <pre>path_to_pickle('account', 'the enquiry') =&gt; account_enquiry_path(&lt;enquiry&gt;)</pre>
+            </li>
+            </ul>
+            </li>
+            <li>2 minor improvements
+            
+            <ul>
+            <li>fail faster in pickle steps when a pickle ref can&#8217;t be found, by
+            using model! in most places
+            
+            </li>
+            <li>generated pickle steps are less picky about possessives so that pickle
+            mappings accepted in more places e.g. when you have
+            
+            <pre>  config.map 'my', 'I', 'myself', :to =&gt; 'user: &quot;me&quot;'&#x000A;you can now do&#x000A;  Given I exist&#x000A;  ...&#x000A;  Then the project should be one of my assigned projects</pre>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            <h2>0.1.23 - 22 Nov 2009</h2>
+            <ul>
+            <li>1 major improvement
+            
+            <ul>
+            <li>script/generate pickle now adds its own pickle.rb support file, making it
+            easier to regenerate cucumber when a new release of cucumber appears
+            [schlick, ianwhite]
+            
+            </li>
+            </ul>
+            </li>
             <li>1 minor improvement
             
             <ul>
@@ -197,7 +277,7 @@
             
             <ul>
             <li><a
-            href="../classes/Pickle/Adapter.html#M000076">Pickle::Adapter.model_classes</a>
+            href="../classes/Pickle/Adapter.html#M000084">Pickle::Adapter.model_classes</a>
             excludes those without tables
             
             </li>

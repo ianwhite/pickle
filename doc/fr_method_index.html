@@ -4331,91 +4331,99 @@
         
         Element.addMethods();
         var search_index = [
-          { method: 'adapter_classes', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000069"><span class="method_name">adapter_classes</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'adapters', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000068"><span class="method_name">adapters</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'apply_mappings!', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000047"><span class="method_name">apply_mappings!</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'canonical', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000044"><span class="method_name">canonical</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'capture_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000039"><span class="method_name">capture_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
-          { method: 'capture_index_in_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000040"><span class="method_name">capture_index_in_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
-          { method: 'capture_key_and_value_in_field', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000065"><span class="method_name">capture_key_and_value_in_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'capture_name_in_label', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000064"><span class="method_name">capture_name_in_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'capture_number_in_ordinal', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000063"><span class="method_name">capture_number_in_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'adapter_classes', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000077"><span class="method_name">adapter_classes</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'adapters', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000076"><span class="method_name">adapters</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'apply_mappings!', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000055"><span class="method_name">apply_mappings!</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'canonical', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000052"><span class="method_name">canonical</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'capture_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000047"><span class="method_name">capture_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
+          { method: 'capture_index_in_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000048"><span class="method_name">capture_index_in_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
+          { method: 'capture_key_and_value_in_field', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000073"><span class="method_name">capture_key_and_value_in_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'capture_name_in_label', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000072"><span class="method_name">capture_name_in_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'capture_number_in_ordinal', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000071"><span class="method_name">capture_number_in_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'click_first_link_in_email', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000040"><span class="method_name">click_first_link_in_email</span> <span class="module_name">(Pickle::Email)</span></a>' },
           { method: 'config', module: 'pickle', html: '<a href="classes/Pickle.html#M000001"><span class="method_name">config</span> <span class="module_name">(Pickle)</span></a>' },
           { method: 'configure', module: 'pickle', html: '<a href="classes/Pickle.html#M000002"><span class="method_name">configure</span> <span class="module_name">(Pickle)</span></a>' },
-          { method: 'configure', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000067"><span class="method_name">configure</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'convert_models_to_attributes', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000023"><span class="method_name">convert_models_to_attributes</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'create', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000075"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
-          { method: 'create', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000082"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
-          { method: 'create', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000079"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
-          { method: 'create', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000085"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
+          { method: 'configure', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000075"><span class="method_name">configure</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'convert_models_to_attributes', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000024"><span class="method_name">convert_models_to_attributes</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'create', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000093"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
+          { method: 'create', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000087"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
+          { method: 'create', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000090"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
+          { method: 'create', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000083"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
           { method: 'create_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000007"><span class="method_name">create_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'created_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000010"><span class="method_name">created_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'created_model!', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000015"><span class="method_name">created_model!</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'created_model?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000011"><span class="method_name">created_model?</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'created_models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000016"><span class="method_name">created_models</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'email', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000035"><span class="method_name">email</span> <span class="module_name">(Pickle::Email)</span></a>' },
-          { method: 'email_has_fields?', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000036"><span class="method_name">email_has_fields?</span> <span class="module_name">(Pickle::Email)</span></a>' },
-          { method: 'emails', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000034"><span class="method_name">emails</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'created_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000011"><span class="method_name">created_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'created_model!', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000016"><span class="method_name">created_model!</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'created_model?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000012"><span class="method_name">created_model?</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'created_models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000017"><span class="method_name">created_models</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'email', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000037"><span class="method_name">email</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'email_has_fields?', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000038"><span class="method_name">email_has_fields?</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'emails', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000036"><span class="method_name">emails</span> <span class="module_name">(Pickle::Email)</span></a>' },
           { method: 'extended', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000005"><span class="method_name">extended</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'factories', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000074"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
-          { method: 'factories', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000080"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
-          { method: 'factories', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000070"><span class="method_name">factories</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'factories', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000083"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
-          { method: 'factories', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000077"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
+          { method: 'factories', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000078"><span class="method_name">factories</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'factories', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000088"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
+          { method: 'factories', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000091"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
+          { method: 'factories', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000085"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
+          { method: 'factories', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000082"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
           { method: 'find_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000008"><span class="method_name">find_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'find_models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000009"><span class="method_name">find_models</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'find_pickle_path_using_action_segment_combinations', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000032"><span class="method_name">find_pickle_path_using_action_segment_combinations</span> <span class="module_name">(Pickle::Path)</span></a>' },
+          { method: 'find_model!', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000009"><span class="method_name">find_model!</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'find_models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000010"><span class="method_name">find_models</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'find_pickle_path_using_action_segment_combinations', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000034"><span class="method_name">find_pickle_path_using_action_segment_combinations</span> <span class="module_name">(Pickle::Path)</span></a>' },
+          { method: 'included', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000029"><span class="method_name">included</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
           { method: 'included', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000004"><span class="method_name">included</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'included', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000028"><span class="method_name">included</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
-          { method: 'map', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000073"><span class="method_name">map</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'mappings', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000072"><span class="method_name">mappings</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'match_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000038"><span class="method_name">match_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
-          { method: 'match_factory', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000057"><span class="method_name">match_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_field', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000029"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
-          { method: 'match_field', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000054"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_fields', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000055"><span class="method_name">match_fields</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_index', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000049"><span class="method_name">match_index</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_indexed_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000059"><span class="method_name">match_indexed_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_label', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000052"><span class="method_name">match_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_labeled_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000060"><span class="method_name">match_labeled_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_mapping', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000056"><span class="method_name">match_mapping</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000061"><span class="method_name">match_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_ordinal', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000048"><span class="method_name">match_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_plural_factory', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000058"><span class="method_name">match_plural_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_predicate', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000062"><span class="method_name">match_predicate</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_prefix', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000050"><span class="method_name">match_prefix</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_quoted', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000051"><span class="method_name">match_quoted</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'match_value', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000053"><span class="method_name">match_value</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
-          { method: 'method_missing_with_pickle_parser', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000019"><span class="method_name">method_missing_with_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000012"><span class="method_name">model</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'model!', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000014"><span class="method_name">model!</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'model?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000013"><span class="method_name">model?</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'model_classes', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000076"><span class="method_name">model_classes</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
-          { method: 'models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000017"><span class="method_name">models</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'models_by_index', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000025"><span class="method_name">models_by_index</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'models_by_name', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000024"><span class="method_name">models_by_name</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'new', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000084"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
-          { method: 'new', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000081"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
-          { method: 'new', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000066"><span class="method_name">new</span> <span class="module_name">(Pickle::Config)</span></a>' },
-          { method: 'new', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000078"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
-          { method: 'new', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000041"><span class="method_name">new</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'parse_field', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000043"><span class="method_name">parse_field</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'parse_field_with_model', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000030"><span class="method_name">parse_field_with_model</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
-          { method: 'parse_fields', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000042"><span class="method_name">parse_fields</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'parse_index', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000046"><span class="method_name">parse_index</span> <span class="module_name">(Pickle::Parser)</span></a>' },
-          { method: 'parse_model', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000045"><span class="method_name">parse_model</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'links_in_email', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000045"><span class="method_name">links_in_email</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'map', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000081"><span class="method_name">map</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'mappings', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000080"><span class="method_name">mappings</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'match_email', module: 'pickle::email::parser', html: '<a href="classes/Pickle/Email/Parser.html#M000046"><span class="method_name">match_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a>' },
+          { method: 'match_factory', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000065"><span class="method_name">match_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_field', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000030"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
+          { method: 'match_field', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000062"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_fields', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000063"><span class="method_name">match_fields</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_index', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000057"><span class="method_name">match_index</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_indexed_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000067"><span class="method_name">match_indexed_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_label', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000060"><span class="method_name">match_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_labeled_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000068"><span class="method_name">match_labeled_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_mapping', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000064"><span class="method_name">match_mapping</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_model', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000069"><span class="method_name">match_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_ordinal', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000056"><span class="method_name">match_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_plural_factory', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000066"><span class="method_name">match_plural_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_predicate', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000070"><span class="method_name">match_predicate</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_prefix', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000058"><span class="method_name">match_prefix</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_quoted', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000059"><span class="method_name">match_quoted</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'match_value', module: 'pickle::parser::matchers', html: '<a href="classes/Pickle/Parser/Matchers.html#M000061"><span class="method_name">match_value</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a>' },
+          { method: 'method_missing_with_pickle_parser', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000020"><span class="method_name">method_missing_with_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000013"><span class="method_name">model</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'model!', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000015"><span class="method_name">model!</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'model?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000014"><span class="method_name">model?</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'model_classes', module: 'pickle::adapter', html: '<a href="classes/Pickle/Adapter.html#M000084"><span class="method_name">model_classes</span> <span class="module_name">(Pickle::Adapter)</span></a>' },
+          { method: 'models', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000018"><span class="method_name">models</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'models_by_index', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000026"><span class="method_name">models_by_index</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'models_by_name', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000025"><span class="method_name">models_by_name</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'new', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000049"><span class="method_name">new</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'new', module: 'pickle::adapter::machinist', html: '<a href="classes/Pickle/Adapter/Machinist.html#M000086"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a>' },
+          { method: 'new', module: 'pickle::adapter::factorygirl', html: '<a href="classes/Pickle/Adapter/FactoryGirl.html#M000092"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a>' },
+          { method: 'new', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000074"><span class="method_name">new</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'new', module: 'pickle::adapter::activerecord', html: '<a href="classes/Pickle/Adapter/ActiveRecord.html#M000089"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a>' },
+          { method: 'parse_email_for_anchor_text_link', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000044"><span class="method_name">parse_email_for_anchor_text_link</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'parse_email_for_explicit_link', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000043"><span class="method_name">parse_email_for_explicit_link</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'parse_email_for_link', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000042"><span class="method_name">parse_email_for_link</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'parse_field', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000051"><span class="method_name">parse_field</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'parse_field_with_model', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000031"><span class="method_name">parse_field_with_model</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
+          { method: 'parse_fields', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000050"><span class="method_name">parse_fields</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'parse_hash', module: 'pickle::session::parser', html: '<a href="classes/Pickle/Session/Parser.html#M000032"><span class="method_name">parse_hash</span> <span class="module_name">(Pickle::Session::Parser)</span></a>' },
+          { method: 'parse_index', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000054"><span class="method_name">parse_index</span> <span class="module_name">(Pickle::Parser)</span></a>' },
+          { method: 'parse_model', module: 'pickle::parser', html: '<a href="classes/Pickle/Parser.html#M000053"><span class="method_name">parse_model</span> <span class="module_name">(Pickle::Parser)</span></a>' },
           { method: 'parser', module: 'pickle', html: '<a href="classes/Pickle.html#M000003"><span class="method_name">parser</span> <span class="module_name">(Pickle)</span></a>' },
-          { method: 'path_to_pickle', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000031"><span class="method_name">path_to_pickle</span> <span class="module_name">(Pickle::Path)</span></a>' },
-          { method: 'pickle_config', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000022"><span class="method_name">pickle_config</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'pickle_parser', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000021"><span class="method_name">pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'pickle_parser=', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000020"><span class="method_name">pickle_parser=</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'pickle_path_for_models_action_segment', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000033"><span class="method_name">pickle_path_for_models_action_segment</span> <span class="module_name">(Pickle::Path)</span></a>' },
-          { method: 'predicates', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000071"><span class="method_name">predicates</span> <span class="module_name">(Pickle::Config)</span></a>' },
+          { method: 'path_to_pickle', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000033"><span class="method_name">path_to_pickle</span> <span class="module_name">(Pickle::Path)</span></a>' },
+          { method: 'pickle_config', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000023"><span class="method_name">pickle_config</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'pickle_parser', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000022"><span class="method_name">pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'pickle_parser=', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000021"><span class="method_name">pickle_parser=</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'pickle_path_for_resources_action_segment', module: 'pickle::path', html: '<a href="classes/Pickle/Path.html#M000035"><span class="method_name">pickle_path_for_resources_action_segment</span> <span class="module_name">(Pickle::Path)</span></a>' },
+          { method: 'predicates', module: 'pickle::config', html: '<a href="classes/Pickle/Config.html#M000079"><span class="method_name">predicates</span> <span class="module_name">(Pickle::Config)</span></a>' },
           { method: 'proxy_to_pickle_parser', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000006"><span class="method_name">proxy_to_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'respond_to_with_pickle_parser?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000018"><span class="method_name">respond_to_with_pickle_parser?</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'save_and_open_emails', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000037"><span class="method_name">save_and_open_emails</span> <span class="module_name">(Pickle::Email)</span></a>' },
-          { method: 'store_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000026"><span class="method_name">store_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
-          { method: 'store_record', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000027"><span class="method_name">store_record</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'respond_to_with_pickle_parser?', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000019"><span class="method_name">respond_to_with_pickle_parser?</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'save_and_open_emails', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000041"><span class="method_name">save_and_open_emails</span> <span class="module_name">(Pickle::Email)</span></a>' },
+          { method: 'store_model', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000027"><span class="method_name">store_model</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'store_record', module: 'pickle::session', html: '<a href="classes/Pickle/Session.html#M000028"><span class="method_name">store_record</span> <span class="module_name">(Pickle::Session)</span></a>' },
+          { method: 'visit_in_email', module: 'pickle::email', html: '<a href="classes/Pickle/Email.html#M000039"><span class="method_name">visit_in_email</span> <span class="module_name">(Pickle::Email)</span></a>' },
         ]
         $(document).observe('dom:loaded', function() {
         	// Setup search-during-typing.
@@ -4486,91 +4494,99 @@
       </form>
       <ol class='methods' id='search-results' style='display: none'></ol>
       <ol class='methods' id='index-entries'>
-        <li><a href="classes/Pickle/Config.html#M000069"><span class="method_name">adapter_classes</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000068"><span class="method_name">adapters</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000047"><span class="method_name">apply_mappings!</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000044"><span class="method_name">canonical</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Email/Parser.html#M000039"><span class="method_name">capture_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Email/Parser.html#M000040"><span class="method_name">capture_index_in_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000065"><span class="method_name">capture_key_and_value_in_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000064"><span class="method_name">capture_name_in_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000063"><span class="method_name">capture_number_in_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000077"><span class="method_name">adapter_classes</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000076"><span class="method_name">adapters</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000055"><span class="method_name">apply_mappings!</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000052"><span class="method_name">canonical</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Email/Parser.html#M000047"><span class="method_name">capture_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Email/Parser.html#M000048"><span class="method_name">capture_index_in_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000073"><span class="method_name">capture_key_and_value_in_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000072"><span class="method_name">capture_name_in_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000071"><span class="method_name">capture_number_in_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000040"><span class="method_name">click_first_link_in_email</span> <span class="module_name">(Pickle::Email)</span></a></li>
         <li><a href="classes/Pickle.html#M000001"><span class="method_name">config</span> <span class="module_name">(Pickle)</span></a></li>
         <li><a href="classes/Pickle.html#M000002"><span class="method_name">configure</span> <span class="module_name">(Pickle)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000067"><span class="method_name">configure</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000023"><span class="method_name">convert_models_to_attributes</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Adapter.html#M000075"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000082"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/Machinist.html#M000079"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000085"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000075"><span class="method_name">configure</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000024"><span class="method_name">convert_models_to_attributes</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000093"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/Machinist.html#M000087"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000090"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
+        <li><a href="classes/Pickle/Adapter.html#M000083"><span class="method_name">create</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
         <li><a href="classes/Pickle/Session.html#M000007"><span class="method_name">create_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000010"><span class="method_name">created_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000015"><span class="method_name">created_model!</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000011"><span class="method_name">created_model?</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000016"><span class="method_name">created_models</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Email.html#M000035"><span class="method_name">email</span> <span class="module_name">(Pickle::Email)</span></a></li>
-        <li><a href="classes/Pickle/Email.html#M000036"><span class="method_name">email_has_fields?</span> <span class="module_name">(Pickle::Email)</span></a></li>
-        <li><a href="classes/Pickle/Email.html#M000034"><span class="method_name">emails</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000011"><span class="method_name">created_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000016"><span class="method_name">created_model!</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000012"><span class="method_name">created_model?</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000017"><span class="method_name">created_models</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000037"><span class="method_name">email</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000038"><span class="method_name">email_has_fields?</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000036"><span class="method_name">emails</span> <span class="module_name">(Pickle::Email)</span></a></li>
         <li><a href="classes/Pickle/Session.html#M000005"><span class="method_name">extended</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Adapter.html#M000074"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000080"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000070"><span class="method_name">factories</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000083"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/Machinist.html#M000077"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000078"><span class="method_name">factories</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000088"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000091"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/Machinist.html#M000085"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
+        <li><a href="classes/Pickle/Adapter.html#M000082"><span class="method_name">factories</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
         <li><a href="classes/Pickle/Session.html#M000008"><span class="method_name">find_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000009"><span class="method_name">find_models</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Path.html#M000032"><span class="method_name">find_pickle_path_using_action_segment_combinations</span> <span class="module_name">(Pickle::Path)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000009"><span class="method_name">find_model!</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000010"><span class="method_name">find_models</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Path.html#M000034"><span class="method_name">find_pickle_path_using_action_segment_combinations</span> <span class="module_name">(Pickle::Path)</span></a></li>
+        <li><a href="classes/Pickle/Session/Parser.html#M000029"><span class="method_name">included</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
         <li><a href="classes/Pickle/Session.html#M000004"><span class="method_name">included</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session/Parser.html#M000028"><span class="method_name">included</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000073"><span class="method_name">map</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000072"><span class="method_name">mappings</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Email/Parser.html#M000038"><span class="method_name">match_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000057"><span class="method_name">match_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Session/Parser.html#M000029"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000054"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000055"><span class="method_name">match_fields</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000049"><span class="method_name">match_index</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000059"><span class="method_name">match_indexed_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000052"><span class="method_name">match_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000060"><span class="method_name">match_labeled_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000056"><span class="method_name">match_mapping</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000061"><span class="method_name">match_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000048"><span class="method_name">match_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000058"><span class="method_name">match_plural_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000062"><span class="method_name">match_predicate</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000050"><span class="method_name">match_prefix</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000051"><span class="method_name">match_quoted</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Parser/Matchers.html#M000053"><span class="method_name">match_value</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000019"><span class="method_name">method_missing_with_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000012"><span class="method_name">model</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000014"><span class="method_name">model!</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000013"><span class="method_name">model?</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Adapter.html#M000076"><span class="method_name">model_classes</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000017"><span class="method_name">models</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000025"><span class="method_name">models_by_index</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000024"><span class="method_name">models_by_name</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000084"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000081"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000066"><span class="method_name">new</span> <span class="module_name">(Pickle::Config)</span></a></li>
-        <li><a href="classes/Pickle/Adapter/Machinist.html#M000078"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000041"><span class="method_name">new</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000043"><span class="method_name">parse_field</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Session/Parser.html#M000030"><span class="method_name">parse_field_with_model</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000042"><span class="method_name">parse_fields</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000046"><span class="method_name">parse_index</span> <span class="module_name">(Pickle::Parser)</span></a></li>
-        <li><a href="classes/Pickle/Parser.html#M000045"><span class="method_name">parse_model</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000045"><span class="method_name">links_in_email</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000081"><span class="method_name">map</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000080"><span class="method_name">mappings</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Email/Parser.html#M000046"><span class="method_name">match_email</span> <span class="module_name">(Pickle::Email::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000065"><span class="method_name">match_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Session/Parser.html#M000030"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000062"><span class="method_name">match_field</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000063"><span class="method_name">match_fields</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000057"><span class="method_name">match_index</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000067"><span class="method_name">match_indexed_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000060"><span class="method_name">match_label</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000068"><span class="method_name">match_labeled_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000064"><span class="method_name">match_mapping</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000069"><span class="method_name">match_model</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000056"><span class="method_name">match_ordinal</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000066"><span class="method_name">match_plural_factory</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000070"><span class="method_name">match_predicate</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000058"><span class="method_name">match_prefix</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000059"><span class="method_name">match_quoted</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Parser/Matchers.html#M000061"><span class="method_name">match_value</span> <span class="module_name">(Pickle::Parser::Matchers)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000020"><span class="method_name">method_missing_with_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000013"><span class="method_name">model</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000015"><span class="method_name">model!</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000014"><span class="method_name">model?</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Adapter.html#M000084"><span class="method_name">model_classes</span> <span class="module_name">(Pickle::Adapter)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000018"><span class="method_name">models</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000026"><span class="method_name">models_by_index</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000025"><span class="method_name">models_by_name</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000049"><span class="method_name">new</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/Machinist.html#M000086"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::Machinist)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/FactoryGirl.html#M000092"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::FactoryGirl)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000074"><span class="method_name">new</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Adapter/ActiveRecord.html#M000089"><span class="method_name">new</span> <span class="module_name">(Pickle::Adapter::ActiveRecord)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000044"><span class="method_name">parse_email_for_anchor_text_link</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000043"><span class="method_name">parse_email_for_explicit_link</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000042"><span class="method_name">parse_email_for_link</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000051"><span class="method_name">parse_field</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Session/Parser.html#M000031"><span class="method_name">parse_field_with_model</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000050"><span class="method_name">parse_fields</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Session/Parser.html#M000032"><span class="method_name">parse_hash</span> <span class="module_name">(Pickle::Session::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000054"><span class="method_name">parse_index</span> <span class="module_name">(Pickle::Parser)</span></a></li>
+        <li><a href="classes/Pickle/Parser.html#M000053"><span class="method_name">parse_model</span> <span class="module_name">(Pickle::Parser)</span></a></li>
         <li><a href="classes/Pickle.html#M000003"><span class="method_name">parser</span> <span class="module_name">(Pickle)</span></a></li>
-        <li><a href="classes/Pickle/Path.html#M000031"><span class="method_name">path_to_pickle</span> <span class="module_name">(Pickle::Path)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000022"><span class="method_name">pickle_config</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000021"><span class="method_name">pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000020"><span class="method_name">pickle_parser=</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Path.html#M000033"><span class="method_name">pickle_path_for_models_action_segment</span> <span class="module_name">(Pickle::Path)</span></a></li>
-        <li><a href="classes/Pickle/Config.html#M000071"><span class="method_name">predicates</span> <span class="module_name">(Pickle::Config)</span></a></li>
+        <li><a href="classes/Pickle/Path.html#M000033"><span class="method_name">path_to_pickle</span> <span class="module_name">(Pickle::Path)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000023"><span class="method_name">pickle_config</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000022"><span class="method_name">pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000021"><span class="method_name">pickle_parser=</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Path.html#M000035"><span class="method_name">pickle_path_for_resources_action_segment</span> <span class="module_name">(Pickle::Path)</span></a></li>
+        <li><a href="classes/Pickle/Config.html#M000079"><span class="method_name">predicates</span> <span class="module_name">(Pickle::Config)</span></a></li>
         <li><a href="classes/Pickle/Session.html#M000006"><span class="method_name">proxy_to_pickle_parser</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000018"><span class="method_name">respond_to_with_pickle_parser?</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Email.html#M000037"><span class="method_name">save_and_open_emails</span> <span class="module_name">(Pickle::Email)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000026"><span class="method_name">store_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
-        <li><a href="classes/Pickle/Session.html#M000027"><span class="method_name">store_record</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000019"><span class="method_name">respond_to_with_pickle_parser?</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000041"><span class="method_name">save_and_open_emails</span> <span class="module_name">(Pickle::Email)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000027"><span class="method_name">store_model</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Session.html#M000028"><span class="method_name">store_record</span> <span class="module_name">(Pickle::Session)</span></a></li>
+        <li><a href="classes/Pickle/Email.html#M000039"><span class="method_name">visit_in_email</span> <span class="module_name">(Pickle::Email)</span></a></li>
       </ol>
     </div>
   </body>
