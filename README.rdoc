@@ -63,7 +63,7 @@ Or, you can make a test rails app:
 The following people have made Pickle better:
 
 * {Nick Rutherford}[http://github.com/nruth]
-* Tobi Knaup
+* {Tobi Knaup}[http://github.com/guenter]
 * {Michael MacDonald}[http://github.com/schlick]
 
 == Get Started

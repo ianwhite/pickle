@@ -1,3 +1,10 @@
+== 0.2.2 - 25 Feb 2010
+
+* 1 minor improvements
+  * Added a step definition for doing stuff like: Then the user's name should be "Tobi" [Tobi Knaup]
+
+
+
 == 0.2.1 - 1 Dec 2009
 
 * 2 minor improvements
