@@ -1,8 +1,9 @@
 == 0.2.2 - 25 Feb 2010
 
-* 2 improvements
+* 3 improvements
   * Added ability to follow links in emails (see email_steps.rb) [Michael Moen]
   * Added a step definition for doing stuff like: Then the user's name should be "Tobi" [Tobi Knaup]
+  * Docfixes, mostly about testing [Nicholas Rutherford]
   
   
 == 0.2.1 - 1 Dec 2009
