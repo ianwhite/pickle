@@ -39,7 +39,7 @@ module Pickle
     end
     
     def find_model!(a_model_name, fields = nil)
-      find_model(a_model_name, fields) or raise "Can't find pickle model: '#{name}' in this scenario"
+      find_model(a_model_name, fields) or raise "Can't find pickle model: '#{a_model_name}' in this scenario"
     end
     
     def find_models(factory, fields = nil)
