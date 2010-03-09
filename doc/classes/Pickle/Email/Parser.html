@@ -46,51 +46,51 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000048">capture_email</a></li>
-              <li><a href="#M000049">capture_index_in_email</a></li>
-              <li><a href="#M000047">match_email</a></li>
+              <li><a href="#M000049">capture_email</a></li>
+              <li><a href="#M000050">capture_index_in_email</a></li>
+              <li><a href="#M000048">match_email</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000048'>
-                <a name='M000048'></a>
-                <div class='synopsis'>
-                  <span class='name'>capture_email</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000048-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000048-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 9</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_email</span>&#x000A;        <span class="ruby-node">&quot;(#{match_email})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
               <div class='method public-instance' id='method-M000049'>
                 <a name='M000049'></a>
                 <div class='synopsis'>
-                  <span class='name'>capture_index_in_email</span>
+                  <span class='name'>capture_email</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000049-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000049-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 13</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_index_in_email</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_prefix}?(?:#{capture_index} )?email)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000049-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 9</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_email</span>&#x000A;        <span class="ruby-node">&quot;(#{match_email})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000047'>
-                <a name='M000047'></a>
+              <div class='method public-instance' id='method-M000050'>
+                <a name='M000050'></a>
+                <div class='synopsis'>
+                  <span class='name'>capture_index_in_email</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000050-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000050-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 13</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_index_in_email</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_prefix}?(?:#{capture_index} )?email)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000048'>
+                <a name='M000048'></a>
                 <div class='synopsis'>
                   <span class='name'>match_email</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000047-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000048-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000047-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 5</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_email</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_prefix}?(?:#{match_index} )?email)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000048-source'><span class="ruby-comment cmt"># File lib/pickle/email/parser.rb, line 5</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_email</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_prefix}?(?:#{match_index} )?email)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
