@@ -61,6 +61,6 @@ Feature: I can easily create models from my blueprints
         | status |
         | alone  |
         | dead   |
-      And the 1st user should be user: user "Jack"
-      And the 2nd user should be user: user "Pete"
+      And the 1st user should be the user: "Jack"
+      And the 2nd user should be the user: "Pete"
       

@@ -109,6 +109,22 @@ module Pickle
     def respond_to_with_pickle_parser?(method, include_private = false)
       respond_to_without_pickle_parser?(method, include_private) || pickle_parser.respond_to?(method, include_private)
     end
+
+    private
+
+      def model_class_for_factory(factory_name)
+        name = factory_name.singularize
+        factory, name_or_index = *parse_model(name)
+        pickle_config.factories[factory].klass
+      end
+
+      def construct_name_from_pickleref_and_factory(pickle_ref, plural_factory)
+        if pickle_ref && !pickle_ref.empty?
+          'the ' + plural_factory.singularize + ": \"#{pickle_ref}\""
+        else
+          plural_factory.singularize
+        end
+      end
     
   protected
     def method_missing_with_pickle_parser(method, *args, &block)
@@ -163,21 +179,4 @@ module Pickle
       models_by_index(factory) << record
     end
   end
-  
-  private
-  
-    def model_class_for_factory(factory_name)
-      name = factory_name.singularize
-      factory, name_or_index = *parse_model(name)
-      pickle_config.factories[factory].klass
-    end
-
-    def construct_name_from_pickleref_and_factory(pickle_ref, plural_factory)
-      if pickle_ref && !pickle_ref.empty?
-        'the ' + plural_factory.singularize + ": \"#{pickle_ref}\""
-      else
-        plural_factory.singularize
-      end
-    end
-
 end
