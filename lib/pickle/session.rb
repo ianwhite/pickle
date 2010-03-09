@@ -32,7 +32,7 @@ module Pickle
       model_class = model_class_for_factory(plural_factory)
 
       table.hashes.each do |hash|
-        name = construct_name_from_pickleref_and_factory(hash.delete(config.reference_name_column.to_s), plural_factory)
+        name = construct_name_from_pickleref_and_factory(hash.delete(plural_factory.singularize), plural_factory)
         create_model(name, hash)
       end
     end

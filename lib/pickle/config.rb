@@ -2,7 +2,7 @@ require 'ostruct'
 
 module Pickle
   class Config
-    attr_writer :adapters, :factories, :mappings, :predicates, :reference_name_column
+    attr_writer :adapters, :factories, :mappings, :predicates
     
     def initialize(&block)
       configure(&block) if block_given?
@@ -44,9 +44,5 @@ module Pickle
         self.mappings << OpenStruct.new(:search => search, :replacement => options[:to])
       end
     end
-
-    def reference_name_column
-      @reference_name_column ||= 'PickleRef'
-    end    
   end
 end

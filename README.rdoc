@@ -200,15 +200,15 @@ You can use other models, booleans, numerics, and strings as fields
   Then 2 people should exist with father: person "fred"
   
 "Then the following <b>models</b> exist". This allows the creation of multiple models
-using a table syntax. Using the optional column 'PickleRef' models referenceable in pickle can be created. E.g.
+using a table syntax. Using a column with the singularized name of the model creates a referenceable model. E.g.
 
   Then the following users exist:
-    | name | activated |
-    | Fred | false     |
+    | name   | activated |
+    | Freddy | false     |
 
   Then the following users exist:
-    | PickleRef | name   | activated |
-    | Fred      | Freddy | false     |
+    | user | name   | activated |
+    | Fred | Freddy | false     |
   
 ===== Asserting associations
 

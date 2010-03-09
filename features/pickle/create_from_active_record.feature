@@ -34,9 +34,9 @@ Feature: I can easily create models from my blueprints
     
   Scenario: create and find using tables
     Given the following users exist:
-      | name       | status                   |
-      | Jim        | married                  |
-      | Ethel      | in a relationship with x |
+      | name  | status                   |
+      | Jim   | married                  |
+      | Ethel | in a relationship with x |
     Then the following users should exist:
       | name  |
       | Jim   |
@@ -50,17 +50,17 @@ Feature: I can easily create models from my blueprints
     
     Scenario: create and find using tables with referencable names
       Given the following users exist:
-        | PickleRef | name | status |
-        | Jack      | Jack | alone  |
-        | Pete      | Pete | dead   |
+        | user | name | status |
+        | Jack | Jack | alone  |
+        | Pete | Pete | dead   |
       Then the following users should exist:
-        | name  |
-        | Jack  |
-        | Pete  |
+        | name |
+        | Jack |
+        | Pete |
       And the following users should exist:
         | status |
         | alone  |
         | dead   |
-      And the 1st user should be the 3rd user
-      And the 2nd user should be the last user
+      And the 1st user should be user: user "Jack"
+      And the 2nd user should be user: user "Pete"
       
