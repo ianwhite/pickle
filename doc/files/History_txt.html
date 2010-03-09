@@ -31,12 +31,35 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Thu Feb 25 10:18:19 +0000 2010</span>
+          <span class='datetime'>Tue Mar 09 11:26:46 +0000 2010</span>
         </div>
       </div>
       <div id='content'>
         <div id='text'>
           <div id='description'>
+            <h2>0.2.3 - 9 Mar 2010</h2>
+            <ul>
+            <li>1 major improvement
+            
+            <ul>
+            <li>You can now use pickle refs in tables. If you add a column which is the
+            single factory name, the contents of the column will be used as the pickle
+            ref. [Stephan Hagemann] e.g.
+            
+            <pre>Given the following users exist:&#x000A;  | user | name        | status |&#x000A;  | jack | Jack Spratt | alone  |&#x000A;  | pete | Pete Sprong | dead   |</pre>
+            </li>
+            </ul>
+            </li>
+            <li>1 minor improvement
+            
+            <ul>
+            <li>Fix bug in error message for when pickle ref can&#8217;t be found [Myron
+            Marston]
+            
+            </li>
+            </ul>
+            </li>
+            </ul>
             <h2>0.2.2 - 25 Feb 2010</h2>
             <ul>
             <li>3 improvements
@@ -277,7 +300,7 @@
             
             <ul>
             <li><a
-            href="../classes/Pickle/Adapter.html#M000084">Pickle::Adapter.model_classes</a>
+            href="../classes/Pickle/Adapter.html#M000085">Pickle::Adapter.model_classes</a>
             excludes those without tables
             
             </li>

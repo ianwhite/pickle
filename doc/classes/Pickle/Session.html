@@ -57,30 +57,31 @@
             <h3>public instance</h3>
             <ol>
               <li><a href="#M000007">create_model</a></li>
-              <li><a href="#M000011">created_model</a></li>
-              <li><a href="#M000016">created_model!</a></li>
-              <li><a href="#M000012">created_model?</a></li>
-              <li><a href="#M000017">created_models</a></li>
-              <li><a href="#M000008">find_model</a></li>
-              <li><a href="#M000009">find_model!</a></li>
-              <li><a href="#M000010">find_models</a></li>
-              <li><a href="#M000013">model</a></li>
-              <li><a href="#M000015">model!</a></li>
-              <li><a href="#M000014">model?</a></li>
-              <li><a href="#M000018">models</a></li>
-              <li><a href="#M000019">respond_to_with_pickle_parser?</a></li>
+              <li><a href="#M000008">create_models_from_table</a></li>
+              <li><a href="#M000012">created_model</a></li>
+              <li><a href="#M000017">created_model!</a></li>
+              <li><a href="#M000013">created_model?</a></li>
+              <li><a href="#M000018">created_models</a></li>
+              <li><a href="#M000009">find_model</a></li>
+              <li><a href="#M000010">find_model!</a></li>
+              <li><a href="#M000011">find_models</a></li>
+              <li><a href="#M000014">model</a></li>
+              <li><a href="#M000016">model!</a></li>
+              <li><a href="#M000015">model?</a></li>
+              <li><a href="#M000019">models</a></li>
+              <li><a href="#M000020">respond_to_with_pickle_parser?</a></li>
             </ol>
             <h3>protected instance</h3>
             <ol>
-              <li><a href="#M000024">convert_models_to_attributes</a></li>
-              <li><a href="#M000020">method_missing_with_pickle_parser</a></li>
-              <li><a href="#M000026">models_by_index</a></li>
-              <li><a href="#M000025">models_by_name</a></li>
-              <li><a href="#M000023">pickle_config</a></li>
-              <li><a href="#M000022">pickle_parser</a></li>
-              <li><a href="#M000021">pickle_parser=</a></li>
-              <li><a href="#M000027">store_model</a></li>
-              <li><a href="#M000028">store_record</a></li>
+              <li><a href="#M000025">convert_models_to_attributes</a></li>
+              <li><a href="#M000021">method_missing_with_pickle_parser</a></li>
+              <li><a href="#M000027">models_by_index</a></li>
+              <li><a href="#M000026">models_by_name</a></li>
+              <li><a href="#M000024">pickle_config</a></li>
+              <li><a href="#M000023">pickle_parser</a></li>
+              <li><a href="#M000022">pickle_parser=</a></li>
+              <li><a href="#M000028">store_model</a></li>
+              <li><a href="#M000029">store_record</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -135,17 +136,36 @@
                 <a name='M000007'></a>
                 <div class='synopsis'>
                   <span class='name'>create_model</span>
-                  <span class='arguments'>(a_model_name, fields = nil)</span>
+                  <span class='arguments'>(pickle_ref, fields = nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 23</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_model</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">label</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">a_model_name</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Can't create with an ordinal (e.g. 1st user)&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">label</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;      <span class="ruby-identifier">fields</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">parse_hash</span>(<span class="ruby-identifier">fields</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">record</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">create</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">label</span>, <span class="ruby-identifier">record</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 23</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_model</span>(<span class="ruby-identifier">pickle_ref</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">label</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">pickle_ref</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Can't create with an ordinal (e.g. 1st user)&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">label</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;      <span class="ruby-identifier">fields</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">parse_hash</span>(<span class="ruby-identifier">fields</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">record</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">create</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">label</span>, <span class="ruby-identifier">record</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000011'>
-                <a name='M000011'></a>
+              <div class='method public-instance' id='method-M000008'>
+                <a name='M000008'></a>
+                <div class='synopsis'>
+                  <span class='name'>create_models_from_table</span>
+                  <span class='arguments'>(plural_factory, table)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  if a column exists in the table which matches the singular factory name,
+                  this is used as the pickle ref
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000008-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 32</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_models_from_table</span>(<span class="ruby-identifier">plural_factory</span>, <span class="ruby-identifier">table</span>)&#x000A;      <span class="ruby-identifier">factory</span> = <span class="ruby-identifier">plural_factory</span>.<span class="ruby-identifier">singularize</span>&#x000A;      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">hashes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">pickle_ref</span> = <span class="ruby-identifier">factory</span>&#x000A;        <span class="ruby-identifier">pickle_ref</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">' &quot;'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">factory</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'&quot;'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">factory</span>] &#x000A;        <span class="ruby-identifier">create_model</span>(<span class="ruby-identifier">pickle_ref</span>, <span class="ruby-identifier">hash</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000012'>
+                <a name='M000012'></a>
                 <div class='synopsis'>
                   <span class='name'>created_model</span>
                   <span class='arguments'>(name)</span>
@@ -154,37 +174,37 @@
                   <p>
                   return the original model stored by <a
                   href="Session.html#M000007">create_model</a> or <a
-                  href="Session.html#M000008">find_model</a>
+                  href="Session.html#M000009">find_model</a>
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000011-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000012-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000011-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 53</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name_or_index</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">name</span>)&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name_or_index</span>.<span class="ruby-identifier">blank?</span>&#x000A;        <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">last</span>&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">name_or_index</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;        <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name_or_index</span>]&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name_or_index</span>] <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000012-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 63</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name_or_index</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">name</span>)&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name_or_index</span>.<span class="ruby-identifier">blank?</span>&#x000A;        <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">last</span>&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">name_or_index</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;        <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name_or_index</span>]&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name_or_index</span>] <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000016'>
-                <a name='M000016'></a>
+              <div class='method public-instance' id='method-M000017'>
+                <a name='M000017'></a>
                 <div class='synopsis'>
                   <span class='name'>created_model!</span>
                   <span class='arguments'>(name)</span>
                 </div>
                 <div class='description'>
                   <p>
-                  like <a href="Session.html#M000011">created_model</a>, but raise an error
+                  like <a href="Session.html#M000012">created_model</a>, but raise an error
                   if it can&#8217;t be found
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000016-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000017-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000016-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 86</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model!</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000017-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 96</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model!</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000012'>
-                <a name='M000012'></a>
+              <div class='method public-instance' id='method-M000013'>
+                <a name='M000013'></a>
                 <div class='synopsis'>
                   <span class='name'>created_model?</span>
                   <span class='arguments'>(name)</span>
@@ -195,14 +215,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000012-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000013-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000012-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 66</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model?</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000013-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 76</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_model?</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000017'>
-                <a name='M000017'></a>
+              <div class='method public-instance' id='method-M000018'>
+                <a name='M000018'></a>
                 <div class='synopsis'>
                   <span class='name'>created_models</span>
                   <span class='arguments'>(factory)</span>
@@ -213,53 +233,53 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000017-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000018-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000017-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 91</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_models</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000008'>
-                <a name='M000008'></a>
-                <div class='synopsis'>
-                  <span class='name'>find_model</span>
-                  <span class='arguments'>(a_model_name, fields = nil)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000008-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 31</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_model</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">a_model_name</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Can't find a model with an ordinal (e.g. 1st user)&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;      <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">klass</span>&#x000A;      <span class="ruby-identifier">fields</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">parse_hash</span>(<span class="ruby-identifier">fields</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">record</span> = <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">model_class</span>, <span class="ruby-identifier">fields</span>))&#x000A;        <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000018-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 101</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_models</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000009'>
                 <a name='M000009'></a>
                 <div class='synopsis'>
-                  <span class='name'>find_model!</span>
+                  <span class='name'>find_model</span>
                   <span class='arguments'>(a_model_name, fields = nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000009-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000009-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_model!</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">find_model</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000009-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_model</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">parse_model</span>(<span class="ruby-identifier">a_model_name</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Can't find a model with an ordinal (e.g. 1st user)&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;      <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">klass</span>&#x000A;      <span class="ruby-identifier">fields</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">parse_hash</span>(<span class="ruby-identifier">fields</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">record</span> = <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">model_class</span>, <span class="ruby-identifier">fields</span>))&#x000A;        <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000010'>
                 <a name='M000010'></a>
                 <div class='synopsis'>
-                  <span class='name'>find_models</span>
-                  <span class='arguments'>(factory, fields = nil)</span>
+                  <span class='name'>find_model!</span>
+                  <span class='arguments'>(a_model_name, fields = nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000010-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000010-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 45</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_models</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">clear</span>&#x000A;      <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">klass</span>&#x000A;      <span class="ruby-identifier">records</span> = <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">model_class</span>, <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)))&#x000A;      <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">record</span>)}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000010-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 51</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_model!</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">find_model</span>(<span class="ruby-identifier">a_model_name</span>, <span class="ruby-identifier">fields</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{a_model_name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000013'>
-                <a name='M000013'></a>
+              <div class='method public-instance' id='method-M000011'>
+                <a name='M000011'></a>
+                <div class='synopsis'>
+                  <span class='name'>find_models</span>
+                  <span class='arguments'>(factory, fields = nil)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000011-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000011-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 55</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_models</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">fields</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">clear</span>&#x000A;      <span class="ruby-identifier">model_class</span> = <span class="ruby-identifier">pickle_config</span>.<span class="ruby-identifier">factories</span>[<span class="ruby-identifier">factory</span>].<span class="ruby-identifier">klass</span>&#x000A;      <span class="ruby-identifier">records</span> = <span class="ruby-identifier">model_class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">model_class</span>, <span class="ruby-identifier">parse_fields</span>(<span class="ruby-identifier">fields</span>)))&#x000A;      <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">record</span>)}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000014'>
+                <a name='M000014'></a>
                 <div class='synopsis'>
                   <span class='name'>model</span>
                   <span class='arguments'>(name)</span>
@@ -270,14 +290,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000013-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000014-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000013-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 71</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">model</span> = <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000014-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 81</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">model</span> = <span class="ruby-identifier">created_model</span>(<span class="ruby-identifier">name</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000015'>
-                <a name='M000015'></a>
+              <div class='method public-instance' id='method-M000016'>
+                <a name='M000016'></a>
                 <div class='synopsis'>
                   <span class='name'>model!</span>
                   <span class='arguments'>(name)</span>
@@ -288,14 +308,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000015-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000016-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000015-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 81</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model!</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000016-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 91</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model!</span>(<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Can't find pickle model: '#{name}' in this scenario&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000014'>
-                <a name='M000014'></a>
+              <div class='method public-instance' id='method-M000015'>
+                <a name='M000015'></a>
                 <div class='synopsis'>
                   <span class='name'>model?</span>
                   <span class='arguments'>(name)</span>
@@ -306,14 +326,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000014-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000015-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000014-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 76</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model?</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000015-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 86</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model?</span>(<span class="ruby-identifier">name</span>)&#x000A;      (<span class="ruby-identifier">model</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000018'>
-                <a name='M000018'></a>
+              <div class='method public-instance' id='method-M000019'>
+                <a name='M000019'></a>
                 <div class='synopsis'>
                   <span class='name'>models</span>
                   <span class='arguments'>(factory)</span>
@@ -324,119 +344,119 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000018-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000019-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000018-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 96</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-identifier">created_models</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">model</span><span class="ruby-operator">|</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>) }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000019-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 106</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-identifier">created_models</span>(<span class="ruby-identifier">factory</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">model</span><span class="ruby-operator">|</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>) }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000019'>
-                <a name='M000019'></a>
+              <div class='method public-instance' id='method-M000020'>
+                <a name='M000020'></a>
                 <div class='synopsis'>
                   <span class='name'>respond_to_with_pickle_parser?</span>
                   <span class='arguments'>(method, include_private = false)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000019-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000020-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000019-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 100</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to_with_pickle_parser?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span> = <span class="ruby-keyword kw">false</span>)&#x000A;      <span class="ruby-identifier">respond_to_without_pickle_parser?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000020-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 110</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to_with_pickle_parser?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span> = <span class="ruby-keyword kw">false</span>)&#x000A;      <span class="ruby-identifier">respond_to_without_pickle_parser?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_private</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Protected instance methods</h2>
-              <div class='method protected-instance' id='method-M000024'>
-                <a name='M000024'></a>
+              <div class='method protected-instance' id='method-M000025'>
+                <a name='M000025'></a>
                 <div class='synopsis'>
                   <span class='name'>convert_models_to_attributes</span>
                   <span class='arguments'>(ar_class, attrs)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000024-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000025-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000024-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 126</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">ar_class</span>, <span class="ruby-identifier">attrs</span>)&#x000A;      <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ar_class</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{key}_id&quot;</span>)&#x000A;          <span class="ruby-identifier">attrs</span>[<span class="ruby-node">&quot;#{key}_id&quot;</span>] = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">id</span>&#x000A;          <span class="ruby-identifier">attrs</span>[<span class="ruby-node">&quot;#{key}_type&quot;</span>] = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ar_class</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{key}_type&quot;</span>)&#x000A;          <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000025-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 136</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_models_to_attributes</span>(<span class="ruby-identifier">ar_class</span>, <span class="ruby-identifier">attrs</span>)&#x000A;      <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ar_class</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{key}_id&quot;</span>)&#x000A;          <span class="ruby-identifier">attrs</span>[<span class="ruby-node">&quot;#{key}_id&quot;</span>] = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">id</span>&#x000A;          <span class="ruby-identifier">attrs</span>[<span class="ruby-node">&quot;#{key}_type&quot;</span>] = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ar_class</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{key}_type&quot;</span>)&#x000A;          <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method protected-instance' id='method-M000020'>
-                <a name='M000020'></a>
+              <div class='method protected-instance' id='method-M000021'>
+                <a name='M000021'></a>
                 <div class='synopsis'>
                   <span class='name'>method_missing_with_pickle_parser</span>
                   <span class='arguments'>(method, *args, &amp;block)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000020-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000021-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000020-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 105</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing_with_pickle_parser</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)&#x000A;        <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">method_missing_without_pickle_parser</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000021-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 115</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing_with_pickle_parser</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)&#x000A;        <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">method_missing_without_pickle_parser</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method protected-instance' id='method-M000027'>
+                <a name='M000027'></a>
+                <div class='synopsis'>
+                  <span class='name'>models_by_index</span>
+                  <span class='arguments'>(factory)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000027-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000027-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 151</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-ivar">@models_by_index</span> <span class="ruby-operator">||=</span> {}&#x000A;      <span class="ruby-ivar">@models_by_index</span>[<span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>)] <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method protected-instance' id='method-M000026'>
                 <a name='M000026'></a>
                 <div class='synopsis'>
-                  <span class='name'>models_by_index</span>
+                  <span class='name'>models_by_name</span>
                   <span class='arguments'>(factory)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000026-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000026-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 141</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-ivar">@models_by_index</span> <span class="ruby-operator">||=</span> {}&#x000A;      <span class="ruby-ivar">@models_by_index</span>[<span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>)] <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000026-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 146</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-ivar">@models_by_name</span> <span class="ruby-operator">||=</span> {}&#x000A;      <span class="ruby-ivar">@models_by_name</span>[<span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>)] <span class="ruby-operator">||=</span> {}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method protected-instance' id='method-M000025'>
-                <a name='M000025'></a>
+              <div class='method protected-instance' id='method-M000024'>
+                <a name='M000024'></a>
                 <div class='synopsis'>
-                  <span class='name'>models_by_name</span>
-                  <span class='arguments'>(factory)</span>
+                  <span class='name'>pickle_config</span>
+                  <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000025-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000024-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000025-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 136</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)&#x000A;      <span class="ruby-ivar">@models_by_name</span> <span class="ruby-operator">||=</span> {}&#x000A;      <span class="ruby-ivar">@models_by_name</span>[<span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>)] <span class="ruby-operator">||=</span> {}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000024-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 132</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_config</span>&#x000A;      <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">config</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method protected-instance' id='method-M000023'>
                 <a name='M000023'></a>
                 <div class='synopsis'>
-                  <span class='name'>pickle_config</span>
+                  <span class='name'>pickle_parser</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000023-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000023-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 122</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_config</span>&#x000A;      <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">config</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000023-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 128</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_parser</span>&#x000A;      <span class="ruby-ivar">@pickle_parser</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pickle_parser</span> = <span class="ruby-constant">Pickle</span>.<span class="ruby-identifier">parser</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method protected-instance' id='method-M000022'>
                 <a name='M000022'></a>
                 <div class='synopsis'>
-                  <span class='name'>pickle_parser</span>
-                  <span class='arguments'>()</span>
+                  <span class='name'>pickle_parser=</span>
+                  <span class='arguments'>(parser)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000022-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000022-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 118</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_parser</span>&#x000A;      <span class="ruby-ivar">@pickle_parser</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pickle_parser</span> = <span class="ruby-constant">Pickle</span>.<span class="ruby-identifier">parser</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000022-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 123</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_parser=</span>(<span class="ruby-identifier">parser</span>)&#x000A;      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">session</span> = <span class="ruby-keyword kw">self</span>&#x000A;      <span class="ruby-ivar">@pickle_parser</span> = <span class="ruby-identifier">parser</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method protected-instance' id='method-M000021'>
-                <a name='M000021'></a>
-                <div class='synopsis'>
-                  <span class='name'>pickle_parser=</span>
-                  <span class='arguments'>(parser)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000021-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000021-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 113</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pickle_parser=</span>(<span class="ruby-identifier">parser</span>)&#x000A;      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">session</span> = <span class="ruby-keyword kw">self</span>&#x000A;      <span class="ruby-ivar">@pickle_parser</span> = <span class="ruby-identifier">parser</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method protected-instance' id='method-M000027'>
-                <a name='M000027'></a>
+              <div class='method protected-instance' id='method-M000028'>
+                <a name='M000028'></a>
                 <div class='synopsis'>
                   <span class='name'>store_model</span>
                   <span class='arguments'>(factory, name, record)</span>
@@ -447,23 +467,23 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000027-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000028-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000027-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 147</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000028-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 157</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_model</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">factory</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">pickle_parser</span>.<span class="ruby-identifier">canonical</span>(<span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>)&#x000A;      <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method protected-instance' id='method-M000028'>
-                <a name='M000028'></a>
+              <div class='method protected-instance' id='method-M000029'>
+                <a name='M000029'></a>
                 <div class='synopsis'>
                   <span class='name'>store_record</span>
                   <span class='arguments'>(factory, name, record)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000028-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000029-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000028-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 152</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">record</span>&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">record</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000029-source'><span class="ruby-comment cmt"># File lib/pickle/session.rb, line 162</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_record</span>(<span class="ruby-identifier">factory</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">record</span>)&#x000A;      <span class="ruby-identifier">models_by_name</span>(<span class="ruby-identifier">factory</span>)[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">record</span>&#x000A;      <span class="ruby-identifier">models_by_index</span>(<span class="ruby-identifier">factory</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">record</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

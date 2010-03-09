@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Thu Feb 25 10:18:19 +0000 2010</span>
+          <span class='datetime'>Tue Mar 09 11:26:46 +0000 2010</span>
         </div>
       </div>
       <div id='content'>
@@ -118,6 +118,12 @@
             
             </li>
             <li><a href="http://github.com/UnderpantsGnome">Michael Moen</a>
+            
+            </li>
+            <li><a href="http://github.com/myronmarston">Myron Marston</a>
+            
+            </li>
+            <li><a href="http://github.com/xing">Stephan Hagemann</a>
             
             </li>
             </ul>
@@ -238,6 +244,12 @@
             &#8220;Then <b>n models</b> should exist with <b>fields</b>&#8220;, e.g.
             </p>
             <pre>Then 2 people should exist with father: person &quot;fred&quot;</pre>
+            <p>
+            &#8220;Then the following <b>models</b> exist&#8221;. This allows the
+            creation of multiple models using a table syntax. Using a column with the
+            singularized name of the model creates a referenceable model. E.g.
+            </p>
+            <pre>Then the following users exist:&#x000A;  | name   | activated |&#x000A;  | Freddy | false     |&#x000A;&#x000A;Then the following users exist:&#x000A;  | user | name   | activated |&#x000A;  | Fred | Freddy | false     |</pre>
             <h5>Asserting associations</h5>
             <p>
             One-to-one assocs: &#8220;Then <b>a model</b> should be <b>other

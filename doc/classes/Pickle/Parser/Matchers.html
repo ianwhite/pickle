@@ -41,57 +41,57 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000073">capture_key_and_value_in_field</a></li>
-              <li><a href="#M000072">capture_name_in_label</a></li>
-              <li><a href="#M000071">capture_number_in_ordinal</a></li>
-              <li><a href="#M000065">match_factory</a></li>
-              <li><a href="#M000062">match_field</a></li>
-              <li><a href="#M000063">match_fields</a></li>
-              <li><a href="#M000057">match_index</a></li>
-              <li><a href="#M000067">match_indexed_model</a></li>
-              <li><a href="#M000060">match_label</a></li>
-              <li><a href="#M000068">match_labeled_model</a></li>
-              <li><a href="#M000064">match_mapping</a></li>
-              <li><a href="#M000069">match_model</a></li>
-              <li><a href="#M000056">match_ordinal</a></li>
-              <li><a href="#M000066">match_plural_factory</a></li>
-              <li><a href="#M000070">match_predicate</a></li>
-              <li><a href="#M000058">match_prefix</a></li>
-              <li><a href="#M000059">match_quoted</a></li>
-              <li><a href="#M000061">match_value</a></li>
+              <li><a href="#M000074">capture_key_and_value_in_field</a></li>
+              <li><a href="#M000073">capture_name_in_label</a></li>
+              <li><a href="#M000072">capture_number_in_ordinal</a></li>
+              <li><a href="#M000066">match_factory</a></li>
+              <li><a href="#M000063">match_field</a></li>
+              <li><a href="#M000064">match_fields</a></li>
+              <li><a href="#M000058">match_index</a></li>
+              <li><a href="#M000068">match_indexed_model</a></li>
+              <li><a href="#M000061">match_label</a></li>
+              <li><a href="#M000069">match_labeled_model</a></li>
+              <li><a href="#M000065">match_mapping</a></li>
+              <li><a href="#M000070">match_model</a></li>
+              <li><a href="#M000057">match_ordinal</a></li>
+              <li><a href="#M000067">match_plural_factory</a></li>
+              <li><a href="#M000071">match_predicate</a></li>
+              <li><a href="#M000059">match_prefix</a></li>
+              <li><a href="#M000060">match_quoted</a></li>
+              <li><a href="#M000062">match_value</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
+              <div class='method public-instance' id='method-M000074'>
+                <a name='M000074'></a>
+                <div class='synopsis'>
+                  <span class='name'>capture_key_and_value_in_field</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000074-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000074-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 83</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_key_and_value_in_field</span>&#x000A;        <span class="ruby-node">&quot;(?:(\\w+): #{capture_value})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
               <div class='method public-instance' id='method-M000073'>
                 <a name='M000073'></a>
                 <div class='synopsis'>
-                  <span class='name'>capture_key_and_value_in_field</span>
+                  <span class='name'>capture_name_in_label</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000073-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000073-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 83</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_key_and_value_in_field</span>&#x000A;        <span class="ruby-node">&quot;(?:(\\w+): #{capture_value})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000073-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 79</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_name_in_label</span>&#x000A;        <span class="ruby-node">&quot;(?::? \&quot;(#{match_quoted})\&quot;)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000072'>
                 <a name='M000072'></a>
-                <div class='synopsis'>
-                  <span class='name'>capture_name_in_label</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000072-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000072-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 79</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_name_in_label</span>&#x000A;        <span class="ruby-node">&quot;(?::? \&quot;(#{match_quoted})\&quot;)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000071'>
-                <a name='M000071'></a>
                 <div class='synopsis'>
                   <span class='name'>capture_number_in_ordinal</span>
                   <span class='arguments'>()</span>
@@ -102,205 +102,205 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000071-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000072-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000071-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 75</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_number_in_ordinal</span>&#x000A;        <span class="ruby-value str">'(?:(\d+)(?:st|nd|rd|th))'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000065'>
-                <a name='M000065'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_factory</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000065-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000065-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 40</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_factory</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.factories.keys.map{|n| n.gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000062'>
-                <a name='M000062'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_field</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000062-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000062-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 28</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_field</span>&#x000A;        <span class="ruby-node">&quot;(?:\\w+: #{match_value})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000063'>
-                <a name='M000063'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_fields</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000063-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000063-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 32</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_fields</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_field}, )*#{match_field}&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000057'>
-                <a name='M000057'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_index</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000057-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000057-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 8</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_index</span>&#x000A;        <span class="ruby-node">&quot;(?:first|last|#{match_ordinal})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000067'>
-                <a name='M000067'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_indexed_model</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000067-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000067-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 48</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_indexed_model</span>&#x000A;        <span class="ruby-node">&quot;(?:(?:#{match_index} )?#{match_factory})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000060'>
-                <a name='M000060'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_label</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000060-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000060-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 20</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_label</span>&#x000A;        <span class="ruby-node">&quot;(?::? \&quot;#{match_quoted}\&quot;)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000068'>
-                <a name='M000068'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_labeled_model</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000068-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000068-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 52</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_labeled_model</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_factory}#{match_label})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000064'>
-                <a name='M000064'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_mapping</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000064-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000064-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 36</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_mapping</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.mappings.map(&amp;:search).join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000069'>
-                <a name='M000069'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_model</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000069-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000069-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 56</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_model</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000056'>
-                <a name='M000056'></a>
-                <div class='synopsis'>
-                  <span class='name'>match_ordinal</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000056-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000056-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 4</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_ordinal</span>&#x000A;        <span class="ruby-value str">'(?:\d+(?:st|nd|rd|th))'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000072-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 75</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capture_number_in_ordinal</span>&#x000A;        <span class="ruby-value str">'(?:(\d+)(?:st|nd|rd|th))'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000066'>
                 <a name='M000066'></a>
                 <div class='synopsis'>
-                  <span class='name'>match_plural_factory</span>
+                  <span class='name'>match_factory</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000066-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000066-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 44</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_plural_factory</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.factories.keys.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000066-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 40</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_factory</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.factories.keys.map{|n| n.gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000070'>
-                <a name='M000070'></a>
+              <div class='method public-instance' id='method-M000063'>
+                <a name='M000063'></a>
                 <div class='synopsis'>
-                  <span class='name'>match_predicate</span>
+                  <span class='name'>match_field</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000070-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000063-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000070-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 60</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_predicate</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.predicates.map{|m| m.to_s.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000063-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 28</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_field</span>&#x000A;        <span class="ruby-node">&quot;(?:\\w+: #{match_value})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000064'>
+                <a name='M000064'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_fields</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000064-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000064-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 32</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_fields</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_field}, )*#{match_field}&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000058'>
                 <a name='M000058'></a>
                 <div class='synopsis'>
-                  <span class='name'>match_prefix</span>
+                  <span class='name'>match_index</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000058-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000058-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 12</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_prefix</span>&#x000A;        <span class="ruby-value str">'(?:(?:a|an|another|the|that) )'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000058-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 8</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_index</span>&#x000A;        <span class="ruby-node">&quot;(?:first|last|#{match_ordinal})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000059'>
-                <a name='M000059'></a>
+              <div class='method public-instance' id='method-M000068'>
+                <a name='M000068'></a>
                 <div class='synopsis'>
-                  <span class='name'>match_quoted</span>
+                  <span class='name'>match_indexed_model</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000059-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000068-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000059-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 16</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_quoted</span>&#x000A;        <span class="ruby-value str">'(?:[^\\&quot;]|\\.)*'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000068-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 48</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_indexed_model</span>&#x000A;        <span class="ruby-node">&quot;(?:(?:#{match_index} )?#{match_factory})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000061'>
                 <a name='M000061'></a>
                 <div class='synopsis'>
-                  <span class='name'>match_value</span>
+                  <span class='name'>match_label</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000061-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000061-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 24</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_value</span>&#x000A;        <span class="ruby-node">&quot;(?:\&quot;#{match_quoted}\&quot;|nil|true|false|[+-]?\\d+(?:\\.\\d+)?)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000061-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 20</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_label</span>&#x000A;        <span class="ruby-node">&quot;(?::? \&quot;#{match_quoted}\&quot;)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000069'>
+                <a name='M000069'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_labeled_model</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000069-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000069-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 52</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_labeled_model</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_factory}#{match_label})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000065'>
+                <a name='M000065'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_mapping</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000065-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000065-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 36</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_mapping</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.mappings.map(&amp;:search).join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000070'>
+                <a name='M000070'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_model</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000070-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000070-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 56</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_model</span>&#x000A;        <span class="ruby-node">&quot;(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000057'>
+                <a name='M000057'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_ordinal</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000057-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000057-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 4</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_ordinal</span>&#x000A;        <span class="ruby-value str">'(?:\d+(?:st|nd|rd|th))'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000067'>
+                <a name='M000067'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_plural_factory</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000067-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000067-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 44</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_plural_factory</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.factories.keys.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000071'>
+                <a name='M000071'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_predicate</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000071-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000071-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 60</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_predicate</span>&#x000A;        <span class="ruby-node">&quot;(?:#{config.predicates.map{|m| m.to_s.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000059'>
+                <a name='M000059'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_prefix</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000059-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000059-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 12</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_prefix</span>&#x000A;        <span class="ruby-value str">'(?:(?:a|an|another|the|that) )'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000060'>
+                <a name='M000060'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_quoted</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000060-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000060-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 16</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_quoted</span>&#x000A;        <span class="ruby-value str">'(?:[^\\&quot;]|\\.)*'</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000062'>
+                <a name='M000062'></a>
+                <div class='synopsis'>
+                  <span class='name'>match_value</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000062-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000062-source'><span class="ruby-comment cmt"># File lib/pickle/parser/matchers.rb, line 24</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_value</span>&#x000A;        <span class="ruby-node">&quot;(?:\&quot;#{match_quoted}\&quot;|nil|true|false|[+-]?\\d+(?:\\.\\d+)?)&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
