@@ -207,16 +207,22 @@ describe Pickle::Session do
     end
   end
   
-  describe "#create_models_from_table(plural_factory, table)" do
+  describe "create and find using plural_factory and table" do
     context "when given a table without a matching pickle ref column" do
       before do
         @table = mock(:hashes => [{'name' => 'Fred'}, {'name' => 'Betty'}])
       end
       
-      it "should call create_model for each of the table hashes with plain factory name" do
+      it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name" do
         should_receive(:create_model).with("user", 'name' => "Fred").once.ordered
         should_receive(:create_model).with("user", 'name' => "Betty").once.ordered
         create_models_from_table("users", @table)
+      end
+      
+      it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name" do
+        should_receive(:find_model).with("user", 'name' => "Fred").once.ordered
+        should_receive(:find_model).with("user", 'name' => "Betty").once.ordered
+        find_models_from_table("users", @table)
       end
     end
     
@@ -225,10 +231,16 @@ describe Pickle::Session do
         @table = mock(:hashes => [{'user' => "fred", 'name' => 'Fred'}, {'user' => "betty", 'name' => 'Betty'}])
       end
       
-      it "should call create_model for each of the table hashes with labelled pickle ref" do
+      it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with labelled pickle ref" do
         should_receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered
         should_receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered
         create_models_from_table("users", @table)
+      end
+      
+      it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with labelled pickle ref" do
+        should_receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered
+        should_receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered
+        find_models_from_table("users", @table)
       end
     end
   end

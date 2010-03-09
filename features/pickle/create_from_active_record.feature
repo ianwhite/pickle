@@ -65,4 +65,3 @@ Feature: I can easily create models from my blueprints
       And the 2nd user should be the user: "Pete"
       And the user: "lonely" should be the user: "Jack"
       And the user: "rotting" should be the user: "Pete"
-      

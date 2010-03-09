@@ -32,8 +32,7 @@ module Pickle
     def create_models_from_table(plural_factory, table)
       factory = plural_factory.singularize
       table.hashes.each do |hash|
-        pickle_ref = factory
-        pickle_ref += ' "' + hash.delete(factory) + '"' if hash[factory] 
+        pickle_ref = factory + (hash[factory] ? " \"#{hash.delete(factory)}\"" : "")
         create_model(pickle_ref, hash)
       end
     end
@@ -58,7 +57,16 @@ module Pickle
       records = model_class.find(:all, :conditions => convert_models_to_attributes(model_class, parse_fields(fields)))
       records.each {|record| store_model(factory, nil, record)}
     end
-      
+    
+    # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
+    def find_models_from_table(plural_factory, table)
+      factory = plural_factory.singularize
+      table.hashes.each do |hash|
+        pickle_ref = factory + (hash[factory] ? " \"#{hash.delete(factory)}\"" : "")
+        find_model(pickle_ref, hash)
+      end
+    end
+    
     # return the original model stored by create_model or find_model
     def created_model(name)
       factory, name_or_index = *parse_model(name)
