@@ -12,7 +12,7 @@ end
 
 # create models from a table
 Given(/^the following #{capture_plural_factory} exists?:?$/) do |plural_factory, table|
-  create_model_from_table(plural_factory, table)
+  create_models_from_table(plural_factory, table)
 end
 
 # find a model

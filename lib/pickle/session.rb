@@ -20,20 +20,21 @@ module Pickle
       end
     end
     
-    def create_model(a_model_name, fields = nil)
-      factory, label = *parse_model(a_model_name)
+    def create_model(pickle_ref, fields = nil)
+      factory, label = *parse_model(pickle_ref)
       raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
       fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
       record = pickle_config.factories[factory].create(fields)
       store_model(factory, label, record)
     end
     
-    def create_model_from_table(plural_factory, table)
-      model_class = model_class_for_factory(plural_factory)
-
+    # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
+    def create_models_from_table(plural_factory, table)
+      factory = plural_factory.singularize
       table.hashes.each do |hash|
-        name = construct_name_from_pickleref_and_factory(hash.delete(plural_factory.singularize), plural_factory)
-        create_model(name, hash)
+        pickle_ref = factory
+        pickle_ref += ' "' + hash.delete(factory) + '"' if hash[factory] 
+        create_model(pickle_ref, hash)
       end
     end
 
@@ -109,22 +110,6 @@ module Pickle
     def respond_to_with_pickle_parser?(method, include_private = false)
       respond_to_without_pickle_parser?(method, include_private) || pickle_parser.respond_to?(method, include_private)
     end
-
-    private
-
-      def model_class_for_factory(factory_name)
-        name = factory_name.singularize
-        factory, name_or_index = *parse_model(name)
-        pickle_config.factories[factory].klass
-      end
-
-      def construct_name_from_pickleref_and_factory(pickle_ref, plural_factory)
-        if pickle_ref && !pickle_ref.empty?
-          'the ' + plural_factory.singularize + ": \"#{pickle_ref}\""
-        else
-          plural_factory.singularize
-        end
-      end
     
   protected
     def method_missing_with_pickle_parser(method, *args, &block)
