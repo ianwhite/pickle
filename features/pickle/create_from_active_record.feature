@@ -58,9 +58,11 @@ Feature: I can easily create models from my blueprints
         | Jack |
         | Pete |
       And the following users should exist:
-        | status |
-        | alone  |
-        | dead   |
+        | user    | status |
+        | lonely  | alone  |
+        | rotting | dead   |
       And the 1st user should be the user: "Jack"
       And the 2nd user should be the user: "Pete"
+      And the user: "lonely" should be the user: "Jack"
+      And the user: "rotting" should be the user: "Pete"
       
