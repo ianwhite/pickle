@@ -1,4 +1,4 @@
-== Edge
+== 0.2.3 - 9 Mar 2010
 
 * 1 major improvement
   * You can now use pickle refs in tables.  If you add a column which is the single factory name, the
