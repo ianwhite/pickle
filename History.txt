@@ -1,3 +1,9 @@
+== 0.2.4 - 9 Mar 2010
+
+* 1 major improvement
+  * Finding models via a table now works in the same way as creating models via a table (0.2.3), you
+    can create pickle refs
+
 == 0.2.3 - 9 Mar 2010
 
 * 1 major improvement
