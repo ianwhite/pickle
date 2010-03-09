@@ -1,3 +1,8 @@
+== Edge
+
+* 1 minor improvement
+  * Fix bug in error message for when pickle ref can't be found [Myron Marston]
+
 == 0.2.2 - 25 Feb 2010
 
 * 3 improvements
