@@ -1,7 +1,17 @@
 == Edge
 
+* 1 major improvement
+  * You can now use pickle refs in tables.  If you add a column which is the single factory name, the
+    contents of the column will be used as the pickle ref.  [Stephan Hagemann]
+    e.g.
+      Given the following users exist:
+        | user | name        | status |
+        | jack | Jack Spratt | alone  |
+        | pete | Pete Sprong | dead   |
+  
 * 1 minor improvement
   * Fix bug in error message for when pickle ref can't be found [Myron Marston]
+
 
 == 0.2.2 - 25 Feb 2010
 

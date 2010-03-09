@@ -67,6 +67,7 @@ The following people have made Pickle better:
 * {Michael MacDonald}[http://github.com/schlick]
 * {Michael Moen}[http://github.com/UnderpantsGnome]
 * {Myron Marston}[http://github.com/myronmarston]
+* {Stephan Hagemann}[http://github.com/xing]
 
 == Get Started
 
