@@ -1,8 +1,16 @@
+== 0.2.5 - 17 Mar 2010
+
+* 2 improvements
+  * Bugfix for find_models_via_table (failing to find models was not causing an error) [Chris Flipse]
+  * find_models_via_table & create_models_via_table return the found/created models [Chris Flipse, Ian White]
+
+
 == 0.2.4 - 9 Mar 2010
 
 * 1 major improvement
   * Finding models via a table now works in the same way as creating models via a table (0.2.3), you
     can create pickle refs
+
 
 == 0.2.3 - 9 Mar 2010
 
