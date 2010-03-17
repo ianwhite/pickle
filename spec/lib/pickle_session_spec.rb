@@ -213,16 +213,16 @@ describe Pickle::Session do
         @table = mock(:hashes => [{'name' => 'Fred'}, {'name' => 'Betty'}])
       end
       
-      it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name" do
-        should_receive(:create_model).with("user", 'name' => "Fred").once.ordered
-        should_receive(:create_model).with("user", 'name' => "Betty").once.ordered
-        create_models_from_table("users", @table)
+      it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name and return the models" do
+        should_receive(:create_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
+        should_receive(:create_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+        create_models_from_table("users", @table).should == [:fred, :betty]
       end
       
-      it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name" do
-        should_receive(:find_model).with("user", 'name' => "Fred").once.ordered
-        should_receive(:find_model).with("user", 'name' => "Betty").once.ordered
-        find_models_from_table("users", @table)
+      it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name and return the models" do
+        should_receive(:find_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
+        should_receive(:find_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+        find_models_from_table("users", @table).should == [:fred, :betty]
       end
     end
     
@@ -232,15 +232,15 @@ describe Pickle::Session do
       end
       
       it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with labelled pickle ref" do
-        should_receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered
-        should_receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered
-        create_models_from_table("users", @table)
+        should_receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
+        should_receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+        create_models_from_table("users", @table).should == [:fred, :betty]
       end
       
       it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with labelled pickle ref" do
-        should_receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered
-        should_receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered
-        find_models_from_table("users", @table)
+        should_receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
+        should_receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+        find_models_from_table("users", @table).should == [:fred, :betty]
       end
     end
   end
