@@ -27,7 +27,7 @@ end
 
 # find models with a table
 Then(/^the following #{capture_plural_factory} should exists?:?$/) do |plural_factory, table|
-  find_models_from_table(plural_factory, table)
+  find_models_from_table(plural_factory, table).should_not be_any(&:nil?)
 end
 
 # find exactly n models
