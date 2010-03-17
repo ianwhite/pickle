@@ -31,7 +31,7 @@ module Pickle
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
     def create_models_from_table(plural_factory, table)
       factory = plural_factory.singularize
-      table.hashes.each do |hash|
+      table.hashes.map do |hash|
         pickle_ref = factory + (hash[factory] ? " \"#{hash.delete(factory)}\"" : "")
         create_model(pickle_ref, hash)
       end
