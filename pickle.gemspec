@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pickle}
-  s.version = "0.2.5"
+  s.version = "0.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian White"]
-  s.date = %q{2010-03-17}
+  s.date = %q{2010-04-05}
   s.description = %q{Easy model creation and reference in your cucumber features}
   s.email = %q{ian.w.white@gmail.com}
   s.extra_rdoc_files = [
@@ -46,7 +46,6 @@ Gem::Specification.new do |s|
      "features/support/paths.rb",
      "features/support/pickle.rb",
      "features/support/pickle_app.rb",
-     "garlic.rb",
      "init.rb",
      "lib/pickle.rb",
      "lib/pickle/adapter.rb",
@@ -69,15 +68,15 @@ Gem::Specification.new do |s|
      "rails_generators/pickle/templates/paths.rb",
      "rails_generators/pickle/templates/pickle.rb",
      "rails_generators/pickle/templates/pickle_steps.rb",
-     "spec/lib/pickle_adapter_spec.rb",
-     "spec/lib/pickle_config_spec.rb",
-     "spec/lib/pickle_email_parser_spec.rb",
-     "spec/lib/pickle_email_spec.rb",
-     "spec/lib/pickle_parser_matchers_spec.rb",
-     "spec/lib/pickle_parser_spec.rb",
-     "spec/lib/pickle_path_spec.rb",
-     "spec/lib/pickle_session_spec.rb",
-     "spec/lib/pickle_spec.rb",
+     "spec/pickle/adapter_spec.rb",
+     "spec/pickle/config_spec.rb",
+     "spec/pickle/email/parser_spec.rb",
+     "spec/pickle/email_spec.rb",
+     "spec/pickle/parser/matchers_spec.rb",
+     "spec/pickle/parser_spec.rb",
+     "spec/pickle/path_spec.rb",
+     "spec/pickle/session_spec.rb",
+     "spec/pickle_spec.rb",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/ianwhite/pickle/tree}
@@ -86,15 +85,15 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Easy model creation and reference in your cucumber features}
   s.test_files = [
-    "spec/lib/pickle_adapter_spec.rb",
-     "spec/lib/pickle_config_spec.rb",
-     "spec/lib/pickle_email_parser_spec.rb",
-     "spec/lib/pickle_email_spec.rb",
-     "spec/lib/pickle_parser_matchers_spec.rb",
-     "spec/lib/pickle_parser_spec.rb",
-     "spec/lib/pickle_path_spec.rb",
-     "spec/lib/pickle_session_spec.rb",
-     "spec/lib/pickle_spec.rb",
+    "spec/pickle/adapter_spec.rb",
+     "spec/pickle/config_spec.rb",
+     "spec/pickle/email/parser_spec.rb",
+     "spec/pickle/email_spec.rb",
+     "spec/pickle/parser/matchers_spec.rb",
+     "spec/pickle/parser_spec.rb",
+     "spec/pickle/path_spec.rb",
+     "spec/pickle/session_spec.rb",
+     "spec/pickle_spec.rb",
      "spec/spec_helper.rb"
   ]
 
