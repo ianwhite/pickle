@@ -1,47 +1,54 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-#require 'activerecord'
-require 'factory_girl' # TODO - remove this dependency from the spec
-
+# TODO: remove this and push AR stuff into ORM adapter
+module ActiveRecord
+  class Base
+  end 
+end
 
 describe Pickle::Session do
   include Pickle::Session
   
+  let :user_class do
+    mock("User class", :name => 'User')
+  end
+
   let :user do
-    mock("User")
+    mock("user", :class => user_class, :id => 1)
   end
   
-  let :user_class do
-    mock("User class", :create => user)
+  let :user_factory do
+    Pickle::Adapter::ActiveRecord.new(user_class)
   end
   
   before do
-    config.stub(:factories).and_return('user' => user_class)
+    config.stub(:factories).and_return('user' => user_factory)
   end
   
   describe "Pickle::Session proxy missing methods to parser", :shared => true do
     it "should forward to pickle_parser it responds_to them" do
-      @it.pickle_parser.should_receive(:parse_model)
-      @it.parse_model
+      subject.pickle_parser.should_receive(:parse_model)
+      subject.parse_model
     end
 
     it "should raise error if pickle_parser don't know about em" do
-      lambda { @it.parse_infinity }.should raise_error
+      lambda { subject.parse_infinity }.should raise_error
     end
   end
 
   describe "including Pickle::Session" do
-    before do 
-      @it = self
+    subject do
+      self
     end
     
     it_should_behave_like "Pickle::Session proxy missing methods to parser"
   end
 
   describe "extending Pickle::Session" do
-    before do 
-      @it = Object.new
-      @it.extend Pickle::Session
+    subject do 
+      returning Object.new do |object|
+        object.extend Pickle::Session
+      end
     end
     
     it_should_behave_like "Pickle::Session proxy missing methods to parser"
@@ -49,48 +56,53 @@ describe Pickle::Session do
 
   describe "after storing a single user", :shared => true do
     it "created_models('user') should be array containing the original user" do
-      created_models('user').should == [@user]
+      created_models('user').should == [user]
     end
 
     describe "the original user should be retrievable with" do
       it "created_model('the user')" do
-        created_model('the user').should == @user
+        created_model('the user').should == user
       end
 
       it "created_model('1st user')" do
-        created_model('1st user').should == @user
+        created_model('1st user').should == user
       end
 
       it "created_model('last user')" do
-        created_model('last user').should == @user
+        created_model('last user').should == user
       end
     end
 
     describe "(found from db)" do
+      let :user_from_db do
+        returning user.dup do |from_db|
+          from_db.stub!(:id).and_return(100)
+        end
+      end
+
       before do
-        @user.stub!(:id).and_return(100)
-        @user.class.should_receive(:find).with(100).and_return(@user_from_db = @user.dup)
+        user_class.should_receive(:find).with(100).and_return(user_from_db)
       end
     
       it "models('user') should be array containing user" do
-        models('user').should == [@user_from_db]
+        models('user').should == [user_from_db]
       end
   
       describe "user should be retrievable with" do
         it "model('the user')" do
-          model('the user').should == @user_from_db
+          model('the user').should == user_from_db
         end
 
         it "model('1st user')" do
-          model('1st user').should == @user_from_db
+          model('1st user').should == user_from_db
         end
 
         it "model('last user')" do
-          model('last user').should == @user_from_db
+          model('last user').should == user_from_db
         end
         
         it "model!('last user')" do
-          model('last user').should == @user_from_db
+          model('last user').should == user_from_db
         end
       end
     end
@@ -98,55 +110,43 @@ describe Pickle::Session do
   
   describe "#create_model" do
     before do
-      Factory.stub!(:create).and_return(user)
+      user_factory.stub!(:create).and_return(user)
     end
     
     describe "('a user')" do
-      def do_create_model
+      it "should call user_factory.create({})" do
+        user_factory.should_receive(:create).with({})
         create_model('a user')
-      end
-  
-      it "should call Factory.create('user', {})" do
-        Factory.should_receive(:create).with('user', {}).and_return(user)
-        do_create_model
       end
       
       describe "after create," do
-        before { do_create_model }
+        before { create_model('a user') }
         
         it_should_behave_like "after storing a single user"
       end
     end
     
     describe "('1 user', 'foo: \"bar\", baz: \"bing bong\"')" do
-      def do_create_model
+      it "should call user_factory.create({'foo' => 'bar', 'baz' => 'bing bong'})" do
+        user_factory.should_receive(:create).with({'foo' => 'bar', 'baz' => 'bing bong'})
         create_model('1 user', 'foo: "bar", baz: "bing bong"')
-      end
-  
-      it "should call Factory.create('user', {'foo' => 'bar', 'baz' => 'bing bong'})" do
-        Factory.should_receive(:create).with('user', {'foo' => 'bar', 'baz' => 'bing bong'}).and_return(user)
-        do_create_model
       end
       
       describe "after create," do
-        before { do_create_model }
+        before { create_model('1 user', 'foo: "bar", baz: "bing bong"') }
         
         it_should_behave_like "after storing a single user"
       end
     end  
 
     describe "('an user: \"fred\")" do
-      def do_create_model
+      it "should call user_factory.create({})" do
+        user_factory.should_receive(:create).with({})
         create_model('an user: "fred"')
-      end
-  
-      it "should call Factory.create('user', {})" do
-        Factory.should_receive(:create).with('user', {}).and_return(user)
-        do_create_model
       end
       
       describe "after create," do
-        before { do_create_model }
+        before { create_model('an user: "fred"') }
         
         it_should_behave_like "after storing a single user"
               
@@ -165,22 +165,17 @@ describe Pickle::Session do
     end
     
     describe "with hash" do
-      def do_create_model
+      it "should call user_factory.create({'foo' => 'bar'})" do
+        user_factory.should_receive(:create).with({'foo' => 'bar'})
         create_model('a user', {'foo' => 'bar'})
-      end
-  
-      it "should call Factory.create('user', {'foo' => 'bar'})" do
-        Factory.should_receive(:create).with('user', {'foo' => 'bar'}).and_return(user)
-        do_create_model
       end
       
       describe "after create," do
-        before { do_create_model }
+        before { create_model('a user', {'foo' => 'bar'}) }
         
         it_should_behave_like "after storing a single user"
       end
     end
-    
   end
 
   describe '#find_model' do
@@ -188,33 +183,25 @@ describe Pickle::Session do
       user_class.stub!(:find).and_return(user)
     end
     
-    def do_find_model
+    it "should call user_class.find :first, :conditions => {<fields>}" do
+      user_class.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'})
       find_model('a user', 'hair: "pink"')
     end
     
-    it "should call User.find :first, :conditions => {'hair' => 'pink'}" do
-      user_class.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'}).and_return(user)
-      do_find_model
-    end
-    
     describe "after find," do
-      before { do_find_model }
+      before { find_model('a user', 'hair: "pink"') }
       
       it_should_behave_like "after storing a single user"
     end
     
     describe "with hash" do
-      def do_create_model
+      it "should call user_class.find('user', {'foo' => 'bar'})" do
+        user_class.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'})
         find_model('a user', {'foo' => 'bar'})
-      end
-  
-      it "should call User.find('user', {'foo' => 'bar'})" do
-        user_class.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'}).and_return(@user)
-        do_create_model
       end
       
       describe "after find," do
-        before { do_find_model }
+        before { find_model('a user', {'foo' => 'bar'}) }
         
         it_should_behave_like "after storing a single user"
       end
@@ -223,38 +210,38 @@ describe Pickle::Session do
   
   describe "create and find using plural_factory and table" do
     context "when given a table without a matching pickle ref column" do
-      before do
-        @table = mock(:hashes => [{'name' => 'Fred'}, {'name' => 'Betty'}])
+      let :table do
+        mock(:hashes => [{'name' => 'Fred'}, {'name' => 'Betty'}])
       end
       
       it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name and return the models" do
         should_receive(:create_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
         should_receive(:create_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
-        create_models_from_table("users", @table).should == [:fred, :betty]
+        create_models_from_table("users", table).should == [:fred, :betty]
       end
       
       it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name and return the models" do
         should_receive(:find_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
         should_receive(:find_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
-        find_models_from_table("users", @table).should == [:fred, :betty]
+        find_models_from_table("users", table).should == [:fred, :betty]
       end
     end
     
     context "when given a table with a matching pickle ref column" do
-      before do
-        @table = mock(:hashes => [{'user' => "fred", 'name' => 'Fred'}, {'user' => "betty", 'name' => 'Betty'}])
+      let :table do
+        mock(:hashes => [{'user' => "fred", 'name' => 'Fred'}, {'user' => "betty", 'name' => 'Betty'}])
       end
       
       it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with labelled pickle ref" do
         should_receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
         should_receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
-        create_models_from_table("users", @table).should == [:fred, :betty]
+        create_models_from_table("users", table).should == [:fred, :betty]
       end
       
       it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with labelled pickle ref" do
         should_receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
         should_receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
-        find_models_from_table("users", @table).should == [:fred, :betty]
+        find_models_from_table("users", table).should == [:fred, :betty]
       end
     end
   end
@@ -273,31 +260,34 @@ describe Pickle::Session do
   
   describe "#find_models" do
     before do
-      user_class.stub!(:find).and_return(user)
-    end
-
-    def do_find_models
-      find_models('user', 'hair: "pink"')
+      user_class.stub!(:find).and_return([user])
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
-      user_class.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'}).and_return([user])
-      do_find_models
+      user_class.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'})
+      find_models('user', 'hair: "pink"')
     end
 
     describe "after find," do
-      before { do_find_models }
+      before { find_models('user', 'hair: "pink"') }
 
       it_should_behave_like "after storing a single user"
     end
   end
     
-  describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\'' do
+  describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\' (super_admin is factory that returns users)' do
+    let(:fred) { mock("fred", :class => user_class, :id => 2) }
+    let(:shirl) { mock("shirl", :class => user_class, :id => 3) }
+    let(:noname) { mock("noname", :class => user_class, :is => 4) }
+    
+    let(:super_admin_factory) do
+      Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :factory_name => :super_admin))
+    end
+    
     before do
-      @fred = mock_model(User)
-      @shirl  = mock_model(User)
-      @noname = mock_model(User)
-      Factory.stub!(:create).and_return(@fred, @shirl, @noname)
+      config.stub(:factories).and_return(user_factory.name => user_factory, super_admin_factory.name => super_admin_factory)
+      user_factory.stub(:create).and_return(shirl)
+      super_admin_factory.stub(:create).and_return(fred, noname)
     end
     
     def do_create_users
@@ -307,8 +297,8 @@ describe Pickle::Session do
     end
     
     it "should call Factory.create with <'super_admin'>, <'user'>, <'super_admin'>" do
-      Factory.should_receive(:create).with('super_admin', {}).twice
-      Factory.should_receive(:create).with('user', {}).once
+      super_admin_factory.should_receive(:create).with({}).twice
+      user_factory.should_receive(:create).with({}).once
       do_create_users
     end
     
@@ -317,45 +307,45 @@ describe Pickle::Session do
         do_create_users
       end
       
-      it "created_models('user') should == [@fred, @shirl, @noname]" do
-        created_models('user').should == [@fred, @shirl, @noname]
+      it "created_models('user') should == [fred, shirl, noname]" do
+        created_models('user').should == [fred, shirl, noname]
       end
       
-      it "created_models('super_admin') should == [@fred, @noname]" do
-        created_models('super_admin').should == [@fred, @noname]
+      it "created_models('super_admin') should == [fred, noname]" do
+        created_models('super_admin').should == [fred, noname]
       end
       
       describe "#created_model" do
-        it "'that user' should be @noname (the last user created - as super_admins are users)" do
-          created_model('that user').should == @noname
+        it "'that user' should be noname (the last user created - as super_admins are users)" do
+          created_model('that user').should == noname
         end
 
-        it "'the super admin' should be @noname (the last super admin created)" do
-          created_model('that super admin').should == @noname
+        it "'the super admin' should be noname (the last super admin created)" do
+          created_model('that super admin').should == noname
         end
         
-        it "'the 1st super admin' should be @fred" do
-          created_model('the 1st super admin').should == @fred
+        it "'the 1st super admin' should be fred" do
+          created_model('the 1st super admin').should == fred
         end
         
-        it "'the first user' should be @fred" do
-          created_model('the first user').should == @fred
+        it "'the first user' should be fred" do
+          created_model('the first user').should == fred
         end
         
-        it "'the 2nd user' should be @shirl" do
-          created_model('the 2nd user').should == @shirl
+        it "'the 2nd user' should be shirl" do
+          created_model('the 2nd user').should == shirl
         end
         
-        it "'the last user' should be @noname" do
-          created_model('the last user').should == @noname
+        it "'the last user' should be noname" do
+          created_model('the last user').should == noname
         end
         
-        it "'the user: \"fred\" should be @fred" do
-          created_model('the user: "fred"').should == @fred
+        it "'the user: \"fred\" should be fred" do
+          created_model('the user: "fred"').should == fred
         end
         
-        it "'the user: \"shirl\" should be @shirl" do
-          created_model('the user: "shirl"').should == @shirl
+        it "'the user: \"shirl\" should be shirl" do
+          created_model('the user: "shirl"').should == shirl
         end
       end
     end
@@ -363,19 +353,19 @@ describe Pickle::Session do
 
   describe "when 'the user: \"me\"' exists and there is a mapping from 'I', 'myself' => 'user: \"me\"" do
     before do
-      @user = mock_model(User)
-      User.stub!(:find).and_return(@user)
-      Factory.stub!(:create).and_return(@user)
       self.pickle_parser = Pickle::Parser.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
+      config.stub(:factories).and_return('user' => user_factory)
+      user_class.stub!(:find).and_return(user)
+      user_factory.stub!(:create).and_return(user)
       create_model('the user: "me"')
     end
   
     it 'model("I") should return the user' do
-      model('I').should == @user
+      model('I').should == user
     end
 
     it 'model("myself") should return the user' do
-      model('myself').should == @user
+      model('myself').should == user
     end
     
     it "#parser.parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
@@ -383,44 +373,44 @@ describe Pickle::Session do
     end
     
     it "#parser.parse_fields 'author: the user' should return {\"author\" => <user>}" do
-      pickle_parser.parse_fields('author: the user').should == {"author" => @user}
+      pickle_parser.parse_fields('author: the user').should == {"author" => user}
     end
 
     it "#parser.parse_fields 'author: myself' should return {\"author\" => <user>}" do
-      pickle_parser.parse_fields('author: myself').should == {"author" => @user}
+      pickle_parser.parse_fields('author: myself').should == {"author" => user}
     end
     
     it "#parser.parse_fields 'author: the user, approver: I, rating: \"5\"' should return {'author' => <user>, 'approver' => <user>, 'rating' => '5'}" do
-      pickle_parser.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => @user, 'approver' => @user, 'rating' => '5'}
+      pickle_parser.parse_fields('author: the user, approver: I, rating: "5"').should == {'author' => user, 'approver' => user, 'rating' => '5'}
     end
     
     it "#parser.parse_fields 'author: user: \"me\", approver: \"\"' should return {'author' => <user>, 'approver' => \"\"}" do
-      pickle_parser.parse_fields('author: user: "me", approver: ""').should == {'author' => @user, 'approver' => ""}
+      pickle_parser.parse_fields('author: user: "me", approver: ""').should == {'author' => user, 'approver' => ""}
     end
   end
   
   describe "convert_models_to_attributes(ar_class, :user => <a user>)" do
-    before do 
-      @user = mock_model(User)
+    before do
+      user.stub(:is_a?).with(ActiveRecord::Base).and_return(true)
     end
     
     describe "(when ar_class has column 'user_id')" do
-      before do
-        @ar_class = mock('ActiveRecord', :column_names => ['user_id'])
+      let :ar_class do
+        mock('ActiveRecord', :column_names => ['user_id'])
       end
       
       it "should return {'user_id' => <the user.id>}" do
-        convert_models_to_attributes(@ar_class, :user => @user).should == {'user_id' => @user.id}
+        convert_models_to_attributes(ar_class, :user => user).should == {'user_id' => user.id}
       end
     end
     
     describe "(when ar_class has columns 'user_id', 'user_type')" do
-      before do
-        @ar_class = mock('ActiveRecord', :column_names => ['user_id', 'user_type'])
+      let :ar_class do
+        mock('ActiveRecord', :column_names => ['user_id', 'user_type'])
       end
       
       it "should return {'user_id' => <the user.id>, 'user_type' => <the user.type>}" do
-        convert_models_to_attributes(@ar_class, :user => @user).should == {'user_id' => @user.id, 'user_type' => @user.class.name}
+        convert_models_to_attributes(ar_class, :user => user).should == {'user_id' => user.id, 'user_type' => user.class.name}
       end
     end
   end

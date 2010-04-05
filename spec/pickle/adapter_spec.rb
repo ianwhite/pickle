@@ -13,18 +13,47 @@ describe Pickle::Adapter do
     lambda{ Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
   end
   
+  describe ".suitable_for_pickle?(klass)" do
+    let :klass do
+      mock('Class', :abstract_class? => false, :table_exists? => true)
+    end
+    
+    before do
+      Pickle::Adapter.stub!(:framework_class?).and_return(false)
+    end
+    
+    it "a non abstract class that has a table, and is not a framework class, is suitable_for_pickle" do
+      Pickle::Adapter.should be_suitable_for_pickle(klass)
+    end
+    
+    it "an abtract_class is not suitable_for_pickle" do
+      klass.stub!(:abstract_class?).and_return(true)
+      Pickle::Adapter.should_not be_suitable_for_pickle(klass)
+    end
+    
+    it "a class with no table is not suitable_for_pickle" do
+      klass.stub!(:table_exists?).and_return(false)
+      Pickle::Adapter.should_not be_suitable_for_pickle(klass)
+    end
+    
+    it "an frame_work class is not suitable_for_pickle" do
+      Pickle::Adapter.should_receive(:framework_class?).with(klass).and_return(true)
+      Pickle::Adapter.should_not be_suitable_for_pickle(klass)
+    end
+  end
+  
   describe ".model_classes" do
     before do
       Pickle::Adapter.model_classes = nil
     end
     
-    it "should not include #rejected_for_pickle classes" do
+    it "should only include #suitable_for_pickle classes" do
       klass1 = Class.new(ActiveRecord::Base)
       klass2 = Class.new(ActiveRecord::Base)
-      Pickle::Adapter.should_receive(:rejected_for_pickle?).with(klass1).and_return(true)
-      Pickle::Adapter.should_receive(:rejected_for_pickle?).with(klass2).and_return(false)
-      Pickle::Adapter.model_classes.should include(klass2)
-      Pickle::Adapter.model_classes.should_not include(klass1)
+      Pickle::Adapter.should_receive(:suitable_for_pickle?).with(klass1).and_return(true)
+      Pickle::Adapter.should_receive(:suitable_for_pickle?).with(klass2).and_return(false)
+      Pickle::Adapter.model_classes.should include(klass1)
+      Pickle::Adapter.model_classes.should_not include(klass2)
     end
   end
   

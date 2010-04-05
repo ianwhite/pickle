@@ -76,16 +76,6 @@ describe Pickle::Path do
         lambda { path_to_pickle('a user', :extra => 'new comment') }.should raise_error(Exception, /Could not figure out a path for/)
       end
       
-      describe "(private API)" do
-        it "('a user', :extra => 'new ish comment') should try combinations of 'new', 'ish', 'comment'" do
-          should_receive(:pickle_path_for_resources_action_segment).with([user], '', 'new_ish_comment').once
-          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new', 'ish_comment').once
-          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new_ish', 'comment').once
-          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new_ish_comment', '').once
-          lambda { path_to_pickle('a user', :extra => 'new ish comment') }.should raise_error(Exception, /Could not figure out a path for/)
-        end
-      end
-      
       describe "when args is a list of pickle and non pickle models" do
         before do
           stub!(:model).with("account").and_return(nil)
@@ -94,6 +84,16 @@ describe Pickle::Path do
         it "('account', 'the user') should return account_user_path(<user>)" do
           should_receive(:account_user_path).with(user).and_return("the path")
           path_to_pickle('account', 'the user').should == 'the path'
+        end
+      end
+      
+      describe "(private API)" do
+        it "('a user', :extra => 'new ish comment') should try combinations of 'new', 'ish', 'comment'" do
+          should_receive(:pickle_path_for_resources_action_segment).with([user], '', 'new_ish_comment').once
+          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new', 'ish_comment').once
+          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new_ish', 'comment').once
+          should_receive(:pickle_path_for_resources_action_segment).with([user], 'new_ish_comment', '').once
+          lambda { path_to_pickle('a user', :extra => 'new ish comment') }.should raise_error(Exception, /Could not figure out a path for/)
         end
       end
     end

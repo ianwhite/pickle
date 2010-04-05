@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require 'pickle/email'
 require 'pickle/email/parser'
 require 'actionmailer'
-require 'activerecord'
 
 describe Pickle::Email do
   include Pickle::Session

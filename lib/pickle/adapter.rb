@@ -24,15 +24,18 @@ module Pickle
       end
 
       def model_classes
-        @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).reject {|klass| rejected_for_pickle?(klass)}
+        @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).select {|klass| suitable_for_pickle?(klass)}
       end
       
-      # return true if a klass should not be used by pickle
-      def rejected_for_pickle?(klass)
-        klass.abstract_class? ||
-          !klass.table_exists? ||
-          (defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session) ||
-          (defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session)
+      # return true if a klass should be used by pickle
+      def suitable_for_pickle?(klass)
+        !klass.abstract_class? && klass.table_exists? && !framework_class?(klass)
+      end
+
+      # return true if the passed class is a special framework class
+      def framework_class?(klass)
+        ((defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session)) ||
+        ((defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session))
       end
     end
   
