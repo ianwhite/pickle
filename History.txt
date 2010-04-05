@@ -1,3 +1,7 @@
+== 0.2.6 - 5 Apr 2010
+
+* 1 minor improvement
+  * running specs is now doable without being in a rails app - just do 'rake spec'
 == 0.2.5 - 17 Mar 2010
 
 * 2 improvements
