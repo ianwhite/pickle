@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base) and !$LOAD_PATH.includ
 
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
+require 'cucumber/rake/task'
 
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/lib'
 require 'pickle/version'
@@ -34,56 +35,34 @@ namespace :rcov do
   end
 end
 
-# cucumber features require an enclosing rails app
-plugins_base = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-cucumber_base = File.join(plugins_base, 'cucumber/lib')
-if File.exists?(cucumber_base) && plugins_base =~ /\/vendor\/plugins$/ # if we're in rails app
-  $:.unshift(cucumber_base)
-  require 'cucumber/rake/task'
-
-  desc "Run features for #{PluginName} (progress)"
-  Cucumber::Rake::Task.new(:features) do |t|
-    t.fork = true
-    t.cucumber_opts = ['--format', 'progress', '--require', 'features']
-  end
-  
-  desc "Run features for #{PluginName} (full output)"
-  namespace :features do
-    Cucumber::Rake::Task.new(:full) do |t|
-      t.cucumber_opts = ['--format', 'pretty', '--require', 'features']
-    end
-  end
+desc "Run features for #{PluginName} (progress)"
+Cucumber::Rake::Task.new(:cucumber => [:cucumber_test_app]) do |t|
+  t.cucumber_opts = ['--format', 'progress', '--require', 'features']
 end
 
-# the following optional tasks are for CI, gems and doc building
-begin
-  require 'hanna/rdoctask'
-  require 'garlic/tasks'
-  require 'grancher/task'
-  
-  task :cruise => ['garlic:all', 'doc:publish']
-  
-  Rake::RDocTask.new(:doc) do |d|
-    d.options << '--all'
-    d.rdoc_dir = 'doc'
-    d.main     = 'README.rdoc'
-    d.title    = "#{PluginName} API docs"
-    d.rdoc_files.include('README.rdoc', 'History.txt', 'License.txt', 'Todo.txt', 'lib/**/*.rb')
-  end
+desc "setup a rails app for running cucumber"
+file "cucumber_test_app" do
+  raise <<-EOD
 
-  namespace :doc do
-    task :publish => :doc do
-      Rake::Task['doc:push'].invoke unless uptodate?('.git/refs/heads/gh-pages', 'doc')
-    end
-    
-    Grancher::Task.new(:push) do |g|
-      g.keep_all
-      g.directory 'doc', 'doc'
-      g.branch = 'gh-pages'
-      g.push_to = 'origin'
-    end
-  end
-rescue LoadError
+** Please setup a test rails app in cucumber_test_app **
+
+Until this is automated, do something like:
+  
+  rails cucumber_test_app
+  cd cucumber_test_app
+  script/generate rspec
+  script/generate cucumber
+  cd vendor/plugins
+  ln -s ../../.. pickle
+  cd ../../..
+  
+Then run
+
+  rake cucumber
+
+** thanks! **
+
+EOD
 end
 
 begin

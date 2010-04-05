@@ -2,3 +2,4 @@ pkg
 doc/*
 .garlic
 webrat*
+cucumber_test_app
