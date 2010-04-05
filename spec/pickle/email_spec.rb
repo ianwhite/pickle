@@ -102,6 +102,7 @@ describe Pickle::Email do
   
   describe "#save_and_open_emails" do
     before do
+      stub!(:open_in_browser)
       stub!(:emails).and_return(["Contents of Email 1"])
       @now = "2008-01-01".to_time
       Time.stub!(:now).and_return(@now)
