@@ -42,30 +42,23 @@ end
 
 desc "setup a rails app for running cucumber"
 file "cucumber_test_app" do
-  raise <<-EOD
-
-** Please setup a test rails app in cucumber_test_app **
-
-Until this is automated, do something like:
-  
-(make sure cucumber, cucumber-rails, rspec, rspec-rails, machinist, and factory_girl are all installed as gems)
-  
-  rails cucumber_test_app
-  cd cucumber_test_app
-  script/generate rspec
-  script/generate cucumber
-  cd vendor/plugins
-  ln -s ../../.. pickle
-  cd ../../..
-  
-Then run
-
-  rake cucumber
-
-** thanks! **
-
-EOD
+  puts "** setting up cucumber test app ** (rails 2.3 only at present)"
+  Rake::Task['cucumber:setup'].invoke
 end
+
+namespace :cucumber do
+  task :setup do
+    rm_rf "cucumber_test_app"
+    sh "rails cucumber_test_app"
+    cd "cucumber_test_app" do
+      sh "script/generate rspec"
+      sh "script/generate cucumber"
+    end
+    sh "ln -s #{File.expand_path('.')} cucumber_test_app/vendor/plugins/pickle"
+  end
+end
+
+task :ci => ['rcov:verify', 'cucumber']
 
 begin
   require 'jeweler'

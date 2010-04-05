@@ -1,3 +1,9 @@
+== 0.2.7 - 5 Apr 2010
+
+* 1 minor improvement
+  * just rake 'rake cucumber' and a rails app will be setup for you if required (rails 2.3 only ATM)
+
+
 == 0.2.6 - 5 Apr 2010
 
 * 2 improvements

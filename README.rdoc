@@ -49,11 +49,9 @@ To run the specs do:
 
   rake spec
   
-To run the features do:
+To run the features (rails 2.3 only ATM):
 
   rake cucumber
- 
-The first time you do this, instructions will appear about how to set up a test rails app. 
 
 == Contributors
 
