@@ -34,7 +34,7 @@ module Pickle
     # web browser if on OS X. (depends on webrat)
     def save_and_open_emails
       emails_to_open = @emails || emails
-      filename = "#{RAILS_ROOT}/tmp/webrat-email-#{Time.now.to_i}.html"
+      filename = "webrat-email-#{Time.now.to_i}.html"
       File.open(filename, "w") do |f|
         emails_to_open.each_with_index do |e, i|
           f.write "<h1>Email #{i+1}</h1><pre>#{e}</pre><hr />"

@@ -1,4 +1,8 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
+require File.dirname(__FILE__) + '/../spec_helper'
+
+require 'activerecord'
+require 'factory_girl'
+require 'machinist/active_record'
 
 describe Pickle::Adapter do
   it ".factories should raise NotImplementedError" do
@@ -14,27 +18,13 @@ describe Pickle::Adapter do
       Pickle::Adapter.model_classes = nil
     end
     
-    if defined?(CGI::Session::ActiveRecordStore::Session)
-      it "should not include CGI::Session::ActiveRecordStore::Session" do
-        Pickle::Adapter.model_classes.should_not include(CGI::Session::ActiveRecordStore)
-      end
-    end
-  
-    if defined?(ActiveRecord::SessionStore::Session)
-      it "should not include ActiveRecord::SessionStore::Session" do
-        Pickle::Adapter.model_classes.should_not include(ActiveRecord::SessionStore::Session)
-      end
-    end
-  
-    it "should not include classes without a table" do
-      klass = Class.new(ActiveRecord::Base)
-      Pickle::Adapter.model_classes.should_not include(klass)
-    end
-
-    it "should not include abstract classes without a table" do
-      klass = Class.new(ActiveRecord::Base)
-      klass.abstract_class = true
-      Pickle::Adapter.model_classes.should_not include(klass)
+    it "should not include #rejected_for_pickle classes" do
+      klass1 = Class.new(ActiveRecord::Base)
+      klass2 = Class.new(ActiveRecord::Base)
+      Pickle::Adapter.should_receive(:rejected_for_pickle?).with(klass1).and_return(true)
+      Pickle::Adapter.should_receive(:rejected_for_pickle?).with(klass2).and_return(false)
+      Pickle::Adapter.model_classes.should include(klass2)
+      Pickle::Adapter.model_classes.should_not include(klass1)
     end
   end
   

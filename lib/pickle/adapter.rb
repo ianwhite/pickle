@@ -11,10 +11,6 @@ module Pickle
   class Adapter
     attr_reader :name, :klass
     
-    def self.factories
-      raise NotImplementedError, "return an array of factory adapter objects"
-    end
-  
     def create(attrs = {})
       raise NotImplementedError, "create and return an object with the given attributes"
     end
@@ -22,12 +18,21 @@ module Pickle
     cattr_writer :model_classes
     self.model_classes = nil
     
-    def self.model_classes
-      # remove abstract, framework, and non-table classes
-      @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).reject do |klass|
-        klass.abstract_class? || !klass.table_exists? ||
-         (defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session) ||
-         (defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session)
+    class << self
+      def factories
+        raise NotImplementedError, "return an array of factory adapter objects"
+      end
+
+      def model_classes
+        @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).reject {|klass| rejected_for_pickle?(klass)}
+      end
+      
+      # return true if a klass should not be used by pickle
+      def rejected_for_pickle?(klass)
+        klass.abstract_class? ||
+          !klass.table_exists? ||
+          (defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session) ||
+          (defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session)
       end
     end
   

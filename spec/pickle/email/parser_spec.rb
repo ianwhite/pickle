@@ -1,4 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
+require File.dirname(__FILE__) + '/../../spec_helper'
+
+require 'pickle/email/parser'
 
 describe Pickle::Email::Parser do
   include Pickle::Parser::Matchers

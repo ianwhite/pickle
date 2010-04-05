@@ -1,7 +1,23 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../spec_helper'))
+require File.dirname(__FILE__) + '/../spec_helper'
+
+#require 'activerecord'
+require 'factory_girl' # TODO - remove this dependency from the spec
+
 
 describe Pickle::Session do
   include Pickle::Session
+  
+  let :user do
+    mock("User")
+  end
+  
+  let :user_class do
+    mock("User class", :create => user)
+  end
+  
+  before do
+    config.stub(:factories).and_return('user' => user_class)
+  end
   
   describe "Pickle::Session proxy missing methods to parser", :shared => true do
     it "should forward to pickle_parser it responds_to them" do
@@ -82,8 +98,7 @@ describe Pickle::Session do
   
   describe "#create_model" do
     before do
-      @user = mock_model(User)
-      Factory.stub!(:create).and_return(@user)
+      Factory.stub!(:create).and_return(user)
     end
     
     describe "('a user')" do
@@ -92,7 +107,7 @@ describe Pickle::Session do
       end
   
       it "should call Factory.create('user', {})" do
-        Factory.should_receive(:create).with('user', {}).and_return(@user)
+        Factory.should_receive(:create).with('user', {}).and_return(user)
         do_create_model
       end
       
@@ -109,7 +124,7 @@ describe Pickle::Session do
       end
   
       it "should call Factory.create('user', {'foo' => 'bar', 'baz' => 'bing bong'})" do
-        Factory.should_receive(:create).with('user', {'foo' => 'bar', 'baz' => 'bing bong'}).and_return(@user)
+        Factory.should_receive(:create).with('user', {'foo' => 'bar', 'baz' => 'bing bong'}).and_return(user)
         do_create_model
       end
       
@@ -126,7 +141,7 @@ describe Pickle::Session do
       end
   
       it "should call Factory.create('user', {})" do
-        Factory.should_receive(:create).with('user', {}).and_return(@user)
+        Factory.should_receive(:create).with('user', {}).and_return(user)
         do_create_model
       end
       
@@ -136,7 +151,7 @@ describe Pickle::Session do
         it_should_behave_like "after storing a single user"
               
         it "created_model('the user: \"fred\"') should retrieve the user" do
-          created_model('the user: "fred"').should == @user
+          created_model('the user: "fred"').should == user
         end
       
         it "created_model?('the user: \"shirl\"') should be false" do
@@ -155,7 +170,7 @@ describe Pickle::Session do
       end
   
       it "should call Factory.create('user', {'foo' => 'bar'})" do
-        Factory.should_receive(:create).with('user', {'foo' => 'bar'}).and_return(@user)
+        Factory.should_receive(:create).with('user', {'foo' => 'bar'}).and_return(user)
         do_create_model
       end
       
@@ -170,8 +185,7 @@ describe Pickle::Session do
 
   describe '#find_model' do
     before do
-      @user = mock_model(User)
-      User.stub!(:find).and_return(@user)
+      user_class.stub!(:find).and_return(user)
     end
     
     def do_find_model
@@ -179,7 +193,7 @@ describe Pickle::Session do
     end
     
     it "should call User.find :first, :conditions => {'hair' => 'pink'}" do
-      User.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'}).and_return(@user)
+      user_class.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'}).and_return(user)
       do_find_model
     end
     
@@ -195,7 +209,7 @@ describe Pickle::Session do
       end
   
       it "should call User.find('user', {'foo' => 'bar'})" do
-        User.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'}).and_return(@user)
+        user_class.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'}).and_return(@user)
         do_create_model
       end
       
@@ -247,7 +261,7 @@ describe Pickle::Session do
   
   describe "#find_model!" do
     it "should call find_model" do
-      should_receive(:find_model).with('name', 'fields').and_return(mock('User'))
+      should_receive(:find_model).with('name', 'fields').and_return(user)
       find_model!('name', 'fields')
     end
 
@@ -259,8 +273,7 @@ describe Pickle::Session do
   
   describe "#find_models" do
     before do
-      @user = mock_model(User)
-      User.stub!(:find).and_return([@user])
+      user_class.stub!(:find).and_return(user)
     end
 
     def do_find_models
@@ -268,7 +281,7 @@ describe Pickle::Session do
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
-      User.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'}).and_return([@user])
+      user_class.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'}).and_return([user])
       do_find_models
     end
 
@@ -281,7 +294,7 @@ describe Pickle::Session do
     
   describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\'' do
     before do
-      @user = @fred = mock_model(User)
+      @fred = mock_model(User)
       @shirl  = mock_model(User)
       @noname = mock_model(User)
       Factory.stub!(:create).and_return(@fred, @shirl, @noname)
