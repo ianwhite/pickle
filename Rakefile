@@ -82,3 +82,14 @@ begin
 rescue LoadError
   puts "Jeweler not available for gem tasks. Install it with: sudo gem install jeweler"
 end
+
+begin
+  require 'yard'
+  
+  YARD::Rake::YardocTask.new(:doc) do |t|
+    t.files   = ['lib/**/*.rb', 'generators/**/*.rb']
+  end
+
+rescue LoadError
+  puts "YARD not available for doc tasks. Install it with: sudo gem install yard"
+end
