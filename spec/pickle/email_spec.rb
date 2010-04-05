@@ -102,7 +102,6 @@ describe Pickle::Email do
   
   describe "#save_and_open_emails" do
     before do
-      stub!(:open_in_browser)
       stub!(:emails).and_return(["Contents of Email 1"])
       @now = "2008-01-01".to_time
       Time.stub!(:now).and_return(@now)
@@ -124,11 +123,11 @@ describe Pickle::Email do
     
     it "should create a file in Rails/tmp with the emails in it" do
       save_and_open_emails
-      File.read("webrat-email-#{@now.to_i}.html").should == "<h1>Email 1</h1><pre>Contents of Email 1</pre><hr />"
+      File.read("pickle-email-#{@now.to_i}.html").should == "<h1>Email 1</h1><pre>Contents of Email 1</pre><hr />"
     end
 
     it "should call open_in_browser on created tmp file" do
-      should_receive(:open_in_browser).with("webrat-email-#{@now.to_i}.html")
+      should_receive(:open_in_browser).with("pickle-email-#{@now.to_i}.html")
       save_and_open_emails
     end
   end

@@ -58,3 +58,7 @@ Feature: I can test emails are sent
     Then 1 email should be delivered to the user
 		And I follow "example page" in the email
 		Then I should be at the user's page
+		
+  Scenario: Save and open email 
+    Given an email "Gday" with body: "Gday Mate" is delivered to fred@gmail.com
+    Then show me the email

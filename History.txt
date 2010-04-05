@@ -1,3 +1,8 @@
+== 0.2.8 - 5 Apr 2010
+
+* 1 minor improvement
+  * 'Then show me the email' works as expected now [#18]
+
 == 0.2.7 - 5 Apr 2010
 
 * 1 minor improvement

@@ -30,11 +30,18 @@ module Pickle
     end
   
   protected
+    def open_in_browser(path) # :nodoc
+      require "launchy"
+      Launchy::Browser.run(path)
+    rescue LoadError
+      warn "Sorry, you need to install launchy to open emails: `gem install launchy`"
+    end
+  
     # Saves the emails out to RAILS_ROOT/tmp/ and opens it in the default
     # web browser if on OS X. (depends on webrat)
     def save_and_open_emails
       emails_to_open = @emails || emails
-      filename = "webrat-email-#{Time.now.to_i}.html"
+      filename = "pickle-email-#{Time.now.to_i}.html"
       File.open(filename, "w") do |f|
         emails_to_open.each_with_index do |e, i|
           f.write "<h1>Email #{i+1}</h1><pre>#{e}</pre><hr />"
