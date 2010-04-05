@@ -45,18 +45,15 @@ It's tested against all stable branches of 2.x rails, and edge, with the latest 
 
 == Run the tests
 
-You can run the test with <b>garlic</b> http://github.com/ianwhite/garlic, which tests against different versions of rails.
-  
-Or, you can make a test rails app:
+To run the specs do:
 
-  cd ~/wherever_you_work
-  rails pickle_test_project; cd pickle_test_project
-  script/generate rspec
-  script/generate cucumber --rspec
-  script/plugin install git://github.com/ianwhite/pickle.git
-  cd vendor/plugins/pickle
   rake spec
-  cucumber features
+  
+To run the features do:
+
+  rake cucumber
+ 
+The first time you do this, instructions will appear about how to set up a test rails app. 
 
 == Contributors
 

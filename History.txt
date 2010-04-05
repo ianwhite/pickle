@@ -1,7 +1,10 @@
 == 0.2.6 - 5 Apr 2010
 
-* 1 minor improvement
+* 2 improvements
   * running specs is now doable without being in a rails app - just do 'rake spec'
+  * running features is more straightforward, 'rake cucumber' then follow the instructions
+  
+  
 == 0.2.5 - 17 Mar 2010
 
 * 2 improvements

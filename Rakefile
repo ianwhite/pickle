@@ -37,7 +37,7 @@ end
 
 desc "Run features for #{PluginName} (progress)"
 Cucumber::Rake::Task.new(:cucumber => [:cucumber_test_app]) do |t|
-  t.cucumber_opts = ['--format', 'progress', '--require', 'features']
+  t.cucumber_opts = ['--format', 'pretty', '--require', 'features']
 end
 
 desc "setup a rails app for running cucumber"
@@ -47,6 +47,8 @@ file "cucumber_test_app" do
 ** Please setup a test rails app in cucumber_test_app **
 
 Until this is automated, do something like:
+  
+(make sure cucumber, cucumber-rails, rspec, rspec-rails, machinist, and factory_girl are all installed as gems)
   
   rails cucumber_test_app
   cd cucumber_test_app
