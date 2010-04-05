@@ -1,0 +1,986 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Pickle::Parser::Matchers</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (M)</a> &raquo; 
+    <span class='title'><a href="../../Pickle.html" title="Pickle (module)">Pickle</a></span> &raquo; <span class='title'><a href="../Parser.html" title="Pickle::Parser (class)">Parser</a></span>
+     &raquo; 
+    <span class="title">Matchers</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Pickle::Parser::Matchers 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/pickle/parser/matchers.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capture_key_and_value_in_field-instance_method" title="#capture_key_and_value_in_field (instance method)">- (Object) <strong>capture_key_and_value_in_field</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capture_name_in_label-instance_method" title="#capture_name_in_label (instance method)">- (Object) <strong>capture_name_in_label</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capture_number_in_ordinal-instance_method" title="#capture_number_in_ordinal (instance method)">- (Object) <strong>capture_number_in_ordinal</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+special capture methods.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_factory-instance_method" title="#match_factory (instance method)">- (Object) <strong>match_factory</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_field-instance_method" title="#match_field (instance method)">- (Object) <strong>match_field</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_fields-instance_method" title="#match_fields (instance method)">- (Object) <strong>match_fields</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_index-instance_method" title="#match_index (instance method)">- (Object) <strong>match_index</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_indexed_model-instance_method" title="#match_indexed_model (instance method)">- (Object) <strong>match_indexed_model</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_label-instance_method" title="#match_label (instance method)">- (Object) <strong>match_label</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_labeled_model-instance_method" title="#match_labeled_model (instance method)">- (Object) <strong>match_labeled_model</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_mapping-instance_method" title="#match_mapping (instance method)">- (Object) <strong>match_mapping</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_model-instance_method" title="#match_model (instance method)">- (Object) <strong>match_model</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_ordinal-instance_method" title="#match_ordinal (instance method)">- (Object) <strong>match_ordinal</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_plural_factory-instance_method" title="#match_plural_factory (instance method)">- (Object) <strong>match_plural_factory</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_predicate-instance_method" title="#match_predicate (instance method)">- (Object) <strong>match_predicate</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_prefix-instance_method" title="#match_prefix (instance method)">- (Object) <strong>match_prefix</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_quoted-instance_method" title="#match_quoted (instance method)">- (Object) <strong>match_quoted</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_value-instance_method" title="#match_value (instance method)">- (Object) <strong>match_value</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="capture_key_and_value_in_field-instance_method">
+  
+    - (<tt>Object</tt>) <strong>capture_key_and_value_in_field</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 83</span>
+
+<span class='def def kw'>def</span> <span class='capture_key_and_value_in_field identifier id'>capture_key_and_value_in_field</span>
+  <span class='dstring node'>&quot;(?:(\\w+): #{capture_value})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="capture_name_in_label-instance_method">
+  
+    - (<tt>Object</tt>) <strong>capture_name_in_label</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 79</span>
+
+<span class='def def kw'>def</span> <span class='capture_name_in_label identifier id'>capture_name_in_label</span>
+  <span class='dstring node'>&quot;(?::? \&quot;(#{match_quoted})\&quot;)&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="capture_number_in_ordinal-instance_method">
+  
+    - (<tt>Object</tt>) <strong>capture_number_in_ordinal</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+special capture methods
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 75</span>
+
+<span class='def def kw'>def</span> <span class='capture_number_in_ordinal identifier id'>capture_number_in_ordinal</span>
+  <span class='string val'>'(?:(\d+)(?:st|nd|rd|th))'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_factory-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_factory</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 40</span>
+
+<span class='def def kw'>def</span> <span class='match_factory identifier id'>match_factory</span>
+  <span class='dstring node'>&quot;(?:#{config.factories.keys.map{|n| n.gsub('_','[_ ]')}.join('|')})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_field-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_field</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 28</span>
+
+<span class='def def kw'>def</span> <span class='match_field identifier id'>match_field</span>
+  <span class='dstring node'>&quot;(?:\\w+: #{match_value})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_fields-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_fields</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 32</span>
+
+<span class='def def kw'>def</span> <span class='match_fields identifier id'>match_fields</span>
+  <span class='dstring node'>&quot;(?:#{match_field}, )*#{match_field}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_index</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 8</span>
+
+<span class='def def kw'>def</span> <span class='match_index identifier id'>match_index</span>
+  <span class='dstring node'>&quot;(?:first|last|#{match_ordinal})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_indexed_model-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_indexed_model</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 48</span>
+
+<span class='def def kw'>def</span> <span class='match_indexed_model identifier id'>match_indexed_model</span>
+  <span class='dstring node'>&quot;(?:(?:#{match_index} )?#{match_factory})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_label-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_label</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 20</span>
+
+<span class='def def kw'>def</span> <span class='match_label identifier id'>match_label</span>
+  <span class='dstring node'>&quot;(?::? \&quot;#{match_quoted}\&quot;)&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_labeled_model-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_labeled_model</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 52</span>
+
+<span class='def def kw'>def</span> <span class='match_labeled_model identifier id'>match_labeled_model</span>
+  <span class='dstring node'>&quot;(?:#{match_factory}#{match_label})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_mapping-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_mapping</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 36</span>
+
+<span class='def def kw'>def</span> <span class='match_mapping identifier id'>match_mapping</span>
+  <span class='dstring node'>&quot;(?:#{config.mappings.map(&amp;:search).join('|')})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_model-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_model</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 56</span>
+
+<span class='def def kw'>def</span> <span class='match_model identifier id'>match_model</span>
+  <span class='dstring node'>&quot;(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_ordinal-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_ordinal</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 4</span>
+
+<span class='def def kw'>def</span> <span class='match_ordinal identifier id'>match_ordinal</span>
+  <span class='string val'>'(?:\d+(?:st|nd|rd|th))'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_plural_factory-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_plural_factory</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 44</span>
+
+<span class='def def kw'>def</span> <span class='match_plural_factory identifier id'>match_plural_factory</span>
+  <span class='dstring node'>&quot;(?:#{config.factories.keys.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_predicate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_predicate</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 60</span>
+
+<span class='def def kw'>def</span> <span class='match_predicate identifier id'>match_predicate</span>
+  <span class='dstring node'>&quot;(?:#{config.predicates.map{|m| m.to_s.sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_prefix-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_prefix</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 12</span>
+
+<span class='def def kw'>def</span> <span class='match_prefix identifier id'>match_prefix</span>
+  <span class='string val'>'(?:(?:a|an|another|the|that) )'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_quoted-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_quoted</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 16</span>
+
+<span class='def def kw'>def</span> <span class='match_quoted identifier id'>match_quoted</span>
+  <span class='string val'>'(?:[^\\&quot;]|\\.)*'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_value-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_value</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/parser/matchers.rb', line 24</span>
+
+<span class='def def kw'>def</span> <span class='match_value identifier id'>match_value</span>
+  <span class='dstring node'>&quot;(?:\&quot;#{match_quoted}\&quot;|nil|true|false|[+-]?\\d+(?:\\.\\d+)?)&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr  5 20:40:58 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

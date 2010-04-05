@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Pickle::Email</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo; 
+    <span class='title'><a href="../Pickle.html" title="Pickle (module)">Pickle</a></span>
+     &raquo; 
+    <span class="title">Email</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Pickle::Email 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/pickle/email.rb<span class="defines">,<br />
+  lib/pickle/email/parser.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="Email/Parser.html" title="Pickle::Email::Parser (module)">Parser</a>
+    
+   
+    
+  
+</p>
+
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#click_first_link_in_email-instance_method" title="#click_first_link_in_email (instance method)">- (Object) <strong>click_first_link_in_email</strong>(email) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#email-instance_method" title="#email (instance method)">- (Object) <strong>email</strong>(ref, fields = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#email_has_fields%3F-instance_method" title="#email_has_fields? (instance method)">- (Boolean) <strong>email_has_fields?</strong>(email, fields) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#emails-instance_method" title="#emails (instance method)">- (Object) <strong>emails</strong>(fields = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+return the deliveries array, optionally selected by the passed fields.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#visit_in_email-instance_method" title="#visit_in_email (instance method)">- (Object) <strong>visit_in_email</strong>(email, link_text) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="click_first_link_in_email-instance_method">
+  
+    - (<tt>Object</tt>) <strong>click_first_link_in_email</strong>(email) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/email.rb', line 26</span>
+
+<span class='def def kw'>def</span> <span class='click_first_link_in_email identifier id'>click_first_link_in_email</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='rparen token'>)</span>
+  <span class='link identifier id'>link</span> <span class='assign token'>=</span> <span class='links_in_email identifier id'>links_in_email</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='first identifier id'>first</span>
+  <span class='request_uri identifier id'>request_uri</span> <span class='assign token'>=</span> <span class='URI constant id'>URI</span><span class='colon2 op'>::</span><span class='parse identifier id'>parse</span><span class='lparen token'>(</span><span class='link identifier id'>link</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='request_uri identifier id'>request_uri</span>
+  <span class='visit identifier id'>visit</span> <span class='request_uri identifier id'>request_uri</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="email-instance_method">
+  
+    - (<tt>Object</tt>) <strong>email</strong>(ref, fields = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/email.rb', line 8</span>
+
+<span class='def def kw'>def</span> <span class='email identifier id'>email</span><span class='lparen token'>(</span><span class='ref identifier id'>ref</span><span class='comma token'>,</span> <span class='fields identifier id'>fields</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='lparen token'>(</span><span class='match identifier id'>match</span> <span class='assign token'>=</span> <span class='ref identifier id'>ref</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='dregexp node'>/^#{capture_index_in_email}$/</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='dstring node'>&quot;argument should match #{match_email}&quot;</span>
+  <span class='@emails ivar id'>@emails</span> <span class='or or kw'>or</span> <span class='raise identifier id'>raise</span> <span class='RuntimeError constant id'>RuntimeError</span><span class='comma token'>,</span> <span class='string val'>&quot;Call #emails before calling #email&quot;</span>
+  <span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='parse_index identifier id'>parse_index</span><span class='lparen token'>(</span><span class='match identifier id'>match</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='email_has_fields? fid id'>email_has_fields?</span><span class='lparen token'>(</span><span class='@emails ivar id'>@emails</span><span class='lbrack token'>[</span><span class='index identifier id'>index</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='fields identifier id'>fields</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='@emails ivar id'>@emails</span><span class='lbrack token'>[</span><span class='index identifier id'>index</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="email_has_fields?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>email_has_fields?</strong>(email, fields) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/email.rb', line 15</span>
+
+<span class='def def kw'>def</span> <span class='email_has_fields? fid id'>email_has_fields?</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='comma token'>,</span> <span class='fields identifier id'>fields</span><span class='rparen token'>)</span>
+  <span class='parse_fields identifier id'>parse_fields</span><span class='lparen token'>(</span><span class='fields identifier id'>fields</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='key identifier id'>key</span><span class='comma token'>,</span> <span class='val identifier id'>val</span><span class='bitor op'>|</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span> <span class='unless unless_mod kw'>unless</span> <span class='lparen token'>(</span><span class='Array constant id'>Array</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='key identifier id'>key</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='bitand op'>&amp;</span> <span class='Array constant id'>Array</span><span class='lparen token'>(</span><span class='val identifier id'>val</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='any? fid id'>any?</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="emails-instance_method">
+  
+    - (<tt>Object</tt>) <strong>emails</strong>(fields = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+return the deliveries array, optionally selected by the passed fields
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/email.rb', line 4</span>
+
+<span class='def def kw'>def</span> <span class='emails identifier id'>emails</span><span class='lparen token'>(</span><span class='fields identifier id'>fields</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='@emails ivar id'>@emails</span> <span class='assign token'>=</span> <span class='ActionMailer constant id'>ActionMailer</span><span class='colon2 op'>::</span><span class='Base constant id'>Base</span><span class='dot token'>.</span><span class='deliveries identifier id'>deliveries</span><span class='dot token'>.</span><span class='select identifier id'>select</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='m identifier id'>m</span><span class='bitor op'>|</span> <span class='email_has_fields? fid id'>email_has_fields?</span><span class='lparen token'>(</span><span class='m identifier id'>m</span><span class='comma token'>,</span> <span class='fields identifier id'>fields</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="visit_in_email-instance_method">
+  
+    - (<tt>Object</tt>) <strong>visit_in_email</strong>(email, link_text) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/email.rb', line 22</span>
+
+<span class='def def kw'>def</span> <span class='visit_in_email identifier id'>visit_in_email</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='comma token'>,</span> <span class='link_text identifier id'>link_text</span><span class='rparen token'>)</span>
+  <span class='visit identifier id'>visit</span><span class='lparen token'>(</span><span class='parse_email_for_link identifier id'>parse_email_for_link</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='comma token'>,</span> <span class='link_text identifier id'>link_text</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr  5 20:40:58 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

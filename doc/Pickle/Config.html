@@ -1,0 +1,638 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Class: Pickle::Config</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><a href="../Pickle.html" title="Pickle (module)">Pickle</a></span>
+     &raquo; 
+    <span class="title">Config</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Pickle::Config 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Pickle::Config</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/pickle/config.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#adapters-instance_method" title="#adapters (instance method)">- (Object) <strong>adapters</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#factories-instance_method" title="#factories (instance method)">- (Object) <strong>factories</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mappings-instance_method" title="#mappings (instance method)">- (Object) <strong>mappings</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#predicates-instance_method" title="#predicates (instance method)">- (Object) <strong>predicates</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#adapter_classes-instance_method" title="#adapter_classes (instance method)">- (Object) <strong>adapter_classes</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure-instance_method" title="#configure (instance method)">- (Object) <strong>configure</strong>(&amp;block) {|_self| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Config) <strong>initialize</strong>(&amp;block) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+A new instance of Config.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#map-instance_method" title="#map (instance method)">- (Object) <strong>map</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Usage: map &#8216;me&#8217;, &#8216;myself&#8217;, &#8216;I&#8217;, :to =>
+&#8216;user: &#8220;me&#8221;&#8217;.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="Pickle::Config (class)">Config</a></tt>) <strong>initialize</strong>(&amp;block) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Config
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 7</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='configure identifier id'>configure</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='block_given? fid id'>block_given?</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="adapters=-instance_method"></span>
+      <span id="adapters-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="adapters-instance_method">
+  
+    - (<tt>Object</tt>) <strong>adapters</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 15</span>
+
+<span class='def def kw'>def</span> <span class='adapters identifier id'>adapters</span>
+  <span class='@adapters ivar id'>@adapters</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='symbol val'>:machinist</span><span class='comma token'>,</span> <span class='symbol val'>:factory_girl</span><span class='comma token'>,</span> <span class='symbol val'>:active_record</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="factories=-instance_method"></span>
+      <span id="factories-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="factories-instance_method">
+  
+    - (<tt>Object</tt>) <strong>factories</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 23</span>
+
+<span class='def def kw'>def</span> <span class='factories identifier id'>factories</span>
+  <span class='@factories ivar id'>@factories</span> <span class='opasgn op'>||=</span> <span class='adapter_classes identifier id'>adapter_classes</span><span class='dot token'>.</span><span class='reverse identifier id'>reverse</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='factories identifier id'>factories</span><span class='comma token'>,</span> <span class='adapter identifier id'>adapter</span><span class='bitor op'>|</span>
+    <span class='factories identifier id'>factories</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span><span class='lparen token'>(</span><span class='adapter identifier id'>adapter</span><span class='dot token'>.</span><span class='factories identifier id'>factories</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='h identifier id'>h</span><span class='comma token'>,</span> <span class='f identifier id'>f</span><span class='bitor op'>|</span> <span class='h identifier id'>h</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span><span class='lparen token'>(</span><span class='f identifier id'>f</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='f identifier id'>f</span><span class='rparen token'>)</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="mappings=-instance_method"></span>
+      <span id="mappings-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="mappings-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mappings</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 35</span>
+
+<span class='def def kw'>def</span> <span class='mappings identifier id'>mappings</span>
+  <span class='@mappings ivar id'>@mappings</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="predicates=-instance_method"></span>
+      <span id="predicates-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="predicates-instance_method">
+  
+    - (<tt>Object</tt>) <strong>predicates</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 29</span>
+
+<span class='def def kw'>def</span> <span class='predicates identifier id'>predicates</span>
+  <span class='@predicates ivar id'>@predicates</span> <span class='opasgn op'>||=</span> <span class='Pickle constant id'>Pickle</span><span class='colon2 op'>::</span><span class='Adapter constant id'>Adapter</span><span class='dot token'>.</span><span class='model_classes identifier id'>model_classes</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='bitor op'>|</span>
+    <span class='k identifier id'>k</span><span class='dot token'>.</span><span class='public_instance_methods identifier id'>public_instance_methods</span><span class='dot token'>.</span><span class='select identifier id'>select</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='m identifier id'>m</span><span class='bitor op'>|</span> <span class='m identifier id'>m</span> <span class='match op'>=~</span> <span class='regexp val'>/\?$/</span><span class='rbrace token'>}</span> <span class='plus op'>+</span> <span class='k identifier id'>k</span><span class='dot token'>.</span><span class='column_names identifier id'>column_names</span>
+  <span class='end end kw'>end</span><span class='dot token'>.</span><span class='flatten identifier id'>flatten</span><span class='dot token'>.</span><span class='uniq identifier id'>uniq</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="adapter_classes-instance_method">
+  
+    - (<tt>Object</tt>) <strong>adapter_classes</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='adapter_classes identifier id'>adapter_classes</span>
+  <span class='adapters identifier id'>adapters</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Class constant id'>Class</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='a identifier id'>a</span> <span class='colon op'>:</span> <span class='dstring node'>&quot;pickle/adapter/#{a}&quot;</span><span class='dot token'>.</span><span class='classify identifier id'>classify</span><span class='dot token'>.</span><span class='constantize identifier id'>constantize</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="configure-instance_method">
+  
+    - (<tt>Object</tt>) <strong>configure</strong>(&amp;block) {|_self| ... }
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+        <span class='type'>(<tt>_self</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="" title="Pickle::Config (class)">Pickle::Config</a></tt>)</span>
+      
+      
+        <span class='name'>_self</span>
+      
+      
+      
+        &mdash;
+        
+the object that the method was called on
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 11</span>
+
+<span class='def def kw'>def</span> <span class='configure identifier id'>configure</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="map-instance_method">
+  
+    - (<tt>Object</tt>) <strong>map</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Usage: map &#8216;me&#8217;, &#8216;myself&#8217;, &#8216;I&#8217;, :to =>
+&#8216;user: &#8220;me&#8221;&#8217;
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/pickle/config.rb', line 40</span>
+
+<span class='def def kw'>def</span> <span class='map identifier id'>map</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='extract_options! fid id'>extract_options!</span>
+  <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Usage: map 'search' [, 'search2', ...] :to =&gt; 'replace'&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='any? fid id'>any?</span> <span class='andop op'>&amp;&amp;</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:to</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='String constant id'>String</span><span class='rparen token'>)</span>
+  <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='search identifier id'>search</span><span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='mappings identifier id'>mappings</span> <span class='lshft op'>&lt;&lt;</span> <span class='OpenStruct constant id'>OpenStruct</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:search</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='search identifier id'>search</span><span class='comma token'>,</span> <span class='symbol val'>:replacement</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:to</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr  5 20:40:58 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
