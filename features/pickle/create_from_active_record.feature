@@ -4,10 +4,12 @@ Feature: I can easily create models from my blueprints
   I want to be able to create models with fields
   So that I can create models quickly and easily in my features
   
+  @wip
   Scenario: I create a user, and see if it looks right
     Given a user exists with name: "Fred"
     Then the user should not have a status
-
+    And the user's name should be "Fred"
+    
   Scenario: I create a user, and see if it looks right
     Given a user exists with name: "Fred", status: "crayzee"
     Then a user should exist with name: "Fred"
