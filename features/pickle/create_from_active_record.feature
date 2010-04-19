@@ -23,16 +23,19 @@ Feature: I can easily create models from my blueprints
   
   Scenario: I create positive and negative users
     Given a user exists with name: "Fred", attitude_score: +5.42
-    And another user exists with name: "Ethel", attitude_score: -1.46
+    And another user exists with name: "Ethel", attitude_score: -10
     Then 2 users should exist
     And the 1st user should be a positive person
     And the 2nd user should not be a positive person
-    
+    And the 1st user's attitude_score should be 5.42
+    And the 2nd user's attitude_score should be -10
+  
   Scenario: I create nil values
     Given a user exists with name: "Fred", attitude_score: nil
     Then 1 users should exist with attitude_score: nil
     And that user should be the first user
     And that user should have no attitude
+    And that user's attitude_score should be nil
     
   Scenario: create and find using tables
     Given the following users exist:
