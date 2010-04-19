@@ -29,6 +29,7 @@ ActiveRecord::Migration.suppress_messages do
     create_table :users, :force => true do |t|
       t.string :name, :status, :email
       t.decimal :attitude_score, :precision => 4, :scale => 2
+      t.boolean :has_stale_password, :default => false
     end
   end
 end

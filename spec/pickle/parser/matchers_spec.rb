@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Pickle::Parser::Matchers do
   include Pickle::Parser::Matchers
 
-  describe "(config: [factories: user, car, fast_car] [predicates: name, status, fancy?, super_fancy?]" do
+  describe "(config: [factories: user, car, fast_car] [predicates: name, status, fancy?, super_fancy?, has_style?, has_super_style?]" do
     def config
       @config ||= Pickle::Config.new do |c|
         c.factories = {
@@ -11,7 +11,7 @@ describe Pickle::Parser::Matchers do
           'car'       => mock('factory'),
           'fast_car'  => mock('factory')
         }
-        c.predicates = %w(name status fancy? super_fancy?)
+        c.predicates = %w(name status fancy? super_fancy? has_style? has_super_style?)
       end
     end
   
@@ -50,8 +50,8 @@ describe Pickle::Parser::Matchers do
       atom_should_match     :match_model, ['a user', '1st fast car', 'the 23rd fast_car', 'the user: "fred flinstone"']
       atom_should_not_match :match_model, ['a giraffe', 'a 1st faster car: "jim"', 'an event created']
   
-      atom_should_match     :match_predicate, ['name', 'status', 'fancy', 'super fancy', 'super_fancy']
-      atom_should_not_match :match_predicate, ['nameo', 'increment', 'not a predicate']
+      atom_should_match     :match_predicate, ['name', 'status', 'fancy', 'super fancy', 'super_fancy', 'style', 'super style', 'super_style']
+      atom_should_not_match :match_predicate, ['nameo', 'increment', 'not a predicate', 'has style']
     
       atom_should_match     :match_factory, ['user', 'fast car', 'fast_car', 'car']
       atom_should_not_match :match_factory, ['users', 'faster car', 'event created']

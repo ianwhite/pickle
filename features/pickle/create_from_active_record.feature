@@ -6,8 +6,9 @@ Feature: I can easily create models from my blueprints
   
   @wip
   Scenario: I create a user, and see if it looks right
-    Given a user exists with name: "Fred"
+    Given a user exists with name: "Fred", has_stale_password: true
     Then the user should not have a status
+    And the user should have a stale password
     And the user's name should be "Fred"
     
   Scenario: I create a user, and see if it looks right

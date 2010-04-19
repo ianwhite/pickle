@@ -169,6 +169,13 @@ You can refer to other models in the fields
 "Given <b>n models</b> exist with <b>fields</b>", examples:
 
   Given 10 users exist with activated: false
+  
+"Given the following <b>models</b> exist:", examples:
+
+  Given the following users exist
+    | name  | activated |
+    | Fred  | false     |
+    | Ethel | true      |
 
 ==== Then steps
 
@@ -221,13 +228,14 @@ Many-to-one assocs: "Then <b>a model</b> should be [in|one of] <b>other model</b
 ===== Asserting predicate methods
 
 "Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>", e.g.
-
-  Then the user should have a status # => user.status?.should == true
-  Then the car: "batmobile" should be fast # => car.fast?.should == true
+  
+  Then the user should have a status # => user.status.should be_present
+  Then the user should have a stale password # => user.should have_stale_password
+  Then the car: "batmobile" should be fast # => car.should be_fast
   
 "Then <b>a model</b> should not [be|have] [a|an] <b>predicate</b>", e.g.
 
-  Then person: "fred" should not be childless # => fred.childless?.should == false
+  Then person: "fred" should not be childless # => fred.should_not be_childless
   
 === Regexps for use in your own steps
 

@@ -62,12 +62,20 @@ end
 
 # assert model.predicate? 
 Then(/^#{capture_model} should (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
-  model!(name).should send("be_#{predicate.gsub(' ', '_')}")
+  if model!(name).respond_to?("has_#{predicate.gsub(' ', '_')}")
+    model!(name).should send("have_#{predicate.gsub(' ', '_')}")
+  else
+    model!(name).should send("be_#{predicate.gsub(' ', '_')}")
+  end
 end
 
 # assert not model.predicate?
 Then(/^#{capture_model} should not (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
-  model!(name).should_not send("be_#{predicate.gsub(' ', '_')}")
+  if model!(name).respond_to?("has_#{predicate.gsub(' ', '_')}")
+    model!(name).should_not send("have_#{predicate.gsub(' ', '_')}")
+  else
+    model!(name).should_not send("be_#{predicate.gsub(' ', '_')}")
+  end
 end
 
 # model.attribute.should eql(value)
