@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
 <title>Class: Pickle::Parser</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
@@ -75,6 +75,7 @@
     
   
   
+  
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/pickle/parser.rb<span class="defines">,<br />
   lib/pickle/parser/matchers.rb</span>
@@ -83,6 +84,16 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="Parser/Matchers.html" title="Pickle::Parser::Matchers (module)">Matchers</a>
+    
+   
+    
+  
+</p>
 
 
   
@@ -110,10 +121,10 @@
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 Returns the value of attribute config.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
@@ -121,11 +132,12 @@ Returns the value of attribute config.
   </ul>
 
 
-  <h2>Instance Method Summary</h2>
+  
+    <h2>Instance Method Summary</h2>
 
-  <ul class="summary">
-    
-      <li class="public ">
+    <ul class="summary">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#canonical-instance_method" title="#canonical (instance method)">- (Object) <strong>canonical</strong>(str) </a>
@@ -140,15 +152,15 @@ Returns the value of attribute config.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 returns really underscored name.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (Parser) <strong>initialize</strong>(options = {}) </a>
@@ -165,15 +177,15 @@ returns really underscored name.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 A new instance of Parser.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#parse_field-instance_method" title="#parse_field (instance method)">- (Object) <strong>parse_field</strong>(field) </a>
@@ -188,15 +200,15 @@ A new instance of Parser.
   
 
   
-    <span class="summary_desc">
-given a string like &#8216;foo: expr&#8217; returns <tt>=> value</tt>.
-
-</span>
+    <span class="summary_desc"><div class='inline'><p>
+given a string like &#8216;foo: expr&#8217; returns <tt>=&gt; value</tt>.
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#parse_fields-instance_method" title="#parse_fields (instance method)">- (Object) <strong>parse_fields</strong>(fields) </a>
@@ -211,17 +223,17 @@ given a string like &#8216;foo: expr&#8217; returns <tt>=> value</tt>.
   
 
   
-    <span class="summary_desc">
-given a string like &#8216;foo: &#8220;bar&#8221;, bar:
-&#8220;baz&#8221;&#8217; returns {&#8220;foo&#8221; => &#8220;bar&#8221;,
-&#8220;bar&#8221; => &#8220;baz&#8221;}.
-
-</span>
+    <span class="summary_desc"><div class='inline'><p>
+given a string like &#8216;foo: &quot;bar&quot;, bar:
+&quot;baz&quot;&#8217; returns {&quot;foo&quot; =&gt; &quot;bar&quot;,
+&quot;bar&quot; =&gt; &quot;baz&quot;}.
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#parse_index-instance_method" title="#parse_index (instance method)">- (Object) <strong>parse_index</strong>(index) </a>
@@ -236,12 +248,12 @@ given a string like &#8216;foo: &#8220;bar&#8221;, bar:
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#parse_model-instance_method" title="#parse_model (instance method)">- (Object) <strong>parse_model</strong>(model_name) </a>
@@ -256,16 +268,20 @@ given a string like &#8216;foo: &#8220;bar&#8221;, bar:
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return [factory_name, name or integer index].
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-  </ul>
+      
+    </ul>
+  
 
+
+  
+  
   
   
   
@@ -421,7 +437,7 @@ returns really underscored name
 </p><div class="docstring">
   <div class="discussion">
     <p>
-given a string like &#8216;foo: expr&#8217; returns <tt>=> value</tt>
+given a string like &#8216;foo: expr&#8217; returns <tt>=&gt; value</tt>
 </p>
 
 
@@ -469,9 +485,9 @@ given a string like &#8216;foo: expr&#8217; returns <tt>=> value</tt>
 </p><div class="docstring">
   <div class="discussion">
     <p>
-given a string like &#8216;foo: &#8220;bar&#8221;, bar:
-&#8220;baz&#8221;&#8217; returns {&#8220;foo&#8221; => &#8220;bar&#8221;,
-&#8220;bar&#8221; => &#8220;baz&#8221;}
+given a string like &#8216;foo: &quot;bar&quot;, bar:
+&quot;baz&quot;&#8217; returns {&quot;foo&quot; =&gt; &quot;bar&quot;,
+&quot;bar&quot; =&gt; &quot;baz&quot;}
 </p>
 
 
@@ -609,9 +625,9 @@ return [factory_name, name or integer index]
 </div>
     
     <div id="footer">
-  Generated on Mon Apr  5 20:40:59 2010 by 
+  Generated on Tue Apr 27 17:32:45 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
-  0.5.3 (ruby-1.8.7).
+  0.5.4 (ruby-1.8.7).
 </div>
 
   </body>

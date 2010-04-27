@@ -2,8 +2,8 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Content-Type" content="text/html; charset=UTF-8" />
-<title>Documentation by YARD 0.5.3</title>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Documentation by YARD 0.5.4</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -55,35 +55,32 @@ which require a bunch of models collaborating
 </p>
 <h2>Resources</h2>
 <p>
-<b>Github</b> for code: <a
-href="http://github.com/ianwhite/pickle">github.com/ianwhite/pickle</a>
+<b>Github</b> for code: http://github.com/ianwhite/pickle
 </p>
 <p>
-<b>Gemcutter</b> for the gem: <a
-href="http://gemcutter.org/gems/pickle">gemcutter.org/gems/pickle</a>
+<b>Gemcutter</b> for the gem: http://gemcutter.org/gems/pickle
 </p>
 <p>
-<b>API</b> docs: <a href="http://ianwhite.github.com/pickle/doc/">Pickle
-rdoc on github</a>
+<b>API</b> docs: {Pickle rdoc on
+github}[http://ianwhite.github.com/pickle/doc/]
 </p>
 <p>
-<b>Google group</b> for questions: <a
-href="http://groups.google.com/group/pickle-cucumber">groups.google.com/group/pickle-cucumber</a>
+<b>Google group</b> for questions:
+http://groups.google.com/group/pickle-cucumber
 </p>
 <p>
-<b>Lighthouse</b> for bugs: <a
-href="http://ianwhite.lighthouseapp.com/projects/25941-pickle">ianwhite.lighthouseapp.com/projects/25941-pickle</a>
+<b>Lighthouse</b> for bugs:
+http://ianwhite.lighthouseapp.com/projects/25941-pickle
 </p>
 <p>
-<b>Railscast</b> presentation: <a
-href="http://railscasts.com/episodes/186-pickle-with-cucumber">railscasts.com/episodes/186-pickle-with-cucumber</a>
+<b>Railscast</b> presentation:
+http://railscasts.com/episodes/186-pickle-with-cucumber
 </p>
 <p>
-<b>Blog articles</b>: <a
-href="http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/">dynamic50:
-Integration testing with cucumber and pickle</a>, <a
-href="http://rubyflare.com/2009/10/28/pickle-my-cucumber/">rubyflare:
-pickle my cucumber</a>
+<b>Blog articles</b>: {dynamic50: Integration testing with cucumber and
+pickle}[http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/],
+{rubyflare: pickle my
+cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
 </p>
 <h2>Install</h2>
 <p>
@@ -125,25 +122,25 @@ To run the features (rails 2.3 only ATM):
 The following people have made Pickle better:
 </p>
 <ul>
-<li><a href="http://github.com/nruth">Nick Rutherford</a>
+<li><tt>Rutherford</tt>[http://github.com/nruth]
 
 </li>
-<li><a href="http://github.com/guenter">Tobi Knaup</a>
+<li><tt>Knaup</tt>[http://github.com/guenter]
 
 </li>
-<li><a href="http://github.com/schlick">Michael MacDonald</a>
+<li><tt>MacDonald</tt>[http://github.com/schlick]
 
 </li>
-<li><a href="http://github.com/UnderpantsGnome">Michael Moen</a>
+<li><tt>Moen</tt>[http://github.com/UnderpantsGnome]
 
 </li>
-<li><a href="http://github.com/myronmarston">Myron Marston</a>
+<li><tt>Marston</tt>[http://github.com/myronmarston]
 
 </li>
-<li><a href="http://github.com/xing">Stephan Hagemann</a>
+<li><tt>Hagemann</tt>[http://github.com/xing]
 
 </li>
-<li><a href="http://github.com/cflipse">Chris Flipse</a>
+<li><tt>Flipse</tt>[http://github.com/cflipse]
 
 </li>
 </ul>
@@ -187,9 +184,8 @@ the factories/blueprints you&#8217;ve written, you can just do stuff like
 </pre>
 <h4>Machinst: require your blueprints and reset Shams</h4>
 <p>
-(The latest version of pickle supports <a
-href="http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496">multiple
-blueprints</a>, for earlier versions of machinist use pickle <= 0.1.10)
+(The latest version of pickle supports <tt>blueprints</tt>[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496],
+for earlier versions of machinist use pickle &lt;= 0.1.10)
 </p>
 <p>
 In your <tt>features/support/env.rb</tt> add the following lines at the
@@ -245,7 +241,7 @@ When you run <tt>script/generate pickle</tt> you get the following steps
 </p>
 <h4>Given steps</h4>
 <p>
-&#8220;Given <b>a model</b> exists&#8221;, e.g.
+&quot;Given <b>a model</b> exists&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Given constant id'>Given</span> <span class='a identifier id'>a</span> <span class='user identifier id'>user</span> <span class='exists identifier id'>exists</span>
@@ -253,7 +249,7 @@ When you run <tt>script/generate pickle</tt> you get the following steps
   <span class='Given constant id'>Given</span> <span class='the identifier id'>the</span> <span class='user identifier id'>user</span> <span class='exists identifier id'>exists</span>
 </pre>
 <p>
-&#8220;Given <b>a model</b> exists with <b>fields</b>&#8220;, e.g.
+&quot;Given <b>a model</b> exists with <b>fields</b>&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Given constant id'>Given</span> <span class='a identifier id'>a</span> <span class='user identifier id'>user</span> <span class='exists identifier id'>exists</span> <span class='with identifier id'>with</span> <span class='name identifier id'>name</span><span class='colon op'>:</span> <span class='string val'>&quot;Fred&quot;</span>
@@ -271,27 +267,36 @@ You can refer to other models in the fields
   <span class='And constant id'>And</span> <span class='a identifier id'>a</span> <span class='fatherhood identifier id'>fatherhood</span> <span class='exists identifier id'>exists</span> <span class='with identifier id'>with</span> <span class='parent identifier id'>parent</span><span class='colon op'>:</span> <span class='user identifier id'>user</span> <span class='string val'>&quot;fred&quot;</span><span class='comma token'>,</span> <span class='child identifier id'>child</span><span class='colon op'>:</span> <span class='user identifier id'>user</span> <span class='string val'>&quot;ethel&quot;</span>
 </pre>
 <p>
-&#8220;Given <b>n models</b> exist&#8221;, e.g.
+&quot;Given <b>n models</b> exist&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Given constant id'>Given</span> <span class='integer val'>10</span> <span class='users identifier id'>users</span> <span class='exist identifier id'>exist</span>
 </pre>
 <p>
-&#8220;Given <b>n models</b> exist with <b>fields</b>&#8220;, examples:
+&quot;Given <b>n models</b> exist with <b>fields</b>&quot;, examples:
 </p>
 <pre class="code">
   <span class='Given constant id'>Given</span> <span class='integer val'>10</span> <span class='users identifier id'>users</span> <span class='exist identifier id'>exist</span> <span class='with identifier id'>with</span> <span class='activated identifier id'>activated</span><span class='colon op'>:</span> <span class='false false kw'>false</span>
 </pre>
+<p>
+&quot;Given the following <b>models</b> exist:&quot;, examples:
+</p>
+<pre class="code">
+  <span class='Given constant id'>Given</span> <span class='the identifier id'>the</span> <span class='following identifier id'>following</span> <span class='users identifier id'>users</span> <span class='exist identifier id'>exist</span>
+    <span class='bitor op'>|</span> <span class='name identifier id'>name</span>  <span class='bitor op'>|</span> <span class='activated identifier id'>activated</span> <span class='bitor op'>|</span>
+    <span class='bitor op'>|</span> <span class='Fred constant id'>Fred</span>  <span class='bitor op'>|</span> <span class='false false kw'>false</span>     <span class='bitor op'>|</span>
+    <span class='bitor op'>|</span> <span class='Ethel constant id'>Ethel</span> <span class='bitor op'>|</span> <span class='true true kw'>true</span>      <span class='bitor op'>|</span>
+</pre>
 <h4>Then steps</h4>
 <h5>Asserting existence of models</h5>
 <p>
-&#8220;Then <b>a model</b> should exist&#8221;, e.g.
+&quot;Then <b>a model</b> should exist&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='a identifier id'>a</span> <span class='user identifier id'>user</span> <span class='should identifier id'>should</span> <span class='exist identifier id'>exist</span>
 </pre>
 <p>
-&#8220;Then <b>a model</b> should exist with <b>fields</b>&#8220;, e.g.
+&quot;Then <b>a model</b> should exist with <b>fields</b>&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='a identifier id'>a</span> <span class='user identifier id'>user</span><span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span> <span class='should identifier id'>should</span> <span class='exist identifier id'>exist</span> <span class='with identifier id'>with</span> <span class='name identifier id'>name</span><span class='colon op'>:</span> <span class='string val'>&quot;Fred&quot;</span> <span class='comment val'># we can label the found user for later use</span>
@@ -305,19 +310,19 @@ You can use other models, booleans, numerics, and strings as fields
   <span class='Then constant id'>Then</span> <span class='a identifier id'>a</span> <span class='user identifier id'>user</span> <span class='should identifier id'>should</span> <span class='exist identifier id'>exist</span> <span class='with identifier id'>with</span> <span class='activated identifier id'>activated</span><span class='colon op'>:</span> <span class='true true kw'>true</span><span class='comma token'>,</span> <span class='email identifier id'>email</span><span class='colon op'>:</span> <span class='string val'>&quot;fred@gmail.com&quot;</span>
 </pre>
 <p>
-&#8220;Then <b>n models</b> should exist&#8221;, e.g.
+&quot;Then <b>n models</b> should exist&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='integer val'>10</span> <span class='events identifier id'>events</span> <span class='should identifier id'>should</span> <span class='exist identifier id'>exist</span>
 </pre>
 <p>
-&#8220;Then <b>n models</b> should exist with <b>fields</b>&#8220;, e.g.
+&quot;Then <b>n models</b> should exist with <b>fields</b>&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='integer val'>2</span> <span class='people identifier id'>people</span> <span class='should identifier id'>should</span> <span class='exist identifier id'>exist</span> <span class='with identifier id'>with</span> <span class='father identifier id'>father</span><span class='colon op'>:</span> <span class='person identifier id'>person</span> <span class='string val'>&quot;fred&quot;</span>
 </pre>
 <p>
-&#8220;Then the following <b>models</b> exist&#8221;. This allows the
+&quot;Then the following <b>models</b> exist&quot;. This allows the
 creation of multiple models using a table syntax. Using a column with the
 singularized name of the model creates a referenceable model. E.g.
 </p>
@@ -332,15 +337,15 @@ singularized name of the model creates a referenceable model. E.g.
 </pre>
 <h5>Asserting associations</h5>
 <p>
-One-to-one assocs: &#8220;Then <b>a model</b> should be <b>other
-model</b>&#8217;s <b>association</b>&#8220;, e.g.
+One-to-one assocs: &quot;Then <b>a model</b> should be <b>other
+model</b>&#8217;s <b>association</b>&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span> <span class='should identifier id'>should</span> <span class='be identifier id'>be</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;ethel&quot;</span><span class='string val'>'s father
 </span></pre>
 <p>
-Many-to-one assocs: &#8220;Then <b>a model</b> should be [in|one of]
-<b>other model</b>&#8217;s <b>association</b>&#8220;, e.g.
+Many-to-one assocs: &quot;Then <b>a model</b> should be [in|one of]
+<b>other model</b>&#8217;s <b>association</b>&quot;, e.g.
 </p>
 <pre class="code">
   <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;ethel&quot;</span> <span class='should identifier id'>should</span> <span class='be identifier id'>be</span> <span class='one identifier id'>one</span> <span class='of identifier id'>of</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span><span class='string val'>'s children
@@ -348,19 +353,20 @@ Many-to-one assocs: &#8220;Then <b>a model</b> should be [in|one of]
 </pre>
 <h5>Asserting predicate methods</h5>
 <p>
-&#8220;Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>&#8220;,
+&quot;Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>&quot;,
 e.g.
 </p>
 <pre class="code">
-  <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='user identifier id'>user</span> <span class='should identifier id'>should</span> <span class='have identifier id'>have</span> <span class='a identifier id'>a</span> <span class='status identifier id'>status</span> <span class='comment val'># =&gt; user.status?.should == true</span>
-  <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='car identifier id'>car</span><span class='colon op'>:</span> <span class='string val'>&quot;batmobile&quot;</span> <span class='should identifier id'>should</span> <span class='be identifier id'>be</span> <span class='fast identifier id'>fast</span> <span class='comment val'># =&gt; car.fast?.should == true</span>
+  <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='user identifier id'>user</span> <span class='should identifier id'>should</span> <span class='have identifier id'>have</span> <span class='a identifier id'>a</span> <span class='status identifier id'>status</span> <span class='comment val'># =&gt; user.status.should be_present</span>
+  <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='user identifier id'>user</span> <span class='should identifier id'>should</span> <span class='have identifier id'>have</span> <span class='a identifier id'>a</span> <span class='stale identifier id'>stale</span> <span class='password identifier id'>password</span> <span class='comment val'># =&gt; user.should have_stale_password</span>
+  <span class='Then constant id'>Then</span> <span class='the identifier id'>the</span> <span class='car identifier id'>car</span><span class='colon op'>:</span> <span class='string val'>&quot;batmobile&quot;</span> <span class='should identifier id'>should</span> <span class='be identifier id'>be</span> <span class='fast identifier id'>fast</span> <span class='comment val'># =&gt; car.should be_fast</span>
 </pre>
 <p>
-&#8220;Then <b>a model</b> should not [be|have] [a|an]
-<b>predicate</b>&#8220;, e.g.
+&quot;Then <b>a model</b> should not [be|have] [a|an]
+<b>predicate</b>&quot;, e.g.
 </p>
 <pre class="code">
-  <span class='Then constant id'>Then</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span> <span class='should identifier id'>should</span> <span class='not not kw'>not</span> <span class='be identifier id'>be</span> <span class='childless identifier id'>childless</span> <span class='comment val'># =&gt; fred.childless?.should == false</span>
+  <span class='Then constant id'>Then</span> <span class='person identifier id'>person</span><span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span> <span class='should identifier id'>should</span> <span class='not not kw'>not</span> <span class='be identifier id'>be</span> <span class='childless identifier id'>childless</span> <span class='comment val'># =&gt; fred.should_not be_childless</span>
 </pre>
 <h3>Regexps for use in your own steps</h3>
 <p>
@@ -413,9 +419,9 @@ so that you can build up composite objects with ease
 </div></div>
     
     <div id="footer">
-  Generated on Mon Apr  5 20:40:57 2010 by 
+  Generated on Tue Apr 27 17:32:43 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
-  0.5.3 (ruby-1.8.7).
+  0.5.4 (ruby-1.8.7).
 </div>
 
   </body>

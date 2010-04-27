@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
 <title>Class: Pickle::Adapter</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
@@ -71,6 +71,7 @@
     
   
   
+  
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/pickle/adapter.rb</dd>
   
@@ -102,6 +103,16 @@ instances, and each instance must respond to:
   <h2>Direct Known Subclasses</h2>
   <p class="children"><a href="Adapter/ActiveRecord.html" title="Pickle::Adapter::ActiveRecord (class)">Adapter::ActiveRecord</a>, <a href="Adapter/FactoryGirl.html" title="Pickle::Adapter::FactoryGirl (class)">Adapter::FactoryGirl</a>, <a href="Adapter/Machinist.html" title="Pickle::Adapter::Machinist (class)">Adapter::Machinist</a></p>
 </div>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="Adapter/ActiveRecord.html" title="Pickle::Adapter::ActiveRecord (class)">ActiveRecord</a>, <a href="Adapter/FactoryGirl.html" title="Pickle::Adapter::FactoryGirl (class)">FactoryGirl</a>, <a href="Adapter/Machinist.html" title="Pickle::Adapter::Machinist (class)">Machinist</a>
+    
+  
+</p>
 
 
   <h2>Instance Attribute Summary</h2>
@@ -125,10 +136,10 @@ instances, and each instance must respond to:
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 Returns the value of attribute klass.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
@@ -151,10 +162,10 @@ Returns the value of attribute klass.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 Returns the value of attribute name.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
@@ -162,11 +173,12 @@ Returns the value of attribute name.
   </ul>
 
 
-  <h2>Class Method Summary</h2>
+  
+    <h2>Class Method Summary</h2>
 
-  <ul class="summary">
-    
-      <li class="public ">
+    <ul class="summary">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#factories-class_method" title="factories (class method)">+ (Object) <strong>factories</strong> </a>
@@ -181,12 +193,12 @@ Returns the value of attribute name.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#framework_class%3F-class_method" title="framework_class? (class method)">+ (Boolean) <strong>framework_class?</strong>(klass) </a>
@@ -201,15 +213,15 @@ Returns the value of attribute name.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return true if the passed class is a special framework class.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#model_classes-class_method" title="model_classes (class method)">+ (Object) <strong>model_classes</strong> </a>
@@ -224,12 +236,12 @@ return true if the passed class is a special framework class.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#suitable_for_pickle%3F-class_method" title="suitable_for_pickle? (class method)">+ (Boolean) <strong>suitable_for_pickle?</strong>(klass) </a>
@@ -244,21 +256,21 @@ return true if the passed class is a special framework class.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return true if a klass should be used by pickle.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-  </ul>
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
 
-  <h2>Instance Method Summary</h2>
-
-  <ul class="summary">
-    
-      <li class="public ">
+    <ul class="summary">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong>(attrs = {}) </a>
@@ -273,12 +285,14 @@ return true if a klass should be used by pickle.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-  </ul>
+      
+    </ul>
+  
+
 
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
@@ -624,9 +638,9 @@ return true if a klass should be used by pickle
 </div>
     
     <div id="footer">
-  Generated on Mon Apr  5 20:40:58 2010 by 
+  Generated on Tue Apr 27 17:32:44 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
-  0.5.3 (ruby-1.8.7).
+  0.5.4 (ruby-1.8.7).
 </div>
 
   </body>

@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
 <title>Module: Pickle::Session</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
@@ -56,6 +56,7 @@
     
   
   
+  
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/pickle/session.rb<span class="defines">,<br />
   lib/pickle/session/parser.rb</span>
@@ -77,11 +78,12 @@
 
 
 
-  <h2>Class Method Summary</h2>
+  
+    <h2>Class Method Summary</h2>
 
-  <ul class="summary">
-    
-      <li class="public ">
+    <ul class="summary">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#extended-class_method" title="extended (class method)">+ (Object) <strong>extended</strong>(world_object) </a>
@@ -96,12 +98,12 @@
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#included-class_method" title="included (class method)">+ (Object) <strong>included</strong>(world_class) </a>
@@ -116,18 +118,18 @@
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-  </ul>
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
 
-  <h2>Instance Method Summary</h2>
-
-  <ul class="summary">
-    
-      <li class="public ">
+    <ul class="summary">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#create_model-instance_method" title="#create_model (instance method)">- (Object) <strong>create_model</strong>(pickle_ref, fields = nil) </a>
@@ -142,12 +144,12 @@
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#create_models_from_table-instance_method" title="#create_models_from_table (instance method)">- (Object) <strong>create_models_from_table</strong>(plural_factory, table) </a>
@@ -162,16 +164,16 @@
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 if a column exists in the table which matches the singular factory name,
 this is used as the pickle ref.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#created_model-instance_method" title="#created_model (instance method)">- (Object) <strong>created_model</strong>(name) </a>
@@ -186,15 +188,15 @@ this is used as the pickle ref.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return the original model stored by create_model or find_model.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#created_model%21-instance_method" title="#created_model! (instance method)">- (Object) <strong>created_model!</strong>(name) </a>
@@ -209,15 +211,15 @@ return the original model stored by create_model or find_model.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 like created_model, but raise an error if it can&#8217;t be found.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#created_model%3F-instance_method" title="#created_model? (instance method)">- (Boolean) <strong>created_model?</strong>(name) </a>
@@ -232,15 +234,15 @@ like created_model, but raise an error if it can&#8217;t be found.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 predicate version which raises no errors.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#created_models-instance_method" title="#created_models (instance method)">- (Object) <strong>created_models</strong>(factory) </a>
@@ -255,15 +257,15 @@ predicate version which raises no errors.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return all original models of specified type.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#find_model-instance_method" title="#find_model (instance method)">- (Object) <strong>find_model</strong>(a_model_name, fields = nil) </a>
@@ -278,12 +280,12 @@ return all original models of specified type.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#find_model%21-instance_method" title="#find_model! (instance method)">- (Object) <strong>find_model!</strong>(a_model_name, fields = nil) </a>
@@ -298,12 +300,12 @@ return all original models of specified type.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#find_models-instance_method" title="#find_models (instance method)">- (Object) <strong>find_models</strong>(factory, fields = nil) </a>
@@ -318,12 +320,12 @@ return all original models of specified type.
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#find_models_from_table-instance_method" title="#find_models_from_table (instance method)">- (Object) <strong>find_models_from_table</strong>(plural_factory, table) </a>
@@ -338,16 +340,16 @@ return all original models of specified type.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 if a column exists in the table which matches the singular factory name,
 this is used as the pickle ref.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#model-instance_method" title="#model (instance method)">- (Object) <strong>model</strong>(name) </a>
@@ -362,15 +364,15 @@ this is used as the pickle ref.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return a newly selected model.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#model%21-instance_method" title="#model! (instance method)">- (Object) <strong>model!</strong>(name) </a>
@@ -385,15 +387,15 @@ return a newly selected model.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 like model, but raise an error if it can&#8217;t be found.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#model%3F-instance_method" title="#model? (instance method)">- (Boolean) <strong>model?</strong>(name) </a>
@@ -408,15 +410,15 @@ like model, but raise an error if it can&#8217;t be found.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 predicate version which raises no errors.
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#models-instance_method" title="#models (instance method)">- (Object) <strong>models</strong>(factory) </a>
@@ -431,15 +433,15 @@ predicate version which raises no errors.
   
 
   
-    <span class="summary_desc">
+    <span class="summary_desc"><div class='inline'><p>
 return all models of specified type (freshly selected from the database).
-
-</span>
+</p>
+</div></span>
   
 </li>
 
-    
-      <li class="public ">
+      
+        <li class="public ">
   <span class="summary_signature">
     
       <a href="#respond_to_with_pickle_parser%3F-instance_method" title="#respond_to_with_pickle_parser? (instance method)">- (Boolean) <strong>respond_to_with_pickle_parser?</strong>(method, include_private = false) </a>
@@ -454,12 +456,14 @@ return all models of specified type (freshly selected from the database).
   
 
   
-    <span class="summary_desc"></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
-    
-  </ul>
+      
+    </ul>
+  
+
 
 
   <div id="class_method_details" class="method_details_list">
@@ -1245,9 +1249,9 @@ return all models of specified type (freshly selected from the database)
 </div>
     
     <div id="footer">
-  Generated on Mon Apr  5 20:40:59 2010 by 
+  Generated on Tue Apr 27 17:32:44 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
-  0.5.3 (ruby-1.8.7).
+  0.5.4 (ruby-1.8.7).
 </div>
 
   </body>
