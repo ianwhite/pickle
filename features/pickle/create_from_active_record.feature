@@ -32,7 +32,8 @@ Feature: I can easily create models from my blueprints
     And the 1st user's attitude_score should be 5.42
     And the 2nd user's attitude_score should be -10
 		And the 3rd user's attitude_score should be 2_000_000
-  
+  	And the 3rd user's attitude_score should be 2000000
+
   Scenario: I create nil values
     Given a user exists with name: "Fred", attitude_score: nil
     Then 1 users should exist with attitude_score: nil
