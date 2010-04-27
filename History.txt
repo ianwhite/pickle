@@ -1,3 +1,8 @@
+== 0.2.9 - 27 Apr 2010
+
+* 1 minor improvement
+  * Fixed problem with verifying model attribute using strings with escaped quotes [Michael MacDonald]
+
 == 0.2.8 - 5 Apr 2010
 
 * 1 minor improvement
