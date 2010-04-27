@@ -93,3 +93,8 @@ Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |nam
     actual_value.to_s.send(expectation, eql(eval(expected)))
   end
 end
+
+# assert size of association
+Then /^#{capture_model} should have (\d+) (\w+)$/ do |name, size, association|
+  model!(name).send(association).size.should == size.to_i
+end

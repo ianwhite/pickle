@@ -46,8 +46,12 @@ Feature: I can easily create models from my factories
       | fork         |
       | the 1st fork |
       | the 2nd fork |
+      | the 2nd fork |
     Then the 1st tine should be in the 1st fork's tines
     And the 2nd tine should be in the 2nd fork's tines
+		And the 3rd tine should be in the 2nd fork's tines
+		And the 1st fork should have 1 tines
+		And the 2nd fork should have 2 tines
 
   Scenario: I create fork via a mapping
     Given killah fork exists
