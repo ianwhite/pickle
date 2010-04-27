@@ -1,6 +1,7 @@
-== master
+== 0.2.10
 
-* 1 improvement
+* 2 improvements
+  * pickle backend is rails 3 compatible (but generators are not yet)
   * modular Rakefile, devs can run only what they're interested in without having to install all gems
 
 
