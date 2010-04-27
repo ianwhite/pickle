@@ -71,7 +71,31 @@
         <dt id="String-constant" class="">String =
           
         </dt>
-        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>'/../VERSION'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span>
+        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>'/../../VERSION'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span>
+</pre></dd>
+      
+        <dt id="Array-constant" class="">Array =
+          
+        </dt>
+        <dd><pre class="code"><span class='String constant id'>String</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span>
+</pre></dd>
+      
+        <dt id="Major-constant" class="">Major =
+          
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
+        <dt id="Minor-constant" class="">Minor =
+          
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
+        <dt id="Patch-constant" class="">Patch =
+          
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='lbrack token'>[</span><span class='integer val'>2</span><span class='rbrack token'>]</span>
 </pre></dd>
       
     </dl>
@@ -84,7 +108,7 @@
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 27 17:32:44 2010 by 
+  Generated on Tue Apr 27 21:16:28 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.8.7).
 </div>

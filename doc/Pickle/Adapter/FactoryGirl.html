@@ -214,12 +214,12 @@ A new instance of FactoryGirl
       <pre class="lines">
 
 
-71
-72
-73</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 78</span>
 
 <span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='factory identifier id'>factory</span><span class='rparen token'>)</span>
   <span class='@klass ivar id'>@klass</span><span class='comma token'>,</span> <span class='@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='factory identifier id'>factory</span><span class='dot token'>.</span><span class='build_class identifier id'>build_class</span><span class='comma token'>,</span> <span class='factory identifier id'>factory</span><span class='dot token'>.</span><span class='factory_name identifier id'>factory_name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
@@ -250,12 +250,12 @@ A new instance of FactoryGirl
       <pre class="lines">
 
 
-67
-68
-69</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 74</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='factories identifier id'>factories</span>
   <span class='lparen token'>(</span><span class='colon3 op'>::</span><span class='Factory constant id'>Factory</span><span class='dot token'>.</span><span class='factories identifier id'>factories</span><span class='dot token'>.</span><span class='values identifier id'>values</span> <span class='rescue rescue kw'>rescue</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='factory identifier id'>factory</span><span class='bitor op'>|</span> <span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='factory identifier id'>factory</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
@@ -285,12 +285,12 @@ A new instance of FactoryGirl
       <pre class="lines">
 
 
-75
-76
-77</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 82</span>
 
 <span class='def def kw'>def</span> <span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='attrs identifier id'>attrs</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='Factory constant id'>Factory</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='@name ivar id'>@name</span><span class='comma token'>,</span> <span class='attrs identifier id'>attrs</span><span class='rparen token'>)</span>
@@ -306,7 +306,7 @@ A new instance of FactoryGirl
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 27 17:32:45 2010 by 
+  Generated on Tue Apr 27 21:16:27 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.8.7).
 </div>

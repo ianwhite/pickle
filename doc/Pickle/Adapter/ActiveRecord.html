@@ -214,12 +214,12 @@ A new instance of ActiveRecord
       <pre class="lines">
 
 
-86
-87
-88</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 93</span>
 
 <span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='klass identifier id'>klass</span><span class='rparen token'>)</span>
   <span class='@klass ivar id'>@klass</span><span class='comma token'>,</span> <span class='@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='klass identifier id'>klass</span><span class='comma token'>,</span> <span class='klass identifier id'>klass</span><span class='dot token'>.</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='underscore identifier id'>underscore</span><span class='dot token'>.</span><span class='gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'/'</span><span class='comma token'>,</span><span class='string val'>'_'</span><span class='rparen token'>)</span>
@@ -250,12 +250,12 @@ A new instance of ActiveRecord
       <pre class="lines">
 
 
-82
-83
-84</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 89</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='factories identifier id'>factories</span>
   <span class='model_classes identifier id'>model_classes</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='klass identifier id'>klass</span><span class='bitor op'>|</span> <span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='klass identifier id'>klass</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
@@ -285,12 +285,12 @@ A new instance of ActiveRecord
       <pre class="lines">
 
 
-90
-91
-92</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/pickle/adapter.rb', line 97</span>
 
 <span class='def def kw'>def</span> <span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='attrs identifier id'>attrs</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='@klass ivar id'>@klass</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='symbol val'>:create!</span><span class='comma token'>,</span> <span class='attrs identifier id'>attrs</span><span class='rparen token'>)</span>
@@ -306,7 +306,7 @@ A new instance of ActiveRecord
 </div>
     
     <div id="footer">
-  Generated on Tue Apr 27 17:32:44 2010 by 
+  Generated on Tue Apr 27 21:16:27 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.8.7).
 </div>
