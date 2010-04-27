@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pickle}
-  s.version = "0.2.9"
+  s.version = "0.2.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian White"]
@@ -21,6 +21,11 @@ Gem::Specification.new do |s|
      "License.txt",
      "README.rdoc",
      "Rakefile",
+     "Rakefile.d/cucumber.rake",
+     "Rakefile.d/jeweller.rake",
+     "Rakefile.d/rcov.rake",
+     "Rakefile.d/rspec.rake",
+     "Rakefile.d/yard.rake",
      "Todo.txt",
      "VERSION",
      "features/app/app.rb",
