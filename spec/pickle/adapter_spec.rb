@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-require 'activerecord'
+require 'active_record'
 require 'factory_girl'
 require 'machinist/active_record'
 

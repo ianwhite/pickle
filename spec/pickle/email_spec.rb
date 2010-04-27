@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 require 'pickle/email'
 require 'pickle/email/parser'
-require 'actionmailer'
+require 'action_mailer'
 
 describe Pickle::Email do
   include Pickle::Session

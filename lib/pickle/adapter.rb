@@ -1,3 +1,5 @@
+require 'active_support/core_ext'
+
 module Pickle
   # Abstract Factory adapter class, if you have a factory type setup, you
   # can easily create an adaptor to make it work with Pickle.
@@ -15,7 +17,12 @@ module Pickle
       raise NotImplementedError, "create and return an object with the given attributes"
     end
   
-    cattr_writer :model_classes
+    if respond_to?(:class_attribute)
+      class_attribute :model_classes
+    else
+      cattr_writer :model_classes
+    end
+    
     self.model_classes = nil
     
     class << self
