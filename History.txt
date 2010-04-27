@@ -1,3 +1,9 @@
+== master
+
+* 1 improvement
+  * modular Rakefile, devs can run only what they're interested in without having to install all gems
+
+
 == 0.2.9 - 27 Apr 2010 (the #railscamp7 release)
 
 * 5 improvements
