@@ -24,11 +24,13 @@ Feature: I can easily create models from my blueprints
   Scenario: I create positive and negative users
     Given a user exists with name: "Fred", attitude_score: +5.42
     And another user exists with name: "Ethel", attitude_score: -10
-    Then 2 users should exist
+		And another user exists with name: "Buddha", attitude_score: 2_000_000
+    Then 3 users should exist
     And the 1st user should be a positive person
     And the 2nd user should not be a positive person
     And the 1st user's attitude_score should be 5.42
     And the 2nd user's attitude_score should be -10
+		And the 3rd user's attitude_score should be 2_000_000
   
   Scenario: I create nil values
     Given a user exists with name: "Fred", attitude_score: nil

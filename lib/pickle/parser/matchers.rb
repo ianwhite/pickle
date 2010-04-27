@@ -22,7 +22,7 @@ module Pickle
       end
 
       def match_value
-        "(?:\"#{match_quoted}\"|nil|true|false|[+-]?\\d+(?:\\.\\d+)?)"
+        "(?:\"#{match_quoted}\"|nil|true|false|[+-]?[0-9_]+(?:\\.\\d+)?)"
       end
 
       def match_field
