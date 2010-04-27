@@ -58,7 +58,7 @@ module Pickle
       end
   
       def match_predicate
-        "(?:#{config.predicates.map{|m| m.sub(/^has_/,'').sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
+        "(?:#{config.predicates.map{|m| m.to_s.sub(/^has_/,'').sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
       end
       
       # create capture analogues of match methods
