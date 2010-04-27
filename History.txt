@@ -1,10 +1,10 @@
 == 0.2.9 - 27 Apr 2010
 
-* 3 minor improvements
+* 4 minor improvements
   * Fixed problem with verifying model attribute using strings with escaped quotes [Michael MacDonald]
   * Added handling for positive and negative floats [Michael MacDonald, #railscamp7]
   * Added handling of ruby integer syntax (e.g. 1_000_000) [Ian White]
-
+  * Modified the way pickle handles predicates to match rspec [Michael MacDonald, #railscamp7]
 
 == 0.2.8 - 5 Apr 2010
 
