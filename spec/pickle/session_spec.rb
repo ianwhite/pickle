@@ -167,7 +167,7 @@ describe Pickle::Session do
     describe "with hash" do
       it "should call user_factory.create({'foo' => 'bar'})" do
         user_factory.should_receive(:create).with({'foo' => 'bar'})
-        create_model('a user', {'foo' => 'bar'})
+        create_model('a user', {'foo' => 'bar'}).should == user
       end
       
       describe "after create," do
@@ -185,7 +185,7 @@ describe Pickle::Session do
     
     it "should call user_class.find :first, :conditions => {<fields>}" do
       user_class.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'})
-      find_model('a user', 'hair: "pink"')
+      find_model('a user', 'hair: "pink"').should == user
     end
     
     describe "after find," do

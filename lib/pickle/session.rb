@@ -26,6 +26,7 @@ module Pickle
       fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
       record = pickle_config.factories[factory].create(fields)
       store_model(factory, label, record)
+      record
     end
     
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
@@ -45,6 +46,7 @@ module Pickle
       if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, fields))
         store_model(factory, name, record)
       end
+      record
     end
     
     def find_model!(a_model_name, fields = nil)
