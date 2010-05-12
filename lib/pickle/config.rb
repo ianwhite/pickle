@@ -28,7 +28,7 @@ module Pickle
     
     def predicates
       @predicates ||= Pickle::Adapter.model_classes.map do |k|
-        k.public_instance_methods.select{|m| m =~ /\?$/} + k.column_names
+        k.public_instance_methods.select {|m| m =~ /\?$/} + Pickle::Adapter.column_names(k)
       end.flatten.uniq
     end
     

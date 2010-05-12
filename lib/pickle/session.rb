@@ -40,12 +40,16 @@ module Pickle
 
     def find_model(a_model_name, fields = nil)
       factory, name = *parse_model(a_model_name)
+
       raise ArgumentError, "Can't find a model with an ordinal (e.g. 1st user)" if name.is_a?(Integer)
+
       model_class = pickle_config.factories[factory].klass
-      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
-      if record = model_class.find(:first, :conditions => convert_models_to_attributes(model_class, fields))
-        store_model(factory, name, record)
-      end
+      fields      = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
+      conditions  = convert_models_to_attributes(model_class, fields)
+      record      = Pickle::Adapter.find_first_model(model_class, conditions)
+
+      store_model(factory, name, record) if record
+
       record
     end
     
@@ -55,8 +59,11 @@ module Pickle
     
     def find_models(factory, fields = nil)
       models_by_index(factory).clear
+
       model_class = pickle_config.factories[factory].klass
-      records = model_class.find(:all, :conditions => convert_models_to_attributes(model_class, parse_fields(fields)))
+      conditions  = convert_models_to_attributes(model_class, parse_fields(fields))
+      records     = Pickle::Adapter.find_all_models(model_class, conditions)
+
       records.each {|record| store_model(factory, nil, record)}
     end
     
@@ -89,7 +96,9 @@ module Pickle
     
     # return a newly selected model
     def model(name)
-      (model = created_model(name)) && model.class.find(model.id)
+      model = created_model(name)
+      return nil unless model
+      Pickle::Adapter.get_model(model.class, model.id)
     end
     
     # predicate version which raises no errors
@@ -138,14 +147,16 @@ module Pickle
     def pickle_parser
       @pickle_parser or self.pickle_parser = Pickle.parser
     end
-    
+
     def pickle_config
       pickle_parser.config
     end
 
     def convert_models_to_attributes(ar_class, attrs)
       attrs.each do |key, val|
-        if val.is_a?(ActiveRecord::Base) && ar_class.column_names.include?("#{key}_id")
+        if ((defined?(ActiveRecord::Base) && val.is_a?(ActiveRecord::Base)) ||
+          (defined?(DataMapper::Model) && val.is_a?(DataMapper::Model))) &&
+          Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
           attrs["#{key}_id"] = val.id
           attrs["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
           attrs.delete(key)

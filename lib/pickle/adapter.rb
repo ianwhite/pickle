@@ -31,7 +31,14 @@ module Pickle
       end
 
       def model_classes
-        @@model_classes ||= ::ActiveRecord::Base.send(:subclasses).select {|klass| suitable_for_pickle?(klass)}
+        @@model_classes ||=
+          if defined?(::ActiveRecord::Base)
+            ::ActiveRecord::Base.send(:subclasses).select {|klass| suitable_for_pickle?(klass)}
+          elsif defined?(::DataMapper::Model)
+            ::DataMapper::Model.descendants.to_a
+          else
+            []
+          end
       end
       
       # return true if a klass should be used by pickle
@@ -43,6 +50,47 @@ module Pickle
       def framework_class?(klass)
         ((defined?(CGI::Session::ActiveRecordStore::Session) && klass == CGI::Session::ActiveRecordStore::Session)) ||
         ((defined?(::ActiveRecord::SessionStore::Session) && klass == ::ActiveRecord::SessionStore::Session))
+      end
+
+      # Returns the column names for the given ORM model class.
+      def column_names(klass)
+        if defined?(::ActiveRecord::Base)
+          klass.column_names
+        elsif defined?(::DataMapper::Model)
+          klass.properties.map(&:name)
+        else
+          []
+        end
+      end
+
+      def get_model(klass, id)
+        if defined?(ActiveRecord::Base)
+          klass.find(id)
+        elsif defined?(DataMapper::Model)
+          klass.get(id)
+        else
+          nil
+        end
+      end
+
+      def find_first_model(klass, conditions)
+        if defined?(ActiveRecord::Base)
+          klass.find(:first, :conditions => conditions)
+        elsif defined?(DataMapper::Model)
+          klass.first(conditions)
+        else
+          nil
+        end
+      end
+
+      def find_all_models(klass, conditions)
+        if defined?(ActiveRecord::Base)
+          klass.find(:all, :conditions => conditions)
+        elsif defined?(DataMapper::Model)
+          klass.all(conditions)
+        else
+          []
+        end
       end
     end
   
