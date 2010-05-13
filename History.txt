@@ -1,3 +1,9 @@
+== 0.2.11
+
+* 1 improvement
+  * use correct type when converting STI pickle model to attributes 
+
+
 == 0.2.10
 
 * 2 improvements

@@ -145,7 +145,7 @@ module Pickle
       attrs.each do |key, val|
         if val.is_a?(ActiveRecord::Base) && ar_class.column_names.include?("#{key}_id")
           attrs["#{key}_id"] = val.id
-          attrs["#{key}_type"] = val.class.name if ar_class.column_names.include?("#{key}_type")
+          attrs["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
           attrs.delete(key)
         end
       end

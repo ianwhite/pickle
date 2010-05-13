@@ -408,9 +408,10 @@ describe Pickle::Session do
       let :ar_class do
         mock('ActiveRecord', :column_names => ['user_id', 'user_type'])
       end
-      
-      it "should return {'user_id' => <the user.id>, 'user_type' => <the user.type>}" do
-        convert_models_to_attributes(ar_class, :user => user).should == {'user_id' => user.id, 'user_type' => user.class.name}
+            
+      it "should return {'user_id' => <the user.id>, 'user_type' => <the user.base_class>}" do
+        user.class.should_receive(:base_class).and_return(mock('User base class', :name => 'UserBase'))
+        convert_models_to_attributes(ar_class, :user => user).should == {'user_id' => user.id, 'user_type' => 'UserBase'}
       end
     end
   end
