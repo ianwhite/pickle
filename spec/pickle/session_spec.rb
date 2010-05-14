@@ -6,6 +6,11 @@ module ActiveRecord
   end 
 end
 
+module DataMapper
+  class Model
+  end
+end
+
 describe Pickle::Session do
   include Pickle::Session
   
@@ -81,7 +86,7 @@ describe Pickle::Session do
       end
 
       before do
-        user_class.should_receive(:find).with(100).and_return(user_from_db)
+        Pickle::Adapter.stub!(:get_model).with(user_class, 100).and_return(user_from_db)
       end
     
       it "models('user') should be array containing user" do
@@ -180,11 +185,10 @@ describe Pickle::Session do
 
   describe '#find_model' do
     before do
-      user_class.stub!(:find).and_return(user)
+      Pickle::Adapter.stub!(:find_first_model).with(user_class, anything).and_return(user)
     end
     
     it "should call user_class.find :first, :conditions => {<fields>}" do
-      user_class.should_receive(:find).with(:first, :conditions => {'hair' => 'pink'})
       find_model('a user', 'hair: "pink"').should == user
     end
     
@@ -196,7 +200,6 @@ describe Pickle::Session do
     
     describe "with hash" do
       it "should call user_class.find('user', {'foo' => 'bar'})" do
-        user_class.should_receive(:find).with(:first, :conditions => {'foo' => 'bar'})
         find_model('a user', {'foo' => 'bar'})
       end
       
@@ -260,11 +263,10 @@ describe Pickle::Session do
   
   describe "#find_models" do
     before do
-      user_class.stub!(:find).and_return([user])
+      Pickle::Adapter.stub!(:find_all_models).with(user_class, anything).and_return([user])
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
-      user_class.should_receive(:find).with(:all, :conditions => {'hair' => 'pink'})
       find_models('user', 'hair: "pink"')
     end
 
@@ -355,7 +357,7 @@ describe Pickle::Session do
     before do
       self.pickle_parser = Pickle::Parser.new(:config => Pickle::Config.new {|c| c.map 'I', 'myself', :to => 'user: "me"'})
       config.stub(:factories).and_return('user' => user_factory)
-      user_class.stub!(:find).and_return(user)
+      Pickle::Adapter.stub!(:get_model).with(user_class, anything).and_return(user)
       user_factory.stub!(:create).and_return(user)
       create_model('the user: "me"')
     end

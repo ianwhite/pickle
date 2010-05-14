@@ -123,7 +123,9 @@ module Pickle
       
     # return all models of specified type (freshly selected from the database)
     def models(factory)
-      created_models(factory).map{|model| model.class.find(model.id) }
+      created_models(factory).map do |model|
+        Pickle::Adapter.get_model(model.class, model.id)
+      end
     end
     
     def respond_to_with_pickle_parser?(method, include_private = false)
