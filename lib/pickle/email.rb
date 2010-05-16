@@ -72,7 +72,7 @@ module Pickle
     end
 
     def links_in_email(email, protos=['http', 'https'])
-      URI.extract(email.body, protos)
+      URI.extract(email.body.to_s, protos)
     end
 
   end
