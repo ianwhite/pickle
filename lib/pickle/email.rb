@@ -11,7 +11,7 @@ module Pickle
       index = parse_index(match[1])
       email_has_fields?(@emails[index], fields) ? @emails[index] : nil
     end
-    
+
     def email_has_fields?(email, fields)
       parse_fields(fields).each do |key, val|
         return false unless (Array(email.send(key)) & Array(val)).any?
@@ -28,7 +28,7 @@ module Pickle
       request_uri = URI::parse(link).request_uri
       visit request_uri
     end
-  
+
   protected
     def open_in_browser(path) # :nodoc
       require "launchy"
@@ -36,7 +36,7 @@ module Pickle
     rescue LoadError
       warn "Sorry, you need to install launchy to open emails: `gem install launchy`"
     end
-  
+
     # Saves the emails out to RAILS_ROOT/tmp/ and opens it in the default
     # web browser if on OS X. (depends on webrat)
     def save_and_open_emails

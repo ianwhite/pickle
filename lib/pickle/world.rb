@@ -1,5 +1,9 @@
 require 'pickle'
 
+# auto require for active record and datamapper
+require 'pickle/adapters/active_record' if defined?(ActiveRecord::Base)
+require 'pickle/adapters/data_mapper'   if defined?(DataMapper::Resource)
+
 # make cucumber world pickle aware
 World(Pickle::Session)
 
