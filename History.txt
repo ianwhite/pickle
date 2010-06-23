@@ -1,3 +1,10 @@
+== 0.3.0
+
+* 2 major improvements
+  * Mechanism for registering ORM adapters for pickle [Daniel Neighman]
+  * Adapters for ActiveRecord and DataMapper [Josh Bassett, Daniel Neighman]
+
+
 == 0.2.12
 
 * 1 bugfix

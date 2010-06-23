@@ -1,7 +1,10 @@
 = pickle
 
 Pickle gives you cucumber steps that create your models easily from factory-girl or
-machinist factories/blueprints.  You can also just use ActiveRecord but it's not as cool.
+machinist factories/blueprints.  You can also just use ActiveRecord as a factory but it's not as cool.
+
+Pickle can make use of different ORMs for finding records.  Currently ActiveRecord and DataMapper adapters are
+provided.  More adapters welcome!
 
 References to the models are stored in the current world, not necessarily for the purpose of checking the db
 (although you could use it for that), but for enabling easy reference to urls, and for
@@ -57,6 +60,8 @@ To run the features (rails 2.3 only ATM):
 
 The following people have made Pickle better:
 
+* {Daniel Neighman}[http://github.com/hassox]
+* {Josh Bassett}[http://github.com/nullobject]
 * {Nick Rutherford}[http://github.com/nruth]
 * {Tobi Knaup}[http://github.com/guenter]
 * {Michael MacDonald}[http://github.com/schlick]
