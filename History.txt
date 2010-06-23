@@ -1,3 +1,9 @@
+== 0.2.12
+
+* 1 bugfix
+  * script/generate pickle paths now works correctly with cucumber-rails 0.3.2
+
+
 == 0.2.11
 
 * 1 improvement
