@@ -12,7 +12,7 @@ Given(/^cucumber has been freshly generated$/) do
 end
 
 Given(/^pickle path email has been freshly generated$/) do
-  `cd #{Rails.root}; script/generate pickle path email`
+  `cd #{Rails.root}; script/generate -f pickle paths email`
 end
 
 Given(/^env\.rb already requires (.+)$/) do |file|

@@ -17,14 +17,7 @@ class PickleGenerator < Rails::Generator::Base
       
       if @generate_path_steps
         pickle_assigns[:pickle_path] = true
-        current_paths = File.read('features/support/paths.rb')
-        unless current_paths.include?('#{capture_model}')
-          if current_paths =~ /^(.*)(\n\s+else\n\s+raise "Can't find.*".*$)/m
-            pickle_assigns[:current_paths_header] = $1
-            pickle_assigns[:current_paths_footer] = $2
-            m.template 'paths.rb', File.join('features/support', 'paths.rb'), :assigns => pickle_assigns, :collision => :force
-          end
-        end
+        m.template 'paths.rb', File.join('features/support', 'paths.rb')
       end
       
       if @generate_email_steps
