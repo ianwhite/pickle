@@ -3,13 +3,13 @@ require 'pickle/parser/matchers'
 module Pickle
   class Parser
     include Matchers
-    
+
     attr_reader :config
-    
+
     def initialize(options = {})
       @config = options[:config] || raise(ArgumentError, "Parser.new requires a :config")
     end
-    
+
     # given a string like 'foo: "bar", bar: "baz"' returns {"foo" => "bar", "bar" => "baz"}
     def parse_fields(fields)
       if fields.blank?
@@ -19,24 +19,30 @@ module Pickle
           m.merge(parse_field(match[0]))
         end
       else
-        raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{match_fields}" 
+        raise ArgumentError, "The fields string is not in the correct format.\n\n'#{fields}' did not match: #{match_fields}"
       end
     end
-    
+
     # given a string like 'foo: expr' returns {key => value}
     def parse_field(field)
       if field =~ /^#{capture_key_and_value_in_field}$/
-        { $1 => eval($2) }
+        key, value = $1, $2
+        if value =~ /^#{match_collection}$/
+          match = value.match(/^#{capture_models_in_collection}$/)
+          { key => match.to_a.compact[1..-1] }
+        else
+          { key => eval(value) }
+        end
       else
         raise ArgumentError, "The field argument is not in the correct format.\n\n'#{field}' did not match: #{match_field}"
       end
     end
-    
+
     # returns really underscored name
     def canonical(str)
       str.to_s.underscore.gsub(' ','_').gsub('/','_')
     end
-    
+
     # return [factory_name, name or integer index]
     def parse_model(model_name)
       apply_mappings!(model_name)
@@ -46,7 +52,7 @@ module Pickle
         [canonical($1), canonical($2)]
       end
     end
-  
+
     def parse_index(index)
       case index
       when nil, '', 'last' then -1

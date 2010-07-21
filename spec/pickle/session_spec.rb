@@ -80,7 +80,7 @@ describe Pickle::Session do
 
     describe "(found from db)" do
       let :user_from_db do
-        returning user.dup do |from_db|
+        user.dup.tap do |from_db|
           from_db.stub!(:id).and_return(100)
         end
       end
@@ -141,6 +141,29 @@ describe Pickle::Session do
         before { create_model('1 user', 'foo: "bar", baz: "bing bong"') }
 
         it_should_behave_like "after storing a single user"
+      end
+    end
+
+    describe "('1 user', 'friends: []')" do
+      it "should call user_factory.create({'friends' => []})" do
+        user_factory.should_receive(:create).with({'friends' => []})
+        create_model('1 user', 'friends: []')
+      end
+    end
+
+    describe "('1 user', 'friends: [a user]')" do
+      it "should call user_factory.create({'friends' => []})" do
+        user_class.should_receive(:find).with(1).once
+        user_factory.should_receive(:create).with({'friends' => [create_model("user")]})
+        create_model('1 user', 'friends: [a user]')
+      end
+    end
+
+    describe "('1 user', 'friends: [a user, an user]')" do
+      it "should call user_factory.create({'friends' => []})" do
+        user_class.should_receive(:find).with(1).twice
+        user_factory.should_receive(:create).with({'friends' => [create_model("user"), create_model("user")]})
+        create_model('1 user', 'friends: [a user, an user]')
       end
     end
 
