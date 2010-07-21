@@ -15,7 +15,7 @@ describe Pickle::Session do
   include Pickle::Session
 
   let :user_class do
-    mock("User class", :name => 'User')
+    mock("User class", :name => 'User', :const_get => ActiveRecord::Base::PickleAdapter)
   end
 
   let :user do
