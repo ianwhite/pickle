@@ -70,7 +70,7 @@ module Pickle
 
       record
     end
-    
+
     def find_model!(name, fields = nil)
       find_model(name, fields) or raise ModelNotKnownError, name
     end
