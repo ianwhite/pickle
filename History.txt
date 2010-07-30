@@ -1,3 +1,9 @@
+== 0.3.1
+
+* 1 major improvement
+  * Rails 3 support for generators [H.J. Blok, szimek]
+
+
 == 0.3.0
 
 * 2 major improvements
