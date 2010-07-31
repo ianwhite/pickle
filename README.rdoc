@@ -10,6 +10,43 @@ References to the models are stored in the current world, not necessarily for th
 (although you could use it for that), but for enabling easy reference to urls, and for
 building complex givens which require a bunch of models collaborating
 
+== Quickstart
+
+This is a quickstart guide for rails apps.  Firstly, install {cucumber-rails}[http://github.com/aslakhellesoy/cucumber-rails], and its dependencies.
+Then do the following:
+
+=== Rails 3:
+
+Add the gem to your Gemfile:
+
+  gem 'pickle'
+  
+Then install with:
+
+  bundle install
+  
+Discover the options for the generator:
+
+  rails g pickle --help
+
+Run the generator, e.g:
+
+  rails g pickle --paths --email
+  
+=== For Rails 2:
+
+Add the following to config/environments/cucumber:
+
+  config.gem 'pickle'
+
+Install the gem with
+
+  rake gems:install RAILS_ENV=cucumber
+  
+Run the generator with:
+
+  script/generate pickle [paths] [email]
+
 == Resources
 
 <b>Github</b> for code: http://github.com/ianwhite/pickle
@@ -26,60 +63,13 @@ building complex givens which require a bunch of models collaborating
 
 <b>Blog articles</b>: {dynamic50: Integration testing with cucumber and pickle}[http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/], {rubyflare: pickle my cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
 
-== Install
 
-Install pickle either as a rails plugin, or a gem
-
-  # gem from gemcutter
-  sudo gem install pickle
-
-  # gem dependency (in config/environments/cucumber.rb)
-  config.gem 'pickle'
-
-  # plugin
-  script/plugin install git://github.com/ianwhite/pickle.git
-
-  # or, plugin as submodule
-  git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle
-
-== CI
-
-It's tested against all stable branches of 2.x rails, and edge, with the latest versions of rspec, cucumber, factory_girl, machinist.
-
-== Run the tests
-
-To run the specs do:
-
-  rake spec
-
-To run the features (rails 2.3 only ATM):
-
-  rake cucumber
-
-== Contributors
-
-The following people have made Pickle better:
-
-* {Daniel Neighman}[http://github.com/hassox]
-* {Josh Bassett}[http://github.com/nullobject]
-* {Nick Rutherford}[http://github.com/nruth]
-* {Tobi Knaup}[http://github.com/guenter]
-* {Michael MacDonald}[http://github.com/schlick]
-* {Michael Moen}[http://github.com/UnderpantsGnome]
-* {Myron Marston}[http://github.com/myronmarston]
-* {Stephan Hagemann}[http://github.com/xing]
-* {Chris Flipse}[http://github.com/cflipse]
-
-== Get Started
-
-(you'd better install cucumber)
-
-  script/generate pickle [paths] [email]
+== Using Pickle
 
 Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
 
-If you want path steps and email steps then just add 'paths' and/or 'email'.  The code/steps will be
-written to <tt>features/env/paths.rb</tt> and
+If you want path steps and email steps then just add the 'paths' and/or 'email' options to the generator.
+The code/steps will be written to <tt>features/env/paths.rb</tt> and
 <tt>features/step_definitions/email_steps.rb</tt> respectively.
 
 === Using with plain ole Active Record or DataMapper
@@ -297,3 +287,29 @@ can build up composite objects with ease
   # example of use
   Given a user exists
   And a post exists with author: the user # this step will assign the above user as :author on the post
+
+== Run the tests
+
+To run the specs do:
+
+  rake spec
+
+To run the features (rails 2.3 only ATM):
+
+  rake cucumber
+
+== Contributors
+
+The following people have made Pickle better:
+
+* {Szymon Nowak}[http://github.com/szimek]
+* {H.J. Blok}[http://github.com/hjblok]
+* {Daniel Neighman}[http://github.com/hassox]
+* {Josh Bassett}[http://github.com/nullobject]
+* {Nick Rutherford}[http://github.com/nruth]
+* {Tobi Knaup}[http://github.com/guenter]
+* {Michael MacDonald}[http://github.com/schlick]
+* {Michael Moen}[http://github.com/UnderpantsGnome]
+* {Myron Marston}[http://github.com/myronmarston]
+* {Stephan Hagemann}[http://github.com/xing]
+* {Chris Flipse}[http://github.com/cflipse]
