@@ -143,17 +143,17 @@ describe Pickle::Email do
     end
 
     it "should find a link for http://example.com/page" do
-      should_receive(:visit).with('/page')
+      should_receive(:visit).with('http://example.com/page')
       visit_in_email(@email1, 'http://example.com/page')
     end
 
     it "should find a link for \"example page\"" do
-      should_receive(:visit).with('/page')
+      should_receive(:visit).with('http://example.com/page')
       visit_in_email(@email1, 'example page')
     end
 
     it "should follow the first link in an email" do
-      should_receive(:visit).with('/page')
+      should_receive(:visit).with('http://example.com/page')
       click_first_link_in_email(@email1)
     end
   end
