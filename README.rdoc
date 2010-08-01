@@ -100,26 +100,6 @@ In your <tt>features/support/env.rb</tt> add the following lines at the bottom
   require "#{Rails.root}/spec/blueprints" # or wherever they live
   Before { Sham.reset } # reset Shams in between scenarios
 
-The latest version of pickle supports {named blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496].
-
-Following from the previous example, if you had the following blueprints for your User models
-
-  User.blueprint do
-    name
-    email
-  end
-  
-  User.blueprint(:super_admin) do
-    role { "admin" }
-  end
-
-You could create a super-admin user with pickle by simply adding the name of the blueprint before the model:
-
-  Given a super admin user exists
-
-
-This is much nicer than having to set up common configurations in your steps all the time, and far more readable to boot.
-
 ==== FactoryGirl: make sure factories are loaded
 
 In your config/environments/cucumber.rb file, make sure the factory-girl gem is included (unless it's installed as a plugin).
@@ -203,6 +183,35 @@ You can refer to other models in the fields
     | name  | activated |
     | Fred  | false     |
     | Ethel | true      |
+
+===== Named machinist blueprints
+
+"Given <b> a <i>named</i> model</b> exists with <b>fields</b>"
+
+The latest version of pickle supports {named machinist blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496].
+
+If you had the following blueprints:
+
+  User.blueprint do
+    name
+    email
+  end
+  
+  User.blueprint(:super_admin) do
+    role { "admin" }
+  end
+  
+  User.blueprint(:activated) do
+    activated { true }
+  end
+
+You could create a user with pickle by simply adding the name of the blueprint before the model:
+
+  Given a super admin user exists
+  And an activated user exists with name: "Fred"
+
+This is much nicer than having to set up common configurations in your steps all the time, and far more readable to boot.
+
 
 ==== Then steps
 
