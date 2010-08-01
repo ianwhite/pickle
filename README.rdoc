@@ -95,13 +95,30 @@ you've written, you can just do stuff like
 
 ==== Machinst: require your blueprints and reset Shams
 
-(The latest version of pickle supports {multiple blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496], for
-earlier versions of machinist use pickle <= 0.1.10)
-
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
   require "#{Rails.root}/spec/blueprints" # or wherever they live
   Before { Sham.reset } # reset Shams in between scenarios
+
+The latest version of pickle supports {named blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496].
+
+Following from the previous example, if you had the following blueprints for your User models
+
+  User.blueprint do
+    name
+    email
+  end
+  
+  User.blueprint(:super_admin) do
+    role { "admin" }
+  end
+
+You could create a super-admin user with pickle by simply adding the name of the blueprint before the model:
+
+  Given a super admin user exists
+
+
+This is much nicer than having to set up common configurations in your steps all the time, and far more readable to boot.
 
 ==== FactoryGirl: make sure factories are loaded
 
