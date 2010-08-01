@@ -1,3 +1,9 @@
+== master
+
+* 1 minor improvement
+  * Document how to use machinist named blueprints [Christopher Darroch]
+
+
 == 0.3.1
 
 * 1 major improvement
