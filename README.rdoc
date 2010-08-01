@@ -93,7 +93,7 @@ you've written, you can just do stuff like
   Then a user should exist with name: "Fred"
   And that user should be activated # this uses rspec predicate matchers
 
-==== Machinst: require your blueprints and reset Shams
+==== Machinist: require your blueprints and reset Shams
 
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
@@ -131,7 +131,7 @@ If that doesn't solve loading issues then require your factories.rb file directl
 
 === Using with an ORM other than ActiveRecord or DataMapper
 
-Pickle can be used with any Modeling library provided there is an adapter written for it.
+Pickle can be used with any modelling library provided there is an adapter written for it.
 
 Adapters are very simple and exist a module or class with the name "PickleAdapter" available to the class.  For example
 
