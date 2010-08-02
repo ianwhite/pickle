@@ -105,7 +105,7 @@ module Pickle
       end
 
       def create(attrs = {})
-        Factory.create(@name, attrs)
+        Factory(@name, attrs)
       end
     end
 
