@@ -18,7 +18,13 @@ class ActiveRecord::Base
 
     # Gets a list of the available models for this adapter
     def self.model_classes
-      ::ActiveRecord::Base.__send__(:subclasses).select do |klass|
+      begin
+        klasses = ::ActiveRecord::Base.__send__(:descendants) # Rails 3
+      rescue
+        klasses = ::ActiveRecord::Base.__send__(:subclasses) # Rails 2
+      end
+
+      klasses.select do |klass|
         !klass.abstract_class? && klass.table_exists? && !except_classes.include?(klass.name)
       end
     end
