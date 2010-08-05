@@ -1,5 +1,3 @@
-require 'ostruct'
-
 module Pickle
   class Config
     attr_writer :adapters, :factories, :mappings, :predicates
@@ -31,6 +29,9 @@ module Pickle
         k.public_instance_methods.select {|m| m =~ /\?$/} + Pickle::Adapter.column_names(k)
       end.flatten.uniq
     end
+
+    class Mapping < Struct.new(:search, :replacement)
+    end
     
     def mappings
       @mappings ||= []
@@ -41,7 +42,7 @@ module Pickle
       options = args.extract_options!
       raise ArgumentError, "Usage: map 'search' [, 'search2', ...] :to => 'replace'" unless args.any? && options[:to].is_a?(String)
       args.each do |search|
-        self.mappings << OpenStruct.new(:search => search, :replacement => options[:to])
+        self.mappings << Mapping.new(search, options[:to])
       end
     end
   end
