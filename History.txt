@@ -1,3 +1,9 @@
+== 0.3.3
+
+* 1 minor improvement
+  * Pickle respects the default build strategy for factory girl. [Sean Hussey]
+  
+
 == 0.3.2
 
 * 3 minor improvements
