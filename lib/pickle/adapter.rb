@@ -90,7 +90,7 @@ module Pickle
       end
 
       def create(attrs = {})
-        @klass.send(:make, @blueprint, attrs)
+        @klass.send(:make!, @blueprint, attrs)
       end
     end
 
