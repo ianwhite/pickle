@@ -1,6 +1,7 @@
-== master
+== 0.3.4
 
-* 1 minor improvement
+* 2 minor improvements
+  * Fix problem where email body is not a string, but is string like [#26] [Tom Meier]
   * Minor code refactoring
 
 
