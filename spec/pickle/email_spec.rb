@@ -156,5 +156,11 @@ describe Pickle::Email do
       should_receive(:visit).with('http://example.com/page')
       click_first_link_in_email(@email1)
     end
+    
+    it "should not raise an error when the email body is not a string, but needs to_s [#26]" do
+      stub!(:visit)
+      @email1.stub!(:body).and_return(:a_string_body)
+      lambda { click_first_link_in_email(@email1) }.should_not raise_error
+    end
   end
 end
