@@ -328,6 +328,7 @@ To run the features (rails 2.3 only ATM):
 
 The following people have made Pickle better:
 
+* {Tom Meier}[http://github.com/tommeier]
 * {Sean Hussey}[http://github.com/seanhussey]
 * Brian Rose & Kevin Olsen
 * {Christopher Darroch}[http://github.com/chrisdarroch]
