@@ -63,6 +63,8 @@ module Pickle
     end
 
     def find_models(factory, fields = nil)
+      factory = pickle_parser.canonical(factory)
+      
       models_by_index(factory).clear
 
       model_class = pickle_config.factories[factory].klass
