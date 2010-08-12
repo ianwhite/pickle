@@ -267,13 +267,19 @@ describe Pickle::Session do
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
-      find_models('user', 'hair: "pink"')
+      find_models('user', 'hair: "pink"').should == [user]
     end
 
     describe "after find," do
       before { find_models('user', 'hair: "pink"') }
 
       it_should_behave_like "after storing a single user"
+    end
+    
+    it "should cope with spaces in the factory name (ie. it should make it canonical)" do
+      pickle_parser.stub!(:canonical).and_return('user')
+      pickle_parser.should_receive(:canonical).with('u ser').and_return('user')
+      find_models('u ser', 'hair: "pink"').should == [user]
     end
   end
 

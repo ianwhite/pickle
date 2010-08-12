@@ -1,3 +1,9 @@
+== 0.3.5
+
+* 1 bugfix
+  * find_models now works with a factory name with spaces in it [#27]
+
+
 == 0.3.4
 
 * 2 minor improvements
