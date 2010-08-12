@@ -1,8 +1,13 @@
 == 0.3.5
 
+* 3 improvements
+  * bundler is used for setting up development dependencies
+  * gemspec specifies dependencies for using pickle
+  * Machinist 2 compatability [giddie]
+
 * 1 bugfix
   * find_models now works with a factory name with spaces in it [#27]
-
+  
 
 == 0.3.4
 
