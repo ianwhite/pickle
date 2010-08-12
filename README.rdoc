@@ -316,13 +316,17 @@ can build up composite objects with ease
 
 == Run the tests
 
+To get all the dependencies required for developing pickle, do the following
+
+  bundle install
+
 To run the specs do:
 
-  rake spec
+  bundle exec rake spec
 
 To run the features (rails 2.3 only ATM):
 
-  rake cucumber
+  bundle exec rake cucumber
 
 == Contributors
 
