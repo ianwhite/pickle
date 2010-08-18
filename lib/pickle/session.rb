@@ -1,5 +1,18 @@
 module Pickle
   module Session
+    class ModelNotKnownError < RuntimeError
+      attr_reader :name
+      
+      def initialize(name, message = nil)
+        @name = name
+        @message = message || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
+      end
+      
+      def to_s
+        @message
+      end
+    end
+    
     class << self
       def included(world_class)
         proxy_to_pickle_parser(world_class)
@@ -53,8 +66,8 @@ module Pickle
       record
     end
     
-    def find_model!(a_model_name, fields = nil)
-      find_model(a_model_name, fields) or raise "Can't find pickle model: '#{a_model_name}' in this scenario"
+    def find_model!(name, fields = nil)
+      find_model(name, fields) or raise ModelNotKnownError, name
     end
     
     def find_models(factory, fields = nil)
@@ -87,7 +100,7 @@ module Pickle
       elsif name_or_index.is_a?(Integer)
         models_by_index(factory)[name_or_index]
       else
-        models_by_name(factory)[name_or_index] or raise "Can't find pickle model: '#{name}' in this scenario"
+        models_by_name(factory)[name_or_index] or raise ModelNotKnownError, name
       end
     end
 
@@ -110,12 +123,12 @@ module Pickle
     
     # like model, but raise an error if it can't be found
     def model!(name)
-      model(name) or raise "Can't find pickle model: '#{name}' in this scenario"
+      model(name) or raise ModelNotKnownError, name
     end
     
     # like created_model, but raise an error if it can't be found
     def created_model!(name)
-      created_model(name) or raise "Can't find pickle model: '#{name}' in this scenario"
+      created_model(name) or raise ModelNotKnownError, name
     end
     
     # return all original models of specified type
