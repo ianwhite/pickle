@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Pickle::Ref do
-  describe "(simple factory name) " do
+  describe "(factory name) " do
     describe ".new 'colour'" do
       subject { Pickle::Ref.new('colour') }
       
@@ -20,19 +20,49 @@ describe Pickle::Ref do
     end
   end
   
-  describe ".new('1st colour')" do
-    subject { Pickle::Ref.new('1st colour') }
+  describe "(index)" do
+    describe ".new('1st colour')" do
+      subject { Pickle::Ref.new('1st colour') }
 
-    its(:index) { should == '1st' }
-    its(:factory_name) { should == 'colour' }
-    its(:label) { should be_nil }
-    its(:attribute) { should be_nil }
-    
-    ['2nd', 'first', 'last', '3rd', '4th'].each do |index|
-      describe ".new('#{index} colour')" do
-        subject { Pickle::Ref.new("#{index} colour") }
+      its(:index) { should == '1st' }
+      its(:factory_name) { should == 'colour' }
+      its(:label) { should be_nil }
+      its(:attribute) { should be_nil }
+      
+      ['2nd', 'first', 'last', '3rd', '4th'].each do |index|
+        describe ".new('#{index} colour')" do
+          subject { Pickle::Ref.new("#{index} colour") }
         
-        its(:index) { should == index}
+          its(:index) { should == index}
+        end
+      end
+            
+      describe "the 2nd colour" do
+        subject { Pickle::Ref.new('the 2nd colour') }
+        
+        its(:index) { should == '2nd' }
+        its(:factory_name) { should == 'colour' }
+      end
+      
+      describe "perverse use" do
+        it "'a 1st colour' is BAD"
+      end
+    end
+    
+    describe "(label)" do
+      subject { Pickle::Ref.new('colour: "red"') }
+
+      its(:index) { should == nil }
+      its(:factory_name) { should == 'colour' }
+      its(:label) { should == 'red' }
+      its(:attribute) { should be_nil }
+      
+      describe "perverse" do
+        it "'1st colour: \"red\"'"
+      end
+      
+      describe "ok" do
+        it "'\"red\"'"
       end
     end
   end
