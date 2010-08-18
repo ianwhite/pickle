@@ -1,6 +1,6 @@
 module Pickle
   class Ref
-    attr_reader :factory_name, :index, :label, :attribute
+    attr_reader :factory_name, :index, :label
     
     def initialize(string)
       parse_ref(string)

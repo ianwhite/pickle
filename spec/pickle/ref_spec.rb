@@ -8,7 +8,6 @@ describe Pickle::Ref do
       its(:index) { should be_nil }
       its(:factory_name) { should == 'colour' }
       its(:label) { should be_nil }
-      its(:attribute) { should be_nil }
     end
 
     ['a', 'an', 'the', 'that', 'another'].each do |prefix|
@@ -27,7 +26,6 @@ describe Pickle::Ref do
       its(:index) { should == '1st' }
       its(:factory_name) { should == 'colour' }
       its(:label) { should be_nil }
-      its(:attribute) { should be_nil }
       
       ['2nd', 'first', 'last', '3rd', '4th'].each do |index|
         describe ".new('#{index} colour')" do
@@ -55,7 +53,6 @@ describe Pickle::Ref do
       its(:index) { should == nil }
       its(:factory_name) { should == 'colour' }
       its(:label) { should == 'red' }
-      its(:attribute) { should be_nil }
       
       describe "perverse" do
         it "'1st colour: \"red\"'"
@@ -68,9 +65,28 @@ describe Pickle::Ref do
   end
 end
 
-
-  
-  
+#  Given a website owner user "betty" exists
+#  
+#  # Given 3 users exists with site: "betty"'s site
+#  # ==
+#  # Given "betty"'s site has 3 users
+#  
+#  Given /^#{pickle_ref}'s (\w+) has (\d+) #{pickle_factory}$/ do |ref, assoc, amount, factory|
+#    association = retrieve_from_scenario(pickle_ref).send(assoc)
+#    amount.times do
+#      create_on_and_store(association, factory)
+#      # machinist
+#        betty.users.make
+#      # factory girl & AR
+#        betty.users.create(Factory.plan(:user))
+#    end
+#  
+#    User.make(:website_owner)
+#  
+#  
+#  And "betty"'s site has 3 users
+#    retrieve("betty").site.users.
+#  
   # API suggestions
   #   c.alias "color", :as => "colour"
   #   c.label "colour", :using => "hue"
@@ -129,3 +145,22 @@ end
   #  
   #  store the object using the label
   #end
+  
+  #Transform /#{pickle_ref}/ |str| { Pickle::Ref.new(str) }
+  #
+  #Given /$#{pickle_ref} should be cool/ do |pickle_ref|
+  #  pickle_ref
+  #  retreive_model_from_scenario(pickle_ref)
+  #  pickle_ref.factory
+  
+  #Transform(/^#{pickle_ref}$/) {|str| Pickle::Ref.new(str) }
+  #
+  #Given(/^#{pickle_ref} exists(?: with #{pickle_fields})?$/) do |ref, fields|
+  #  create_and_store(ref, fields)
+  #end
+  #
+  #Given(/^#{pickle_ref} should exist(?: with #{pickle_fields})$/) do |ref, fields|
+  #  find(ref, fields).store
+  #end
+  
+  
