@@ -4,7 +4,7 @@ Feature: I can easily create models from my blueprints
   I want to be able to create models with fields
   So that I can create models quickly and easily in my features
   
-  @wip
+
   Scenario: I create a user, and see if it looks right
     Given a user exists with name: "Fred", has_stale_password: true
     Then the user should not have a status
