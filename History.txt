@@ -3,6 +3,9 @@
 * 1 minor improvement
   * Pickle::Session::ModelNotKnownError is raised instead of a generic RuntimeError
   
+* 1 bugfix
+  * references to unknown models in fields now raise ModelNotKnownError instead of silently assigning nil
+
 
 == 0.3.5
 

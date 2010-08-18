@@ -14,7 +14,7 @@ module Pickle
 
       def parse_field_with_model(field)
         if session && field =~ /^(\w+): #{capture_model}$/
-          {$1 => session.model($2)}
+          {$1 => session.model!($2)}
         else
           parse_field_without_model(field)
         end
