@@ -1,3 +1,10 @@
+== 0.4.1
+Docfix
+
+* 1 improvement
+  * documentation fixes, and example of writing your own pickle steps
+  
+
 == 0.4.0
 Mongoid adapter, fallback ORM adapter for those not using machinist or active_record, bugfixes
 
