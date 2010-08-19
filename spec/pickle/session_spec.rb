@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 # TODO: remove this and push AR stuff into ORM adapter
 module ActiveRecord

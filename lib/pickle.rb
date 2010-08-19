@@ -1,6 +1,7 @@
 require 'active_support'
 require 'pickle/version'
 require 'pickle/ref'
+require 'pickle/store'
 require 'pickle/adapter'
 require 'pickle/config'
 require 'pickle/parser'

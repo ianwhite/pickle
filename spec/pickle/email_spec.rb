@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 require 'pickle/email'
 require 'pickle/email/parser'
