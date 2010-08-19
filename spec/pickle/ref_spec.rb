@@ -81,7 +81,7 @@ describe Pickle::Ref do
     end
 
     describe "factory or label required:" do
-      ['1st', ''].each do |str|
+      [''].each do |str|
         describe ".new '#{str}'" do
           subject { Pickle::Ref.new(str) }
           it { lambda { subject }.should raise_error(Pickle::InvalidPickleRefError, /factory or label/) }
