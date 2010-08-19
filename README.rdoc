@@ -72,11 +72,11 @@ If you want path steps and email steps then just add the 'paths' and/or 'email' 
 The code/steps will be written to <tt>features/env/paths.rb</tt> and
 <tt>features/step_definitions/email_steps.rb</tt> respectively.
 
-=== Using with plain ole Active Record or DataMapper
+=== Using with plain ole Active Record, DataMapper or Mongoid
 
-Pickle comes with adapters for Active Record and DataMapper.
+Pickle comes with adapters for Active Record, DataMapper and Mongoid.
 
-If you have an AR/DM called 'Post', with required fields 'title', and 'body', then you can now write
+If you have a model called 'Post', with required fields 'title', and 'body', then you can now write
 steps like this
 
   Given a post exists with title: "My Post", body: "My body"
@@ -137,7 +137,7 @@ In: <tt>features/support/pickle.rb</tt>
     config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
   end
 
-Out of the box pickle looks for machinist, then factory-girl. If you want to use active-record 'factories' add ":active_record" to adapters. If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
+Out of the box pickle looks for machinist, then factory-girl. If you want to use active-record 'factories' you should add ":active_record" to adapters. If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
 
 == API
 

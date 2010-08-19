@@ -1,7 +1,7 @@
 == master
 
 * 1 major improvment
-  * adapter for MongoID [Sebastian Zuchmanski]
+  * adapter for Mongoid [Sebastian Zuchmanski]
 
 * 1 minor improvement
   * Pickle::Session::ModelNotKnownError is raised instead of a generic RuntimeError
