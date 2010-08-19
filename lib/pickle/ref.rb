@@ -1,4 +1,7 @@
 module Pickle
+  class InvalidPickleRefError < RuntimeError
+  end
+  
   # parses a pickle ref string into its component parts: factory, index, and label
   #
   # raises an error if the pickle_ref is invalid
@@ -10,10 +13,14 @@ module Pickle
     end
   
   protected
-    def parse_ref(string)
-      @index   = parse_index!(string)
-      @factory = parse_factory!(string)
-      @label   = parse_label!(string)
+    def parse_ref(orig)
+      str = orig.dup
+      @index = parse_index!(str)
+      @factory = parse_factory!(str)
+      @label = parse_label!(str)
+      raise InvalidPickleRefError, "'#{orig}' has superfluous: '#{str}'" unless str.blank?
+      raise InvalidPickleRefError, "'#{orig}' requires a factory or label" if @factory.blank? && @label.blank?
+      raise InvalidPickleRefError, "'#{orig}' can't specify both index and label" if @label.present? && @index.present?
     end
     
     # parse and remove the index from the given string
@@ -42,7 +49,7 @@ module Pickle
     end
     
     def capture_factory_name
-      /(\w+)/
+      /\b(\w\w+)\b/
     end
     
     def match_prefix
@@ -58,7 +65,7 @@ module Pickle
     end
     
     def capture_label
-      /(?:\: )?\"([\w ]+)\"/
+      /\:? ?\"([\w ]+)\"/
     end
   end
 end

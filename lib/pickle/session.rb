@@ -1,18 +1,18 @@
 module Pickle
-  module Session
-    class ModelNotKnownError < RuntimeError
-      attr_reader :name
-      
-      def initialize(name, message = nil)
-        @name = name
-        @message = message || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
-      end
-      
-      def to_s
-        @message
-      end
+  class ModelNotKnownError < RuntimeError
+    attr_reader :name
+    
+    def initialize(name, message = nil)
+      @name = name
+      @message = message || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
     end
     
+    def to_s
+      @message
+    end
+  end
+  
+  module Session
     class << self
       def included(world_class)
         proxy_to_pickle_parser(world_class)

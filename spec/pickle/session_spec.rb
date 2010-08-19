@@ -257,7 +257,7 @@ describe Pickle::Session do
 
     it "should call raise error if find_model returns nil" do
       should_receive(:find_model).with('name', 'fields').and_return(nil)
-      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::Session::ModelNotKnownError)
+      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::ModelNotKnownError)
     end
   end
 
@@ -425,10 +425,10 @@ describe Pickle::Session do
   end
 
   it "#model!('unknown') should raise informative error message" do
-    lambda { model!('unknown') }.should raise_error(Pickle::Session::ModelNotKnownError, "The model: 'unknown' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario.")
+    lambda { model!('unknown') }.should raise_error(Pickle::ModelNotKnownError, "The model: 'unknown' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario.")
   end
 
   it "#created_model!('unknown') should raise informative error message" do
-    lambda { created_model!('unknown') }.should raise_error(Pickle::Session::ModelNotKnownError)
+    lambda { created_model!('unknown') }.should raise_error(Pickle::ModelNotKnownError)
   end
 end

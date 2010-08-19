@@ -10,12 +10,20 @@ describe Pickle::Ref do
       its(:label)   { should be_nil }
     end
 
-    ['a', 'an', 'the', 'that', 'another'].each do |prefix|
-      describe ".new '#{prefix} colour'" do
-        subject { Pickle::Ref.new("#{prefix} colour") }
+    describe "with a prefix" do
+      ['a', 'an', 'the', 'that', 'another'].each do |prefix|
+        describe ".new '#{prefix} colour'" do
+          subject { Pickle::Ref.new("#{prefix} colour") }
         
-        its(:factory) { should == 'colour' }
+          its(:factory) { should == 'colour' }
+        end
       end
+    end
+    
+    describe ".new 'awesome_colour'" do
+      subject { Pickle::Ref.new('awesome_colour') }
+      
+      its(:factory) { should == 'awesome_colour' }
     end
   end
   
@@ -41,10 +49,6 @@ describe Pickle::Ref do
         its(:index)   { should == '2nd' }
         its(:factory) { should == 'colour' }
       end
-      
-      describe "perverse use" do
-        it "'a 1st colour' is BAD"
-      end
     end
     
     describe "(label)" do
@@ -63,9 +67,34 @@ describe Pickle::Ref do
         its(:factory) { should == nil }
         its(:label)   { should == 'red' }
       end
-      
-      describe "perverse" do
-        it "'1st colour: \"red\"'"
+    end
+  end
+  
+  describe "[perverse usage]" do
+    describe "superflous content:" do
+      ['awesome colour', 'the colour fred', '1st colour gday', 'a', 'the ""'].each do |str|
+        describe ".new '#{str}'" do
+          subject { Pickle::Ref.new(str) }
+          it { lambda { subject }.should raise_error(Pickle::InvalidPickleRefError, /superfluous/) }
+        end
+      end
+    end
+
+    describe "factory or label required:" do
+      ['1st', ''].each do |str|
+        describe ".new '#{str}'" do
+          subject { Pickle::Ref.new(str) }
+          it { lambda { subject }.should raise_error(Pickle::InvalidPickleRefError, /factory or label/) }
+        end
+      end
+    end
+    
+    describe "can't specify both index and label:" do
+      ['1st user "fred"', 'last user: "jim"'].each do |str|
+        describe ".new '#{str}'" do
+          subject { Pickle::Ref.new(str) }
+          it { lambda { subject }.should raise_error(Pickle::InvalidPickleRefError, /can't specify both index and label/) }
+        end
       end
     end
   end
