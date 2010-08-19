@@ -11,7 +11,7 @@ module Pickle
     end
     
     def adapters
-      @adapters ||= [:machinist, :factory_girl, :active_record]
+      @adapters ||= [:machinist, :factory_girl]
     end
     
     def adapter_classes

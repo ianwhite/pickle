@@ -3,7 +3,7 @@
 Pickle gives you cucumber steps that create your models easily from factory-girl or
 machinist factories/blueprints.  You can also just use ActiveRecord as a factory but it's not as cool.
 
-Pickle can make use of different ORMs for finding records.  Currently ActiveRecord and DataMapper adapters are
+Pickle can make use of different ORMs for finding records.  Currently ActiveRecord, DataMapper, MongoID adapters are
 provided.  More adapters welcome!
 
 References to the models are stored in the current world, not necessarily for the purpose of checking the db
@@ -133,13 +133,11 @@ In: <tt>features/support/pickle.rb</tt>
   require 'pickle/world'
 
   Pickle.configure do |config|
-    config.adapters = [:machinist, YourOwnAdapterClass]
+    config.adapters = [:machinist, :active_record, YourOwnAdapterClass]
     config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
   end
 
-Out of the box pickle looks for machinist, then factory-girl, then finally active-record 'factories'.
-If you find that your steps aren't working with your factories, it's probably the case that your factory
-setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
+Out of the box pickle looks for machinist, then factory-girl. If you want to use active-record 'factories' add ":active_record" to adapters. If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
 
 == API
 
