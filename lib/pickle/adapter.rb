@@ -25,7 +25,7 @@ module Pickle
 
     self.model_classes = nil
 
-    # Include this module into your adapter
+    # Include this module into your ORM adapter
     # this will register the adapter with pickle and it will be picked up for you
     # To create an adapter you should create an inner constant "PickleAdapter"
     #
@@ -33,6 +33,7 @@ module Pickle
     #
     # @see pickle/adapters/active_record
     # @see pickle/adapters/datamapper
+    # @see pickle/adapters/mongoid
     module Base
       def self.included(base)
         adapters << base
@@ -68,6 +69,10 @@ module Pickle
 
       def find_all_models(klass, conditions)
         klass.const_get(:PickleAdapter).find_all_models(klass, conditions)
+      end
+      
+      def create_model(klass, attributes)
+        klass.const_get(:PickleAdapter).create_model(klass, attributes)
       end
     end
 
@@ -113,10 +118,11 @@ module Pickle
       end
     end
 
-    # fallback active record adapter
-    class ActiveRecord < Adapter
+    # ORM adapter.  If you have no factory adapter, you can use this adapter to
+    # use your orm as 'factory' - ie create objects
+    class Orm < Adapter
       def self.factories
-        ::ActiveRecord::Base::PickleAdapter.model_classes.map{|k| new(k)}
+        model_classes.map{|k| new(k)}
       end
 
       def initialize(klass)
@@ -124,7 +130,7 @@ module Pickle
       end
 
       def create(attrs = {})
-        @klass.send(:create!, attrs)
+        Pickle::Adapter.create_model(@klass, attrs)
       end
     end
   end

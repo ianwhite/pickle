@@ -33,5 +33,10 @@ module DataMapper::Resource
     def self.find_all_models(klass, conditions)
       klass.all(conditions)
     end
+    
+    # Create a model using attributes
+    def self.create_model(klass, attributes)
+      klass.create(attributes)
+    end
   end
 end

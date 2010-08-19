@@ -66,19 +66,19 @@ describe Pickle::Adapter do
 
       describe 'with class stubs' do
         before do
-          ActiveRecord::Base::PickleAdapter.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+          Pickle::Adapter::Orm.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
         end
 
         it ".factories should create one for each active record class" do
-          Pickle::Adapter::ActiveRecord.should_receive(:new).with(@klass1).once
-          Pickle::Adapter::ActiveRecord.should_receive(:new).with(@klass2).once
-          Pickle::Adapter::ActiveRecord.should_receive(:new).with(@klass3).once
-          Pickle::Adapter::ActiveRecord.factories
+          Pickle::Adapter::Orm.should_receive(:new).with(@klass1).once
+          Pickle::Adapter::Orm.should_receive(:new).with(@klass2).once
+          Pickle::Adapter::Orm.should_receive(:new).with(@klass3).once
+          Pickle::Adapter::Orm.factories.length.should == 3
         end
 
         describe ".new(Class)" do
           before do
-            @factory = Pickle::Adapter::ActiveRecord.new(@klass2)
+            @factory = Pickle::Adapter::Orm.new(@klass2)
           end
 
           it "should have underscored (s/_) name of Class as #name" do
