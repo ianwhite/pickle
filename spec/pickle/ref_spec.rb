@@ -5,16 +5,16 @@ describe Pickle::Ref do
     describe ".new 'colour'" do
       subject { Pickle::Ref.new('colour') }
       
-      its(:index) { should be_nil }
-      its(:factory_name) { should == 'colour' }
-      its(:label) { should be_nil }
+      its(:index)   { should be_nil }
+      its(:factory) { should == 'colour' }
+      its(:label)   { should be_nil }
     end
 
     ['a', 'an', 'the', 'that', 'another'].each do |prefix|
       describe ".new '#{prefix} colour'" do
         subject { Pickle::Ref.new("#{prefix} colour") }
         
-        its(:factory_name) { should == 'colour' }
+        its(:factory) { should == 'colour' }
       end
     end
   end
@@ -23,9 +23,9 @@ describe Pickle::Ref do
     describe ".new('1st colour')" do
       subject { Pickle::Ref.new('1st colour') }
 
-      its(:index) { should == '1st' }
-      its(:factory_name) { should == 'colour' }
-      its(:label) { should be_nil }
+      its(:index)   { should == '1st' }
+      its(:factory) { should == 'colour' }
+      its(:label)   { should be_nil }
       
       ['2nd', 'first', 'last', '3rd', '4th'].each do |index|
         describe ".new('#{index} colour')" do
@@ -38,8 +38,8 @@ describe Pickle::Ref do
       describe "the 2nd colour" do
         subject { Pickle::Ref.new('the 2nd colour') }
         
-        its(:index) { should == '2nd' }
-        its(:factory_name) { should == 'colour' }
+        its(:index)   { should == '2nd' }
+        its(:factory) { should == 'colour' }
       end
       
       describe "perverse use" do
@@ -48,18 +48,24 @@ describe Pickle::Ref do
     end
     
     describe "(label)" do
-      subject { Pickle::Ref.new('colour: "red"') }
+      describe "'colour: \"red\"'" do
+        subject { Pickle::Ref.new('colour: "red"') }
 
-      its(:index) { should == nil }
-      its(:factory_name) { should == 'colour' }
-      its(:label) { should == 'red' }
+        its(:index)   { should == nil }
+        its(:factory) { should == 'colour' }
+        its(:label)   { should == 'red' }
+      end
+      
+      describe "'\"red\"'" do
+        subject { Pickle::Ref.new('"red"') }
+
+        its(:index)   { should == nil }
+        its(:factory) { should == nil }
+        its(:label)   { should == 'red' }
+      end
       
       describe "perverse" do
         it "'1st colour: \"red\"'"
-      end
-      
-      describe "ok" do
-        it "'\"red\"'"
       end
     end
   end
@@ -94,7 +100,7 @@ end
   #
   #     Given a colour exists with hue: "blue"
   #       create_model_in_scenario('color', 'hue: "blue"')
-  #         factory_name = parse_factory_name_from_pickle_ref('color') #=> 'colour'
+  #         factory = parse_factory_from_pickle_ref('color') #=> 'colour'
   #         attrs = parse_attributes_from_fields('hue: "blue"') # => hash
   #         
   #         if label in pickle_ref use that
@@ -110,7 +116,7 @@ end
   #
   #    Given a color exists with hue: "red"
   #       create_model_in_scenario('color "red"')
-  #         factory_name = ... # 'colour'
+  #         factory = ... # 'colour'
   #         obj = Colour.make(:hue => "red")
   #         store_model(obj, :label => 'red')
   #
@@ -129,9 +135,9 @@ end
   
   #create_model_in_scenario 'color', 'hue: "blue"'
   #def create_model_in_scenario(pickle_ref, fields = nil)
-  #  factory_name, label = *parse_pickle_ref(pickle_ref)  #=> 'color', nil
+  #  factory, label = *parse_pickle_ref(pickle_ref)  #=> 'color', nil
   #  
-  #  factory = get_the_factory_using_possibly_aliased_factory_name(factory_name)
+  #  factory = get_the_factory_using_possibly_aliased_factory(factory)
   #  
   #  attrs = parse_the_fields_converting_pickle_refs_to_models_and_also_applying_transforms(fields)
   #  

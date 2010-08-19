@@ -1,6 +1,9 @@
 module Pickle
+  # parses a pickle ref string into its component parts: factory, index, and label
+  #
+  # raises an error if the pickle_ref is invalid
   class Ref
-    attr_reader :factory_name, :index, :label
+    attr_reader :factory, :index, :label
     
     def initialize(string)
       parse_ref(string)
@@ -8,9 +11,9 @@ module Pickle
   
   protected
     def parse_ref(string)
-      @index = parse_index!(string)
-      @factory_name = parse_factory_name!(string)
-      @label = parse_label!(string)
+      @index   = parse_index!(string)
+      @factory = parse_factory!(string)
+      @label   = parse_label!(string)
     end
     
     # parse and remove the index from the given string
@@ -21,7 +24,7 @@ module Pickle
 
     # parse the factory name from the given string, remove the factory name and optional prefix
     # @returns factory_name or nil
-    def parse_factory_name!(string)
+    def parse_factory!(string)
       remove_from_and_return_1st_capture!(string, /^#{match_prefix}?#{capture_factory_name}/)
     end
 
