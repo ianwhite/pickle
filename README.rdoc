@@ -74,7 +74,7 @@ The code/steps will be written to <tt>features/env/paths.rb</tt> and
 
 === Using with plain ole Active Record, DataMapper or Mongoid
 
-Pickle comes with adapters for Active Record, DataMapper and Mongoid.
+Pickle comes with ORM adapters for Active Record, DataMapper and Mongoid.
 
 If you have a model called 'Post', with required fields 'title', and 'body', then you can now write
 steps like this
@@ -109,7 +109,7 @@ If that doesn't solve loading issues then require your factories.rb file directl
   # example features/support/factory_girl.rb
   require File.dirname(__FILE__) + '/../../spec/factories'
 
-=== Using with an ORM other than ActiveRecord or DataMapper
+=== Using with an ORM other than ActiveRecord, DataMapper, or Mongoid
 
 Pickle can be used with any modelling library provided there is an adapter written for it.
 
@@ -137,7 +137,9 @@ In: <tt>features/support/pickle.rb</tt>
     config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
   end
 
-Out of the box pickle looks for machinist, then factory-girl. If you want to use active-record 'factories' you should add ":active_record" to adapters. If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
+Out of the box pickle looks for machinist, factory-girl, then uses the ORM(s) that you're using to create models.
+
+If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
 
 == API
 
@@ -157,15 +159,30 @@ When you run <tt>script/generate pickle</tt> you get the following steps
 
   Given a user exists with name: "Fred"
   Given a user exists with name: "Fred", activated: false
+  
+This last step could be better expressed by using Machinist/FactoryGirl to create an activated user.  Then you can do
+
+  Given an activated user exists with name: "Fred"
 
 You can refer to other models in the fields
 
   Given a user exists
   And a post exists with author: the user
 
-  Given a person: "fred" exists
-  And a person: "ethel" exists
-  And a fatherhood exists with parent: user "fred", child: user "ethel"
+  Given a person "fred" exists
+  And a person "ethel" exists
+  And a fatherhood exists with parent: person "fred", child: person "ethel"
+  
+This last step is given by the default pickle steps, but it would be better written as:
+
+  And "fred" is the father of "ethel"
+  
+It is expected that you'll need to expand upon the default pickle steps to make your features readable.  To write the 
+above step, you could do something like:
+
+  Given /^"(\w+)" is the father of "(\w+)"$/ do |father, child|
+    Fatherhood.create! :father => model!("person: \"#{father}\""), :child => model!("person: \"#{child}\"")
+  end 
 
 "Given <b>n models</b> exist", e.g.
 
