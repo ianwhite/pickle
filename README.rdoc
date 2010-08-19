@@ -118,7 +118,7 @@ Adapters are very simple and exist a module or class with the name "PickleAdapte
 User.const_get(:PickleAdapter) #=> should return a pickle adapter
 
 The Active Record and DataMapper ones can be found at
-ActiveRecord::Base::PickleAdapter and DataMapper::Resource::PickleAdapter respectively.
+ActiveRecord::Base::PickleAdapter, DataMapper::Resource::PickleAdapter, Mongoid::Document::PickleAdapter respectively.
 
 See how to implement one by looking at the ones provided in the pickle source in lib/pickle/adapters/*
 

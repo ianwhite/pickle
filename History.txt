@@ -1,8 +1,22 @@
-== master
+== 0.4.0
+Mongoid adapter, fallback ORM adapter for those not using machinist or active_record, bugfixes
 
-* 1 major improvment
+* 2 major improvements
   * adapter for Mongoid [Sebastian Zuchmanski]
+  * replace ActiveRecord 'factory' adapter with Orm adapter.
+  
+      If you don't have machinist or factory_girl, the Orm factory adapter will fallback to your Orm to create classes.
+      
+      BC: if you have a line like this:
+        Pickle.configure do |config|
+          config.adapters = [:active_record]
+        end
 
+      You need to replace it with :orm
+        Pickle.configure do |config|
+          config.adapters = [:orm]
+        end
+      
 * 1 minor improvement
   * Pickle::Session::ModelNotKnownError is raised instead of a generic RuntimeError
   

@@ -5,12 +5,12 @@ describe Pickle::Config do
     @config = Pickle::Config.new
   end
 
-  it "#adapters should default to :machinist, :factory_girl, :active_record" do
-    @config.adapters.should == [:machinist, :factory_girl, :active_record]
+  it "#adapters should default to :machinist, :factory_girl, :orm" do
+    @config.adapters.should == [:machinist, :factory_girl, :orm]
   end
 
-  it "#adapter_classes should default to Adapter::Machinist, Adapter::FactoryGirl, Adapter::ActiveRecord" do
-    @config.adapter_classes.should == [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::ActiveRecord]
+  it "#adapter_classes should default to Adapter::Machinist, Adapter::FactoryGirl, Adapter::Orm" do
+    @config.adapter_classes.should == [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::Orm]
   end
 
   describe "setting adapters to [:machinist, SomeAdapter]" do
@@ -29,22 +29,22 @@ describe Pickle::Config do
     it "should call adaptor.factories for each adaptor" do
       Pickle::Adapter::Machinist.should_receive(:factories).and_return([])
       Pickle::Adapter::FactoryGirl.should_receive(:factories).and_return([])
-      Pickle::Adapter::ActiveRecord.should_receive(:factories).and_return([])
+      Pickle::Adapter::Orm.should_receive(:factories).and_return([])
       @config.factories
     end
 
     it "should aggregate factories into a hash using factory name as key" do
       Pickle::Adapter::Machinist.should_receive(:factories).and_return([@machinist = mock('machinist', :name => 'machinist')])
       Pickle::Adapter::FactoryGirl.should_receive(:factories).and_return([@factory_girl = mock('factory_girl', :name => 'factory_girl')])
-      Pickle::Adapter::ActiveRecord.should_receive(:factories).and_return([@active_record = mock('active_record', :name => 'active_record')])
-      @config.factories.should == {'machinist' => @machinist, 'factory_girl' => @factory_girl, 'active_record' => @active_record}
+      Pickle::Adapter::Orm.should_receive(:factories).and_return([@orm = mock('orm', :name => 'orm')])
+      @config.factories.should == {'machinist' => @machinist, 'factory_girl' => @factory_girl, 'orm' => @orm}
     end
 
     it "should give preference to adaptors first in the list" do
       Pickle::Adapter::Machinist.should_receive(:factories).and_return([@machinist_one = mock('one', :name => 'one')])
       Pickle::Adapter::FactoryGirl.should_receive(:factories).and_return([@factory_girl_one = mock('one', :name => 'one'), @factory_girl_two = mock('two', :name => 'two')])
-      Pickle::Adapter::ActiveRecord.should_receive(:factories).and_return([@active_record_two = mock('two', :name => 'two'), @active_record_three = mock('three', :name => 'three')])
-      @config.factories.should == {'one' => @machinist_one, 'two' => @factory_girl_two, 'three' => @active_record_three}
+      Pickle::Adapter::Orm.should_receive(:factories).and_return([@orm_two = mock('two', :name => 'two'), @orm_three = mock('three', :name => 'three')])
+      @config.factories.should == {'one' => @machinist_one, 'two' => @factory_girl_two, 'three' => @orm_three}
     end
   end
 

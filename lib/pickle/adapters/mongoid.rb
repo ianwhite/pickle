@@ -34,6 +34,11 @@ module Mongoid
       def self.find_all_models(klass, conditions)
         klass.all(conditions)
       end
+      
+      # Create a model with given attributes
+      def self.create_model(klass, attributes)
+        klass.create!(attributes)
+      end
     end
   end
 end

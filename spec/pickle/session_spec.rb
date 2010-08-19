@@ -23,7 +23,7 @@ describe Pickle::Session do
   end
 
   let :user_factory do
-    Pickle::Adapter::ActiveRecord.new(user_class)
+    Pickle::Adapter::Orm.new(user_class)
   end
 
   before do
