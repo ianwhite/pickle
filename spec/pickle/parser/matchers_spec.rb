@@ -90,7 +90,7 @@ describe Pickle::Parser::Matchers do
     its(:match_predicate) { should match_all '"a super fun thing"', '"a_fun_thing"' }
     its(:match_predicate) { should_not match_any 'a_fun_thing' }
     
-    its(:match_factory) { should match_all 'user', 'fast_car', 'car' }
+    its(:match_factory) { should match_all 'user', 'fast_car', 'car', 'Car', 'Fast::Car' }
     its(:match_factory) { should_not match_any 'admin users', 'faster car', 'event created' }
   
     its(:match_plural_factory) { should match_all 'users', 'fast_cars', 'cars' }

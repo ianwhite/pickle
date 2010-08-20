@@ -41,7 +41,7 @@ module Pickle
       end
       
       def match_factory
-        match_disjunction('\w\w+', *factories)
+        match_disjunction('(?:\w|::\w){2,}', *factories)
       end
 
       def match_plural_factory
