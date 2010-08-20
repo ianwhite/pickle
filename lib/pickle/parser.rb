@@ -1,4 +1,5 @@
 require 'pickle/parser/matchers'
+require 'pickle/parser/canonical'
 
 module Pickle
   class Parser
