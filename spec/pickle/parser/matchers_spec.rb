@@ -66,9 +66,9 @@ describe Pickle::Parser::Matchers do
   its(:match_plural_factory) { should match_all 'users', 'fast_cars', 'cars' }
   its(:match_plural_factory) { should_not match_any 'admin users', 'faster cars', 'events created' }
   
-  describe "with config.names = ['admin user', 'funky thing']" do
+  describe "with config.factories = ['admin user', 'funky thing']" do
     before do
-      self.config = Pickle::Config.new {|c| c.names = ["admin user", "funky thing"]}
+      self.config = Pickle::Config.new {|c| c.factories = ["admin user", "funky thing"]}
     end
     
     its(:match_factory) { should match_all 'admin user', 'funky thing' }

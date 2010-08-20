@@ -2,17 +2,12 @@ module Pickle
   class Parser
     # Methods which return Regexps for matching and capturing various pickle expressions. 
     #
-    # You can configure the Matchers by overriding:
-    #
-    #  #names - array of factory names
-    #  #plural_names - array of plural factory names
-    #  #predicates - array of predicates
-    #
-    # Standardly, this is done by assigning the Pickle::Config object to #config
+    # Optionally, assigning a the Pickle::Config object to #config, to make the matchers
+    # aware of the config.
     module Matchers
       attr_accessor :config
 
-      delegate :names, :plural_names, :predicates, :mapping_searches, :to => :config, :allow_nil => true
+      delegate :factories, :plural_factories, :predicates, :mapping_searches, :to => :config, :allow_nil => true
 
       def match_disjunction(*strings)
         /(?:#{strings.compact.join('|')})/
@@ -31,11 +26,11 @@ module Pickle
       end
       
       def match_factory
-        match_disjunction('\w\w+', *names)
+        match_disjunction('\w\w+', *factories)
       end
 
       def match_plural_factory
-        match_disjunction('\w\w+', *plural_names)
+        match_disjunction('\w\w+', *plural_factories)
       end
 
       def match_prefix

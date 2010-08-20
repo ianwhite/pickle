@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Pickle::Ref do
-  describe "(factory name) " do
+  describe "(factory) " do
     describe ".new 'colour'" do
       subject { Pickle::Ref.new('colour') }
       
