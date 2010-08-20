@@ -101,5 +101,9 @@ describe Pickle::Ref do
       end
     end
   end
+  
+  describe "creating with attrs hash" do
+    it "should be possible"
+  end
 end
   

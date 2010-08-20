@@ -4,6 +4,10 @@ describe Pickle::Jar do
   let(:model_class) { Class.new.tap {|c| c.stub!(:name).and_return('Module::ModelClass') } }
   let(:model) { model_class.new }
   
+  describe "converting args to refs" do
+    it "should be possible"
+  end
+  
   shared_examples_for "after storing a model" do
     specify "can be retrieved with Pickle::Ref.new(<model class name>)" do
       subject.retrieve(Pickle::Ref.new('Module::ModelClass')).should == model
@@ -91,18 +95,6 @@ describe Pickle::Jar do
       subject.store(model)
     end
     
-    describe "the latest stored model" do
-      it_should_behave_like "after storing a model"
-      
-      specify "can be retrieved with '3rd' in the pickle ref" do
-        subject.retrieve(Pickle::Ref.new("2nd module_model_class")).should == middle_model
-      end
-    end
-    
-    specify "the earliest stored model can be retrieved with '2nd' in the pickle ref" do
-      subject.retrieve(Pickle::Ref.new("2nd module_model_class")).should == middle_model
-    end
-
     specify "the earliest stored model can be retrieved with '1st' in the pickle ref" do
       subject.retrieve(Pickle::Ref.new("1st module_model_class")).should == earliest_model
     end
@@ -111,6 +103,18 @@ describe Pickle::Jar do
       subject.retrieve(Pickle::Ref.new("first module_model_class")).should == earliest_model
     end
 
+    specify "the model stored 2nd can be retrieved with '2nd' in the pickle ref" do
+      subject.retrieve(Pickle::Ref.new("2nd module_model_class")).should == middle_model
+    end
+
+    describe "the latest stored model" do
+      it_should_behave_like "after storing a model"
+      
+      specify "can be retrieved with '3rd' in the pickle ref" do
+        subject.retrieve(Pickle::Ref.new("3rd module_model_class")).should == model
+      end
+    end
+    
     specify "attempting to retrieve the 4th model raises UnknownModelError" do
       lambda { subject.retrieve(Pickle::Ref.new("4th module_model_class")) }.should raise_error(Pickle::Jar::UnknownModelError)
     end
