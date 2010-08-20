@@ -7,6 +7,7 @@ require 'pickle/ref'
 require 'pickle/store'
 require 'pickle/session'
 require 'pickle/session/parser'
+require 'pickle/make_matcher'
 
 # make the parser aware of models in the session (for fields refering to models)
 Pickle::Parser.send :include, Pickle::Session::Parser
