@@ -1,5 +1,3 @@
-require 'pickle/parser/pickle_ref_matchers'
-
 module Pickle
   class InvalidPickleRefError < RuntimeError
   end
@@ -8,7 +6,7 @@ module Pickle
   #
   # raises an error if the pickle_ref is invalid
   class Ref
-    include Parser::PickleRefMatchers
+    include Parser::Matchers
     
     attr_reader :factory, :index, :label
     
@@ -28,19 +26,19 @@ module Pickle
     end
     
     # parse and remove the index from the given string
-    # @returns the index or nil
+    # @return the index or nil
     def parse_index!(string)
-      remove_from_and_return_1st_capture!(string, /^#{capture_index}/)
+      remove_from_and_return_1st_capture!(string, /^#{capture_index} /)
     end
 
     # parse the factory name from the given string, remove the factory name and optional prefix
-    # @returns factory_name or nil
+    # @return factory_name or nil
     def parse_factory!(string)
-      remove_from_and_return_1st_capture!(string, /^#{match_prefix}?#{capture_factory}/)
+      remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?#{capture_factory}/)
     end
 
     # parse the label, removing it if found
-    # @returns the label or nil
+    # @return the label or nil
     def parse_label!(string)
       remove_from_and_return_1st_capture!(string, /^#{capture_label}/)
     end

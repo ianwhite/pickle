@@ -72,7 +72,7 @@ describe Pickle::Ref do
   
   describe "[perverse usage]" do
     describe "superflous content:" do
-      ['awesome colour', 'the colour fred', '1st colour gday', 'a', 'the ""'].each do |str|
+      ['awesome colour', 'the colour fred', '1st colour gday', 'a'].each do |str|
         describe ".new '#{str}'" do
           subject { Pickle::Ref.new(str) }
           it { lambda { subject }.should raise_error(Pickle::InvalidPickleRefError, /superfluous/) }
