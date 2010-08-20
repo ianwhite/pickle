@@ -39,7 +39,7 @@ module Pickle
     # By default pickle_steps.rb just matches factory names that are a single word (with underscores).
     # using #factory_names lets you add extra expressions (for example with spaces instead of underscores)
     #
-    #  config.names = ['admin user', 'site owner']
+    #  config.factories = ['admin user', 'site owner']
     #  # this will mean that #pickle_ref will match 'the admin user', and the resulting factory name
     #  # will be 'admin_user'
     # 
@@ -47,15 +47,8 @@ module Pickle
     # @return Array String
     def factories
       @factories ||= []
-      @factories | aliases.keys
     end
-    
-    # pluralised versions of #names, no setter is available
-    # @return Array of string
-    def plural_factories
-      factories.map(&:pluralize)
-    end
-    
+        
     # alias a bunch of names to another name(s)
     #
     #  config.alias 'admin', 'admin user', :to => 'external_lib_admin_user' # where External::Lib::Admin::User is one of your models
@@ -74,10 +67,6 @@ module Pickle
     
     def mappings
       @mapping ||= []
-    end
-    
-    def mapping_searches
-      mappings.map(&:search)
     end
         
     # Usage: map 'me', 'myself', 'I', :to => 'user: "me"'

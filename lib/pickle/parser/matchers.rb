@@ -7,22 +7,37 @@ module Pickle
     module Matchers
       attr_accessor :config
 
-      delegate :factories, :plural_factories, :predicates, :mapping_searches, :to => :config, :allow_nil => true
+      delegate :predicates, :to => :config, :allow_nil => true
 
+      # generate an expression to capture a reference to a model
+      # @arguments to restrict the expression to the given factory names
+      # @return Regexp
+      def pickle_ref(*restrict_to)
+        /(#{match_pickle_ref(*restrict_to).source})/
+      end
+      
+      # generate an expression to capture a plural factory name, such as 'users', 'admin users'
+      def pickle_plural
+        /(#{match_plural_factory.source})/
+      end
+      
+      # generate an expression to capture a fields string suitable for pickle
+      def pickle_fields
+        /(#{match_fields.source})/
+      end
+      
+      # generate an expression to capture a predicate, suitable for passing to Pickle::MakeMatcher#make_matcher
+      def pickle_predicate
+        /(#{match_predicate.source})/
+      end
+
+    protected
       def match_disjunction(*strings)
         /(?:#{strings.compact.join('|')})/
       end
       
-      def capture_disjunction(*strings)
-        /(#{strings.compact.join('|')})/
-      end
-      
       def match_quoted
         /(?:"[^\"]*")/
-      end
-      
-      def capture_quoted
-        /(?:"([^\"]*)")/
       end
       
       def match_factory
@@ -58,39 +73,32 @@ module Pickle
       end
       
       def match_predicate
-        predicates ? match_disjunction(*(predicates + [match_quoted.source])) : match_quoted
+        predicates ? match_disjunction(*(predicates + [match_quoted])) : match_quoted
       end
       
-      def match_model
-        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{match_factory.source}(?:(?: |: )#{match_quoted.source})?)/
+      def match_model(*restrict_to)
+        factory = restrict_to.any? ? match_disjunction(*restrict_to) : match_factory
+        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{factory.source}(?:(?: |: )#{match_quoted.source})?)/
       end
       
-      def match_pickle_ref
-        /(?:#{mapping_searches ? match_disjunction(mapping_searches).source + '|' : ''}#{match_quoted.source}|#{match_model.source})/
+      def match_pickle_ref(*restrict_to)
+        if mappings && restrict_to.empty?
+          /(?:#{match_disjunction(mappings).source}|#{match_quoted.source}|#{match_model.source})/
+        else
+          /(?:#{match_quoted.source}|#{match_model(*restrict_to).source})/
+        end
       end
       
-      def capture_index
-        /(?:(?:the )?(#{match_index_word.source}))/
+      def mappings
+        config && config.mappings.map(&:search)
       end
       
-      def capture_factory
-        /(?:\b(\w\w+)\b)/
+      def factories
+        config && (config.factories | config.aliases.keys)
       end
       
-      def capture_plural_factory
-        capture_name
-      end
-        
-      def capture_fields
-        /(?: (\w+\: .*))/
-      end
-      
-      def capture_model
-        /(#{match_model.source})/
-      end
-      
-      def capture_predicate
-        predicates ? capture_disjunction(*(predicates + [match_quoted.source])) : /(#{match_quoted.source})/
+      def plural_factories
+        config && factories.map(&:pluralize)
       end
     end
   end

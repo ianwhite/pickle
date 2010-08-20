@@ -28,19 +28,19 @@ module Pickle
     # parse and remove the index from the given string
     # @return the index or nil
     def parse_index!(string)
-      remove_from_and_return_1st_capture!(string, /^#{capture_index} /)
+      remove_from_and_return_1st_capture!(string, /^(?:the )?(#{match_index_word}) /)
     end
 
     # parse the factory name from the given string, remove the factory name and optional prefix
     # @return factory_name or nil
     def parse_factory!(string)
-      remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?#{capture_factory}/)
+      remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?(#{match_factory})/)
     end
 
     # parse the label, removing it if found
     # @return the label or nil
     def parse_label!(string)
-      remove_from_and_return_1st_capture!(string, /^(?: |: )?#{capture_quoted}/)
+      remove_from_and_return_1st_capture!(string, /^(?: |: )?(#{match_quoted})/).try(:gsub, '"', '')
     end
     
     def remove_from_and_return_1st_capture!(string, regexp)
