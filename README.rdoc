@@ -1,3 +1,9 @@
+= 0.5 unstable
+
+This code does not work, it's a work in progress.
+
+Use the master branch, or gem releases.
+
 = pickle
 
 Pickle gives you cucumber steps that create your models easily from factory-girl or
