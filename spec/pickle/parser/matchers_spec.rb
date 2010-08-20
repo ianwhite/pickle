@@ -28,6 +28,10 @@ describe Pickle::Parser::Matchers do
     end
   end
   
+  its(:match_quoted) { should match_all '""', '"gday mate"' }
+  its(:match_quoted) { should_not match_all '', "''", '"gday \" mate"' }
+  its(:capture_quoted) { should capture "gday mate", :from => '"gday mate"' }
+  
   its(:match_ordinal) { should match_all '1st', '2nd', '23rd', '104th' }
   its(:match_ordinal) { should_not match_any '1', '2' }
   
@@ -38,14 +42,6 @@ describe Pickle::Parser::Matchers do
   its(:capture_index) { should capture "1st", :from => '1st' }
   its(:capture_index) { should capture "first", :from => 'first' }
   
-  its(:match_label) { should match_all '"gday"', ' "gday"',': "gday"', ': "gday mate"' }
-  its(:match_label) { should_not match_any ': "gday""', ': gday' }
-  
-  its(:capture_label) { should capture "fred", :from => '"fred"' }
-  its(:capture_label) { should capture "fred", :from => ' "fred"' }
-  its(:capture_label) { should capture "fred", :from => ': "fred"' }
-  its(:capture_label) { should capture "fred", :from => ': "fred"' }
-
   its(:match_field) { should match_all 'foo: "this is the life"', 'bar_man: "and so is this"', 'boolean: false', 'boolean: true', 'numeric: 10', 'numeric: 12.5', 'numeric: +10', 'numeric: +12.5', 'numeric: -10', 'numeric: -12.5', 'nil_field: nil' }
   its(:match_field) { should_not match_any 'foo bar: "this aint workin"', '"foo": "Bar"', ":foo => bar" }
      
@@ -65,6 +61,9 @@ describe Pickle::Parser::Matchers do
   
   its(:match_plural_factory) { should match_all 'users', 'fast_cars', 'cars' }
   its(:match_plural_factory) { should_not match_any 'admin users', 'faster cars', 'events created' }
+  
+  its(:match_pickle_ref) { should match_all 'a user', 'a user: "fred"', 'the 2nd user', 'the super_admin', '"fred"' }
+  its(:match_pickle_ref) { should_not match_any 'an admin user', 'a 2nd user', '' }
   
   describe "with config.factories = ['admin user', 'funky thing']" do
     before do

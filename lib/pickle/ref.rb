@@ -40,7 +40,7 @@ module Pickle
     # parse the label, removing it if found
     # @return the label or nil
     def parse_label!(string)
-      remove_from_and_return_1st_capture!(string, /^#{capture_label}/)
+      remove_from_and_return_1st_capture!(string, /^(?: |: )?#{capture_quoted}/)
     end
     
     def remove_from_and_return_1st_capture!(string, regexp)

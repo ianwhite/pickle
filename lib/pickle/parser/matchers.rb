@@ -49,10 +49,6 @@ module Pickle
         /(?:(?:the )?#{match_index_word.source})/
       end
       
-      def match_label
-        /(?:\:? ?#{match_quoted.source})/
-      end
-      
       def match_field
         /(?:\w+\: [^,]+(?=$|,))/
       end
@@ -66,19 +62,15 @@ module Pickle
       end
       
       def match_model
-        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{match_factory.source}#{match_label.source}?)/
+        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{match_factory.source}(?:(?: |: )#{match_quoted.source})?)/
       end
       
       def match_pickle_ref
-        match_disjunction *(mapping_searches + [match_model.source])
+        /(?:#{mapping_searches ? match_disjunction(mapping_searches).source + '|' : ''}#{match_quoted.source}|#{match_model.source})/
       end
       
       def capture_index
         /(?:(?:the )?(#{match_index_word.source}))/
-      end
-      
-      def capture_label
-        /(?:\:? ?#{capture_quoted.source})/
       end
       
       def capture_factory

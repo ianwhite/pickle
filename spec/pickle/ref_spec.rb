@@ -50,23 +50,23 @@ describe Pickle::Ref do
         its(:factory) { should == 'colour' }
       end
     end
+  end
+  
+  describe "(label)" do
+    describe "'colour: \"red\"'" do
+      subject { Pickle::Ref.new('colour: "red"') }
+
+      its(:index)   { should == nil }
+      its(:factory) { should == 'colour' }
+      its(:label)   { should == 'red' }
+    end
     
-    describe "(label)" do
-      describe "'colour: \"red\"'" do
-        subject { Pickle::Ref.new('colour: "red"') }
+    describe "'\"red\"'" do
+      subject { Pickle::Ref.new('"red"') }
 
-        its(:index)   { should == nil }
-        its(:factory) { should == 'colour' }
-        its(:label)   { should == 'red' }
-      end
-      
-      describe "'\"red\"'" do
-        subject { Pickle::Ref.new('"red"') }
-
-        its(:index)   { should == nil }
-        its(:factory) { should == nil }
-        its(:label)   { should == 'red' }
-      end
+      its(:index)   { should == nil }
+      its(:factory) { should == nil }
+      its(:label)   { should == 'red' }
     end
   end
   
