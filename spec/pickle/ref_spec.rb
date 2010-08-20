@@ -5,9 +5,9 @@ describe Pickle::Ref do
     describe ".new 'colour'" do
       subject { Pickle::Ref.new('colour') }
       
-      its(:index)   { should be_nil }
+      its(:index) { should be_nil }
       its(:factory) { should == 'colour' }
-      its(:label)   { should be_nil }
+      its(:label) { should be_nil }
     end
 
     describe "with a prefix" do
@@ -31,22 +31,25 @@ describe Pickle::Ref do
     describe ".new('1st colour')" do
       subject { Pickle::Ref.new('1st colour') }
 
-      its(:index)   { should == '1st' }
+      its(:index_word) { should == '1st' }
+      its(:index) { should == 0 }
       its(:factory) { should == 'colour' }
-      its(:label)   { should be_nil }
+      its(:label) { should be_nil }
       
-      ['2nd', 'first', 'last', '3rd', '4th'].each do |index|
-        describe ".new('#{index} colour')" do
-          subject { Pickle::Ref.new("#{index} colour") }
+      {'2nd' => 1, 'first' => 0, 'last' => -1, '3rd' => 2, '4th' => 3}.each do |word, index|
+        describe ".new('#{word} colour')" do
+          subject { Pickle::Ref.new("#{word} colour") }
         
           its(:index) { should == index}
+          its(:index_word) { should == word }
         end
       end
             
       describe "the 2nd colour" do
         subject { Pickle::Ref.new('the 2nd colour') }
         
-        its(:index)   { should == '2nd' }
+        its(:index_word) { should == '2nd' }
+        its(:index) { should == 1 }
         its(:factory) { should == 'colour' }
       end
     end

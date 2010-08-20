@@ -7,8 +7,9 @@ module Pickle
   # raises an error if the pickle_ref is invalid
   class Ref
     include Parser::Matchers
+    include Parser::Canonical
     
-    attr_reader :factory, :index, :label
+    attr_reader :factory, :index, :index_word, :label
     
     def initialize(string)
       parse_ref(string)
@@ -17,7 +18,8 @@ module Pickle
   protected
     def parse_ref(orig)
       str = orig.dup
-      @index = parse_index!(str)
+      @index_word = parse_index!(str)
+      @index = index_word_to_i(@index_word) if @index_word
       @factory = parse_factory!(str)
       @label = parse_label!(str)
       raise InvalidPickleRefError, "'#{orig}' has superfluous: '#{str}'" unless str.blank?
@@ -34,7 +36,7 @@ module Pickle
     # parse the factory name from the given string, remove the factory name and optional prefix
     # @return factory_name or nil
     def parse_factory!(string)
-      remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?(#{match_factory})/)
+      canonical remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?(#{match_factory})/)
     end
 
     # parse the label, removing it if found
@@ -47,6 +49,14 @@ module Pickle
       if match_data = string.match(regexp)
         string.sub!(match_data[0], '')
         match_data[1]
+      end
+    end
+    
+    def index_word_to_i(word)
+      case word
+      when 'last' then -1
+      when 'first' then 0
+      else word.gsub(/\D/,'').to_i - 1
       end
     end
   end
