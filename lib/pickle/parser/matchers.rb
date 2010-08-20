@@ -1,86 +1,109 @@
 module Pickle
   class Parser
+    # Methods which return Regexps for matching and capturing various pickle expressions. 
+    #
+    # You can configure the Matchers by overriding:
+    #
+    #  #names - array of factory names
+    #  #plural_names - array of plural factory names
+    #  #predicates - array of predicates
+    #
+    # Standardly, this is done by assigning the Pickle::Config object to #config
     module Matchers
-      def match_ordinal
-        '(?:\d+(?:st|nd|rd|th))'
+      attr_accessor :config
+
+      delegate :names, :plural_names, :predicates, :mapping_searches, :to => :config, :allow_nil => true
+
+      def match_disjunction(*strings)
+        /(?:#{strings.compact.join('|')})/
       end
-  
-      def match_index
-        "(?:first|last|#{match_ordinal})"
+      
+      def capture_disjunction(*strings)
+        /(#{strings.compact.join('|')})/
       end
-  
-      def match_prefix
-        '(?:(?:a|an|another|the|that) )'
-      end
-  
+      
       def match_quoted
-        '(?:[^\\"]|\\.)*'
+        /(?:"[^\"]*")/
       end
-  
-      def match_label
-        "(?::? \"#{match_quoted}\")"
+      
+      def capture_quoted
+        /(?:"([^\"]*)")/
       end
-
-      def match_value
-        "(?:\"#{match_quoted}\"|nil|true|false|[+-]?[0-9_]+(?:\\.\\d+)?)"
-      end
-
-      def match_field
-        "(?:\\w+: #{match_value})"
-      end
-  
-      def match_fields
-        "(?:#{match_field}, )*#{match_field}"
-      end
-  
-      def match_mapping
-        "(?:#{config.mappings.map(&:search).join('|')})"
-      end
-  
+      
       def match_factory
-        "(?:#{config.factories.keys.map{|n| n.gsub('_','[_ ]')}.join('|')})"
+        match_disjunction('\w\w+', *names)
       end
-      
+
       def match_plural_factory
-        "(?:#{config.factories.keys.map{|n| n.pluralize.gsub('_','[_ ]')}.join('|')})"
+        match_disjunction('\w\w+', *plural_names)
+      end
+
+      def match_prefix
+        /(?:a|an|another|the|that)/
+      end
+
+      def match_ordinal
+        /\d+(?:st|nd|rd|th)/
+      end
+
+      def match_index_word
+        /(?:first|last|#{match_ordinal.source})/
+      end
+
+      def match_index
+        /(?:(?:the )?#{match_index_word.source})/
       end
       
-      def match_indexed_model
-        "(?:(?:#{match_index} )?#{match_factory})"
+      def match_label
+        /(?:\:? ?#{match_quoted.source})/
       end
-  
-      def match_labeled_model
-        "(?:#{match_factory}#{match_label})"
+      
+      def match_field
+        /(?:\w+\: [^,]+(?=$|,))/
       end
-  
-      def match_model
-        "(?:#{match_mapping}|#{match_prefix}?(?:#{match_indexed_model}|#{match_labeled_model}))"
+      
+      def match_fields
+        /#{match_field.source}(?:, #{match_field.source})*/
       end
-  
+      
       def match_predicate
-        "(?:#{config.predicates.map{|m| m.to_s.sub(/^has_/,'').sub(/\?$/,'').gsub('_','[_ ]')}.join('|')})"
+        predicates ? match_disjunction(*(predicates + [match_quoted.source])) : match_quoted
       end
       
-      # create capture analogues of match methods
-      instance_methods.select{|m| m =~ /^match_/}.each do |method|
-        eval <<-end_eval                   
-          def #{method.to_s.sub('match_', 'capture_')}         # def capture_field
-            "(" + #{method} + ")"                         #   "(" + match_field + ")"
-          end                                             # end
-        end_eval
+      def match_model
+        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{match_factory.source}#{match_label.source}?)/
       end
-  
-      # special capture methods
-      def capture_number_in_ordinal
-        '(?:(\d+)(?:st|nd|rd|th))'
+      
+      def match_pickle_ref
+        match_disjunction *(mapping_searches + [match_model.source])
       end
-  
-      def capture_name_in_label
-        "(?::? \"(#{match_quoted})\")"
+      
+      def capture_index
+        /(?:(?:the )?(#{match_index_word.source}))/
       end
-  
-      def capture_key_and_value_in_field
-        "(?:(\\w+): #{capture_value})"
+      
+      def capture_label
+        /(?:\:? ?#{capture_quoted.source})/
+      end
+      
+      def capture_factory
+        /(?:\b(\w\w+)\b)/
+      end
+      
+      def capture_plural_factory
+        capture_name
+      end
+        
+      def capture_fields
+        /(?: (\w+\: .*))/
+      end
+      
+      def capture_model
+        /(#{match_model.source})/
+      end
+      
+      def capture_predicate
+        predicates ? capture_disjunction(*(predicates + [match_quoted.source])) : /(#{match_quoted.source})/
       end
     end
   end
