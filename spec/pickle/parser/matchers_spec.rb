@@ -63,7 +63,7 @@ describe Pickle::Parser::Matchers do
   its(:match_plural_factory) { should_not match_any 'admin users', 'faster cars', 'events created' }
   
   its(:match_pickle_ref) { should match_all 'a user', 'a user: "fred"', 'the 2nd user', 'the super_admin', '"fred"' }
-  its(:match_pickle_ref) { should_not match_any 'an admin user', 'a 2nd user', '' }
+  its(:match_pickle_ref) { should_not match_any 'another person:', 'another person: ', 'an admin user', 'a 2nd user', '' }
   
   describe "with config.factories = ['admin user', 'funky thing']" do
     before do
