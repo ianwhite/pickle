@@ -4,6 +4,10 @@ describe Pickle::Jar do
   let(:model_class) { Class.new.tap {|c| c.stub!(:name).and_return('Module::ModelClass') } }
   let(:model) { model_class.new }
   
+  it "#store with a indexed Pickle::Ref raises InvalidPickleRefError" do
+    lambda { subject.store(model, Pickle::Ref.new('1st model')) }.should raise_error(Pickle::InvalidPickleRefError)
+  end
+  
   shared_examples_for "after storing a model" do
     specify "can be retrieved with Pickle::Ref.new(<model class name>)" do
       subject.retrieve(Pickle::Ref.new('Module::ModelClass')).should == model

@@ -51,16 +51,19 @@ module Pickle
     #
     # @examples
     #   store object
-    #   store object, :label => "fred"
-    #   store object, :factory => "admin_user"
-    #   store object, :label => "fred", :label => "admin_user"
+    #   store object, Pickle::Ref('"fred"')
+    #   store object, Pickle::Ref("admin_user")
+    #   store object, Pickle::Ref('admin_user "fred"')
     #
+    # @raise InvalidPickleRefError if an index is given in the pickle ref
     # @return Object the stored object
-    def store(model, opts = {})
-      store_by_factory_and_label(model, model.class.name, opts[:label])
-      unless canonical(opts[:factory]) == canonical(model.class.name)
-        store_by_factory_and_label(model, opts[:factory], opts[:label]) 
-      end
+    def store(model, ref = nil)
+      raise InvalidPickleRefError, "you can't store a model using an index: #{ref.inspect}" if ref && ref.index
+      model_class_factory = canonical(model.class.name)
+      label = ref && ref.label
+      factory = ref && ref.factory
+      store_by_factory_and_label(model, model_class_factory, label)
+      store_by_factory_and_label(model, factory, label) unless factory == model_class_factory
       model
     end
     
@@ -91,7 +94,6 @@ module Pickle
     
   private
     def store_by_factory_and_label(model, factory, label)
-      factory = canonical(factory)
       factory_models(factory) << model
       labeled_models(label)[factory] = model if label.present?
     end
