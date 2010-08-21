@@ -2,20 +2,28 @@ module Pickle
   class InvalidPickleRefError < RuntimeError
   end
   
-  # parses a pickle ref string into its component parts: factory, index, and label
-  #
-  # raises an error if the pickle_ref is invalid
   class Ref
     include Parser::Matchers
     include Parser::Canonical
     
     attr_reader :factory, :index, :label
     
-    def initialize(arg)
-      arg.is_a?(Hash) ? parse_hash(arg) : parse_string(arg)
+    # parses a pickle ref string or hash into its component parts: factory, index, and label
+    #
+    # if a config object is passed, then it will be used to perform any substitutions on :factory, and for parsing
+    #
+    # @raise ArgumentError
+    # @raise Pickle::InvalidPickleRefError
+    # @return Pickle::Ref
+    def initialize(*args)
+      options = args.extract_options!
+      self.config = options.delete(:config)
+      raise ArgumentError, "specify either a string (with optional :config), or a hash (with optional :config), not both." if args.length > 1 || (options.any? && args.any?)
+
+      args.any? ? parse_string(args.first) : parse_hash(options)
       validate!
     end
-  
+            
   protected
     def validate!
       raise InvalidPickleRefError, "#{inspect} requires a factory or label" if factory.blank? && label.blank?
@@ -27,7 +35,7 @@ module Pickle
       @factory = hash.delete(:factory)
       @index = hash.delete(:index)
       @label = hash.delete(:label)
-      raise InvalidPickleRefError, "superfluous options: #{hash.inspect}" unless hash.empty?
+      raise InvalidPickleRefError, "superfluous/unknown options: #{hash.inspect}" unless hash.empty?
     end
   
     def parse_string(orig)

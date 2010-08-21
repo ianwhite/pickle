@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe Pickle::Ref do
+  describe "(how to call)" do
+    specify "can be called with a string, with an optional :config e.g. Pickle::Ref.new('foo'[, :config => <config>])" do
+      lambda { Pickle::Ref.new('foo') }.should_not raise_error(ArgumentError)
+      lambda { Pickle::Ref.new('foo', :config => mock) }.should_not raise_error(ArgumentError)
+    end
+        
+    specify "can be called with a hash, with an optional config, e.g. Pickle::Ref.new(:label => 'fred'[, :config => <config>])" do
+      lambda { Pickle::Ref.new(:label => "gday") }.should_not raise_error(ArgumentError)
+      lambda { Pickle::Ref.new(:label => "gday", :config => mock) }.should_not raise_error(ArgumentError)
+    end
+  end
+  
   describe "(factory) " do
     shared_examples_for 'pickle ref with :factory => "colour"' do
       its(:index) { should be_nil }
@@ -119,7 +131,7 @@ describe Pickle::Ref do
     end
   end
   
-  describe "creating with attrs hash" do
+  describe "(with config)" do
     
   end
 end

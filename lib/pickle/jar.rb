@@ -1,7 +1,7 @@
 module Pickle
   # handles storing and retrieveing models using pickle_refs to do so.  This is not the smae as creating/finding models
   # 
-  # For cucumber use, it's better to use the methods with the same names found in in Pickle::Scenario
+  # For cucumber use, it's better to use the methods with the same names found in in Pickle::Api
   #
   # Examples: (FYI - the pickle.create_and_store methods do all of this automatically)
   #
