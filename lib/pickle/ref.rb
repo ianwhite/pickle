@@ -9,28 +9,41 @@ module Pickle
     include Parser::Matchers
     include Parser::Canonical
     
-    attr_reader :factory, :index, :index_word, :label
+    attr_reader :factory, :index, :label
     
-    def initialize(string)
-      parse_ref(string)
+    def initialize(arg)
+      arg.is_a?(Hash) ? parse_hash(arg) : parse_string(arg)
+      validate!
     end
   
   protected
-    def parse_ref(orig)
+    def validate!
+      raise InvalidPickleRefError, "#{inspect} requires a factory or label" if factory.blank? && label.blank?
+      raise InvalidPickleRefError, "#{inspect} can't specify both index and label" if label.present? && index.present?
+    end
+    
+    def parse_hash(orig)
+      hash = orig.dup
+      @factory = hash.delete(:factory)
+      @index = hash.delete(:index)
+      @label = hash.delete(:label)
+      raise InvalidPickleRefError, "superfluous options: #{hash.inspect}" unless hash.empty?
+    end
+  
+    def parse_string(orig)
       str = orig.dup
-      @index_word = parse_index!(str)
-      @index = index_word_to_i(@index_word) if @index_word
+      @index = parse_index!(str)
       @factory = parse_factory!(str)
       @label = parse_label!(str)
-      raise InvalidPickleRefError, "'#{orig}' has superfluous: '#{str}'" unless str.blank?
-      raise InvalidPickleRefError, "'#{orig}' requires a factory or label" if @factory.blank? && @label.blank?
-      raise InvalidPickleRefError, "'#{orig}' can't specify both index and label" if @label.present? && @index.present?
+      raise InvalidPickleRefError, "superfluous: '#{str}'" unless str.blank?
     end
     
     # parse and remove the index from the given string
     # @return the index or nil
     def parse_index!(string)
-      remove_from_and_return_1st_capture!(string, /^(?:the )?(#{match_index_word}) /)
+      if word = remove_from_and_return_1st_capture!(string, /^(?:the )?(#{match_index_word}) /)
+        index_word_to_i word
+      end
     end
 
     # parse the factory name from the given string, remove the factory name and optional prefix
