@@ -4,10 +4,6 @@ describe Pickle::Jar do
   let(:model_class) { Class.new.tap {|c| c.stub!(:name).and_return('Module::ModelClass') } }
   let(:model) { model_class.new }
   
-  describe "converting args to refs" do
-    it "should be possible"
-  end
-  
   shared_examples_for "after storing a model" do
     specify "can be retrieved with Pickle::Ref.new(<model class name>)" do
       subject.retrieve(Pickle::Ref.new('Module::ModelClass')).should == model
@@ -17,7 +13,7 @@ describe Pickle::Jar do
       subject.retrieve(Pickle::Ref.new('module_model_class')).should == model
     end
     
-    specify "can be retrieve with Pickle::Ref.new('last underscored_class_name')" do
+    specify "can be retrieved with Pickle::Ref.new('last underscored_class_name')" do
       subject.retrieve(Pickle::Ref.new("last module_model_class")).should == model
     end
   end
@@ -42,7 +38,7 @@ describe Pickle::Jar do
   
   describe "after storing a model with an optional factory," do
     let(:factory) { 'factory' }
-    before { subject.store(model, :factory => factory) }
+    before { subject.store(model, Pickle::Ref.new(factory)) }
     
     describe "the model" do
       it_should_behave_like "after storing a model"
@@ -62,7 +58,7 @@ describe Pickle::Jar do
   
   describe "after storing a model with an optional label," do
     let(:label) { 'label' }
-    before { subject.store(model, :label => label) }
+    before { subject.store(model, Pickle::Ref.new('"label"')) }
     
     describe "the model" do
       it_should_behave_like "after storing a model"
@@ -72,8 +68,8 @@ describe Pickle::Jar do
   
   describe "after storing two different models under the same label" do
     before do
-      subject.store(model, :label => "fred", :factory => "factory")
-      subject.store(model_class.new, :label => "fred", :factory => "factory2")
+      subject.store(model, Pickle::Ref.new('factory "fred"'))
+      subject.store(model_class.new, Pickle::Ref.new('factory2 "fred"'))
     end
     
     specify "a model can be retrieved by factory and label" do
