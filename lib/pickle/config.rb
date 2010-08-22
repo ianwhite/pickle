@@ -1,3 +1,5 @@
+require 'pickle/adapter_map'
+
 module Pickle
   class Config
     attr_writer :adapters, :factories, :aliases, :labels, :mappings, :predicates
@@ -10,15 +12,46 @@ module Pickle
       yield(self)
     end
     
+    # hash of factory names => adapter instances
+    #
+    # defaults to all adapters available from adapter classes specifies by #adapters.
+    # It's sublcass of Hash, so you can add your own adapters in an ad-hoc manner.
+    #
+    #   Config.new do |c|
+    #     c.adapters = [:machinist]
+    #     c.adapter_map['file'] = MyFileAdapter.new
+    #   end
+    #
+    # @return Hash
+    def adapter_map
+      @adapter_map ||= AdapterMap.new(adapter_classes)
+    end
+    
     # adapters that pickle should use to create models
+    #
+    # set this to symbols found in pickle/adapters, or adapter classes
+    #
+    #   Config.new do |c|
+    #     c.adapters = [:factory_girl, MyAdapter]
+    #   end
+    # 
     # @return Array of symbols or adapter classes
     def adapters
       @adapters ||= [:machinist, :factory_girl, :orm]
     end
     
+    # returns adapter classes
+    # @see #adapters
     # @return Array of adapter classes
     def adapter_classes
-      adapters.map {|a| a.is_a?(Class) ? a : "pickle/adapter/#{a}".classify.constantize}
+      adapters.map do |adapter| 
+        if adapter.is_a?(Class)
+          adapter
+        else
+          require "pickle/adapters/#{adapter}"
+          "pickle/adapter/#{adapter}".classify.constantize
+        end
+      end
     end
     
     # list of predicate names that the pickle parser should be aware of
@@ -78,19 +111,4 @@ module Pickle
       end
     end
   end
-  
-  # map of all of the adapter instances that pickle is aware of.  The key is
-  # a factory name (usually an underscored model class name, but could be a named factory,
-  # or named blueprint)
-  #
-  #  e.g. { 'user' => Pickle::Adapter::Machinist.new(User, :master), 'admin_user' => Pickle::Adapter::Machinist.new(User, :admin) }
-  #
-  # @return Hash
-  #def factories
-  #  @factories ||= adapter_classes.reverse.inject({}) do |factories, adapter|
-  #    factories.merge(adapter.factories.inject({}){|h, f| h.merge(f.name => f)})
-  #  end
-  #end
-  
-
 end

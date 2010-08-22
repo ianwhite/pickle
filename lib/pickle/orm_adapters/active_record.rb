@@ -5,8 +5,8 @@ rescue LoadError
 end
 
 class ActiveRecord::Base
-  module PickleAdapter
-    include Pickle::Adapter::Base
+  module PickleOrmAdapter
+    include Pickle::OrmAdapter
 
     # Do not consider these to be part of the class list
     def self.except_classes
@@ -25,13 +25,8 @@ class ActiveRecord::Base
       end
 
       klasses.select do |klass|
-        !klass.abstract_class? && klass.table_exists? && !except_classes.include?(klass.name)
+        !klass.abstract_class? && !except_classes.include?(klass.name)
       end
-    end
-
-    # get a list of column names for a given class
-    def self.column_names(klass)
-      klass.column_names
     end
 
     # Get an instance by id of the model

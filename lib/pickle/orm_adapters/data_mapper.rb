@@ -1,8 +1,8 @@
 require 'dm-core'
 
 module DataMapper::Resource
-  module PickleAdapter
-    include Pickle::Adapter::Base
+  module PickleOrmAdapter
+    include Pickle::OrmAdapter
 
     # Do not consider these to be part of the class list
     def self.except_classes

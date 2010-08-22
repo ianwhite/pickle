@@ -2,8 +2,8 @@ require 'mongoid'
 
 module Mongoid
   module Document
-    module PickleAdapter
-      include Pickle::Adapter::Base
+    module PickleOrmAdapter
+      include Pickle::OrmAdapter
 
       # Do not consider these to be part of the class list
       def self.except_classes
