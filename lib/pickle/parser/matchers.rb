@@ -7,8 +7,6 @@ module Pickle
     module Matchers
       attr_accessor :config
 
-      delegate :predicates, :to => :config, :allow_nil => true
-
       # generate an expression to capture a reference to a model
       # @arguments to restrict the expression to the given factory names
       # @return Regexp
@@ -87,6 +85,10 @@ module Pickle
         else
           /(?:#{match_quoted.source}|#{match_model(*restrict_to).source})/
         end
+      end
+      
+      def predicates
+        config && config.predicates
       end
       
       def mappings

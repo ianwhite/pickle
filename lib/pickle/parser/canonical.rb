@@ -1,7 +1,6 @@
 module Pickle
   class Parser
-    module Canonical
-      
+    module Canonical 
     protected
       # returns really underscored name
       def canonical(str)

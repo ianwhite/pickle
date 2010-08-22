@@ -1,7 +1,7 @@
 module Pickle
   # handles storing and retrieveing models using pickle_refs to do so.  This is not the smae as creating/finding models
   # 
-  # For cucumber use, it's better to use the methods with the same names found in in Pickle::Api
+  # For cucumber use, it's better to use the methods with the same names found in in Pickle::Session::Api
   #
   # Examples: (FYI - the pickle.create_and_store methods do all of this automatically)
   #
@@ -46,8 +46,8 @@ module Pickle
     
     # store the given model in the pickle jar.
     #
-    # By default it will be stored under its class name (canononicalized), can also be given a label
-    # If given a factory, it will also be stored under that name (canononicalized)
+    # By default it will be stored under its class name (canonical), can also be given a label
+    # If given a factory, it will also be stored under that name (canonical)
     #
     # @examples
     #   store object
@@ -81,7 +81,7 @@ module Pickle
         else
           factory_models(ref.factory).last
         end
-      end or raise UnknownModelError, '#{ref} is not known'
+      end or raise UnknownModelError
     end
     
     # Does the given pickle_ref refer to a model in this jar?
@@ -115,11 +115,11 @@ module Pickle
       @labeled_models ||= {}
       @labeled_models[label] ||= {}
     end
-    
-    class AmbiguiousLabelError < RuntimeError
-    end
+  end
+  
+  class AmbiguiousLabelError < RuntimeError
+  end
 
-    class UnknownModelError < RuntimeError
-    end
+  class UnknownModelError < RuntimeError
   end
 end

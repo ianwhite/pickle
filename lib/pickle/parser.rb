@@ -1,15 +1,8 @@
-require 'pickle/parser/matchers'
-require 'pickle/parser/canonical'
-
 module Pickle
   class Parser
     include Matchers
-    
-    attr_reader :config
-    
-    def initialize(options = {})
-      @config = options[:config] || raise(ArgumentError, "Parser.new requires a :config")
-    end
+    include Canonical
+    include DefaultConfig
     
     # given a string like 'foo: "bar", bar: "baz"' returns {"foo" => "bar", "bar" => "baz"}
     def parse_fields(fields)
@@ -45,21 +38,6 @@ module Pickle
         [canonical($2), parse_index($1)]
       elsif /#{capture_factory}#{capture_name_in_label}?$/ =~ model_name
         [canonical($1), canonical($2)]
-      end
-    end
-  
-    def parse_index(index)
-      case index
-      when nil, '', 'last' then -1
-      when /#{capture_number_in_ordinal}/ then $1.to_i - 1
-      when 'first' then 0
-      end
-    end
-
-  private
-    def apply_mappings!(string)
-      config.mappings.each do |mapping|
-        string.sub! /^#{mapping.search}$/, mapping.replacement
       end
     end
   end
