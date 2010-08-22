@@ -9,7 +9,6 @@ describe Pickle::Config do
     its(:predicates) { should be_empty }
     its(:mappings) { should be_empty }
     its(:factories) { should be_empty }
-    its(:plural_factories) { should be_empty }
     its(:aliases) { should be_empty }
     its(:labels) { should be_empty }
   end

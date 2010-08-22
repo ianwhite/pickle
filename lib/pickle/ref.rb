@@ -1,3 +1,6 @@
+require 'pickle/parser/matchers'
+require 'pickle/parser/canonical'
+
 module Pickle
   class InvalidPickleRefError < RuntimeError
   end
@@ -23,7 +26,15 @@ module Pickle
       args.any? ? parse_string(args.first) : parse_hash(options)
       validate!
     end
-            
+    
+    def to_s
+      "#{factory}#{" index:#{index}" if index}#{" \"#{label}\"" if label}"
+    end
+    
+    def inspect
+      "#<Pickle::Ref '#{to_s}'>"
+    end
+    
   protected
     def validate!
       raise InvalidPickleRefError, "#{inspect} requires a factory or label" if factory.blank? && label.blank?
@@ -40,6 +51,7 @@ module Pickle
   
     def parse_string(orig)
       str = orig.dup
+      apply_mappings!(str)
       @index = parse_index!(str)
       @factory = parse_factory!(str)
       @label = parse_label!(str)
@@ -63,7 +75,8 @@ module Pickle
     # parse the label, removing it if found
     # @return the label or nil
     def parse_label!(string)
-      remove_from_and_return_1st_capture!(string, /^(?: |: )?(#{match_quoted})/).try(:gsub, '"', '')
+      label = remove_from_and_return_1st_capture!(string, /^(?: |: )?(#{match_quoted})/)
+      label && label.gsub('"', '')
     end
     
     def remove_from_and_return_1st_capture!(string, regexp)
@@ -78,6 +91,12 @@ module Pickle
       when 'last' then -1
       when 'first' then 0
       else word.gsub(/\D/,'').to_i - 1
+      end
+    end
+    
+    def apply_mappings!(string)
+      config && config.mappings.each do |mapping|
+        string.sub! /^#{mapping.search}$/, mapping.replacement
       end
     end
   end

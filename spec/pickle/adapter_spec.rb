@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'active_record'
 require 'factory_girl'
 require 'machinist/active_record'
-require 'pickle/adapters/active_record'
+require 'pickle/orm_adapters/active_record'
 
 describe Pickle::Adapter do
   it ".factories should raise NotImplementedError" do

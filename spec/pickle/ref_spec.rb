@@ -131,8 +131,19 @@ describe Pickle::Ref do
     end
   end
   
-  describe "(with config)" do
-    
+  describe "(config = Config.new" do
+    describe "{|c|.map 'I', :to => 'user: \"me\"'})" do
+      let(:config) { Pickle::Config.new {|c| c.map 'I', 'myself', 'the super fantastic orgazoid', :to => 'user: "me"' } }
+      
+      ['I', 'myself', 'the super fantastic orgazoid'].each do |arg|
+        describe ".new #{arg.inspect}, :config => config" do
+          subject { Pickle::Ref.new(arg, :config => config) }
+          its(:factory) { should == 'user' }
+          its(:label) { should == 'me' }
+          its(:index) { should be_nil }
+        end
+      end
+    end
   end
 end
   
