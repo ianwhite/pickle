@@ -1,7 +1,7 @@
 == 0.4.2
 
 * 1 bugfix
-  * Use mongoid finder syntax, which requires a :conditions key [Mark Lee]
+  * Use mongoid finder syntax, which requires a :conditions key [Marc Lee]
 
 
 == 0.4.1
