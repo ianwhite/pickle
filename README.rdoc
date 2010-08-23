@@ -347,6 +347,7 @@ To run the features (rails 2.3 only ATM):
 
 The following people have made Pickle better:
 
+* {Marc Lee}[http://github.com/maleko]
 * {Sebastian Zuchmanski}[http://github.com/sebcioz]
 * {Paul Gideon Dann}[http://github.com/giddie]
 * {Tom Meier}[http://github.com/tommeier]
