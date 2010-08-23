@@ -1,3 +1,9 @@
+== 0.4.2
+
+* 1 bugfix
+  * Use mongoid finder syntax, which requires a :conditions key [Mark Lee]
+
+
 == 0.4.1
 Docfix
 
