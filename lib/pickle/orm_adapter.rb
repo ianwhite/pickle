@@ -22,7 +22,7 @@ module Pickle
       
       # all model classes from all registered adapters
       def model_classes
-        @@model_classes ||= adapters.map{|a| a.model_classes }.flatten
+        adapters.map{|a| a.model_classes }.flatten
       end
     end
     
