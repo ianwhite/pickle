@@ -14,8 +14,9 @@ describe Pickle do
 
   it ".parser should create a parser with the default config" do
     Pickle.instance_variable_set('@parser', nil)
-    Pickle::Parser.should_receive(:new).with(:config => Pickle.config)
-    Pickle.parser
+    Pickle.should_receive(:config).and_return(config = mock)
+    Pickle.parser.should be_kind_of(Pickle::Parser::Object)
+    Pickle.parser.config.should == config
   end
   
   it ".parser should be same object on multiple calls" do
