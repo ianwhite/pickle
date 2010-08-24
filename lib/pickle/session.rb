@@ -12,7 +12,6 @@ module Pickle
       @jar ||= Pickle::Jar.new
     end
     
-    
     class Object
       include Pickle::Session
     end
