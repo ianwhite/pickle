@@ -8,6 +8,8 @@ gem "rspec"
 group :test do
   gem "rspec-rails"
   gem "rails", "~>2.3"
+  gem "datamapper"
+  gem "mongoid"
   gem "cucumber-rails", ">=0.3.2"
   gem "factory_girl"
   gem "machinist"
@@ -17,4 +19,5 @@ group :test do
   gem "capybara"
   gem "webrat"
   gem "sqlite3-ruby"
+  gem "ruby-debug"
 end
