@@ -132,7 +132,7 @@ describe Pickle::Ref do
   end
   
   describe "(config = Config.new" do
-    describe "{|c|.map 'I', :to => 'user: \"me\"'})" do
+    describe "{|c| c.map 'I', :to => 'user: \"me\"'})" do
       let(:config) { Pickle::Config.new {|c| c.map 'I', 'myself', 'the super fantastic orgazoid', :to => 'user: "me"' } }
       
       ['I', 'myself', 'the super fantastic orgazoid'].each do |arg|
@@ -141,6 +141,42 @@ describe Pickle::Ref do
           its(:factory) { should == 'user' }
           its(:label) { should == 'me' }
           its(:index) { should be_nil }
+        end
+      end
+    end
+    
+    describe "{|c| c.factories = ['admin user', 'mr bendy man']})" do
+      include Pickle::Parser::Canonical
+      
+      let(:config) { Pickle::Config.new {|c| c.factories = ['admin user', 'mr bendy man'] } }
+      
+      ['admin user', 'mr bendy man'].each do |arg|
+        describe ".new #{arg.inspect}, :config => config" do
+          subject { Pickle::Ref.new(arg, :config => config) }
+          its(:factory) { should == canonical(arg) }
+        end
+        
+        describe ".new :factory => #{arg.inspect}, :config => config" do
+          subject { Pickle::Ref.new(:factory => arg, :config => config) }
+          its(:factory) { should == canonical(arg) }
+        end
+      end
+    end
+    
+    describe "{|c| c.alias 'admin user', 'admin', :to => 'external_lib_admin_user'})" do
+      include Pickle::Parser::Canonical
+      
+      let(:config) { Pickle::Config.new {|c| c.alias 'admin user', 'admin', :to => 'external_lib_admin_user' } }
+      
+      ['admin user', 'admin'].each do |arg|
+        describe ".new #{arg.inspect}, :config => config" do
+          subject { Pickle::Ref.new(arg, :config => config) }
+          its(:factory) { should == 'external_lib_admin_user' }
+        end
+        
+        describe ".new :factory => #{arg.inspect}, :config => config" do
+          subject { Pickle::Ref.new(:factory => arg, :config => config) }
+          its(:factory) { should == 'external_lib_admin_user' }
         end
       end
     end

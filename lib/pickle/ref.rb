@@ -40,7 +40,7 @@ module Pickle
     
     def parse_hash(orig)
       hash = orig.dup
-      @factory = hash.delete(:factory)
+      @factory = canonical apply_aliases hash.delete(:factory)
       @index = hash.delete(:index)
       @label = hash.delete(:label)
       raise InvalidPickleRefError, "superfluous/unknown options: #{hash.inspect}" unless hash.empty?
@@ -66,7 +66,7 @@ module Pickle
     # parse the factory name from the given string, remove the factory name and optional prefix
     # @return factory_name or nil
     def parse_factory!(string)
-      canonical remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?(#{match_factory})/)
+      canonical apply_aliases remove_from_and_return_1st_capture!(string, /^(?:#{match_prefix} )?(#{match_factory})/)
     end
 
     # parse the label, removing it if found
@@ -95,6 +95,10 @@ module Pickle
       config && config.mappings.each do |mapping|
         string.sub! /^#{mapping.search}$/, mapping.replacement
       end
+    end
+    
+    def apply_aliases(string)
+      (config && config.aliases[string]) || string
     end
   end
 end
