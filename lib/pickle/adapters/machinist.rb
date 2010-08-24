@@ -8,7 +8,7 @@ module Pickle
             blueprints.keys.each {|blueprint| adapter << new(model_class, blueprint)}
           end
         end
-        adapter
+        adapters
       end
 
       def initialize(model_class, blueprint)
