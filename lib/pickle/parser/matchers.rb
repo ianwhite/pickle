@@ -16,8 +16,12 @@ module Pickle
         /(?:"[^\"]*")/
       end
       
+      def match_word
+        /(?:(?:\w|::\w){2,})/
+      end
+      
       def match_factory
-        match_disjunction('(?:\w|::\w){2,}', *factories)
+        factories ? match_disjunction(*factories + [match_word.source]) : match_word
       end
 
       def match_plural_factory
@@ -74,7 +78,7 @@ module Pickle
       end
       
       def factories
-        config && (config.factories | config.aliases.keys)
+        config && (config.factories | config.aliases.keys).sort_by(&:length).reverse
       end
       
       def plural_factories
