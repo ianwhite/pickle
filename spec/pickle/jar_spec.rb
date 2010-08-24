@@ -80,8 +80,8 @@ describe Pickle::Jar do
       subject.retrieve(Pickle::Ref.new('factory "fred"')).should == model
     end
   
-    specify "retrieving by label alone raises Pickle::Jar::AmbiguiousLabelError" do
-      lambda { subject.retrieve(Pickle::Ref.new('"fred"')) }.should raise_error(Pickle::Jar::AmbiguiousLabelError)
+    specify "retrieving by label alone raises Pickle::AmbiguiousLabelError" do
+      lambda { subject.retrieve(Pickle::Ref.new('"fred"')) }.should raise_error(Pickle::AmbiguiousLabelError)
     end
   end
 
@@ -116,7 +116,7 @@ describe Pickle::Jar do
     end
     
     specify "attempting to retrieve the 4th model raises UnknownModelError" do
-      lambda { subject.retrieve(Pickle::Ref.new("4th module_model_class")) }.should raise_error(Pickle::Jar::UnknownModelError)
+      lambda { subject.retrieve(Pickle::Ref.new("4th module_model_class")) }.should raise_error(Pickle::UnknownModelError)
     end
 
     specify "asking if jar #contains? the 4th model returns false" do
