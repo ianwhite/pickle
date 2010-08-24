@@ -4,3 +4,4 @@ doc/*
 pickle-email*
 cucumber_test_app
 .bundle
+.rvmrc
