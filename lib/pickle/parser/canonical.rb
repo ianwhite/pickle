@@ -1,5 +1,5 @@
 module Pickle
-  class Parser
+  module Parser
     module Canonical 
     protected
       # returns really underscored name
