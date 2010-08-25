@@ -74,7 +74,7 @@ module Pickle
       end
       
       def mappings
-        config && config.mappings.map(&:search)
+        config && config.mappings.map(&:search).sort_by(&:length).reverse
       end
       
       def factories
