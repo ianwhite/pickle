@@ -48,6 +48,10 @@ module Pickle
         /(?:\w+\: [^,]+(?=$|,))/
       end
       
+      def match_value
+        /(?:nil|true|false|[+-]?[0-9]+(?:\.\d+)?)/
+      end
+        
       def match_fields
         /#{match_field.source}(?:, #{match_field.source})*/
       end

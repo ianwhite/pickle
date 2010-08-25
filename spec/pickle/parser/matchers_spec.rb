@@ -34,6 +34,9 @@ describe Pickle::Parser::Matchers do
   
     its(:match_pickle_ref) { should match_all 'a user', 'a user: "fred"', 'the 2nd user', 'the super_admin', '"fred"' }
     its(:match_pickle_ref) { should_not match_any 'another person:', 'another person: ', 'an admin user', 'a 2nd user', '' }
+    
+    its(:match_value) { should match_all '1', '2.56', 'true', 'false', '-67.7', 'nil' }
+    its(:match_value) { should_not match_any '1 1', '2_2.56', 'truthy', '`rm -rf`', 'exec' }
   
     describe "with config.factories = ['admin user', 'funky thing']" do
       before do
