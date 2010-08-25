@@ -61,9 +61,9 @@ module Pickle
     
       # retrieve a model that was stored previously, and re-find it
       def retrieve_and_reload(pickle_ref)
-        pickle_ref = ref(pickle_ref)
-        reload jar.retrieve(pickle_ref), pickle_ref
+        reload retrieve(pickle_ref)
       end
+      alias_method :model, :retrieve_and_reload
         
       # retrieve an orignal model object that was stored previously
       def retrieve(pickle_ref)
