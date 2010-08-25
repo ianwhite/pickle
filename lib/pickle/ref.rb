@@ -47,7 +47,7 @@ module Pickle
     end
   
     def parse_string(orig)
-      str = orig.dup
+      str = orig.to_s.dup
       apply_mappings!(str)
       @index = parse_index!(str)
       @factory = parse_factory!(str)

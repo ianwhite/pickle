@@ -129,6 +129,10 @@ describe Pickle::Ref do
         end
       end
     end
+
+    it "should raise InvalidPickleRefError when called with (1)" do
+      lambda { Pickle::Ref.new(1) }.should raise_error(Pickle::InvalidPickleRefError)
+    end
   end
   
   describe "(config = Config.new" do
