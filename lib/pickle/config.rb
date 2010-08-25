@@ -2,7 +2,7 @@ require 'pickle/adapter_map'
 
 module Pickle
   class Config
-    attr_writer :adapters, :factories, :aliases, :labels, :mappings, :predicates
+    attr_writer :adapters, :factories, :mappings, :predicates
     
     def initialize(&block)
       configure(&block) if block_given?
@@ -87,12 +87,24 @@ module Pickle
     #  config.alias 'admin', 'admin user', :to => 'external_lib_admin_user' # where External::Lib::Admin::User is one of your models
     def alias(*args)
       options = args.extract_options!
-      raise ArgumentError, "Usage: alias 'alias1' [, 'alias2', ...] :to => '<factory_name>'" unless args.any? && options[:to].is_a?(String)
+      raise ArgumentError, "Usage: alias 'alias1' [, 'alias2', ...], :to => '<factory_name>'" unless args.any? && options[:to].is_a?(String)
       args.each {|aliaz| self.aliases[aliaz] = options[:to]}
     end
     
     def aliases
       @aliases ||= {}
+    end
+    
+    #  config.label_attribute 'user', :is => 'name'
+    # this uses the pickle ref label to set an attribute on create
+    def label_attribute_for(*args)
+      options = args.extract_options!
+      raise ArgumentError, "Usage: label_attribute_for 'factory1' [, 'factory2', ...], :with => 'attribute_name'" unless args.any? && options[:is].is_a?(String)
+      args.each {|factory| self.label_attributes[factory] = options[:is]}
+    end
+
+    def label_attributes
+      @labels ||= {}
     end
     
     class Mapping < Struct.new(:search, :replacement)
