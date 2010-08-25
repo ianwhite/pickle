@@ -4,7 +4,7 @@ module Pickle
   module Session
     # included into Pickle::Session
     module Conversion
-      include Pickle::Parser::Matchers
+      include Pickle::Parser
 
       # convert a string, hash, or ref into a Pickle::Ref, using config
       def ref(pickle_ref)
@@ -26,10 +26,13 @@ module Pickle
 
       private
       def convert_hash_attributes(fields)
+        fields.stringify_keys!
         fields.each do |key, value|
-          begin
-            fields[key] = retrieve(value)
-          rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+          if value =~ /^#{pickle_ref.source}$/
+            begin
+              fields[key] = retrieve(value)
+            rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+            end
           end
         end
       end

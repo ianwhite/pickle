@@ -43,8 +43,22 @@ describe Pickle::Session::Conversion do
         it "should return a hash containing the retrieved object in place of the pickle ref, and leave other values alone" do
           should_receive(:retrieve).with('a user').and_return(model)
           should_receive(:retrieve).with(anything).and_raise(Pickle::UnknownModelError)
-          do_attributes.should == {:name => "Foo", :user => model}
+          do_attributes.should == {'name' => "Foo", 'user' => model}
         end
+      end
+      
+      it "should stringify the keys" do
+        attributes(:foo => :bar).should == {'foo' => :bar}
+      end
+      
+      it "should not call retrieve unless value is a string" do
+        should_not_receive(:retrieve)
+        attributes(:foo => :bar)
+      end
+      
+      it "should not call retrieve unless value matches pickle_ref" do
+        should_not_receive(:retrieve)
+        attributes(:foo => 'a user user user')
       end
     end
 
