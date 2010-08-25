@@ -70,30 +70,20 @@ describe Pickle::Session::Conversion do
         attributes(%q(user: the user "Fred")).should == {'user' => fred}
       end
 
-      specify %Q(when field is a pickle-ref (like 'the user "Fred"')which does not refer it should raise UnknownFieldsFormatError) do
+      specify %Q{when field is a pickle-ref (like 'the user "Fred"') which does not refer it should raise UnknownFieldsFormatError} do
         should_receive(:retrieve).with('the user "Fred"').and_raise(Pickle::UnknownModelError)
         lambda{attributes(%q(user: the user "Fred"))}.should raise_error(Pickle::UnknownFieldsFormatError)
       end
 
-      # describe "and a user Fred has been stored in pickle" do
-      #   describe 'the user "Fred"' do
-      #     it {should == fred}
-      #   end
-      # 
-      #   describe '"Fred"' do
-      #     it {should == fred}
-      #   end
-      # end
-      # 
-      # describe "and a user Fred has not been stored in pickle" do
-      #   describe 'the user "Fred"' do
-      #     it {should == fred}
-      #   end
-      # 
-      #   describe '"Fred"' do
-      #     it {should == "Fred"}
-      #   end
-      # end
+      specify %Q{when field is "Fred" and there is no pickled "Fred" then the attributes should contain the string "Fred"} do
+        should_receive(:retrieve).with('"Fred"').and_raise(Pickle::UnknownModelError)
+        attributes(%q(user: "Fred")).should == {'user' => "Fred"}
+      end
+
+      specify %Q{when field is "Fred" and there is a pickled "Fred" then the attributes should contain the fred object} do
+        should_receive(:retrieve).with('"Fred"').and_return fred = mock
+        attributes(%q(user: "Fred")).should == {'user' => fred}
+      end
     end
   end
 end
