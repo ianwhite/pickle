@@ -70,6 +70,11 @@ describe Pickle::Session::Conversion do
         attributes(%q(user: the user "Fred")).should == {'user' => fred}
       end
 
+      specify %Q(when field is a pickle-ref (like 'the user "Fred"')which does not refer it should raise UnknownFieldsFormatError) do
+        should_receive(:retrieve).with('the user "Fred"').and_raise(Pickle::UnknownModelError)
+        lambda{attributes(%q(user: the user "Fred"))}.should raise_error(Pickle::UnknownFieldsFormatError)
+      end
+
       # describe "and a user Fred has been stored in pickle" do
       #   describe 'the user "Fred"' do
       #     it {should == fred}

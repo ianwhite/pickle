@@ -1,4 +1,6 @@
 module Pickle
+  class Pickle::UnknownFieldsFormatError < RuntimeError; end
+
   module Session
     # included into Pickle::Session
     module Conversion
