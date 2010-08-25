@@ -33,22 +33,23 @@ module Pickle
       
       # makes a model using the ref and fields, and stores it
       def make_and_store(pickle_ref, fields = nil)
-        pickle_ref, fields = ref(pickle_ref), attributes(fields)
+        pickle_ref, attributes = ref(pickle_ref), attributes(fields)
         raise InvalidPickleRefError, "#{pickle_ref.inspect} must not contain an index for #make_and_store" if pickle_ref.index
-        jar.store make(pickle_ref, fields), pickle_ref
+        apply_label_attribute!(pickle_ref, attributes)
+        jar.store make(pickle_ref, attributes), pickle_ref
       end
     
       # finds a model using the ref and fields, and stores it
       def find_and_store(pickle_ref, fields = nil)
-        pickle_ref, fields = ref(pickle_ref), attributes(fields)
+        pickle_ref, attributes = ref(pickle_ref), attributes(fields)
         raise InvalidPickleRefError, "#{pickle_ref.inspect} must not contain an index for #make_and_store" if pickle_ref.index
-        jar.store find_first(pickle_ref, fields), pickle_ref
+        jar.store find_first(pickle_ref, attributes), pickle_ref
       end
     
       # finds all models using a plural factory name and fields, and store them
       def find_all_and_store(plural, fields = nil)
-        pickle_ref, fields = ref(plural.singularize), attributes(fields)
-        find_all(pickle_ref, fields).each do |model|
+        pickle_ref, attributes = ref(plural.singularize), attributes(fields)
+        find_all(pickle_ref, attributes).each do |model|
           jar.store model, pickle_ref
         end
       end
@@ -75,6 +76,13 @@ module Pickle
       # is a model known?
       def known?(pickle_ref)
         jar.include? ref(pickle_ref)
+      end
+      
+    private
+      def apply_label_attribute!(pickle_ref, attributes)
+        if pickle_ref.label && label_attribute = config.label_map[pickle_ref.factory]
+          attributes[label_attribute] ||= pickle_ref.label
+        end
       end
     end
   end
