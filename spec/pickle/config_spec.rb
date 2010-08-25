@@ -6,11 +6,12 @@ describe Pickle::Config do
   describe "new" do
     its(:adapters) { should == [:machinist, :factory_girl, :orm] }
     its(:adapter_classes) { should == [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::Orm] }
+    its(:adapter_map) { should be_empty }
     its(:predicates) { should be_empty }
     its(:mappings) { should be_empty }
     its(:factories) { should be_empty }
     its(:aliases) { should be_empty }
-    its(:label_attributes) { should be_empty }
+    its(:label_map) { should be_empty }
   end
 
   describe "setting adapters to [:machinist, <adapter_class>]" do
@@ -51,20 +52,20 @@ describe Pickle::Config do
     end
   end
 
-  describe "label" do
+  describe "map_label_for" do
     let(:config) {Pickle::Config.new}
     subject { config }
 
-    describe "user, :is => 'name'" do
-      before { config.label_attribute_for('user', :is => 'name') }
-      its(:label_attributes) {should include('user' => 'name')}
+    describe "'user', :to => 'name'" do
+      before { config.map_label_for('user', :to => 'name') }
+      its(:label_map) {should include('user' => 'name')}
     end
 
-    describe "user, admin, supplier, :is => 'name'" do
-      before { config.label_attribute_for 'user','admin','supplier', :is => 'name' }
-      its(:label_attributes) {should include('user' => 'name')}
-      its(:label_attributes) {should include('admin' => 'name')}
-      its(:label_attributes) {should include('supplier' => 'name')}            
+    describe "'user', 'admin', 'supplier', :to => 'name'" do
+      before { config.map_label_for 'user','admin','supplier', :to => 'name' }
+      its(:label_map) {should include('user' => 'name')}
+      its(:label_map) {should include('admin' => 'name')}
+      its(:label_map) {should include('supplier' => 'name')}            
     end
   end
 

@@ -95,16 +95,16 @@ module Pickle
       @aliases ||= {}
     end
     
-    #  config.label_attribute 'user', :is => 'name'
+    # config.map_label_for 'user', :to => 'name'
     # this uses the pickle ref label to set an attribute on create
-    def label_attribute_for(*args)
+    def map_label_for(*args)
       options = args.extract_options!
-      raise ArgumentError, "Usage: label_attribute_for 'factory1' [, 'factory2', ...], :with => 'attribute_name'" unless args.any? && options[:is].is_a?(String)
-      args.each {|factory| self.label_attributes[factory] = options[:is]}
+      raise ArgumentError, "Usage: map_label_for 'factory1' [, 'factory2', ...], :to => 'attribute_name'" unless args.any? && options[:to].is_a?(String)
+      args.each {|factory| self.label_map[factory] = options[:to]}
     end
 
-    def label_attributes
-      @labels ||= {}
+    def label_map
+      @label_map ||= {}
     end
     
     class Mapping < Struct.new(:search, :replacement)
