@@ -17,42 +17,44 @@ module Pickle
 
       # convert a pickle fields string, or hash, into a hash that is suitable for adapters
       def attributes(fields)   
-        if fields.blank?
-          {}
-        elsif fields.is_a?(Hash)
-          fields.each do |key, value|
-            begin
-              fields[key] = retrieve(value)
-            rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
-            end
-          end
-        elsif fields.is_a?(String)
-          attrs = {}
-          fields.scan(match_field) do |field|
-            key, value = field.split(':', 2)
-            value.strip!
-
-            model = begin
-              retrieve(value)
-            rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
-            end
-
-            if model
-              value = model
-            else
-              value = case value
-              when /^"(.*)"$/ then $1
-              when /^'(.*)'$/ then $1
-              when /^(#{match_value})$/ then eval($1)
-              else 
-                raise UnknownFieldsFormatError, "#{field.inspect} is in an unknown format"
-              end
-            end
-            
-            attrs[key] = value
-          end
-          attrs
+        if fields.is_a?(Hash)
+          convert_hash_attributes(fields)
+        else 
+          convert_string_attributes(fields.to_s)
         end 
+      end
+
+      private
+      def convert_hash_attributes(fields)
+        fields.each do |key, value|
+          begin
+            fields[key] = retrieve(value)
+          rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+          end
+        end
+      end
+
+      def convert_string_attributes(fields)
+        attrs = {}
+        fields.scan(match_field) do |field|
+          key, value = field.split(':', 2)
+          value.strip!
+
+          model = begin
+            value = retrieve(value)
+          rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+            value = case value
+            when /^"(.*)"$/ then $1
+            when /^'(.*)'$/ then $1
+            when /^(#{match_value})$/ then eval($1)
+            else 
+              raise UnknownFieldsFormatError, "#{field.inspect} is in an unknown format"
+            end              
+          end
+
+          attrs[key] = value
+        end
+        attrs
       end
     end
   end
