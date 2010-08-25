@@ -85,5 +85,6 @@ describe Pickle::Session::Conversion do
         attributes(%q(user: "Fred")).should == {'user' => fred}
       end
     end
+    it %Q{when trying to specify the string "Fred" for a string attribute a model named fred is inserted instead, what to do??}
   end
 end
