@@ -1,310 +1,171 @@
 require 'spec_helper'
 
-describe Pickle::Session::Api, "object" do
+describe 'Session API' do
   subject do
     Object.new.tap do |obj|
       obj.extend Pickle::Session::Api
       obj.stub!(:config).and_return Pickle::Config.new
-      obj.stub!(:jar).and_return mock
+      obj.stub!(:jar).and_return Pickle::Jar.new
     end
   end
 
   let(:model) {mock('model')}
-  let(:raw_pickle_ref) {mock('raw_pickle_ref')}
-  let(:raw_pickle_fields) {mock('raw_pickle_fields')}
-  let(:factory) {mock('factory')}
-  let(:label) {mock('label')}
-  let(:converted_pickle_ref) {mock(:factory => factory, :label => label)}
-  let(:converted_pickle_fields) {mock('converted_pickle_fields')}
-
-  specify "needs a #config (Pickle::Config)" do
-    subject.config.should_not be_nil
-  end
-
-  specify "needs a #jar (Pickle::Jar)" do
-    subject.jar.should_not be_nil
-  end
-
-  describe "#store" do
-    let(:expect_jar_to_receive_model_with_converted_pickle_ref) do
-      subject.jar.should_receive(:store).with(model, converted_pickle_ref)      
-      subject.should_receive(:ref).with(raw_pickle_ref).and_return converted_pickle_ref        
+  
+  describe "[stub assumptions]" do
+    specify "has a #config (Pickle::Config)" do
+      subject.config.should be_a Pickle::Config
     end
 
-    describe "(model)" do
-      it "should use the model's class name to create the converted pickle_ref, and store in the jar" do
-        expect_jar_to_receive_model_with_converted_pickle_ref
-        model.class.should_receive(:name).and_return raw_pickle_ref
-        subject.store model
-      end
-    end
-
-    describe "(model, raw_pickle_ref)" do
-      it "should store the model in the jar converting the raw_pickle_ref" do
-        expect_jar_to_receive_model_with_converted_pickle_ref
-        subject.store model, raw_pickle_ref
-      end
+    specify "has a #jar (Pickle::Jar)" do
+      subject.jar.should be_a Pickle::Jar
     end
   end
 
-  describe "#retrieve" do
-    describe "(raw_pickle_ref)" do
-      it "should retrieve from the jar using the converted pickle_ref" do
-        subject.jar.should_receive(:retrieve).with(converted_pickle_ref)
-        subject.should_receive(:ref).with(raw_pickle_ref).and_return converted_pickle_ref
-        subject.retrieve raw_pickle_ref
+  describe "(storing)" do
+    specify "#store(model) stores the model using a pickle ref corresponding to the model's class name" do
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new(model.class.name))
+      subject.store model
+    end
+  
+    specify "#store(model, 'user') stores the model using a pickle ref corresponding to 'user'" do
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user'))
+      subject.store model, 'user'
+    end
+    
+    specify "#store(model, '1st user') raises InvalidPickleRefError (because you can't store specifying an index)" do
+      lambda { subject.store model, '1st user' }.should raise_error Pickle::InvalidPickleRefError
+    end
+  end
+  
+  describe "(retrieving)" do
+    describe " #retrieve('the user')" do
+      specify "when something exists in the jar corresponding to the pickle ref, should return the object" do
+        subject.jar.should_receive(:retrieve).with(Pickle::Ref.new('the user')).and_return(model)
+        subject.retrieve('the user').should == model
       end
-
-      describe "when jar.retrieve raises Pickle::UnknownModelError" do
-        before(:each) do
-          subject.jar.stub!(:retrieve).and_raise(Pickle::UnknownModelError)
-        end
-
-        it "should raise Pickle::UnknownModelError with useful feedback" do
-          subject.should_receive(:ref).with(raw_pickle_ref).and_return converted_pickle_ref
-          lambda {subject.retrieve raw_pickle_ref}.should raise_error(Pickle::UnknownModelError, /is not known in this session/)
-        end
+    
+      specify "when the jar raises UnknownModelError, should reraise with info" do
+        lambda {subject.retrieve 'the user'}.should raise_error(Pickle::UnknownModelError, /is not known in this session/)
       end
+    end
+  
+    shared_examples_for 'retrieve_and_reload' do
+      specify "should retrieve 'the user', reload and return it" do
+        subject.should_receive(:retrieve).with('the user').and_return(model)
+        subject.should_receive(:reload).with(model).and_return(model)
+        subject.send(the_method, 'the user').should == model
+      end
+    end
+  
+    describe " #retrieve_and_reload('the user')" do
+      let(:the_method) { :retrieve_and_reload }
+      it_should_behave_like 'retrieve_and_reload'
+    end
+  
+    describe " #model('the user')" do
+      let(:the_method) { :model }
+      it_should_behave_like 'retrieve_and_reload'
+    end
+  
+    specify "#known?('the user') returns whether the session includes an object correpsonding to the pickle ref" do
+      subject.jar.should_receive(:include?).with(Pickle::Ref.new('the user')).and_return(whether_jar_includes_it = mock)
+      subject.known?('the user').should == whether_jar_includes_it
     end
   end
 
-  shared_examples_for "retrieve_and_reload" do
-    it "should call retrieve and reload its return value" do
-      subject.should_receive(:retrieve).with(raw_pickle_ref).and_return model
-      subject.should_receive(:reload).with(model).and_return model
-      do_retrieve_and_reload.should == model
+  describe "(making)" do
+    specify "#make_and_store('the user') makes a model using the pickle_ref, stores it in the jar, and returns it" do
+      subject.should_receive(:make).with(Pickle::Ref.new('user'), {}).and_return(model)
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user')).and_return(result = mock)
+      subject.make_and_store('the user').should == result
     end
-  end  
-
-  describe "#model" do
-    let(:do_retrieve_and_reload) {subject.model(raw_pickle_ref)}
-    it_should_behave_like "retrieve_and_reload"
-  end
-
-  describe "#retrieve_and_reload" do
-    let(:do_retrieve_and_reload) {subject.retrieve_and_reload(raw_pickle_ref)}
-    it_should_behave_like "retrieve_and_reload"
-  end
-
-  describe "#known?(pickle_ref)" do
-    it "should convert the pickle_ref and ask the jar whether it includes one" do
-      subject.should_receive(:ref).with(raw_pickle_ref).and_return(converted_pickle_ref)
-      subject.jar.should_receive(:include?).with(converted_pickle_ref)
-      subject.known? raw_pickle_ref
+   
+    specify "#make_and_store('the user: \"fred\"', 'age: 23') makes a model using the pickle_ref, and fields converted to attributes, and store it in the jar" do
+      subject.should_receive(:make).with(Pickle::Ref.new('user "fred"'), 'age' => 23).and_return(model)
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user "fred"'))
+      subject.make_and_store 'the user: "fred"', 'age: 23'
     end
-  end
-
-  describe "#make_and_store" do
-    before(:each) do
-      subject.stub!(:ref).and_return converted_pickle_ref
-      subject.stub!(:attributes).and_return converted_pickle_fields
-      converted_pickle_ref.stub!(:index).and_return false
-      subject.stub!(:make).and_return model
-      subject.jar.stub!(:store)
+  
+    specify "#make_and_store('1st user') raises InvalidPickleRefError (because you can't store specifying an index)" do
+      subject.stub!('make')
+      lambda { subject.make_and_store '1st user' }.should raise_error Pickle::InvalidPickleRefError
     end
-
-    describe "(pickle_ref with index)" do
-      before { converted_pickle_ref.stub!(:index).and_return true }
-
-      it "raises a helpful error" do
-        lambda {subject.make_and_store(raw_pickle_ref)}.should raise_error(Pickle::InvalidPickleRefError, /must not contain an index/)
-      end
-    end
-
-    describe "(raw pickle_ref" do
-      it ") converts the pickle ref" do
-        subject.should_receive(:ref).with(raw_pickle_ref)
-        subject.make_and_store raw_pickle_ref
-      end
-
-      shared_examples_for "stores the made object" do
-        it "should store the made object using the converted pickle_ref"  do
-          subject.jar.should_receive(:store).with model, converted_pickle_ref
-          subject.make_and_store raw_pickle_ref
+    
+    describe '(when config has label mapping to "name" for "user") ' do
+      before { subject.config.map_label_for 'user', :to => 'name' }
+    
+      describe "Cases where label is used for name:" do
+        [ 
+          %Q{make_and_store('user "fred"')},
+          %Q{make_and_store('user "fred"', 'age: 23')},
+          %Q{make_and_store('user "fred"', :age => 23)},
+          %Q{make_and_store(:factory => 'user', :label => "fred")},
+          %Q{make_and_store({:factory => 'user', :label => "fred"}, 'age: 23')},
+          %Q{make_and_store({:factory => 'user', :label => "fred"}, :age => 23)}       
+        ].each do |example|
+          it '#' + example do
+            subject.should_receive(:make).with(anything, hash_including('name' => 'fred'))
+            subject.instance_eval example
+          end
         end
       end
-
-      describe ") (ie. without fields 2nd arg)" do
-        it "should call #make with the pickle_ref and no fields" do
-          subject.should_receive(:attributes).with(nil).and_return nil
-          subject.should_receive(:make).with(converted_pickle_ref, nil).and_return model
-          subject.make_and_store raw_pickle_ref
+    
+      describe "Cases where label is ignored:" do
+        [ 
+          %Q{make_and_store('user "fred"', 'name: "george"')},
+          %Q{make_and_store('user "fred"', :name => "george")},
+          %Q{make_and_store('product "fred"')},
+          %Q{make_and_store('user')}
+        ].each do |example|
+          it '#' + example do
+            subject.should_receive(:make).with(anything, hash_not_including('name' => 'fred'))
+            subject.instance_eval example
+          end
         end
-
-        it_should_behave_like "stores the made object"
-      end
-
-      describe ", fields)" do
-        it "should call #make with the converted fields" do
-          subject.should_receive(:make).with(converted_pickle_ref, converted_pickle_fields).and_return model
-          subject.make_and_store raw_pickle_ref, raw_pickle_fields
-        end
-
-        it_should_behave_like "stores the made object"
-      end
-    end
-  end
-
-  describe "#find_and_store" do
-    before(:each) do
-      subject.stub!(:ref).and_return converted_pickle_ref
-      subject.stub!(:attributes).and_return converted_pickle_fields
-      converted_pickle_ref.stub!(:index).and_return pickle_ref_has_index
-      subject.stub!(:find_first).and_return model
-      subject.jar.stub!(:store)
-    end
-
-    describe "(pickle_ref with index)" do
-      let(:pickle_ref_has_index) {true}
-
-      it "raises a helpful error" do
-        lambda {subject.find_and_store(raw_pickle_ref)}.should raise_error(Pickle::InvalidPickleRefError, /must not contain an index/)
-      end
-    end
-
-    describe "(raw pickle_ref" do
-      let(:pickle_ref_has_index) {false}
-      it "converts the pickle ref" do
-        subject.should_receive(:ref).with(raw_pickle_ref)
-        subject.find_and_store raw_pickle_ref
-      end
-
-      shared_examples_for "stores the found object" do
-        it "should store the made object using the converted pickle_ref"  do
-          subject.jar.should_receive(:store).with model, converted_pickle_ref
-          subject.find_and_store raw_pickle_ref
-        end
-      end
-
-      describe ") (i.e. without fields 2nd arg)" do
-        it "should call #find_first with the pickle_ref and no fields" do
-          subject.should_receive(:attributes).with(nil).and_return nil
-          subject.should_receive(:find_first).with(converted_pickle_ref, nil).and_return model        
-          subject.find_and_store raw_pickle_ref
-        end
-
-        it_should_behave_like "stores the found object"
-      end
-
-      describe ", fields)" do
-        it "should call #find_first with the converted fields" do
-          subject.should_receive(:find_first).with(converted_pickle_ref, converted_pickle_fields).and_return model
-          subject.find_and_store raw_pickle_ref, raw_pickle_fields
-        end
-
-        it_should_behave_like "stores the found object"
-      end
-    end
-  end
-
-  describe "#find_all_and_store" do
-    let(:another_model) {mock}
-    let(:plural_string) {mock}
-    before(:each) do
-      plural_string.stub!(:singularize).and_return raw_pickle_ref
-      subject.stub!(:ref).and_return converted_pickle_ref
-      subject.stub!(:attributes).and_return converted_pickle_fields
-      subject.stub!(:find_all).and_return [model, another_model]
-      subject.jar.stub!(:store)
-    end
-
-    describe "(plural string" do
-      let(:pickle_ref_has_index) {false}
-      it ") converts the plural string to a singular pickle ref" do
-        plural_string.should_receive(:singularize).and_return raw_pickle_ref
-        subject.should_receive(:ref).with(raw_pickle_ref)
-        subject.find_all_and_store plural_string
-      end
-
-      shared_examples_for "stores all of the found objects" do
-        it "should store all found objects using the converted plural string"  do
-          subject.jar.should_receive(:store).with model, converted_pickle_ref
-          subject.jar.should_receive(:store).with another_model, converted_pickle_ref        
-          subject.find_all_and_store plural_string
-        end      
-      end
-
-      describe ") (i.e. without fields 2nd arg)" do
-        it "should call #find_all with the pickle_ref and no fields" do
-          subject.should_receive(:attributes).with(nil).and_return nil
-          subject.should_receive(:find_all).with(converted_pickle_ref, nil)
-          subject.find_all_and_store plural_string
-        end
-
-        it_should_behave_like "stores all of the found objects"
-      end
-
-      describe ", fields)" do
-        it "should call #find_first with the converted fields" do
-          subject.should_receive(:find_all).with(converted_pickle_ref, converted_pickle_fields)
-          subject.find_all_and_store plural_string, raw_pickle_fields
-        end
-
-        it_should_behave_like "stores all of the found objects"
       end
     end
   end
   
-  describe "(when config.map_label_for 'user', :to => 'name')" do
-    before { subject.config.map_label_for 'user', :to => 'name' }
+  describe "(finding first)" do
+    specify "#find_and_store('the user') finds the first user model, stores it with the 'user' pickle_ref, and returns it" do
+      subject.should_receive(:find_first).with(Pickle::Ref.new('user'), {}).and_return(model)
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user')).and_return(result = mock)
+      subject.find_and_store('the user').should == result
+    end
     
-    describe "[stubbing storage and retrieval]" do
-      before { subject.jar.stub!(:store) }
-      before { subject.stub(:retrieve).and_raise(Pickle::UnknownModelError) }
-      
-      describe %Q{#make_and_store('user "fred"')} do
-        let(:do_make_and_store) { subject.make_and_store 'user "fred"' }
-      
-        it %Q{should make the model with #make(pickle_ref, {'name' => "fred"})} do
-          subject.should_receive(:make).with(anything, {'name' => "fred"}).and_return(model)
-          do_make_and_store
-        end
-      end
+    specify "#find_and_store('the user', 'age: 23') finds the first user model with the given conditions, and store it with the 'user' pickle_ref" do
+      subject.should_receive(:find_first).with(Pickle::Ref.new('user'), {'age' => 23}).and_return(model)
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user'))
+      subject.find_and_store 'the user', 'age: 23'
+    end
     
-      describe %Q{#make_and_store('user "fred"', 'name: 'george'')} do
-        let(:do_make_and_store) { subject.make_and_store 'user "fred"', "name: 'george'" }
-      
-        it %Q{should make the model with #make(pickle_ref, {'name' => "george"})} do
-          subject.should_receive(:make).with(anything, {'name' => "george"}).and_return(model)
-          do_make_and_store
-        end
-      end
-      
-      describe %Q{#make_and_store('user "fred"', :name => 'george')} do
-        let(:do_make_and_store) { subject.make_and_store 'user "fred"', :name => 'george' }
-      
-        it %Q{should make the model with #make(pickle_ref, {'name' => "george"})} do
-          subject.should_receive(:make).with(anything, {'name' => "george"}).and_return(model)
-          do_make_and_store
-        end
-      end
-      
-      describe %Q{#make_and_store('user "fred"', 'age: 23')} do
-        let(:do_make_and_store) { subject.make_and_store 'user "fred"', "age: 23" }
-      
-        it %Q{should make the model with #make(pickle_ref, {'name' => "fred", 'age' => 23})} do
-          subject.should_receive(:make).with(anything, {'name' => "fred", 'age' => 23}).and_return(model)
-          do_make_and_store
-        end
-      end
-      
-      describe %Q{#make_and_store('user "fred"', :age => 23)} do
-        let(:do_make_and_store) { subject.make_and_store 'user "fred"', :age => 23 }
-      
-        it %Q{should make the model with #make(pickle_ref, {'name' => "fred", 'age' => 23})} do
-          subject.should_receive(:make).with(anything, {'name' => "fred", 'age' => 23}).and_return(model)
-          do_make_and_store
-        end
-      end
-      
-      describe %Q{#make_and_store('product "fred"')} do
-        let(:do_make_and_store) { subject.make_and_store 'product "fred"' }
+    specify "#find_and_store('1st user') raises InvalidPickleRefError (because you can't store specifying an index)" do
+      subject.stub(:find_first)
+      lambda { subject.find_and_store '1st user' }.should raise_error Pickle::InvalidPickleRefError
+    end
+  end
+  
+  describe "(finding all)" do
+    let(:another_model) { mock }
     
-        it %Q{should make the model with #make(pickle_ref, {})} do
-          subject.should_receive(:make).with(anything, {}).and_return(model)
-          do_make_and_store
-        end
-      end
+    before do
+      subject.jar.should_receive(:store).with(model, Pickle::Ref.new('user')).once.ordered
+      subject.jar.should_receive(:store).with(another_model, Pickle::Ref.new('user')).once.ordered
+    end
+    
+    specify "#find_all_and_store('users') finds all users, and stores them with pickle ref corresponding to 'user'" do
+      subject.should_receive(:find_all).with(Pickle::Ref.new('user'), {}).and_return([model, another_model])
+      subject.find_all_and_store 'users'
+    end
+    
+    specify "#find_all_and_store('users') returns the found users" do
+      subject.should_receive(:find_all).with(Pickle::Ref.new('user'), {}).and_return([model, another_model])
+      subject.find_all_and_store('users').should == [model, another_model]
+    end
+    
+    specify "#find_all_and_store('users', 'age: 23') finds all users with the given conditions, and stores them with pickle ref corresponding to 'user'" do
+      subject.should_receive(:find_all).with(Pickle::Ref.new('user'), {'age' => 23}).and_return([model, another_model])
+      subject.find_all_and_store('users', 'age: 23')
     end
   end
 end

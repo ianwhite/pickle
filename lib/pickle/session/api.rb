@@ -34,7 +34,6 @@ module Pickle
       # makes a model using the ref and fields, and stores it
       def make_and_store(pickle_ref, fields = nil)
         pickle_ref, attributes = ref(pickle_ref), attributes(fields)
-        raise InvalidPickleRefError, "#{pickle_ref.inspect} must not contain an index for #make_and_store" if pickle_ref.index
         apply_label_attribute!(pickle_ref, attributes)
         jar.store make(pickle_ref, attributes), pickle_ref
       end
@@ -42,7 +41,6 @@ module Pickle
       # finds a model using the ref and fields, and stores it
       def find_and_store(pickle_ref, fields = nil)
         pickle_ref, attributes = ref(pickle_ref), attributes(fields)
-        raise InvalidPickleRefError, "#{pickle_ref.inspect} must not contain an index for #make_and_store" if pickle_ref.index
         jar.store find_first(pickle_ref, attributes), pickle_ref
       end
     
