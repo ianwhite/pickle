@@ -6,7 +6,6 @@ describe Pickle::Config do
   describe "new" do
     its(:adapters) { should == [:machinist, :factory_girl, :orm] }
     its(:adapter_classes) { should == [Pickle::Adapter::Machinist, Pickle::Adapter::FactoryGirl, Pickle::Adapter::Orm] }
-    its(:adapter_map) { should be_empty }
     its(:predicates) { should be_empty }
     its(:mappings) { should be_empty }
     its(:factories) { should be_empty }
