@@ -4,7 +4,7 @@ module Pickle
       def self.adapters
         adapters = []
         Pickle::OrmAdapter.model_classes.each do |model_class|
-          if blueprints = klass.instance_variable_get('@blueprints')
+          if blueprints = model_class.instance_variable_get('@blueprints')
             blueprints.keys.each {|blueprint| adapter << new(model_class, blueprint)}
           end
         end
