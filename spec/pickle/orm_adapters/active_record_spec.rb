@@ -15,7 +15,7 @@ if defined?(ActiveRecord::Base)
   # setup an activerecord db, and classes, specs are below
   #
   
-  database = File.join(File.dirname(__FILE__), '../../tmp/active_record.sqlite')
+  database = File.join(File.dirname(__FILE__), '../../../tmp/active_record.sqlite')
   `mkdir -p #{File.dirname(database)}`
   ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => database)
 
@@ -54,7 +54,7 @@ if defined?(ActiveRecord::Base)
     
     subject { ActiveRecord::Base::PickleOrmAdapter }
     
-    specify ".except_classes should return the names of session store classes" do
+    specify ".except_classes should return the names of active record session store classes" do
       subject.except_classes.should == ["CGI::Session::ActiveRecordStore::Session", "ActiveRecord::SessionStore::Session"]
     end
 

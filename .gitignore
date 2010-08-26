@@ -5,3 +5,4 @@ pickle-email*
 cucumber_test_app
 .bundle
 .rvmrc
+tmp/*
