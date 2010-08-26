@@ -54,15 +54,15 @@ if defined?(ActiveRecord::Base)
     
     subject { ActiveRecord::Base::PickleOrmAdapter }
     
-    specify ".except_classes should return the names of active record session store classes" do
+    specify "except_classes should return the names of active record session store classes" do
       subject.except_classes.should == ["CGI::Session::ActiveRecordStore::Session", "ActiveRecord::SessionStore::Session"]
     end
 
-    specify ".model_classes should return all of the non abstract model classes (that are not in except_classes)" do
+    specify "model_classes should return all of the non abstract model classes (that are not in except_classes)" do
       subject.model_classes.should == [User, Site, Note]
     end
     
-    describe ".get_model(klass, id)" do
+    describe "get_model(klass, id)" do
       specify "should return the instance of klass with id if it exists" do
         user = User.create!
         subject.get_model(User, user.id).should == user
@@ -73,7 +73,7 @@ if defined?(ActiveRecord::Base)
       end
     end
     
-    describe ".find_first_model(klass, conditions)" do
+    describe "find_first_model(klass, conditions)" do
       specify "should return first model matching conditions, if it exists" do
         user = User.create! :name => "Fred"
         subject.find_first_model(User, :name => "Fred").should == user
@@ -91,12 +91,12 @@ if defined?(ActiveRecord::Base)
 
       specify "should handle belongs_to :polymorphic objects in attributes hash" do
         site = Site.create!
-        note = Note.create! :owner => site, :body => "Fred's note"
-        subject.find_first_model(Note, :owner => site).should = note
+        note = Note.create! :owner => site
+        subject.find_first_model(Note, :owner => site).should == note
       end
     end
     
-    describe ".find_all_models(klass, conditions)" do
+    describe "find_all_models(klass, conditions)" do
       specify "should return all models matching conditions" do
         user1 = User.create! :name => "Fred"
         user2 = User.create! :name => "Fred"
@@ -105,23 +105,23 @@ if defined?(ActiveRecord::Base)
       end
 
       specify "should return empty array if no conditions match" do
-        subject.find_first_model(User, :name => "Betty").should == []
+        subject.find_all_models(User, :name => "Betty").should == []
       end
       
       specify "should handle belongs_to objects in conditions hash" do
         site1, site2 = Site.create!, Site.create!
         user1, user2 = site1.users.create!, site2.users.create!
-        subject.find_first_model(User, :site => site1).should == [user1]
+        subject.find_all_models(User, :site => site1).should == [user1]
       end
       
       specify "should handle polymorphic belongs_to objects in conditions hash" do
         site1, site2 = Site.create!, Site.create!
         note1, note2 = site1.notes.create!, site2.notes.create!
-        subject.find_first_model(Note, :owner => site1).should == [note1]
+        subject.find_all_models(Note, :owner => site1).should == [note1]
       end
     end
 
-    describe ".create_model(klass, attributes)" do
+    describe "create_model(klass, attributes)" do
       it "should create a model using the given attributes" do
         subject.create_model(User, :name => "Fred").tap do |user|
           user.should be_a(User)
