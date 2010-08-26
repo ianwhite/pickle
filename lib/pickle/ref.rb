@@ -32,6 +32,10 @@ module Pickle
       "#<Pickle::Ref '#{to_s}'>"
     end
     
+    def ==(other)
+      [factory, index, label] == [other.factory, other.index, other.label]
+    end
+    
   protected
     def validate!
       raise InvalidPickleRefError, "#{inspect} requires a factory or label" if factory.blank? && label.blank?

@@ -13,6 +13,30 @@ describe Pickle::Ref do
     end
   end
   
+  describe "equality: two pickle refs are equal when their index, factory, label are equal.  ie:" do
+    [
+      ['the user: "fred"', {:label => "fred", :factory => 'user'}],
+      ['user', 'another user'], 
+      ['the 2nd user', {:index => 1, :factory => 'user'}]
+    ].each do |pair|
+      describe Pickle::Ref.new(pair.first).inspect do
+        subject { Pickle::Ref.new(pair.first) }
+        it { should == Pickle::Ref.new(pair.last) }
+      end
+    end
+    
+    [
+      ['the user: "geoff"', {:label => "fred", :factory => 'user'}],
+      ['user', '1st user'], 
+      ['the 2nd user', {:index => 1, :factory => 'project'}]
+    ].each do |pair|
+      describe Pickle::Ref.new(pair.first).inspect do
+        subject { Pickle::Ref.new(pair.first) }
+        it { should_not == Pickle::Ref.new(pair.last) }
+      end
+    end
+  end
+  
   describe "(factory) " do
     shared_examples_for 'pickle ref with :factory => "colour"' do
       its(:index) { should be_nil }
