@@ -137,7 +137,8 @@ if defined?(ActiveRecord::Base)
       
         it "should handle belongs_to objects in attributes hash" do
           site = Site.create!
-          subject.create_model(User, :site => site).tap do |user|
+          subject.create_model(User, :site => site)
+          User.last.tap do |user|
             user.should be_a(User)
             user.site.should == site
             user.should_not be_new_record
@@ -146,7 +147,8 @@ if defined?(ActiveRecord::Base)
       
         it "should handle polymorphic belongs_to objects in attributes hash" do
           site = Site.create!
-          subject.create_model(Note, :owner => site).tap do |note|
+          subject.create_model(Note, :owner => site)
+          Note.last.tap do |note|
             note.should be_a(Note)
             note.owner.should == site
             note.should_not be_new_record
@@ -155,7 +157,8 @@ if defined?(ActiveRecord::Base)
       
         it "should handle has_many objects in attributes hash" do
           users = [User.create!, User.create!]
-          subject.create_model(Site, :users => users).tap do |site|
+          subject.create_model(Site, :users => users)
+          Site.last.tap do |site|
             site.should be_a(Site)
             site.users.should == users
             site.should_not be_new_record
