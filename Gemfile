@@ -21,6 +21,7 @@ group :test do
   gem "actionmailer", "~>2.3.8"
   gem "activerecord", "~>2.3.8"
   gem "datamapper"
+  gem "dm-sqlite-adapter"
   gem "mongoid"
   gem "bson_ext"
 end

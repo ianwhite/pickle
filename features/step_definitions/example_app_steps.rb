@@ -4,8 +4,7 @@ Given /I create an (example \w[\w ]+ app)$/ do |app|
   steps %Q{
     Given I create an empty #{app}
     Given I create a database setup for the #{app}
-    Given I create an #{app} user model     
-    Given I create an #{app} note model
+    Given I create the #{app} models
   }
 end
 
@@ -35,8 +34,7 @@ Given /I create the "app.rb" file/ do
     require 'rubygems'
     $:.unshift 'lib'
     require 'db'
-    require 'user'
-    require 'note'
+    require 'models'
   FILE
 end
 
@@ -61,6 +59,6 @@ end
 Then /^(.*) \(code\):$/ do |intention, code|
   @test += "\n" + code
   create_file 'test.rb', @test
-  announce "\n#{intention} (code):\n#{code}\n"
+  announce "\n# #{intention}\n#{code}\n"
   run("ruby test.rb")
 end

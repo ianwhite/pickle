@@ -7,11 +7,11 @@ Given "I am using factory_girl for generating test data" do
     require 'factory_girl'
     
     Factory.define :user do |u|
-      u.name { "made by factory_girl" }
+      u.name "made by factory_girl"
     end
 
     Factory.define :note do |n|
-      n.body { "made by factory_girl" }
+      n.body "made by factory_girl"
     end
   FILE
 end
@@ -25,11 +25,11 @@ Given "I am using machinist for generating test data" do
     end
 
     User.blueprint do
-      name { "made by machinist" }
+      name "made by machinist"
     end
 
     Note.blueprint do
-      body { "made by machinist" }
+      body "made by machinist"
     end
   FILE
 end

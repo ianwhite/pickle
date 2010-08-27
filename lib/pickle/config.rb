@@ -49,7 +49,7 @@ module Pickle
           adapter
         else
           require "pickle/adapters/#{adapter}"
-          "pickle/adapter/#{adapter}".classify.constantize
+          "Pickle::Adapter::#{adapter.to_s.classify}".constantize
         end
       end
     end

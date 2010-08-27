@@ -20,24 +20,25 @@ Given "I create a database setup for the example active_record app" do
   FILE
 end
 
-Given "I create an example active_record app user model" do
+Given "I create the example active_record app models" do
   create_file "lib/user.rb", <<-FILE
     class User < ActiveRecord::Base
       has_many :notes, :as => :owner
-      
-      after_create :create_welcome_note
       
       def create_welcome_note
         notes.create! :body => "Welcome \#{name}!"
       end
     end
   FILE
-end
-
-Given "I create an example active_record app note model" do
+  
   create_file "lib/note.rb", <<-FILE
     class Note < ActiveRecord::Base
       belongs_to :owner, :polymorphic => true
     end
+  FILE
+  
+  create_file "lib/models.rb", <<-FILE
+    require 'user'
+    require 'note'
   FILE
 end
