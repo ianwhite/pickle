@@ -7,8 +7,8 @@ module Pickle
         Pickle::OrmAdapter.model_classes.map{|k| new(k)}
       end
 
-      def initialize(klass)
-        @klass, @name = klass, klass.name.underscore.gsub('/','_')
+      def initialize(model_class)
+        @model_class, @name = model_class, model_class.name.underscore.gsub('/','_')
       end
 
       def make(attrs = {})

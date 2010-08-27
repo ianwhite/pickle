@@ -9,6 +9,21 @@ module Pickle
   # @see pickle/orm_adapters/datamapper
   # @see pickle/orm_adapters/mongoid
   module OrmAdapter
+    # included in Pickle::Adapter
+    module AdapterMethods
+      def find_first(conditions = {})
+        model_class.const_get(:PickleOrmAdapter).find_first_model(model_class, conditions)
+      end
+
+      def find_all(conditions = {})
+        model_class.const_get(:PickleOrmAdapter).find_all_models(model_class, conditions)
+      end
+
+      def get(id)
+        model_class.const_get(:PickleOrmAdapter).get_model(model_class, id)
+      end
+    end
+    
     class << self
       def included(adapter)
         adapter.extend Contract
@@ -57,21 +72,6 @@ module Pickle
     class NotSupportedError < RuntimeError
       def to_s
         "method not supported by this orm adapter"
-      end
-    end
-    
-    # included in Pickle::Adapter
-    module AdapterMethods
-      def find_first(conditions = {})
-        model_class.const_get(:PickleOrmAdapter).find_first_model(model_class, conditions)
-      end
-
-      def find_all(conditions = {})
-        model_class.const_get(:PickleOrmAdapter).find_all_models(model_class, conditions)
-      end
-
-      def get(id)
-        model_class.const_get(:PickleOrmAdapter).get_model(model_class, id)
       end
     end
   end

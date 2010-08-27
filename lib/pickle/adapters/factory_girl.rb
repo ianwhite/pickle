@@ -11,7 +11,7 @@ module Pickle
       end
 
       def make(attrs = {})
-        Factory(@model_class, attrs)
+        Factory(@name, attrs)
       end
     end
   end
