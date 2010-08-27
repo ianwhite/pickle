@@ -1,19 +1,11 @@
 require 'spec_helper'
 
-begin
-  require 'activerecord'
-rescue LoadError
-  require 'active_record'
-rescue LoadError
+if !defined?(ActiveRecord::Base)
   puts "** install activerecord to run the specs in #{__FILE__}"
-end
-
-if defined?(ActiveRecord::Base)
+else  
   require 'pickle/orm_adapters/active_record'
   
-  #
   # setup an activerecord db, and classes, specs are below
-  #
   
   database = File.join(File.dirname(__FILE__), '../../../tmp/active_record.sqlite')
   `mkdir -p #{File.dirname(database)}`
@@ -27,7 +19,7 @@ if defined?(ActiveRecord::Base)
     end
   end
   
-  # stick the ActiveRecord classes and specs in a namespace to isolate them from the other specs
+  # stick the ActiveRecord classes and specs in a namespace to isolate them
   module ArOrmSpec
     class User < ActiveRecord::Base
       belongs_to :site, :class_name => "ArOrmSpec::Site"
@@ -47,9 +39,7 @@ if defined?(ActiveRecord::Base)
       belongs_to :owner, :polymorphic => true
     end
   
-    #
     # here be the specs!
-    #
     describe ActiveRecord::Base::PickleOrmAdapter do
       before { DatabaseCleaner.clean }
     
