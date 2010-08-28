@@ -8,11 +8,3 @@ Spec::Rake::SpecTask.new(:rcov) do |t|
   t.rcov_dir    = 'doc/coverage'
   t.rcov_opts   = ['--text-report', '--exclude', "gems/,features/,/Library,spec/,rcov.rb"] 
 end
-
-namespace :rcov do
-  desc "Verify RCov threshold"
-  RCov::VerifyTask.new(:verify => :rcov) do |t|
-    t.threshold = 98.12
-    t.index_html = 'doc/coverage/index.html'
-  end
-end
