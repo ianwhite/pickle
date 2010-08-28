@@ -38,8 +38,13 @@ Given /I create the "app.rb" file/ do
   FILE
 end
 
-Given /I am writing a test using the pickle dsl/ do 
-  @test = <<-FILE
+Given /I am writing a test using the pickle dsl, with (\w+) \((\w+)\)/ do |factory, orm|
+  @code = ""
+  
+  # for some reason to do with mongoid & machinist combo, the following line needs to be first
+  @code += "require 'rubygems'; require 'machinist/mongoid'\n" if factory == 'machinist' && orm == 'mongoid'
+
+  @code += <<-FILE
     require 'app'
     require 'factory'
     require 'spec/expectations'
@@ -50,15 +55,13 @@ Given /I am writing a test using the pickle dsl/ do
     include Pickle::Dsl
     include Spec::Matchers
   FILE
-end
-
-Given /notice the code is the same even though the orm is (\w+) and the factory is (\w+)/ do |orm, factory|
-  announce "\n\n**\n** Commence test using orm: #{orm} with factory: #{factory}\n**\n"
+  announce "\n\n**\n** testing using orm: #{orm} with factory: #{factory}\n**\n" if @anncounce_code
 end
 
 Then /^(.*) \(code\):$/ do |intention, code|
-  @test += "\n" + code
-  create_file 'test.rb', @test
-  announce "\n# #{intention}\n#{code}\n"
-  run("ruby test.rb")
+  announce "\n# #{intention}\n#{code}\n" if @anncounce_code
+  $stdout.flush
+  @code += "\n# #{intention}\n#{code}\n"
+  create_file 'code.rb', @code
+  run("ruby code.rb")
 end

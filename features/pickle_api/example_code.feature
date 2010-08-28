@@ -1,11 +1,10 @@
-Feature: Example of the pickle api, testing that it works (in exactly the same way) with different combinations of orm and factory
+Feature: Example of the pickle api, testing that it works with different combinations of orm and factory
 
   Scenario Outline:
     Given I create an example <ORM> app
-    And I am using <FACTORY> for generating test data
-    And I am writing a test using the pickle dsl
-    And notice the code is the same even though the orm is <ORM> and the factory is <FACTORY>
-    
+    And I am using <FACTORY> (<ORM>) for generating test data
+    And I am writing a test using the pickle dsl, with <FACTORY> (<ORM>)
+        
     Then I can make and store a user (code):
       """
       user = pickle.make_and_store 'a user'
@@ -32,7 +31,7 @@ Feature: Example of the pickle api, testing that it works (in exactly the same w
       pickle.model('the user').should == user
       """
       
-    When some other process changes the db (code):
+    When something happens that changes the db (code):
       """
       user.create_welcome_note
       """
@@ -55,13 +54,15 @@ Feature: Example of the pickle api, testing that it works (in exactly the same w
       pickle.model('the note').should == welcome_note
       pickle.model('note "welcome note"').should == welcome_note
       pickle.model('"welcome note"').should == welcome_note
+      pickle.model('1st note').should == welcome_note
       pickle.model(:factory => 'note').should == welcome_note
       pickle.model(:label => 'welcome note').should == welcome_note
+      pickle.model(:factory => 'note', :index => 0).should == welcome_note
       """
     
-    When we create another note manually, we can store it in pickle ourselves (code):
+    When we create another note, we can store it in pickle ourselves (code):
       """
-      another_note = user.notes.create!
+      another_note = user.create_note("another note")
       pickle.store another_note
       """
     
@@ -79,6 +80,6 @@ Feature: Example of the pickle api, testing that it works (in exactly the same w
     | data_mapper   | machinist    |
     | data_mapper   | factory_girl |
     | data_mapper   | orm          |
-#    | mongoid       | orm           |
-#    | mongoid       | factory_girl  |
-#    | mongoid       | machinist     |
+    | mongoid       | machinist    |
+    | mongoid       | factory_girl |
+    | mongoid       | orm          |

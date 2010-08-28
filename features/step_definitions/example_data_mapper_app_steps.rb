@@ -16,7 +16,11 @@ Given "I create the example data_mapper app models" do
       has n, :notes, :child_key => [:owner_id]
       
       def create_welcome_note
-        notes.create! :body => "Welcome \#{name}!"
+        create_note "Welcome \#{name}!"
+      end
+      
+      def create_note(body)
+        notes.create! :body => body
       end
     end
   FILE

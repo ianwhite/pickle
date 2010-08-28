@@ -26,7 +26,11 @@ Given "I create the example active_record app models" do
       has_many :notes, :as => :owner
       
       def create_welcome_note
-        notes.create! :body => "Welcome \#{name}!"
+        create_note("Welcome \#{name}!")
+      end
+
+      def create_note(body)
+        notes.create! :body => body
       end
     end
   FILE

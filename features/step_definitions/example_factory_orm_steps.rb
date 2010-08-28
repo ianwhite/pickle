@@ -1,8 +1,8 @@
-Given "I am using orm for generating test data" do
+Given /^I am using orm \((\w+)\) for generating test data$/ do |orm|
   create_file "lib/factory.rb", '# nothing to do for orm as factory adapter'
 end
 
-Given "I am using factory_girl for generating test data" do
+Given /^I am using factory_girl \((\w+)\) for generating test data$/ do |orm|
   create_file "lib/factory.rb", <<-FILE
     require 'factory_girl'
     
@@ -16,13 +16,9 @@ Given "I am using factory_girl for generating test data" do
   FILE
 end
 
-Given "I am using machinist for generating test data" do
+Given /^I am using machinist \((\w+)\) for generating test data$/ do |orm|
   create_file "lib/factory.rb", <<-FILE
-    if defined?(DataMapper)
-      require 'machinist/data_mapper'
-    else
-      require 'machinist/active_record'
-    end
+    require 'machinist/#{orm}'
 
     User.blueprint do
       name "made by machinist"

@@ -27,17 +27,29 @@ module Mongoid
 
       # Find the first instance matching conditions
       def self.find_first_model(klass, conditions)
-        klass.first(:conditions => conditions)
+        klass.first(:conditions => conditions_to_fields(klass, conditions))
       end
 
       # Find all models matching conditions
       def self.find_all_models(klass, conditions)
-        klass.all(:conditions => conditions)
+        klass.all(:conditions => conditions_to_fields(klass, conditions))
       end
 
       # Create a model with given attributes
       def self.create_model(klass, attributes)
         klass.create!(attributes)
+      end
+  
+  protected
+      # converts and documents to ids
+      def self.conditions_to_fields(klass, conditions)
+        conditions.inject({}) do |fields, (key, value)|
+          if value.is_a?(Mongoid::Document) && klass.fields.keys.include?("#{key}_id")
+            fields.merge("#{key}_id" => value.id)
+          else
+            fields.merge(key => value)
+          end
+        end
       end
     end
   end
