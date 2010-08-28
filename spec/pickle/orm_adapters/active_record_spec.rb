@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 if !defined?(ActiveRecord::Base)
-  puts "** install activerecord to run the specs in #{__FILE__}"
+  puts "** set PICKLE_SPEC_DB=active_record to run the specs in #{__FILE__}"
 else  
   require 'pickle/orm_adapters/active_record'
   
@@ -41,7 +41,11 @@ else
   
     # here be the specs!
     describe ActiveRecord::Base::PickleOrmAdapter do
-      before { DatabaseCleaner.clean }
+      before do
+        User.delete_all
+        Note.delete_all
+        Site.delete_all
+      end
     
       subject { ActiveRecord::Base::PickleOrmAdapter }
     
@@ -101,7 +105,7 @@ else
       
         specify "should handle belongs_to objects in conditions hash" do
           site1, site2 = Site.create!, Site.create!
-          user1, user2 = site1.users.create!, site2.users.create!
+          user1, user2 = User.create!(:site => site1), User.create!(:site => site2)
           subject.find_all_models(User, :site => site1).should == [user1]
         end
       
@@ -114,11 +118,8 @@ else
 
       describe "create_model(klass, attributes)" do
         it "should create a model using the given attributes" do
-          subject.create_model(User, :name => "Fred").tap do |user|
-            user.should be_a(User)
-            user.name.should == "Fred"
-            user.should_not be_new_record
-          end
+          subject.create_model(User, :name => "Fred")
+          User.last.name.should == "Fred"
         end
       
         it "should raise error if the create fails" do
@@ -128,31 +129,19 @@ else
         it "should handle belongs_to objects in attributes hash" do
           site = Site.create!
           subject.create_model(User, :site => site)
-          User.last.tap do |user|
-            user.should be_a(User)
-            user.site.should == site
-            user.should_not be_new_record
-          end
+          User.last.site.should == site
         end
       
         it "should handle polymorphic belongs_to objects in attributes hash" do
           site = Site.create!
           subject.create_model(Note, :owner => site)
-          Note.last.tap do |note|
-            note.should be_a(Note)
-            note.owner.should == site
-            note.should_not be_new_record
-          end
+          Note.last.owner.should == site
         end
       
         it "should handle has_many objects in attributes hash" do
           users = [User.create!, User.create!]
           subject.create_model(Site, :users => users)
-          Site.last.tap do |site|
-            site.should be_a(Site)
-            site.users.should == users
-            site.should_not be_new_record
-          end
+          Site.last.users.should == users
         end
       end
     end

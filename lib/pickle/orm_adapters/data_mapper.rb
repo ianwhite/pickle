@@ -21,7 +21,7 @@ module DataMapper::Resource
 
     # Get an instance by id of the model
     def self.get_model(klass, id)
-      klass.get(id)
+      klass.get!(id)
     end
 
     # Find the first instance matching conditions
