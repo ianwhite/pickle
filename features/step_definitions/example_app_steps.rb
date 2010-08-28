@@ -55,11 +55,11 @@ Given /I am writing a test using the pickle dsl, with (\w+) \((\w+)\)/ do |facto
     include Pickle::Dsl
     include Spec::Matchers
   FILE
-  announce "\n\n**\n** testing using orm: #{orm} with factory: #{factory}\n**\n" if @anncounce_code
+  announce "\n\n**\n** testing using orm: #{orm} with factory: #{factory}\n**\n"
 end
 
 Then /^(.*) \(code\):$/ do |intention, code|
-  announce "\n# #{intention}\n#{code}\n" if @anncounce_code
+  announce "\n# #{intention}\n#{code}\n"
   $stdout.flush
   @code += "\n# #{intention}\n#{code}\n"
   create_file 'code.rb', @code
