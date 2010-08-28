@@ -6,8 +6,10 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_opts  = ["--colour"]
 end
 
+pickle_orm_adapters = [:data_mapper, :active_record, :mongoid]
+
 namespace :spec do
-  [:data_mapper, :active_record, :mongoid].each do |orm|
+  pickle_orm_adapters.each do |orm|
     desc "Run the #{orm} specs"
     task orm do
       sh "export PICKLE_SPEC_DB=#{orm} && spec spec/pickle/orm_adapters/#{orm}_spec.rb"
@@ -16,8 +18,8 @@ namespace :spec do
   
   task :all do
     Rake::Task['spec'].invoke
-    Rake::Task['spec:active_record'].invoke
-    Rake::Task['spec:data_mapper'].invoke
-    Rake::Task['spec:mongoid'].invoke
+    pickle_orm_adapters.each do |orm|
+      Rake::Task["spec:#{orm}"].invoke
+    end
   end
 end

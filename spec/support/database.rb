@@ -1,7 +1,10 @@
-if ENV['PICKLE_SPEC_DB'] == 'data_mapper'
+case ENV['PICKLE_SPEC_DB']
+  
+when 'data_mapper'
   require 'dm-core'
-elsif ENV['PICKLE_SPEC_DB'] == 'mongoid'
+when 'mongoid'
   require 'mongoid'
 else
   require 'active_record'
+
 end
