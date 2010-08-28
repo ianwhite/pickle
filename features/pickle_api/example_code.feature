@@ -5,44 +5,25 @@ Feature: Example of the pickle api, testing that it works with different combina
     And I am using <FACTORY> (<ORM>) for generating test data
     And I am writing a test using the pickle dsl, with <FACTORY> (<ORM>)
         
-    Then I can make and store a user (code):
+    Then I can make and store a user, and the result is a user made by <FACTORY> (code):
       """
       user = pickle.make_and_store 'a user'
-      """
-    
-    And the result is a user made by <FACTORY> (code):
-      """
       user.should be_a User
       user.name.should == "made by <FACTORY>"
       """
       
-    Then the exact user object can be retrieved from the session (code):
+    And I can retrieve (exact object) or retrieve_and_reload (aliased as model) the object using a pickle ref (code):
       """
       pickle.retrieve('the user').object_id.should == user.object_id
-      """
-    
-    And the reloaded user can be retrieved from the db (code):
-      """
       pickle.retrieve_and_reload('the user').should == user
-      """
-    
-    And pickle.model does the same thing as pickle.retrieve_and_reload (code):
-      """
       pickle.model('the user').should == user
       """
       
-    When something happens that changes the db (code):
+    When something happens that changes the db, then pickle can find and store the expected changes (code):
       """
       user.create_welcome_note
-      """
       
-    Then pickle can find and store the expected changes (code):
-      """
       welcome_note = pickle.find_and_store 'note: "welcome note"', 'owner: the user'
-      """
-
-    Then it should be a note, lets use the adapter to find and compare it (code):
-      """
       welcome_note.should be_a Note
       
       # adapter_for will find with the <ORM> orm_adpater in this case
@@ -60,14 +41,11 @@ Feature: Example of the pickle api, testing that it works with different combina
       pickle.model(:factory => 'note', :index => 0).should == welcome_note
       """
     
-    When we create another note, we can store it in pickle ourselves (code):
+    When we create another note, we can store it in pickle ourselves, then retrieve in the order they were mentioned, just like a conversation (code):
       """
       another_note = user.create_note("another note")
       pickle.store another_note
-      """
-    
-    Then we can get the notes back in the order they were mentioned, just like a conversation (code):
-      """
+
       pickle.model('the 1st note').should == welcome_note
       pickle.model('the 2nd note').should == another_note
       """

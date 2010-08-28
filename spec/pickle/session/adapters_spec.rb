@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Pickle::Session::Adapters do
   include Pickle::Session::Adapters
-  before { stub!(:config).and_return(Pickle::Config.new) }
+  before { stub!(:adapter_map).and_return(Pickle::AdapterMap.new) }
   
   describe "#adapter_for(<ref>)" do
     specify "converts <ref> to a Pickle::Ref" do
@@ -15,8 +15,8 @@ describe Pickle::Session::Adapters do
       lambda { adapter_for(:index => 1) }.should raise_error(Pickle::InvalidPickleRefError)
     end
     
-    it "should return config.adapter_map[<ref.factory>]" do
-      config.adapter_map.should_receive(:[]).with('the_user_factory').and_return(adapter = mock)
+    it "should return adapter_map[<ref.factory>]" do
+      adapter_map.should_receive(:[]).with('the_user_factory').and_return(adapter = mock)
       adapter_for('The::User::Factory').should == adapter
     end
 
@@ -29,7 +29,7 @@ describe Pickle::Session::Adapters do
     let(:user) { mock('user') }
     let(:user_adapter) { mock('user adapter') }
     
-    before { config.adapter_map['user'] = user_adapter }
+    before { adapter_map['user'] = user_adapter }
   
     it "#make('user') should return the result of <user adapter>.make({})" do
       user_adapter.should_receive(:make).with({}).and_return(user)
