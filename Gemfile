@@ -22,6 +22,7 @@ group :test do
   gem "activerecord", "~>2.3.8"
   gem "datamapper"
   gem "dm-sqlite-adapter"
+  gem 'machinist_mongo'
   gem "mongoid"
   gem "bson_ext"
 end

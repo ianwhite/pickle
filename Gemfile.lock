@@ -97,6 +97,8 @@ GEM
     json_pure (1.4.6)
     linecache (0.43)
     machinist (1.0.6)
+    machinist_mongo (1.1.1)
+      machinist (~> 1.0.4)
     mime-types (1.16)
     mongo (1.0.7)
       bson (>= 1.0.4)
@@ -157,6 +159,7 @@ DEPENDENCIES
   factory_girl
   jeweler
   machinist
+  machinist_mongo
   mongoid
   rake
   rcov
