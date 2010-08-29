@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 if !defined?(DataMapper)
-  puts "** set PICKLE_SPEC_DB=data_mapper to run the specs in #{__FILE__}"
+  puts "** set PICKLE_ORM=data_mapper to run the specs in #{__FILE__}"
 else  
   require 'pickle/orm_adapters/data_mapper'
   
-  # setup an data_mapper db, and classes, specs are below
   DataMapper.setup(:default, 'sqlite::memory:')
   
-  # stick the ActiveRecord classes and specs in a namespace to isolate them
   module DmOrmSpec
     class User
       include DataMapper::Resource

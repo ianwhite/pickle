@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 if !defined?(ActiveRecord::Base)
-  puts "** set PICKLE_SPEC_DB=active_record to run the specs in #{__FILE__}"
+  puts "** set PICKLE_ORM=active_record to run the specs in #{__FILE__}"
 else  
   require 'pickle/orm_adapters/active_record'
-  
-  # setup an activerecord db, and classes, specs are below
-  
+    
   database = File.join(File.dirname(__FILE__), '../../../tmp/active_record.sqlite')
   `mkdir -p #{File.dirname(database)}`
   ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => database)
@@ -19,7 +17,6 @@ else
     end
   end
   
-  # stick the ActiveRecord classes and specs in a namespace to isolate them
   module ArOrmSpec
     class User < ActiveRecord::Base
       belongs_to :site, :class_name => "ArOrmSpec::Site"

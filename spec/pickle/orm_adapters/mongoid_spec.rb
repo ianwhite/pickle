@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 if !defined?(Mongoid) || !(Mongo::Connection.new.db('pickle_spec') rescue nil)
-  puts "** set PICKLE_SPEC_DB=mongoid and start mongo to run the specs in #{__FILE__}"
+  puts "** set PICKLE_ORM=mongoid and start mongo to run the specs in #{__FILE__}"
 else  
   require 'pickle/orm_adapters/mongoid'
   
@@ -9,7 +9,6 @@ else
     config.master = Mongo::Connection.new.db('pickle-test')
   end
   
-  # stick the ActiveRecord classes and specs in a namespace to isolate them
   module MongoidOrmSpec
     class User
       include Mongoid::Document
@@ -26,7 +25,8 @@ else
     # here be the specs!
     describe Mongoid::Document::PickleOrmAdapter do
       before do
-        Mongoid.database.collections.each(&:remove)
+        User.delete_all
+        Note.delete_all
       end
       
       subject { Mongoid::Document::PickleOrmAdapter }

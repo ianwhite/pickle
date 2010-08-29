@@ -1,9 +1,16 @@
+require 'yaml'
+
 module Pickle
   module Version
-    String = File.read(File.dirname(__FILE__) + '/../../VERSION').strip
-    Array = String.split('.').map{|i| i.to_i}
-    Major = Array[0]
-    Minor = Array[1]
-    Patch = Array[2] 
+    Hash = YAML.load_file(File.dirname(__FILE__) + '/../../VERSION.yml')
+    Major = Hash[:major]
+    Minor = Hash[:minor]
+    Patch = Hash[:patch]
+    Build = Hash[:build]
+    String = "#{Major}.#{Minor}.#{Patch}#{".#{Build}" if Build}"
+    
+    def self.to_s
+      String
+    end
   end
 end

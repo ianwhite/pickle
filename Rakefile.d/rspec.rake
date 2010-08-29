@@ -12,7 +12,7 @@ namespace :spec do
   pickle_orm_adapters.each do |orm|
     desc "Run the #{orm} specs"
     task orm do
-      sh "export PICKLE_SPEC_DB=#{orm} && spec spec/pickle/orm_adapters/#{orm}_spec.rb"
+      sh "export PICKLE_ORM=#{orm} && spec spec/pickle/orm_adapters/#{orm}_spec.rb"
     end
   end
   
