@@ -26,24 +26,24 @@ Feature: Change capture label
       """
     Then running the "capture_label_with_parens" feature should pass
 
-  Scenario: curly braces for labels
+  Scenario: angle brackets braces for labels
     Given I am writing features using pickle, orm (active_record) and the following config:
       """
-      Pickle.config.capture_label = /\{(.+)\}/
+      Pickle.config.capture_label = /<([^<>]+)>/
       """
-    And a feature "capture_label_with_curly" with:
+    And a feature "capture_label_with_angles" with:
       """
       Feature: simple
 
         Scenario: simple
-        Given there is a user {Fred}
+        Given there is a user <Fred>
         And there are the following users:
           | user |
           | Jim  |
-        Then {Fred}'s name should be the 1st user's name
-        And {Jim}'s name should be the 2nd user's name
+        Then <Fred>'s name should be the 1st user's name
+        And <Jim>'s name should be the 2nd user's name
       """
-    Then running the "capture_label_with_curly" feature should pass
+    Then running the "capture_label_with_angles" feature should pass
 
   Scenario: complicated label
     Given I am writing features using pickle, orm (active_record) and the following config:
