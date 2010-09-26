@@ -90,6 +90,7 @@ module Pickle
     def index_word_to_i(word)
       case word
       when 'last' then -1
+      when /(\d)+.* last/ then -($1.to_i)
       when 'first' then 0
       else word.gsub(/\D/,'').to_i - 1
       end

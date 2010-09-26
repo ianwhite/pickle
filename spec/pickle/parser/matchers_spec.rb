@@ -11,8 +11,8 @@ describe Pickle::Parser::Matchers do
     its(:match_ordinal) { should match_all '1st', '2nd', '23rd', '104th' }
     its(:match_ordinal) { should_not match_any '1', '2' }
   
-    its(:match_index) { should match_all 'first', 'last', '23rd', '104th' }
-    its(:match_index) { should_not match_any '1', '2', 'foo' }
+    its(:match_index) { should match_all 'first', 'last', '23rd', '104th', '3rd last', '90th last' }
+    its(:match_index) { should_not match_any '1', '2', 'foo', 'last 2nd' }
   
     its(:match_field) { should match_all 'foo: "this is the life"', 'bar_man: "and so is this"', 'boolean: false', 'boolean: true', 'numeric: 10', 'numeric: 12.5', 'numeric: +10', 'numeric: +12.5', 'numeric: -10', 'numeric: -12.5', 'nil_field: nil' }
     its(:match_field) { should_not match_any 'foo bar: "this aint workin"', '"foo": "Bar"', ":foo => bar" }

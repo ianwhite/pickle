@@ -98,6 +98,13 @@ describe Pickle::Ref do
       its(:index) { should == 1 }
       its(:factory) { should == 'colour' }
     end
+    
+    describe "the 3rd last colour" do
+      subject { Pickle::Ref.new('the 3rd last colour') }
+      
+      its(:index) { should == -3 }
+      its(:factory) { should == 'colour' }
+    end
   end
   
   describe "(label)" do

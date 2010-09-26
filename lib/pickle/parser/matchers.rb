@@ -37,7 +37,7 @@ module Pickle
       end
 
       def match_index_word
-        /(?:first|last|#{match_ordinal.source})/
+        /(?:first|last|#{match_ordinal.source}(?: last)?)/
       end
 
       def match_index

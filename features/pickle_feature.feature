@@ -14,22 +14,25 @@ Feature: Example of the pickle steps, testing with different combinations of orm
       
         Scenario: simple
           Given there is a user "Fred"
-          And there is a user with name: "not labelled"
+          And there are 2 users with name: "not labelled"
           And there are the following users:
             | user  | name      |
             | Betty | Elizabeth |
             | Liz   | Elizabeth |
       
           Then "Fred" should be the 1st user
+          
+          # note that single quoted string is used below, because "Fred" will cause pickle to return the user "Fred"
           And "Fred"'s name should be 'Fred'
       
-          Then there should be at most 2 users with name: "not labelled"
-          And the last user should be the 2nd user
-          And last user's name should be the same as the 2nd user's name
+          Then there should be at least 2 users with name: "not labelled"
+          And the 2nd last user should be the 2nd user
+          And the last user should be the 3rd user
+          And last user's name should be the same as the 3rd user's name
       
-          And "Betty" should be the 3rd user
+          And "Betty" should be the 4th user
           And "Betty"'s name should be "Elizabeth"
-          And "Liz" should be the 4th user
+          And "Liz" should be the 5th user
           And the user "Liz"'s name should be 'Elizabeth'
           And user: "Liz"'s name should be user: "Betty"'s name
       
