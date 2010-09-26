@@ -337,17 +337,20 @@ can build up composite objects with ease
 
 == Run the tests
 
-To get all the dependencies required for developing pickle, do the following
+To run the specs and features against rails 2.3.9 do:
 
-  bundle install
+  bundle
+  # if you get an error here run 'bundle update rack'
 
-To run the specs do:
-
-  bundle exec rake spec
-
-To run the features (rails 2.3 only ATM):
-
+  bundle exec rake spec:all
   bundle exec rake cucumber
+
+To run the specs against rails 3
+
+  PICKLE_RAILS3=true bundle
+  # if you get an error here run 'PICKLE_RAILS3=true bundle update rack'
+  
+  PICKLE_RAILS3=true bundle exec rake spec:all
 
 == Contributors
 

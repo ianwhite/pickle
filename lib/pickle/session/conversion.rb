@@ -9,9 +9,12 @@ module Pickle
       # convert a string, hash, or ref into a Pickle::Ref, using config
       def ref(pickle_ref)
         case pickle_ref
-        when Pickle::Ref then pickle_ref
-        when Hash then Pickle::Ref.new(pickle_ref.merge(:config => config))
-        else Pickle::Ref.new(pickle_ref, :config => config)
+        when Pickle::Ref
+          pickle_ref
+        when Hash
+          Pickle::Ref.new(pickle_ref.merge(:config => config))
+        else
+          Pickle::Ref.new(pickle_ref, :config => config)
         end
       end
 
@@ -24,37 +27,42 @@ module Pickle
         end 
       end
 
-    private
-      def retrieve_model_from_value(value)
-        value =~ /^#{pickle_ref.source}$/ && retrieve(value)
-      rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+      # convert a string into a value, for example
+      #   '1st user'  # => <a user> (if present in pickle jar)
+      #   '"foo"'     # => "foo"
+      #   "true"      # => true
+      #   "-23.78"    # => -23.78  
+      def value(str)
+        str = str.strip
+        retrieve_model_if_pickle_ref(str) or convert_to_value(str)
       end
       
-      def parse_value(value)
-        case value
-        when /^"(.*)"$/ then $1
-        when /^'(.*)'$/ then $1
-        when /^(#{match_value})$/ then eval($1)
+    private
+      def retrieve_model_if_pickle_ref(str)
+        str =~ /^#{pickle_ref.source}$/ and retrieve(str)
+      rescue Pickle::UnknownModelError, Pickle::InvalidPickleRefError
+      end
+    
+      def convert_to_value(str)
+        if str =~ /^#{match_value}$/
+          eval(str)
         else 
-          raise UnknownFieldsFormatError, "#{value.inspect} is in an unknown format"
+          raise UnknownFieldsFormatError, "#{str.inspect} is in an unknown format"
         end
       end
     
       def convert_hash_attributes(attrs)
         attrs.stringify_keys!
-        attrs.each do |key, value|
-          if model = retrieve_model_from_value(value)
-            attrs[key] = model
-          end
+        attrs.each do |key, val|
+          (model = retrieve_model_if_pickle_ref(val)) and attrs[key] = model
         end
       end
 
       def convert_string_attributes(fields)
         attrs = {}
         fields.scan(match_field) do |field|
-          key, value = field.split(':', 2)
-          value.strip!
-          attrs[key] = retrieve_model_from_value(value) || parse_value(value)
+          key, val = field.split(':', 2)
+          attrs[key] = value(val)
         end
         attrs
       end

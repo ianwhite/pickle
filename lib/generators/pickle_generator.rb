@@ -1,10 +1,7 @@
 require 'rails/generators'
 
 class PickleGenerator < Rails::Generators::Base
-  desc "Generates Pickle step files."
-
-  # Use the same templates as Rails 2 generator
-  source_root File.expand_path("../../../rails_generators/pickle/templates", __FILE__)
+  desc "Generates Pickle support and step files."
 
   class_option :paths, :desc => "Generate features/support/paths.rb file.", :type => :boolean
   class_option :email, :desc => "Generate features/step_definitions/email_steps.rb file", :type => :boolean
@@ -30,40 +27,13 @@ class PickleGenerator < Rails::Generators::Base
 
   def copy_paths_file
     return unless options.paths?
-
     current_paths = File.read("features/support/paths.rb")
-    unless current_paths.include?('#{capture_model}')
-      if current_paths =~ /^(.*)(\n\s+else\n\s+raise "Can't find.*".*$)/m
-        @current_paths_header = $1
-        @current_paths_footer = $2
-      end
-      template "paths.rb", "features/support/paths.rb"
-    end
+    template "paths.rb", "features/support/paths.rb"
   end
 
   def copy_email_steps_file
     return unless options.email?
-    template "email_steps.rb", "features/step_definitions/email_steps.rb"
-    template "email.rb", "features/support/email.rb"
-  end
-
-
-  private
-
-  # Compatibility methods for Rails 2 templates
-  def pickle_path
-    options.paths?
-  end
-
-  def pickle_email
-    options.email?
-  end
-
-  def current_paths_header
-    @current_paths_header
-  end
-
-  def current_paths_footer
-    @current_paths_footer
+    template "pickle_email_steps.rb", "features/step_definitions/pickle_email_steps.rb"
+    template "email.rb", "features/support/email_helper.rb"
   end
 end

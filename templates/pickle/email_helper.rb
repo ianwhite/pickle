@@ -6,7 +6,7 @@ module EmailHelper
   
     # add your own name => email address mappings here
   
-    when /^#{capture_model}$/
+    when /^#{pickle_ref}$/
       model($1).email
   
     when /^"(.*)"$/
@@ -18,4 +18,4 @@ module EmailHelper
   end
 end
 
-World(EmailHelpers)
+World(EmailHelper)

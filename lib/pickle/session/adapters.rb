@@ -34,7 +34,7 @@ module Pickle
       def reload(model, ref = model.class.name)
         adapter_for(ref).get(model.id)
       end
-
+      
       def adapter_for(pickle_ref)
         pickle_ref = ref(pickle_ref)
         raise InvalidPickleRefError, "#{pickle_ref.inspect} must have a :factory when finding an adapter" unless pickle_ref.factory

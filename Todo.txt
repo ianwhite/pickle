@@ -1,3 +1,0 @@
-* add 'scope' steps see http://gist.github.com/239570
-* cleanup path_to_pickle and paths.rb (maybe have poly_pickle_path with same semantics as polymorphic_path, but accepting pickle refs)
-* Translations

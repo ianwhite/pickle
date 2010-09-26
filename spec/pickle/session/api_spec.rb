@@ -67,7 +67,7 @@ describe 'Session API' do
       it_should_behave_like 'retrieve_and_reload'
     end
   
-    specify "#known?('the user') returns whether the session includes an object correpsonding to the pickle ref" do
+    specify "#known?('the user') returns whether the jar includes an object correpsonding to the pickle ref" do
       subject.jar.should_receive(:include?).with(Pickle::Ref.new('the user')).and_return(whether_jar_includes_it = mock)
       subject.known?('the user').should == whether_jar_includes_it
     end
@@ -124,6 +124,10 @@ describe 'Session API' do
         end
       end
     end
+    
+    describe "#make_from_table_and_store('users', <table>)" do
+      
+    end
   end
   
   describe "(finding first)" do
@@ -166,6 +170,42 @@ describe 'Session API' do
     specify "#find_all_and_store('users', 'age: 23') finds all users with the given conditions, and stores them with pickle ref corresponding to 'user'" do
       subject.should_receive(:find_all).with(Pickle::Ref.new('user'), {'age' => 23}).and_return([model, another_model])
       subject.find_all_and_store('users', 'age: 23')
+    end
+  end
+  
+  context "when given a table without a matching pickle ref column" do
+    let :table do
+      mock(:hashes => [{'name' => 'Fred'}, {'name' => 'Betty'}])
+    end
+
+    it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name and return the models" do
+      should_receive(:create_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
+      should_receive(:create_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+      create_models_from_table("users", table).should == [:fred, :betty]
+    end
+
+    it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name and return the models" do
+      should_receive(:find_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
+      should_receive(:find_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+      find_models_from_table("users", table).should == [:fred, :betty]
+    end
+  end
+
+  context "when given a table with a matching pickle ref column" do
+    let :table do
+      mock(:hashes => [{'user' => "fred", 'name' => 'Fred'}, {'user' => "betty", 'name' => 'Betty'}])
+    end
+
+    it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with labelled pickle ref" do
+      should_receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
+      should_receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+      create_models_from_table("users", table).should == [:fred, :betty]
+    end
+
+    it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with labelled pickle ref" do
+      should_receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
+      should_receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+      find_models_from_table("users", table).should == [:fred, :betty]
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'active_support'
+require 'active_support/core_ext/module/delegation'
 require 'pickle/version'
 require 'pickle/orm_adapter'
 require 'pickle/adapter'

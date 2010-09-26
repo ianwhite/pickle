@@ -10,13 +10,13 @@ module Pickle
   #   end
   #
   module MakeMatcher
-    def self.make_matcher(example, string)
+    def self.make_matcher(example, string, prefix = "be")
       predicate = string.gsub('"','').gsub(' ','_').downcase
-      example.send "be_#{predicate}"
+      example.send "#{prefix}_#{predicate}"
     end
     
-    def make_matcher(string)
-      Pickle::MakeMatcher.make_matcher(self, string)
+    def make_matcher(string, prefix = "be")
+      Pickle::MakeMatcher.make_matcher(self, string, prefix)
     end
   end
 end

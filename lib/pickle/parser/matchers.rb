@@ -49,7 +49,7 @@ module Pickle
       end
       
       def match_value
-        /(?:nil|true|false|[+-]?[0-9]+(?:\.\d+)?)/
+        /(?:"[^"]*"|'[^']*'|nil|true|false|[+-]?[0-9]+(?:\.\d+)?)/
       end
         
       def match_fields
@@ -72,7 +72,7 @@ module Pickle
           /(?:#{match_quoted.source}|#{match_model(*restrict_to).source})/
         end
       end
-      
+        
       def predicates
         config && config.predicates
       end

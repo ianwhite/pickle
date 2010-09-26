@@ -3,10 +3,10 @@ module Pickle
     # pickle api is your gateway to making/finding/storing/retrieving models
     #
     #   Terminology:
-    #     make      - creating a model in the db, probably using a factory/bluperint
+    #     make      - creating a model in the db, probably using a factory/blueprint
     #     find      - finding a model from the db
-    #     store     - remembering an existing model (in the pickle jar) 
-    #     retrieve  - retrieving a remembered model (from the pickle jar) using a pickle ref
+    #     store     - store reference to found or made model (in the pickle jar) 
+    #     retrieve  - retrieving a model (from the pickle jar) using a pickle reference
     #
     # Example use, in a cucumber scenario:
     #
@@ -51,7 +51,7 @@ module Pickle
           jar.store model, pickle_ref
         end
       end
-    
+      
       # store a given model, with the optional ref
       def store(model, pickle_ref = nil)
         pickle_ref ||= model.class.name
@@ -74,6 +74,13 @@ module Pickle
       # is a model known?
       def known?(pickle_ref)
         jar.include? ref(pickle_ref)
+      end
+      
+      # does a model exist in the db?
+      def exist?(pickle_ref, fields = nil)
+        find(pickle_ref, attributes(fields))
+      rescue
+        false
       end
       
     private

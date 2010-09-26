@@ -31,8 +31,8 @@ else
       
       subject { Mongoid::Document::PickleOrmAdapter }
     
-      specify "model_classes should return all of datamapper resources" do
-        subject.model_classes.to_set.should == [User, Note].to_set
+      specify "model_classes should return all of mongoid resources" do
+        (subject.model_classes & [User, Note]).to_set.should == [User, Note].to_set
       end
     
       describe "get_model(klass, id)" do

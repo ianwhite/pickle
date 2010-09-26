@@ -101,4 +101,25 @@ describe Pickle::Session::Conversion do
     end
     it %Q{when trying to specify the string "Fred" for a string attribute a model named fred is inserted instead, what to do??}
   end
+  
+  describe "#value(<string>)" do
+    describe "when <string> is a pickle ref that is known" do
+      let(:fred) {mock}
+      before { should_receive(:retrieve).with('"Fred"').and_return(fred) }
+      
+      it "should return a the referred to model" do
+        value('"Fred"').should == fred
+      end
+    end
+    
+    describe "when <string> is a pickle ref that is not known" do
+      before do
+        should_receive(:retrieve).with('"Fred"').and_raise(Pickle::UnknownModelError)
+      end
+
+      it "should parse <stirng> as a value" do
+        value('"Fred"').should == "Fred"
+      end
+    end
+  end
 end

@@ -38,13 +38,31 @@ Given /I create the "app.rb" file/ do
   FILE
 end
 
-Given /I am writing a test using the pickle dsl, with (\w+) \((\w+)\)/ do |factory, orm|
-  @code = ""
+Given /^I am writing features using pickle, (\w+) \((\w+)\) and the following config:$/ do |factory, orm, config|
+  create_dir 'features'
+  create_dir 'features/step_definitions'
+  create_dir 'features/support'
   
-  # for some reason to do with mongoid & machinist combo, the following line needs to be first
-  @code += "require 'rubygems'; require 'machinist/mongoid'\n" if factory == 'machinist' && orm == 'mongoid'
+  create_file 'features/support/env.rb', <<-FILE
+    #{"require 'rubygems'; require 'machinist/mongoid'\n" if factory == 'machinist' && orm == 'mongoid'}
+    require 'app'
+    require 'factory'
+    require 'spec/expectations'
+    require 'pickle/cucumber'
+    
+    #{config}
+  FILE
+  
+  templates_dir = File.expand_path(File.join(File.dirname(__FILE__), '../../templates'))
+  in_current_dir do
+    `ln -s #{templates_dir}/pickle/pickle_steps.rb features/step_definitions/pickle_steps.rb`
+  end
+end
 
-  @code += <<-FILE
+Given /the following "([^"]*)" test using the pickle dsl, with (\w+) \((\w+)\):/ do |file, factory, orm, code|
+  create_file "#{file}_test.rb", <<-FILE
+    #{"require 'rubygems'; require 'machinist/mongoid'\n" if factory == 'machinist' && orm == 'mongoid'}
+
     require 'app'
     require 'factory'
     require 'spec/expectations'
@@ -54,14 +72,19 @@ Given /I am writing a test using the pickle dsl, with (\w+) \((\w+)\)/ do |facto
   
     include Pickle::Dsl
     include Spec::Matchers
+    
+    #{code}
   FILE
-  announce "\n\n**\n** testing using orm: #{orm} with factory: #{factory}\n**\n"
 end
 
-Then /^(.*) \(code\):$/ do |intention, code|
-  announce "\n# #{intention}\n#{code}\n"
-  $stdout.flush
-  @code += "\n# #{intention}\n#{code}\n"
-  create_file 'code.rb', @code
-  run("ruby code.rb")
+Given /^a feature "([^"]*)" with:$/ do |feature, string|
+  create_file "features/#{feature}.feature", string
+end
+
+Then /^running the "([^"]*)" test should pass$/ do |test|
+  run "ruby #{test}_test.rb"
+end
+
+Then /^running the "([^"]*)" feature should pass$/ do |feature|
+  run "cucumber features/#{feature}.feature"
 end
