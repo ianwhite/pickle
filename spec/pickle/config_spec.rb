@@ -11,6 +11,8 @@ describe Pickle::Config do
     its(:factories) { should be_empty }
     its(:aliases) { should be_empty }
     its(:label_map) { should be_empty }
+    its(:capture_label) { should be_nil }
+    its(:match_label) { should be_nil }
   end
 
   describe "setting adapters to [:machinist, <adapter_class>]" do
@@ -82,6 +84,25 @@ describe Pickle::Config do
       its(:aliases) {should include('customer' => 'trade user')}
       its(:aliases) {should include('supplier' => 'trade user')}
       its(:aliases) {should include('reseller' => 'trade user')}            
+    end
+  end
+  
+  describe "capture_label" do
+    let(:config) { Pickle::Config.new }
+    subject { config }
+    
+    it "can be set and read" do
+      config.capture_label = /"(.*)"/
+      config.capture_label.should == /"(.*)"/
+    end
+    
+    it "should raise an error is set to regexp without a capture" do
+      lambda { config.capture_label = /foo/ }.should raise_error ArgumentError, "capture_label requires a Regexp with one capture"
+    end
+    
+    it "setting capture_label should set match_label to equivalent non matching expression" do
+      config.capture_label = /"(.*)"/
+      config.match_label.should == /".*"/
     end
   end
 end

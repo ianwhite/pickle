@@ -3,6 +3,7 @@ require 'pickle/adapter_map'
 module Pickle
   class Config
     attr_writer :adapters, :factories, :mappings, :predicates
+    attr_reader :capture_label, :match_label
     
     def initialize(&block)
       configure(&block) if block_given?
@@ -121,6 +122,12 @@ module Pickle
       args.each do |search|
         self.mappings << Mapping.new(search, options[:to])
       end
+    end
+    
+    def capture_label=(regexp)
+      raise ArgumentError, "capture_label requires a Regexp with one capture" unless regexp.source =~ /\(.+\)/
+      @match_label = /#{regexp.source.sub('(','').sub(')','')}/
+      @capture_label = regexp
     end
   end
 end

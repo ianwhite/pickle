@@ -16,6 +16,10 @@ module Pickle
         /(?:"[^\"]*")/
       end
       
+      def capture_quoted
+        /(?:"([^\"]*)")/
+      end
+      
       def match_word
         /(?:(?:\w|::\w){2,})/
       end
@@ -60,16 +64,24 @@ module Pickle
         predicates ? match_disjunction(*(predicates + [match_quoted])) : match_quoted
       end
       
+      def match_label
+        config.try(:match_label) || match_quoted
+      end
+      
+      def capture_label
+        config.try(:capture_label) || capture_quoted
+      end
+      
       def match_model(*restrict_to)
         factory = restrict_to.any? ? match_disjunction(*restrict_to) : match_factory
-        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{factory.source}(?:(?: |: )#{match_quoted.source})?)/
+        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{factory.source}(?:(?: |: )#{match_label.source})?)/
       end
       
       def match_pickle_ref(*restrict_to)
         if mappings && restrict_to.empty?
-          /(?:#{match_disjunction(mappings).source}|#{match_quoted.source}|#{match_model.source})/
+          /(?:#{match_disjunction(mappings).source}|#{match_label.source}|#{match_model.source})/
         else
-          /(?:#{match_quoted.source}|#{match_model(*restrict_to).source})/
+          /(?:#{match_label.source}|#{match_model(*restrict_to).source})/
         end
       end
         

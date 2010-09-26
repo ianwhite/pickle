@@ -87,4 +87,5 @@ end
 
 Then /^running the "([^"]*)" feature should pass$/ do |feature|
   run "cucumber features/#{feature}.feature"
+  combined_output.should =~ /(\d+) scenarios? \(\1 passed\)/
 end

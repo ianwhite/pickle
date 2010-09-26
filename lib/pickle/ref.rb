@@ -76,8 +76,8 @@ module Pickle
     # parse the label, removing it if found
     # @return the label or nil
     def parse_label!(string)
-      label = remove_from_and_return_1st_capture!(string, /^(?: |: )?(#{match_quoted})/)
-      label && label.gsub('"', '')
+      label = remove_from_and_return_1st_capture!(string, /^(?: |: )?(#{match_label})/)
+      label && (label.match(capture_label).try(:[], 1))
     end
     
     def remove_from_and_return_1st_capture!(string, regexp)
