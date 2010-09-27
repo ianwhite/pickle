@@ -74,11 +74,11 @@ module Pickle
       
       def match_model(*restrict_to)
         factory = restrict_to.any? ? match_disjunction(*restrict_to) : match_factory
-        /(?:(?:#{match_index.source} |#{match_prefix.source} )?#{factory.source}(?:(?: |: )#{match_label.source})?)/
+        /(?:(?:#{match_index.source}|#{match_prefix.source}) #{factory.source}(?:(?: |: )#{match_label.source})?)/
       end
       
       def match_pickle_ref(*restrict_to)
-        if mappings && restrict_to.empty?
+        if mappings.present? && restrict_to.empty?
           /(?:#{match_disjunction(mappings).source}|#{match_label.source}|#{match_model.source})/
         else
           /(?:#{match_label.source}|#{match_model(*restrict_to).source})/

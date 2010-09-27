@@ -1,9 +1,8 @@
 Feature: Example of the pickle api, testing that it works with different combinations of orm and factory
 
   Scenario Outline:
-    Given I create an example <ORM> app
-    And I am using <FACTORY> (<ORM>) for generating test data
-    And the following "pickle_api" test using the pickle dsl, with <FACTORY> (<ORM>):
+    Given an example <ORM>/<FACTORY> app
+    Then the following spec should pass:
       """
       # I can make and store a user, and the result is a user made by <FACTORY>:
       user = pickle.make_and_store 'a user'
@@ -40,8 +39,6 @@ Feature: Example of the pickle api, testing that it works with different combina
       pickle.model('the 1st note').should == welcome_note
       pickle.model('the 2nd note').should == another_note
       """
-      
-    Then running the "pickle_api" test should pass
     
   Examples:
     | ORM           | FACTORY      |

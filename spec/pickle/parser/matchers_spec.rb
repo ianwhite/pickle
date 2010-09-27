@@ -32,8 +32,8 @@ describe Pickle::Parser::Matchers do
     its(:match_plural_factory) { should match_all 'users', 'fast_cars', 'cars' }
     its(:match_plural_factory) { should_not match_any 'admin users', 'faster cars', 'events created' }
   
-    its(:match_pickle_ref) { should match_all 'a user', 'a user: "fred"', 'the 2nd user', 'the super_admin', '"fred"' }
-    its(:match_pickle_ref) { should_not match_any 'another person:', 'another person: ', 'an admin user', 'a 2nd user', '' }
+    its(:match_pickle_ref) { should match_all 'a user', 'a user: "fred"', 'the 2nd user', 'the super_admin', 'another user', '"fred"', '1st user' }
+    its(:match_pickle_ref) { should_not match_any 'person', 'there', 'admin', 'user: "fred"', 'another person:', 'another person: ', 'an admin user', 'a 2nd user', '' }
     
     its(:match_value) { should match_all '1', '2.56', 'true', 'false', '-67.7', 'nil', '"gday"', "'gday'" }
     its(:match_value) { should_not match_any '1 1', '2_2.56', 'truthy', '`rm -rf`', 'exec''"gday" "mate"', "'g'day'" }
@@ -69,13 +69,13 @@ describe Pickle::Parser::Matchers do
       its(:match_predicate) { should_not match_all 'amazingly "large"', 'empty?', 'any' } 
     end
   
-    describe "with config.map 'me', 'myself', 'I', :to => 'user \"me\"'" do
+    describe "with config.map 'me', 'myself', 'I', :to => 'the user \"me\"'" do
       before do
-        self.config = Pickle::Config.new {|c| c.map 'me', 'myself', 'I', 'skin coloured bag of bones and meat', :to => 'user "me"' }
+        self.config = Pickle::Config.new {|c| c.map 'me', 'myself', 'I', 'skin coloured bag of bones and meat', :to => 'the user "me"' }
       end
     
-      its(:match_pickle_ref) { should match_all 'myself', 'me', 'I', 'user: "me"', 'skin coloured bag of bones and meat' }
-      its(:match_pickle_ref) { should_not match_any '1st I', 'I "me"', '1st skin coloured bag of bones and meat' }
+      its(:match_pickle_ref) { should match_all 'myself', 'me', 'I', 'the user: "me"', 'skin coloured bag of bones and meat' }
+      its(:match_pickle_ref) { should_not match_any '1st I', 'I "me"', 'user "me"', '1st skin coloured bag of bones and meat' }
     end
   end
 end

@@ -11,9 +11,14 @@ module Pickle
   #
   module MakeMatcher
     def self.make_matcher(example, string, prefix = "be")
-      predicate = string.gsub('"','').gsub(' ','_').downcase
-      example.send "#{prefix}_#{predicate}"
+      example.send "#{prefix}_#{make_method(string)}"
     end
+    
+    def self.make_method(string)
+      string.gsub('"','').gsub("'",'').gsub(' ','_').downcase
+    end
+    
+    delegate :make_method, :to => Pickle::MakeMatcher
     
     def make_matcher(string, prefix = "be")
       Pickle::MakeMatcher.make_matcher(self, string, prefix)

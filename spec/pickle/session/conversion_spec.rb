@@ -37,13 +37,13 @@ describe Pickle::Session::Conversion do
 
     describe "given a hash" do
       describe "containing a pickle_ref as a value" do
-        let(:do_attributes) { attributes(:name => "Foo", :user => 'a user')}
+        let(:do_attributes) { attributes(:name => "a Foo", :user => 'a user')}
         let(:model) { mock }
 
         it "should return a hash containing the retrieved object in place of the pickle ref, and leave other values alone" do
           should_receive(:retrieve).with('a user').and_return(model)
           should_receive(:retrieve).with(anything).and_raise(Pickle::UnknownModelError)
-          do_attributes.should == {'name' => "Foo", 'user' => model}
+          do_attributes.should == {'name' => "a Foo", 'user' => model}
         end
       end
       

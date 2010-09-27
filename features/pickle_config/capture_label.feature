@@ -4,62 +4,51 @@ Feature: Change capture label
   I want to be able to change the syntax for pickle labels
 
   Background:
-    Given I create an example active_record app
-    And I am using orm (active_record) for generating test data
+    Given an example active_record/orm app
   
   Scenario: parens for labels
-    Given I am writing features using pickle, orm (active_record) and the following config:
+    Given a pickle config:
       """
       Pickle.config.capture_label = /\((.*)\)/
       """
-    And a feature "capture_label_with_parens" with:
+    
+    Then the following steps should pass:
       """
-      Feature: simple
-      
-        Scenario: simple
-          Given there is a user (Fred)
-          And there are the following users:
-            | user |
-            | Jim  |
-          Then (Fred)'s name should be the 1st user's name
-          And (Jim)'s name should be the 2nd user's name
+      Given a user (Fred)
+      And the following users:
+        | user |
+        | Jim  |
+      Then (Fred)'s name should be the 1st user's name
+      And (Jim)'s name should be the 2nd user's name
       """
-    Then running the "capture_label_with_parens" feature should pass
 
   Scenario: angle brackets braces for labels
-    Given I am writing features using pickle, orm (active_record) and the following config:
+    Given a pickle config:
       """
       Pickle.config.capture_label = /<([^<>]+)>/
       """
-    And a feature "capture_label_with_angles" with:
+    Then the following steps should pass:
       """
-      Feature: simple
-
-        Scenario: simple
-        Given there is a user <Fred>
-        And there are the following users:
-          | user |
-          | Jim  |
-        Then <Fred>'s name should be the 1st user's name
-        And <Jim>'s name should be the 2nd user's name
+      Given a user <Fred>
+      And the following users:
+        | user |
+        | Jim  |
+      Then <Fred>'s name should be the 1st user's name
+      And <Jim>'s name should be the 2nd user's name
       """
-    Then running the "capture_label_with_angles" feature should pass
 
   Scenario: complicated label
-    Given I am writing features using pickle, orm (active_record) and the following config:
+    Given a pickle config:
       """
-      Pickle.config.capture_label = /\|label: (.*)\|/
+      Pickle.config.capture_label = /\|pickle: (.*)\|/
       """
-    And a feature "complicated_capture_label" with:
+    
+    Then the following steps should pass:
       """
-      Feature: simple
-
-        Scenario: simple
-        Given there is a user |label: Fred|
-        And there are the following users:
-          | user |
-          | Jim  |
-        Then |label: Fred|'s name should be the 1st user's name
-        And |label: Jim|'s name should be the 2nd user's name
+      Given a user |pickle: Fred|
+      And the following users:
+        | user |
+        | Jim  |
+      Then |pickle: Fred|'s name should be the 1st user's name
+      And |pickle: Jim|'s name should be the 2nd user's name
       """
-    Then running the "complicated_capture_label" feature should pass

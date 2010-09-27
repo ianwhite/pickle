@@ -23,7 +23,7 @@ end
 Given "I create the example active_record app models" do
   create_file "lib/user.rb", <<-FILE
     class User < ActiveRecord::Base
-      has_many :notes, :as => :owner
+      has_many :notes, :as => :owner, :order => 'id'
       
       def create_welcome_note
         create_note("Welcome \#{name}!")
@@ -31,6 +31,10 @@ Given "I create the example active_record app models" do
 
       def create_note(body)
         notes.create! :body => body
+      end
+      
+      def latest_note
+        notes.last
       end
     end
   FILE
