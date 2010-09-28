@@ -40,7 +40,7 @@ Feature: Change capture label
   Scenario: complicated label
     Given a pickle config:
       """
-      Pickle.config.capture_label = /\|pickle: (.*)\|/
+      Pickle.config.capture_label = /\|(?:pickle: )?(.*)\|/
       """
     
     Then the following steps should pass:
@@ -49,6 +49,6 @@ Feature: Change capture label
       And the following users:
         | user |
         | Jim  |
-      Then |pickle: Fred|'s name should be the 1st user's name
+      Then |Fred|'s name should be the 1st user's name
       And |pickle: Jim|'s name should be the 2nd user's name
       """

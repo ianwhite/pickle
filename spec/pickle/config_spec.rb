@@ -100,9 +100,26 @@ describe Pickle::Config do
       lambda { config.capture_label = /foo/ }.should raise_error ArgumentError, "capture_label requires a Regexp with one capture"
     end
     
-    it "setting capture_label should set match_label to equivalent non matching expression" do
-      config.capture_label = /"(.*)"/
-      config.match_label.should == /".*"/
+    describe "converting capture_label into match_label" do
+      it "should result in equivalent non matching expression" do
+        config.capture_label = /"(.*)"/
+        config.match_label.should == /"(?:.*)"/
+      end
+    
+      it "should handle paren at beginning" do
+        config.capture_label = /(one|two|three)/
+        config.match_label.should == /(?:one|two|three)/
+      end
+      
+      it "should handle non capturing parens" do
+        config.capture_label = /(?:"(.*)")/
+        config.match_label.should == /(?:"(?:.*)")/
+      end
+    
+      it "should handle escaped parens" do
+        config.capture_label = /\(a(\d+)b\)/
+        config.match_label.should == /\(a(?:\d+)b\)/
+      end
     end
   end
 end

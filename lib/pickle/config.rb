@@ -125,8 +125,8 @@ module Pickle
     end
     
     def capture_label=(regexp)
-      raise ArgumentError, "capture_label requires a Regexp with one capture" unless regexp.source =~ /\(.+\)/
-      @match_label = /#{regexp.source.sub('(','').sub(')','')}/
+      raise ArgumentError, "capture_label requires a Regexp with one capture" unless regexp.source =~ /(?:[^\\]|^)\([^?].*\)/
+      @match_label = /#{regexp.source.sub(/([^\\]|^)\((?=[^?])/, '\1(?:')}/
       @capture_label = regexp
     end
   end
