@@ -1,3 +1,11 @@
+== 0.4.3
+ruby 1.9.2 compatibility fix
+
+* 1 bugfix
+  * Fix can't change hash during iteration error for ruby 1.9.2 [Ian White] [#33]
+    (This is fixed in orm_adapter, which pickle 0.5 will be using)
+
+
 == 0.4.2
 
 * 1 bugfix
