@@ -16,6 +16,10 @@ Feature: I can easily create models from my blueprints
     Then a user should exist with name: "Fred"
     And a user should exist with status: "crayzee"
     But a user should not exist with name: "Wilma"
+
+  Scenario: I create a user with quotes in its status, and see if it looks right
+    Given a user exists with name: "Fred", status: "a little \"off\""
+    Then a user should exist with status: "a little \"off\""
   
   Scenario: I create a user via a mapping
     Given I exist with status: "pwned", name: "fred"
@@ -43,19 +47,22 @@ Feature: I can easily create models from my blueprints
     
   Scenario: create and find using tables
     Given the following users exist:
-      | name  | status                   |
-      | Jim   | married                  |
-      | Ethel | in a relationship with x |
+      | name   | status                    |
+      | Jim    | married                   |
+      | Ethel  | in a relationship with x  |
+      | Garvin | in an "open" relationship |
     Then the following users should exist:
-      | name  |
-      | Jim   |
-      | Ethel |
+      | name   |
+      | Jim    |
+      | Ethel  |
+      | Garvin |
     And the following users should exist:
-      | status                   |
-      | married                  |
-      | in a relationship with x |
-    And the 1st user should be the 3rd user
-    And the 2nd user should be the last user
+      | status                    |
+      | married                   |
+      | in a relationship with x  |
+      | in an "open" relationship |
+    And the 1st user should be the 4th user
+    And the 3rd user should be the last user
     
     Scenario: create and find using tables with referencable names
       Given the following users exist:
