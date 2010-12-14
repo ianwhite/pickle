@@ -1,3 +1,14 @@
+== 0.4.4
+large object space fix, and allow escaped quotes as string values
+
+* 1 bugfix
+  * When using super-huge GC limits (for speeding up tests), occasionally we'll see abandoned Mongoid::Document classes appear in the ObjectSpace.
+    This patch should fix that. [Devin Walters and Nick Karpenske]
+  
+* 1 improvement
+  * allow escaped quotes (\") in quoted fields [Jonathan Hinkle]
+
+
 == 0.4.3
 ruby 1.9.2 compatibility fix
 
