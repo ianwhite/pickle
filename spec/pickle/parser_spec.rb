@@ -9,26 +9,42 @@ describe Pickle::Parser do
     describe "#pickle_ref" do
       subject { pickle_ref }
       
-      it { should capture "the 1st user", :from => 'the 1st user' }
-      it { should capture 'another user: "fred"', :from => 'another user: "fred"' }
-      it { should_not capture anything, :from => 'the 1st admin user' }
+      it "should capture 'the 1st user'" do
+        subject.match("the 1st user")[1].should == 'the 1st user'
+      end
+      
+      it "should capture 'another user: \"fred\"'" do
+       subject.match('another user: "fred"')[1].should == 'another user: "fred"'
+      end
+      
+      it { Regexp.new("^#{subject.source}$").should_not match('the 1st admin user') }
       
       describe "('admin user')" do
         subject { pickle_ref('admin user') }
       
-        it { should capture "the 1st admin user", :from => 'the 1st admin user' }
-        it { should_not capture 'a product', :from => 'a product' }
+        it "should capture 'the 1st admin user'" do
+           subject.match("the 1st admin user")[1].should == 'the 1st admin user' 
+        end
+        
+        it { Regexp.new("^#{subject.source}$").should_not match 'a product' }
       end
       
       describe "when config.map 'I', :to => 'a user'" do
         before { self.config = Pickle::Config.new{|c| c.map 'I', :to => 'a user' } }
-        it { should capture "I", :from => "I" }
-        it { should_not capture anything, :from => "1st I" }
+        
+        it "should capture 'I'" do
+          subject.match("I")[1].should ==  "I"
+        end
+        
+        it { Regexp.new("^#{subject.source}$").should_not match('1st I') }
       end
 
       describe "when config.factories << 'admin user'" do
         before { self.config = Pickle::Config.new{|c| c.factories << 'admin user' } }
-        it { should capture "the 1st admin user", :from => "the 1st admin user" }
+        
+        it "should capture 'the 1st admnin user'" do
+          subject.match("the 1st admin user")[1].should == "the 1st admin user"
+        end
       end
     end
     

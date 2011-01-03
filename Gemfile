@@ -2,23 +2,16 @@ source "http://rubygems.org"
 
 gem "yard"
 gem "rake"
-gem "cucumber", "~>0.8.5"
-gem "rspec", "~>1.3.0"
+gem "cucumber", "~>0.10.0"
+gem "rspec", "~>2.4.0"
+gem "orm_adapter", "~>0.0.3"
 
 group :test do
-  if ENV['PICKLE_RAILS3']
-    gem "rails", "~>3.0.0"
-    gem "mongoid", "~>2.0.0.beta.17"
-    gem "rack", "~>1.2.1"
-  else
-    gem "rails", "~>2.3.9"
-    gem "mongoid", "~>1.9.2"
-    gem "rack", "~>1.1.0"
-  end
-
-  gem "rspec-rails", "~>1.3.2"
+  gem "rails", "~>3.0.3"
+  gem "mongoid"
+  gem "rspec-rails"
   gem "aruba"
-  gem "cucumber-rails", "~>0.3.2"
+  gem "cucumber-rails"
   gem "factory_girl"
   gem "machinist"
   gem "jeweler"
