@@ -3,9 +3,7 @@ Given "I create a database setup for the example mongoid app" do
   pending("Install and start mongodb to run the mongoid features") unless (Mongo::Connection.new.db('pickle_test') rescue nil)
   create_file "lib/db.rb", <<-FILE
     require 'mongoid'
-    Mongoid.configure do |config|
-      config.master = Mongo::Connection.new.db('pickle-test')
-    end
+    Mongoid.database = Mongo::Connection.new.db('pickle-test')
     Mongoid.database.collections.each(&:remove)
   FILE
 end
@@ -15,7 +13,7 @@ Given "I create the example mongoid app models" do
     class User
       include Mongoid::Document
       field :name, :default => "made by orm"
-      has_many_related :notes, :foreign_key => :owner_id
+      references_many :notes, :foreign_key => :owner_id
     
       def create_welcome_note
         create_note("Welcome \#{name}!")
@@ -31,7 +29,7 @@ Given "I create the example mongoid app models" do
     class Note
       include Mongoid::Document
       field :body, :default => "made by orm"
-      belongs_to_related :owner, :class_name => 'User'
+      referenced_in :owner, :class_name => 'User'
     end
   FILE
   

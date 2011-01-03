@@ -1,5 +1,3 @@
-require 'aruba'
-
 Given /an example (\w+)\/(\w+) app/ do |orm, factory| 
   steps %Q{
     Given I create an empty example #{orm} app
@@ -48,7 +46,7 @@ Given /^cucumber is setup for pickle with the example (\w+)\/(\w+) app$/ do |orm
     #{"require 'rubygems'; require 'machinist/mongoid'\n" if factory == 'machinist' && orm == 'mongoid'}
     require 'app'
     require 'factory'
-    require 'spec/expectations'
+    require 'rspec/expectations'
     require 'pickle/cucumber'
   FILE
   
@@ -64,7 +62,7 @@ Given /^a spec helper is setup including the pickle dsl with the example (\w+)\/
 
     require 'app'
     require 'factory'
-    require 'spec/expectations'
+    require 'rspec/expectations'
   
     require 'pickle'
     require 'pickle/orm_adapters/autoload'
@@ -112,7 +110,7 @@ module ExampleAppHelper
   
   def run_feature(feature)
     run "cucumber features/#{feature}.feature"
-    combined_output =~ /(\d+) scenarios? \(\1 passed\)/ or raise "Following steps did not pass:\n\n#{combined_output}"
+    all_output =~ /(\d+) scenarios? \(\1 passed\)/ or raise "Following steps did not pass:\n\n#{all_output}"
   end
   
   def run_spec(test)

@@ -1,14 +1,14 @@
 source "http://rubygems.org"
 
-gem "yard"
-gem "rake"
-gem "cucumber", "~>0.10.0"
-gem "rspec", "~>2.4.0"
-gem "orm_adapter", "~>0.0.3"
-
-group :test do
+group :development do
+  gem "yard"
+  gem "rake"
+  gem "cucumber", "~>0.10.0"
+  gem "rspec", "~>2.4.0"
+  gem "orm_adapter", "~>0.0.3"
   gem "rails", "~>3.0.3"
-  gem "mongoid"
+  gem "mongoid", "~>2.0.0.beta.20"
+  gem "bson_ext", "~>1.1.2"
   gem "rspec-rails"
   gem "aruba"
   gem "cucumber-rails"
