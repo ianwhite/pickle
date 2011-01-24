@@ -171,17 +171,22 @@ module Pickle
 
     def convert_models_to_attributes(ar_class, attrs)
       conditions = {}
+      columns = Pickle::Adapter.column_names(ar_class)
       attrs.each do |key, val|
-        if ((defined?(ActiveRecord::Base) && val.is_a?(ActiveRecord::Base)) ||
-          (defined?(DataMapper::Model) && val.is_a?(DataMapper::Model))) &&
-          Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
+        if columns.include?("#{key}_id") && supported_association_model_type?(val)
           conditions["#{key}_id"] = val.id
-          conditions["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
+          conditions["#{key}_type"] = val.class.base_class.name if columns.include?("#{key}_type")
         else
           conditions[key] = val
         end
       end
       conditions
+    end
+
+    def supported_association_model_type?(associated_model)
+      (defined?(ActiveRecord::Base) && associated_model.is_a?(ActiveRecord::Base)) ||
+        (defined?(DataMapper::Model) && associated_model.is_a?(DataMapper::Model)) ||
+        (defined?(Mongoid::Document) && associated_model.is_a?(Mongoid::Document))
     end
     
     def models_by_name(factory)

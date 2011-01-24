@@ -186,6 +186,7 @@ describe Pickle::Session do
   describe '#find_model' do
     before do
       Pickle::Adapter.stub!(:find_first_model).with(user_class, anything).and_return(user)
+      Pickle::Adapter.stub!(:column_names).with(user_class).and_return(['username', 'email'])
     end
 
     it "should call user_class.find :first, :conditions => {<fields>}" do
@@ -264,6 +265,7 @@ describe Pickle::Session do
   describe "#find_models" do
     before do
       Pickle::Adapter.stub!(:find_all_models).with(user_class, anything).and_return([user])
+      Pickle::Adapter.stub!(:column_names).with(user_class).and_return(['username', 'email'])
     end
 
     it "should call User.find :all, :conditions => {'hair' => 'pink'}" do
