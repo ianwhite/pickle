@@ -181,21 +181,32 @@ module Pickle
       pickle_parser.config
     end
 
-    def convert_models_to_attributes(ar_class, attrs)
+    def convert_models_to_attributes(klass, attrs)
+      columns = nil
       conditions = {}
+
       attrs.each do |key, val|
-        if ((defined?(ActiveRecord::Base) && val.is_a?(ActiveRecord::Base)) ||
-          (defined?(DataMapper::Model) && val.is_a?(DataMapper::Model))) &&
-          Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
+        if supported = supported_association_model_type?(val) or val.nil?
+          columns ||= Pickle::Adapter.column_names(klass)
+        end
+
+        if supported && columns.include?("#{key}_id")
           conditions["#{key}_id"] = val.id
-          conditions["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
-        elsif val.nil? && Pickle::Adapter.column_names(ar_class).include?("#{key}_id") &&
-            !Pickle::Adapter.column_names(ar_class).include?("#{key}")
+          conditions["#{key}_type"] = val.class.base_class.name if columns.include?("#{key}_type")
+        elsif val.nil? && columns.include?("#{key}_id") && !columns.include?("#{key}")
+          # NOOP
         else
           conditions[key] = val
         end
       end
+
       conditions
+    end
+
+    def supported_association_model_type?(associated_model)
+      (defined?(ActiveRecord::Base) && associated_model.is_a?(ActiveRecord::Base)) ||
+        (defined?(DataMapper::Model) && associated_model.is_a?(DataMapper::Model)) ||
+        (defined?(Mongoid::Document) && associated_model.is_a?(Mongoid::Document))
     end
 
     def models_by_name(factory)
