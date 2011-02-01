@@ -11,6 +11,11 @@ module DataMapper
   end
 end
 
+module Sequel
+  class Model
+  end
+end
+
 describe Pickle::Session do
   include Pickle::Session
 

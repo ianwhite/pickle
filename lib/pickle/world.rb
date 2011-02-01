@@ -1,9 +1,10 @@
 require 'pickle'
 
-# auto require for active record, datamapper and mongoid
+# auto require for active record, datamapper, mongoid and sequel
 require 'pickle/adapters/active_record' if defined?(ActiveRecord::Base)
 require 'pickle/adapters/data_mapper'   if defined?(DataMapper::Resource)
 require 'pickle/adapters/mongoid'       if defined?(Mongoid::Document)
+require 'pickle/adapters/sequel'        if defined?(Sequel::Model)
 
 # make cucumber world pickle aware
 World(Pickle::Session)

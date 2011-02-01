@@ -172,9 +172,11 @@ module Pickle
     def convert_models_to_attributes(ar_class, attrs)
       conditions = {}
       attrs.each do |key, val|
-        if ((defined?(ActiveRecord::Base) && val.is_a?(ActiveRecord::Base)) ||
-          (defined?(DataMapper::Model) && val.is_a?(DataMapper::Model))) &&
-          Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
+        if (
+          (defined?(ActiveRecord::Base) && val.is_a?(ActiveRecord::Base)) ||
+          (defined?(DataMapper::Model)  && val.is_a?(DataMapper::Model)) ||
+          (defined?(Sequel::Model)      && val.is_a?(Sequel::Model))
+        ) && Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
           conditions["#{key}_id"] = val.id
           conditions["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
         else

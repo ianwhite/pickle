@@ -34,6 +34,7 @@ module Pickle
     # @see pickle/adapters/active_record
     # @see pickle/adapters/datamapper
     # @see pickle/adapters/mongoid
+    # @see pickle/adapters/sequel
     module Base
       def self.included(base)
         adapters << base
