@@ -1,7 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'pickle/version'
-require 'pickle/orm_adapter'
 require 'pickle/adapter'
 require 'pickle/default_config'
 require 'pickle/parser/matchers'

@@ -3,8 +3,6 @@ require 'spec_helper'
 if !defined?(Mongoid) || !(Mongo::Connection.new.db('pickle_spec') rescue nil)
   puts "** set PICKLE_ORM=mongoid and start mongo to run the specs in #{__FILE__}"
 else  
-  require 'pickle/orm_adapters/mongoid'
-  
   Mongoid.configure do |config|
     config.master = Mongo::Connection.new.db('pickle-test')
   end

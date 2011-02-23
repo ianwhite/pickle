@@ -4,15 +4,15 @@ module Pickle
     # use your orm as 'factory' - ie create objects
     class Orm < Adapter
       def self.adapters
-        Pickle::OrmAdapter.model_classes.map{|k| new(k)}
+        OrmAdapter.model_classes.map{|k| new(k)}
       end
 
       def initialize(model_class)
         @model_class, @name = model_class, model_class.name.underscore.gsub('/','_')
       end
 
-      def make(attrs = {})
-        model_class.const_get(:PickleOrmAdapter).create_model(model_class, attrs)
+      def make(attrs)
+        create!(attrs)
       end
     end
   end

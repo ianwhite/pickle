@@ -65,8 +65,7 @@ Given /^a spec helper is setup including the pickle dsl with the example (\w+)\/
     require 'rspec/expectations'
   
     require 'pickle'
-    require 'pickle/orm_adapters/autoload'
-  
+    
     include Pickle::Dsl
     include Spec::Matchers
   FILE

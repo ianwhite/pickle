@@ -2,9 +2,7 @@ require 'spec_helper'
 
 if !defined?(ActiveRecord::Base)
   puts "** set PICKLE_ORM=active_record to run the specs in #{__FILE__}"
-else  
-  require 'pickle/orm_adapters/active_record'
-    
+else      
   database = File.join(File.dirname(__FILE__), '../../../tmp/active_record.sqlite')
   `mkdir -p #{File.dirname(database)}`
   ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => database)

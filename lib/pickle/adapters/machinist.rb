@@ -3,7 +3,7 @@ module Pickle
     class Machinist < Adapter
       def self.adapters
         adapters = []
-        Pickle::OrmAdapter.model_classes.each do |model_class|
+        OrmAdapter.model_classes.each do |model_class|
           if blueprints = model_class.instance_variable_get('@blueprints')
             blueprints.keys.each {|blueprint| adapters << new(model_class, blueprint)}
           end

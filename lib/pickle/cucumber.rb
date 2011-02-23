@@ -1,5 +1,4 @@
 require 'pickle'
-require 'pickle/orm_adapters/autoload'
 
 # make cucumber pickle aware
 World(Pickle::Dsl)

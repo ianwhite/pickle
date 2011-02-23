@@ -3,8 +3,6 @@ require 'spec_helper'
 if !defined?(DataMapper)
   puts "** set PICKLE_ORM=data_mapper to run the specs in #{__FILE__}"
 else  
-  require 'pickle/orm_adapters/data_mapper'
-  
   DataMapper.setup(:default, 'sqlite::memory:')
   
   module DmOrmSpec
