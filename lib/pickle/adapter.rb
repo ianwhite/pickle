@@ -106,7 +106,9 @@ module Pickle
     # factory-girl adapter
     class FactoryGirl < Adapter
       def self.factories
-        (::Factory.factories.values rescue []).map {|factory| new(factory)}
+        factories = []
+        ::FactoryGirl.registry.each {|k,v| factories << new(v)}
+        factories
       end
 
       def initialize(factory)
