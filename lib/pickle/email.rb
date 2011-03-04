@@ -11,7 +11,7 @@ module Pickle
       index = parse_index(match[1])
       email_has_fields?(@emails[index], fields) ? @emails[index] : nil
     end
-    
+
     def email_has_fields?(email, fields)
       parse_fields(fields).each do |key, val|
         return false unless (Array(email.send(key)) & Array(val)).any?
@@ -25,10 +25,9 @@ module Pickle
 
     def click_first_link_in_email(email)
       link = links_in_email(email).first
-      request_uri = URI::parse(link).request_uri
-      visit request_uri
+      visit link
     end
-  
+
   protected
     def open_in_browser(path) # :nodoc
       require "launchy"
@@ -36,7 +35,7 @@ module Pickle
     rescue LoadError
       warn "Sorry, you need to install launchy to open emails: `gem install launchy`"
     end
-  
+
     # Saves the emails out to RAILS_ROOT/tmp/ and opens it in the default
     # web browser if on OS X. (depends on webrat)
     def save_and_open_emails
@@ -60,15 +59,14 @@ module Pickle
     # e.g. confirm in http://confirm
     def parse_email_for_explicit_link(email, regex)
       regex = /#{Regexp.escape(regex)}/ unless regex.is_a?(Regexp)
-      url = links_in_email(email).detect { |link| link =~ regex }
-      URI::parse(url).request_uri if url
+      links_in_email(email).detect { |link| link =~ regex }
     end
 
     # e.g. Click here in  <a href="http://confirm">Click here</a>
     def parse_email_for_anchor_text_link(email, link_text)
-      email.body =~ %r{<a[^>]*href=['"]?([^'"]*)['"]?[^>]*?>[^<]*?#{link_text}[^<]*?</a>}
-      URI.split($~[1])[5..-1].compact!.join("?").gsub("&amp;", "&")
-      # sub correct ampersand after rails switches it (http://dev.rubyonrails.org/ticket/4002)
+      if match_data = email.body.match(%r{<a[^>]*href=['"]?([^'"]*)['"]?[^>]*?>[^<]*?#{link_text}[^<]*?</a>})
+        match_data[1]
+      end
     end
 
     def links_in_email(email, protos=['http', 'https'])

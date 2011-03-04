@@ -1,3 +1,113 @@
+== 0.4.4
+large object space fix, and allow escaped quotes as string values
+
+* 1 bugfix
+  * When using super-huge GC limits (for speeding up tests), occasionally we'll see abandoned Mongoid::Document classes appear in the ObjectSpace.
+    This patch should fix that. [Devin Walters and Nick Karpenske]
+  
+* 1 improvement
+  * allow escaped quotes (\") in quoted fields [Jonathan Hinkle]
+
+
+== 0.4.3
+ruby 1.9.2 compatibility fix
+
+* 1 bugfix
+  * Fix can't change hash during iteration error for ruby 1.9.2 [Ian White] [#33]
+    (This is fixed in orm_adapter, which pickle 0.5 will be using)
+
+
+== 0.4.2
+
+* 1 bugfix
+  * Use mongoid finder syntax, which requires a :conditions key [Marc Lee]
+
+
+== 0.4.1
+Docfix
+
+* 1 improvement
+  * documentation fixes, and example of writing your own pickle steps
+  
+
+== 0.4.0
+Mongoid adapter, fallback ORM adapter for those not using machinist or active_record, bugfixes
+
+* 2 major improvements
+  * adapter for Mongoid [Sebastian Zuchmanski]
+  * replace ActiveRecord 'factory' adapter with Orm adapter.
+  
+      If you don't have machinist or factory_girl, the Orm factory adapter will fallback to your Orm to create classes.
+      
+      BC: if you have a line like this:
+        Pickle.configure do |config|
+          config.adapters = [:active_record]
+        end
+
+      You need to replace it with :orm
+        Pickle.configure do |config|
+          config.adapters = [:orm]
+        end
+      
+* 1 minor improvement
+  * Pickle::Session::ModelNotKnownError is raised instead of a generic RuntimeError
+  
+* 1 bugfix
+  * references to unknown models in fields now raise ModelNotKnownError instead of silently assigning nil
+
+
+== 0.3.5
+
+* 3 improvements
+  * bundler is used for setting up development dependencies
+  * gemspec specifies dependencies for using pickle
+  * Machinist 2 compatability [giddie]
+
+* 1 bugfix
+  * find_models now works with a factory name with spaces in it [#27]
+  
+
+== 0.3.4
+
+* 2 minor improvements
+  * Fix problem where email body is not a string, but is string like [#26] [Tom Meier]
+  * Minor code refactoring
+
+
+== 0.3.3
+
+* 1 minor improvement
+  * Pickle respects the default build strategy for factory girl. [Sean Hussey]
+  
+
+== 0.3.2
+
+* 3 minor improvements
+  * Document how to use machinist named blueprints [Christopher Darroch]
+  * Email links now visit the url, rather than just the path, this allows for features that
+    make use of the domain to function correctly
+  * Deprecation warnings for Rails 3 removed [Brian Rose & Kevin Olsen]
+
+
+== 0.3.1
+
+* 1 major improvement
+  * Rails 3 support for generators [H.J. Blok, szimek]
+
+
+== 0.3.0
+
+* 2 major improvements
+  * Mechanism for registering ORM adapters for pickle [Daniel Neighman]
+  * Adapters for ActiveRecord and DataMapper [Josh Bassett, Daniel Neighman]
+
+
+== 0.2.12
+
+* 1 bugfix
+  * script/generate pickle paths now works correctly with cucumber-rails 0.3.2
+
+
 == 0.2.11
 
 * 1 improvement

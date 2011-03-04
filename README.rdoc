@@ -1,11 +1,51 @@
 = pickle
 
 Pickle gives you cucumber steps that create your models easily from factory-girl or
-machinist factories/blueprints.  You can also just use ActiveRecord but it's not as cool.
+machinist factories/blueprints.  You can also just use ActiveRecord as a factory but it's not as cool.
+
+Pickle can make use of different ORMs for finding records.  Currently ActiveRecord, DataMapper, MongoID adapters are
+provided.  More adapters welcome!
 
 References to the models are stored in the current world, not necessarily for the purpose of checking the db
 (although you could use it for that), but for enabling easy reference to urls, and for
 building complex givens which require a bunch of models collaborating
+
+== Quickstart
+
+This is a quickstart guide for rails apps.  Firstly, install {cucumber-rails}[http://github.com/aslakhellesoy/cucumber-rails], and its dependencies.
+Then do the following:
+
+=== Rails 3:
+
+Add the gem to your Gemfile:
+
+  gem 'pickle'
+  
+Then install with:
+
+  bundle install
+  
+Discover the options for the generator:
+
+  rails g pickle --help
+
+Run the generator, e.g:
+
+  rails g pickle --paths --email
+  
+=== For Rails 2:
+
+Add the following to config/environments/cucumber:
+
+  config.gem 'pickle'
+
+Install the gem with
+
+  rake gems:install RAILS_ENV=cucumber
+  
+Run the generator with:
+
+  script/generate pickle [paths] [email]
 
 == Resources
 
@@ -13,7 +53,7 @@ building complex givens which require a bunch of models collaborating
 
 <b>Gemcutter</b> for the gem: http://gemcutter.org/gems/pickle
 
-<b>API</b> docs: {Pickle rdoc on github}[http://ianwhite.github.com/pickle/doc/]
+<b>Rdoc.info</b> for docs: http://rdoc.info/projects/ianwhite/pickle
 
 <b>Google group</b> for questions: http://groups.google.com/group/pickle-cucumber
 
@@ -23,63 +63,20 @@ building complex givens which require a bunch of models collaborating
 
 <b>Blog articles</b>: {dynamic50: Integration testing with cucumber and pickle}[http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/], {rubyflare: pickle my cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
 
-== Install
 
-Install pickle either as a rails plugin, or a gem
-
-  # gem from gemcutter
-  sudo gem install pickle
-
-  # gem dependency (in config/environments/cucumber.rb)
-  config.gem 'pickle'
-
-  # plugin
-  script/plugin install git://github.com/ianwhite/pickle.git
-  
-  # or, plugin as submodule
-  git submodule add git://github.com/ianwhite/pickle.git vendor/plugins/pickle
-
-== CI
-
-It's tested against all stable branches of 2.x rails, and edge, with the latest versions of rspec, cucumber, factory_girl, machinist.
-
-== Run the tests
-
-To run the specs do:
-
-  rake spec
-  
-To run the features (rails 2.3 only ATM):
-
-  rake cucumber
-
-== Contributors
-
-The following people have made Pickle better:
-
-* {Nick Rutherford}[http://github.com/nruth]
-* {Tobi Knaup}[http://github.com/guenter]
-* {Michael MacDonald}[http://github.com/schlick]
-* {Michael Moen}[http://github.com/UnderpantsGnome]
-* {Myron Marston}[http://github.com/myronmarston]
-* {Stephan Hagemann}[http://github.com/xing]
-* {Chris Flipse}[http://github.com/cflipse]
-
-== Get Started
-
-(you'd better install cucumber)
-
-  script/generate pickle [paths] [email]
+== Using Pickle
 
 Now have a look at <tt>features/step_definitions/pickle_steps.rb</tt>
 
-If you want path steps and email steps then just add 'paths' and/or 'email'.  The code/steps will be
-written to <tt>features/env/paths.rb</tt> and
+If you want path steps and email steps then just add the 'paths' and/or 'email' options to the generator.
+The code/steps will be written to <tt>features/env/paths.rb</tt> and
 <tt>features/step_definitions/email_steps.rb</tt> respectively.
 
-=== Using with plain ole Active Record
+=== Using with plain ole Active Record, DataMapper or Mongoid
 
-If you have an AR called 'Post', with required fields 'title', and 'body', then you can now write 
+Pickle comes with ORM adapters for Active Record, DataMapper and Mongoid.
+
+If you have a model called 'Post', with required fields 'title', and 'body', then you can now write
 steps like this
 
   Given a post exists with title: "My Post", body: "My body"
@@ -96,10 +93,7 @@ you've written, you can just do stuff like
   Then a user should exist with name: "Fred"
   And that user should be activated # this uses rspec predicate matchers
 
-==== Machinst: require your blueprints and reset Shams
-
-(The latest version of pickle supports {multiple blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496], for 
-earlier versions of machinist use pickle <= 0.1.10)
+==== Machinist: require your blueprints and reset Shams
 
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
@@ -115,6 +109,19 @@ If that doesn't solve loading issues then require your factories.rb file directl
   # example features/support/factory_girl.rb
   require File.dirname(__FILE__) + '/../../spec/factories'
 
+=== Using with an ORM other than ActiveRecord, DataMapper, or Mongoid
+
+Pickle can be used with any modelling library provided there is an adapter written for it.
+
+Adapters are very simple and exist a module or class with the name "PickleAdapter" available to the class.  For example
+
+User.const_get(:PickleAdapter) #=> should return a pickle adapter
+
+The Active Record and DataMapper ones can be found at
+ActiveRecord::Base::PickleAdapter, DataMapper::Resource::PickleAdapter, Mongoid::Document::PickleAdapter respectively.
+
+See how to implement one by looking at the ones provided in the pickle source in lib/pickle/adapters/*
+
 === Configuring Pickle
 
 You can tell pickle to use another factory adapter (see Pickle::Adapter), or
@@ -126,13 +133,13 @@ In: <tt>features/support/pickle.rb</tt>
   require 'pickle/world'
 
   Pickle.configure do |config|
-    config.adapters = [:machinist, YourOwnAdapterClass]
+    config.adapters = [:machinist, :active_record, YourOwnAdapterClass]
     config.map 'me', 'myself', 'my', 'I', :to => 'user: "me"'
   end
-  
-Out of the box pickle looks for machinist, then factory-girl, then finally active-record 'factories'.
-If you find that your steps aren't working with your factories, it's probably the case that your factory
-setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
+
+Out of the box pickle looks for machinist, factory-girl, then uses the ORM(s) that you're using to create models.
+
+If you find that your steps aren't working with your factories, it's probably the case that your factory setup is not being included in your cucumber environment (see comments above regarding machinist and factory-girl).
 
 == API
 
@@ -147,35 +154,79 @@ When you run <tt>script/generate pickle</tt> you get the following steps
   Given a user exists
   Given a user: "fred" exists
   Given the user exists
-  
+
 "Given <b>a model</b> exists with <b>fields</b>",  e.g.
 
   Given a user exists with name: "Fred"
   Given a user exists with name: "Fred", activated: false
   
+This last step could be better expressed by using Machinist/FactoryGirl to create an activated user.  Then you can do
+
+  Given an activated user exists with name: "Fred"
+
 You can refer to other models in the fields
 
   Given a user exists
   And a post exists with author: the user
+
+  Given a person "fred" exists
+  And a person "ethel" exists
+  And a fatherhood exists with parent: person "fred", child: person "ethel"
   
-  Given a person: "fred" exists
-  And a person: "ethel" exists
-  And a fatherhood exists with parent: user "fred", child: user "ethel"
+This last step is given by the default pickle steps, but it would be better written as:
+
+  And "fred" is the father of "ethel"
   
+It is expected that you'll need to expand upon the default pickle steps to make your features readable.  To write the 
+above step, you could do something like:
+
+  Given /^"(\w+)" is the father of "(\w+)"$/ do |father, child|
+    Fatherhood.create! :father => model!("person: \"#{father}\""), :child => model!("person: \"#{child}\"")
+  end 
+
 "Given <b>n models</b> exist", e.g.
-  
+
   Given 10 users exist
-  
+
 "Given <b>n models</b> exist with <b>fields</b>", examples:
 
   Given 10 users exist with activated: false
-  
+
 "Given the following <b>models</b> exist:", examples:
 
   Given the following users exist
     | name  | activated |
     | Fred  | false     |
     | Ethel | true      |
+
+===== Named machinist blueprints
+
+"Given <b> a <i>named</i> model</b> exists with <b>fields</b>"
+
+The latest version of pickle supports {named machinist blueprints}[http://github.com/notahat/machinist/commit/d6492e6927a8aa1819926e48b22377171fd20496].
+
+If you had the following blueprints:
+
+  User.blueprint do
+    name
+    email
+  end
+  
+  User.blueprint(:super_admin) do
+    role { "admin" }
+  end
+  
+  User.blueprint(:activated) do
+    activated { true }
+  end
+
+You could create a user with pickle by simply adding the name of the blueprint before the model:
+
+  Given a super admin user exists
+  And an activated user exists with name: "Fred"
+
+This is much nicer than having to set up common configurations in your steps all the time, and far more readable to boot.
+
 
 ==== Then steps
 
@@ -188,21 +239,21 @@ You can refer to other models in the fields
 "Then <b>a model</b> should exist with <b>fields</b>", e.g.
 
   Then a user: "fred" should exist with name: "Fred" # we can label the found user for later use
-  
+
 You can use other models, booleans, numerics, and strings as fields
 
   Then a person should exist with child: person "ethel"
   Then a user should exist with activated: false
   Then a user should exist with activated: true, email: "fred@gmail.com"
-  
+
 "Then <b>n models</b> should exist", e.g.
 
   Then 10 events should exist
-  
+
 "Then <b>n models</b> should exist with <b>fields</b>", e.g.
 
   Then 2 people should exist with father: person "fred"
-  
+
 "Then the following <b>models</b> exist". This allows the creation of multiple models
 using a table syntax. Using a column with the singularized name of the model creates a referenceable model. E.g.
 
@@ -213,30 +264,30 @@ using a table syntax. Using a column with the singularized name of the model cre
   Then the following users exist:
     | user | name   | activated |
     | Fred | Freddy | false     |
-  
+
 ===== Asserting associations
 
 One-to-one assocs: "Then <b>a model</b> should be <b>other model</b>'s <b>association</b>", e.g.
 
   Then the person: "fred" should be person: "ethel"'s father
-  
+
 Many-to-one assocs: "Then <b>a model</b> should be [in|one of] <b>other model</b>'s <b>association</b>", e.g.
 
   Then the person: "ethel" should be one of person: "fred"'s children
   Then the comment should be in the post's comments
-  
+
 ===== Asserting predicate methods
 
 "Then <b>a model</b> should [be|have] [a|an] <b>predicate</b>", e.g.
-  
+
   Then the user should have a status # => user.status.should be_present
   Then the user should have a stale password # => user.should have_stale_password
   Then the car: "batmobile" should be fast # => car.should be_fast
-  
+
 "Then <b>a model</b> should not [be|have] [a|an] <b>predicate</b>", e.g.
 
   Then person: "fred" should not be childless # => fred.should_not be_childless
-  
+
 === Regexps for use in your own steps
 
 By default you get some regexps available in the main namespace for use
@@ -263,7 +314,7 @@ Pickle::Parser::Matchers for the methods available)
     post = model!(post)
     forum = model!(forum)
     forum.posts.should include(post)
-  end 
+  end
 
 *capture_fields*
 
@@ -277,3 +328,42 @@ can build up composite objects with ease
   # example of use
   Given a user exists
   And a post exists with author: the user # this step will assign the above user as :author on the post
+
+== Run the tests
+
+To get all the dependencies required for developing pickle, do the following
+
+  bundle install
+
+To run the specs do:
+
+  bundle exec rake spec
+
+To run the features (rails 2.3 only ATM):
+
+  bundle exec rake cucumber
+
+== Contributors
+
+The following people have made Pickle better:
+
+* {Jonathan Hinkle}[http://github.com/hynkle]
+* {Devin Walters and Nick Karpenske}[http://github.com/bendyworks]
+* {Marc Lee}[http://github.com/maleko]
+* {Sebastian Zuchmanski}[http://github.com/sebcioz]
+* {Paul Gideon Dann}[http://github.com/giddie]
+* {Tom Meier}[http://github.com/tommeier]
+* {Sean Hussey}[http://github.com/seanhussey]
+* Brian Rose & Kevin Olsen
+* {Christopher Darroch}[http://github.com/chrisdarroch]
+* {Szymon Nowak}[http://github.com/szimek]
+* {H.J. Blok}[http://github.com/hjblok]
+* {Daniel Neighman}[http://github.com/hassox]
+* {Josh Bassett}[http://github.com/nullobject]
+* {Nick Rutherford}[http://github.com/nruth]
+* {Tobi Knaup}[http://github.com/guenter]
+* {Michael MacDonald}[http://github.com/schlick]
+* {Michael Moen}[http://github.com/UnderpantsGnome]
+* {Myron Marston}[http://github.com/myronmarston]
+* {Stephan Hagemann}[http://github.com/xing]
+* {Chris Flipse}[http://github.com/cflipse]

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pickle}
-  s.version = "0.2.11"
+  s.version = "0.4.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ian White"]
-  s.date = %q{2010-05-13}
+  s.date = %q{2010-12-14}
   s.description = %q{Easy model creation and reference in your cucumber features}
   s.email = %q{ian.w.white@gmail.com}
   s.extra_rdoc_files = [
@@ -17,12 +17,14 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "History.txt",
      "License.txt",
      "README.rdoc",
      "Rakefile",
      "Rakefile.d/cucumber.rake",
-     "Rakefile.d/jeweller.rake",
+     "Rakefile.d/jeweler.rake",
      "Rakefile.d/rcov.rake",
      "Rakefile.d/rspec.rake",
      "Rakefile.d/yard.rake",
@@ -46,14 +48,19 @@ Gem::Specification.new do |s|
      "features/step_definitions/generator_steps.rb",
      "features/step_definitions/path_steps.rb",
      "features/step_definitions/pickle_steps.rb",
+     "features/step_definitions/raise_error_steps.rb",
      "features/support/email.rb",
      "features/support/env.rb",
      "features/support/paths.rb",
      "features/support/pickle.rb",
      "features/support/pickle_app.rb",
      "init.rb",
+     "lib/generators/pickle_generator.rb",
      "lib/pickle.rb",
      "lib/pickle/adapter.rb",
+     "lib/pickle/adapters/active_record.rb",
+     "lib/pickle/adapters/data_mapper.rb",
+     "lib/pickle/adapters/mongoid.rb",
      "lib/pickle/config.rb",
      "lib/pickle/email.rb",
      "lib/pickle/email/parser.rb",
@@ -87,7 +94,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/ianwhite/pickle/tree}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Easy model creation and reference in your cucumber features}
   s.test_files = [
     "spec/pickle/adapter_spec.rb",
@@ -106,10 +113,22 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<rspec>, [">= 1.3"])
+      s.add_runtime_dependency(%q<cucumber>, [">= 0.8"])
+      s.add_runtime_dependency(%q<yard>, [">= 0"])
+      s.add_runtime_dependency(%q<rake>, [">= 0"])
     else
+      s.add_dependency(%q<rspec>, [">= 1.3"])
+      s.add_dependency(%q<cucumber>, [">= 0.8"])
+      s.add_dependency(%q<yard>, [">= 0"])
+      s.add_dependency(%q<rake>, [">= 0"])
     end
   else
+    s.add_dependency(%q<rspec>, [">= 1.3"])
+    s.add_dependency(%q<cucumber>, [">= 0.8"])
+    s.add_dependency(%q<yard>, [">= 0"])
+    s.add_dependency(%q<rake>, [">= 0"])
   end
 end
 

@@ -14,7 +14,7 @@ module Pickle
       end
   
       def match_quoted
-        '(?:[^\\"]|\\.)*'
+        '(?:\\\\"|[^\\"]|\\.)*'
       end
   
       def match_label

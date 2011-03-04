@@ -6,14 +6,14 @@ Feature: allow pickle to generate steps
 
   Scenario: script/generate pickle on fresh cuke install
     Given cucumber has been freshly generated
-    When I run "script/generate pickle"
+    When I run "script/generate pickle -f"
     Then the file features/support/pickle.rb should exist
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/step_definitions/pickle_steps.rb should be identical to the local step_definitions/pickle_steps.rb
     
   Scenario: script/generate pickle path on fresh cuke install
     Given cucumber has been freshly generated
-    When I run "script/generate pickle path"
+    When I run "script/generate pickle path -f"
     Then the file features/support/pickle.rb should exist
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/path\/world'/
@@ -22,7 +22,7 @@ Feature: allow pickle to generate steps
 
   Scenario: script/generate pickle email on fresh cuke install
     Given cucumber has been freshly generated
-    When I run "script/generate pickle email"
+    When I run "script/generate pickle email -f"
     Then the file features/support/pickle.rb should exist
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/email\/world'/
@@ -32,7 +32,7 @@ Feature: allow pickle to generate steps
 
   Scenario: script/generate pickle path email on fresh cuke install
     Given cucumber has been freshly generated
-    When I run "script/generate pickle path email"
+    When I run "script/generate pickle path email -f"
     Then the file features/support/pickle.rb should exist
     And the file features/support/pickle.rb should be identical to the local support/pickle.rb
     And the file features/support/pickle.rb should match /require 'pickle\/world'/
@@ -46,7 +46,7 @@ Feature: allow pickle to generate steps
   Scenario: regenerating pickle
     Given cucumber has been freshly generated
     And pickle path email has been freshly generated
-    When I run "script/generate pickle path email"
+    When I run "script/generate pickle path email -f"
     Then the file features/support/pickle.rb should match /require 'pickle\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/path\/world'/
     And the file features/support/pickle.rb should match /require 'pickle\/email\/world'/
