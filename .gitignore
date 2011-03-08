@@ -1,6 +1,17 @@
-pkg
-doc/*
-.yardoc
-pickle-email*
-cucumber_test_app
+# system crap
+.DS_Store
+
+# local ruby/gems dev stuff
+.rvmrc
 .bundle
+Gemfile.lock
+cucumber_test_app
+pickle-email*
+
+# built docs
+.yardoc
+doc
+
+# built gems
+pkg
+*.gem
