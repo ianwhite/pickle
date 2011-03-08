@@ -331,9 +331,12 @@ can build up composite objects with ease
 
 == Run the tests
 
-To get all the dependencies required for developing pickle, do the following
+To run the specs and features, you can start from the last known good set of gem dependencies in Gemfile.lock.development:
 
-  bundle install
+  git clone http://github.com/ianwhite/pickle
+  cd pickle
+  cp Gemfile.lock.development Gemfile.lock
+  bundle
 
 To run the specs do:
 
