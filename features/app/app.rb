@@ -106,13 +106,13 @@ class Notifier < ActionMailer::Base
   def user_email(user)
     @recipients  = user.email
     @subject     = 'A user email'
-    @body[:user] = user
-    @body[:path] = user_path(user)
+    @user = user
+    @path = user_path(user)
   end
   
   def email(to, subject, body)
     @recipients  = to
     @subject     = subject
-    @body[:body] = body
+    @body = body
   end
 end

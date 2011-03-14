@@ -1,7 +1,7 @@
 Given(/^an email "(.*?)" with body: "(.*?)" is delivered to (.+?)$/) do |subject, body, to|
-  Notifier.deliver_email(to, subject, body)
+  Notifier.email(to, subject, body).deliver
 end
 
 Given(/^#{capture_model}'s email is delivered$/) do |model|
-  Notifier.deliver_user_email(model(model))
+  Notifier.user_email(model!(model)).deliver
 end

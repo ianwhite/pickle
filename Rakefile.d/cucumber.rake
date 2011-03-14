@@ -18,6 +18,7 @@ namespace :cucumber do
     cd "cucumber_test_app" do
       sh "echo 'gem \"cucumber-rails\"' >> Gemfile"
       sh "echo 'gem \"rspec-rails\"' >> Gemfile"
+      sh "echo 'gem \"capybara\"' >> Gemfile"
       sh "bundle install"
     end
     sh "ln -s #{File.expand_path('.')} cucumber_test_app/vendor/plugins/pickle"
