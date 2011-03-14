@@ -20,13 +20,13 @@ Gem::Specification.new do |s|
   
   s.add_dependency "cucumber", ">=0.8"
   s.add_dependency "rake"
-  s.add_dependency "rspec", ">=1.3"
-  
-  s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "git", ">= 1.2.5"
+   
+  s.add_development_dependency "rack", "~>1.2.1"
+  s.add_development_dependency "bundler"
+  s.add_development_dependency "git"
   s.add_development_dependency "yard"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "rails", "~>2.3"
+  s.add_development_dependency "rspec-rails", "~>2.5.0"
+  s.add_development_dependency "rails", "~>3.0.5"
   s.add_development_dependency "cucumber-rails", ">=0.3.2"
   s.add_development_dependency "factory_girl"
   s.add_development_dependency "machinist"
