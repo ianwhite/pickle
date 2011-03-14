@@ -1,8 +1,10 @@
-== master
+== 0.4.5
+development dependency upgrades
 
 * 2 minor improvements
   * Simplify release process, and change Gemspec handling to facilitate faster failing when a development dep becomes incompatible [Ian White]
   * Upgrade development to use rspec 2, and a rails 3 application for the features [Ian White]
+
 
 == 0.4.4
 large object space fix, and allow escaped quotes as string values
