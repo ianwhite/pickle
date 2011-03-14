@@ -331,14 +331,60 @@ can build up composite objects with ease
 
 === Email Steps
 
-When you run <tt>script/generate pickle email</tt> you get the following steps
+When you run <tt>rails g pickle --email</tt> you get steps for handling email.
 
-In the following steps "the email" can be any of the following
+The general pattern of use is to clear the email queue (if necessary), have your app perform something that sends emails, assert that emails have been delivered, then assert 
+those emails have particular properties.
 
-  the email
+For example:
+
+  Background:
+    Given a user has signed up
+    And all emails have been delivered
+    And the user has signed in
+    
+  Scenario: User buys a fork
+    Given I am on the fork page
+    And I press "Buy Fork!"
+    Then 1 email should be delivered to the user
+    And the email should contain "You can haz Fork!"
+    When I follow the "my account" link in the email
+    Then I should be on the account page
+    
+    And 1 email should be delivered to "sales@example.com"
+    And the email should contain the user's page
+    And the email should contain "User can haz Fork!"
+    
+You can refer to emails that were found in the <tt>Then <i>n</i> emails should be delivered</tt> in the following ways:
+
+  the email (refers to last email)
+  the 1st email
+  the last email
   email to: "joe@example.com"
   email subject: "some subject"
   email to: "joe@example.com", subject: "some subject"
+
+==== Map expressions to email addresses
+
+By default a step like
+
+  Then 2 emails should be delivered to the user "Ethel"
+
+Will look for the <tt>email</tt> attribute on the found model.  This is configurable in much the same way as
+page names for url paths.  Have a look at <tt>features/support/email.rb</tt> to add your own custom mappings.
+
+For example:
+
+  # in features/support/email.rb
+  when /^#{capture_model} sales team$/
+    model!($1).sales_email
+
+  # in a feature
+    Given a site exists
+    And someone buys something form the site
+    Then 1 email should be delivered to the site sales team
+    
+More detail on the emails steps follows:
 
 ==== Given steps
 
@@ -386,7 +432,7 @@ Then <b>email</b> should not contain "<b>text</b>", e.g.
 
   Then the email should not contain "v1@gr@"
 
-Then <b>email</b> should link to "<b>href</a>", e.g.
+Then <b>email</b> should link to "<b>href</b>", e.g.
 
   Then the email should link to http://example.com/pickle
 
