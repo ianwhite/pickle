@@ -338,12 +338,9 @@ To run the specs and features, you can start from the last known good set of gem
   cp Gemfile.lock.development Gemfile.lock
   bundle
 
-To run the specs do:
+To run the specs & features do:
 
   bundle exec rake spec
-
-To run the features (rails 2.3 only ATM):
-
   bundle exec rake cucumber
 
 == Contributors
