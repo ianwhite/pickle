@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 # TODO: remove this and push AR stuff into ORM adapter
 module ActiveRecord
@@ -30,7 +30,7 @@ describe Pickle::Session do
     config.stub(:factories).and_return('user' => user_factory)
   end
 
-  describe "Pickle::Session proxy missing methods to parser", :shared => true do
+  shared_examples_for "Pickle::Session proxy missing methods to parser" do
     it "should forward to pickle_parser it responds_to them" do
       subject.pickle_parser.should_receive(:parse_model)
       subject.parse_model
@@ -59,7 +59,7 @@ describe Pickle::Session do
     it_should_behave_like "Pickle::Session proxy missing methods to parser"
   end
 
-  describe "after storing a single user", :shared => true do
+  shared_examples_for "after storing a single user" do
     it "created_models('user') should be array containing the original user" do
       created_models('user').should == [user]
     end
