@@ -1,12 +1,12 @@
 # Routes
-ActionController::Routing::Routes.draw do |map|
-  map.resources :spoons, :controller => 'default'
-  map.resources :forks, :controller => 'default' do |fork|
-    fork.resources :tines, :controller => 'default' do |tine|
-      tine.resources :comments, :controller => 'default'
+Rails.application.routes.draw do
+  resources :spoons, :controller => 'default'
+  resources :forks, :controller => 'default' do
+    resources :tines, :controller => 'default' do
+      resources :comments, :controller => 'default'
     end
   end
-  map.resources :users, :controller => 'default'
+  resources :users, :controller => 'default'
 end
 
 # Migrations
@@ -98,14 +98,10 @@ end
 
 # notifiers
 class Notifier < ActionMailer::Base
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   
   # BC 2.1
-  if respond_to?(:view_paths)
-    view_paths << "#{File.dirname(__FILE__)}/views"
-  else
-    self.template_root = "#{File.dirname(__FILE__)}/views"
-  end
+  self.view_paths = "#{File.dirname(__FILE__)}/views"
   
   def user_email(user)
     @recipients  = user.email
