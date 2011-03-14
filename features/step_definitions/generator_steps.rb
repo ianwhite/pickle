@@ -8,11 +8,11 @@ After('@gen') do
 end
 
 Given(/^cucumber has been freshly generated$/) do
-  `cd #{Rails.root}; script/generate cucumber -f --webrat`
+  `cd #{Rails.root}; rails g cucumber:install -f --webrat`
 end
 
 Given(/^pickle path email has been freshly generated$/) do
-  `cd #{Rails.root}; script/generate -f pickle paths email`
+  `cd #{Rails.root}; rails g pickle paths email -f`
 end
 
 Given(/^env\.rb already requires (.+)$/) do |file|
