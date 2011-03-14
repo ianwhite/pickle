@@ -18,23 +18,6 @@ describe Pickle::Adapter do
     before do
       Pickle::Adapter.model_classes = nil
     end
-
-    it "should only include #suitable_for_pickle classes" do
-      klass1 = Class.new(ActiveRecord::Base)
-      klass2 = Class.new(ActiveRecord::Base)
-      klass3 = Class.new(ActiveRecord::Base)
-      klass4 = Class.new(ActiveRecord::Base)
-      klass5 = Class.new(ActiveRecord::Base)
-      klass6 = Class.new(ActiveRecord::Base)
-      [klass1, klass2, klass3, klass4, klass5, klass6].each { |k| k.stub!(:table_exists?).and_return(true) }
-
-      klass2.stub!(:name).and_return("CGI::Session::ActiveRecordStore::Session")
-      klass3.stub!(:name).and_return("ActiveRecord::SessionStore::Session")
-      klass4.stub!(:table_exists?).and_return(false)
-      klass5.stub!(:abstract_class?).and_return(true)
-      Pickle::Adapter.model_classes.should include(klass1, klass6)
-      Pickle::Adapter.model_classes.should_not include(klass2, klass3, klass4, klass5)
-    end
   end
 
   describe "adapters: " do
@@ -55,13 +38,6 @@ describe Pickle::Adapter do
 
           ActiveRecord::Base::PickleAdapter.model_classes
         end
-
-        it "calls .subclasses when .descendants doesn't respond" do
-          ::ActiveRecord::Base.should_receive(:subclasses).and_return([])
-
-          ActiveRecord::Base::PickleAdapter.model_classes
-        end
-
       end
 
       describe 'with class stubs' do
