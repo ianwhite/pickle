@@ -51,9 +51,7 @@ describe Pickle::Session do
 
   describe "extending Pickle::Session" do
     subject do
-      returning Object.new do |object|
-        object.extend Pickle::Session
-      end
+      Object.new.tap {|object| object.extend Pickle::Session }
     end
 
     it_should_behave_like "Pickle::Session proxy missing methods to parser"
@@ -80,9 +78,7 @@ describe Pickle::Session do
 
     describe "(found from db)" do
       let :user_from_db do
-        returning user.dup do |from_db|
-          from_db.stub!(:id).and_return(100)
-        end
+        user.dup.tap {|from_db| from_db.stub!(:id).and_return(100) }
       end
 
       before do
