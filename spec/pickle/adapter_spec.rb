@@ -39,9 +39,9 @@ describe Pickle::Adapter do
 
   describe "adapters: " do
     before do
-      @klass1 = returning(Class.new(ActiveRecord::Base)) { |k| k.stub!(:name).and_return('One') }
-      @klass2 = returning(Class.new(ActiveRecord::Base)) { |k| k.stub!(:name).and_return('One::Two') }
-      @klass3 = returning(Class.new(ActiveRecord::Base)) { |k| k.stub!(:name).and_return('Three') }
+      @klass1 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('One') }
+      @klass2 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('One::Two') }
+      @klass3 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('Three') }
     end
 
     describe 'ActiveRecord' do
