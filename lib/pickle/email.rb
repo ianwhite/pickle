@@ -64,13 +64,23 @@ module Pickle
 
     # e.g. Click here in  <a href="http://confirm">Click here</a>
     def parse_email_for_anchor_text_link(email, link_text)
-      if match_data = email.body.match(%r{<a[^>]*href=['"]?([^'"]*)['"]?[^>]*?>[^<]*?#{link_text}[^<]*?</a>})
+      if email.multipart?
+        body = email.html_part.body
+      else
+        body = email.body
+      end
+      if match_data = body.match(%r{<a[^>]*href=['"]?([^'"]*)['"]?[^>]*?>[^<]*?#{link_text}[^<]*?</a>})
         match_data[1]
       end
     end
 
     def links_in_email(email, protos=['http', 'https'])
-      URI.extract(email.body.to_s, protos)
+      if email.multipart?
+        body = email.html_part.body
+      else
+        body = email.body
+      end
+      URI.extract(body.to_s, protos)
     end
 
   end
