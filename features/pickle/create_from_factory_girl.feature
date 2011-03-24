@@ -59,5 +59,8 @@ Feature: I can easily create models from my factories
     And the fancy fork: "of cornwood" should be fancy
     
   Scenario: create a tine with a missing fork
-    Then the following should raise Pickle::Session::ModelNotKnownError: "Given a tine exists with fork: the fork"
+    Then the following should raise a Pickle::Session::ModelNotKnownError: 
+      """
+      Given a tine exists with fork: the fork
+      """
     
