@@ -253,7 +253,7 @@ describe Pickle::Session do
 
     it "should call raise error if find_model returns nil" do
       should_receive(:find_model).with('name', 'fields').and_return(nil)
-      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::Session::ModelNotKnownError)
+      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::Session::ModelNotFoundError)
     end
   end
 

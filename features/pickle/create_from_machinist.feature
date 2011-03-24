@@ -37,3 +37,10 @@ Feature: I can easily create models from my blueprints
     And 2 spoons should exist with round: true
     And the first spoon should be round
     And the last spoon should be round
+    
+  Scenario: ModelNotKnownError should be informative when failing to find
+    Given a spoon exists with round: true
+    Then the following should raise a Pickle::Session::ModelNotFoundError with "Can't find a spoon with round: false from the orm in this scenario":
+      """
+      Then a spoon should exist with round: false
+      """

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pickle (0.4.6)
+    pickle (0.4.7)
       cucumber (>= 0.8)
       rake
 
