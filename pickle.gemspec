@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = "ian.w.white@gmail.com"
   s.homepage = "http://github.com/ianwhite/pickle"
 
-  s.rubyforge_project = "orm_adapter"
+  s.rubyforge_project = "pickle"
   s.required_rubygems_version = ">= 1.3.6"
 
   s.files         = `git ls-files`.split("\n")
