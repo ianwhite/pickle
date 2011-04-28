@@ -106,7 +106,7 @@ module Pickle
     # factory-girl adapter
     class FactoryGirl < Adapter
       def self.factories
-        (::Factory.factories.values rescue []).map {|factory| new(factory)}
+        (::FactoryGirl.factories.values rescue []).map {|factory| new(factory)}
       end
 
       def initialize(factory)
