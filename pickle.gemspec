@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_dependency "cucumber", ">=0.8"
-  s.add_dependency "rake"
+  s.add_dependency "rake", "=0.8.7'
    
   s.add_development_dependency "rack", "~>1.2.1"
   s.add_development_dependency "bundler"
