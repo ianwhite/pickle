@@ -1,3 +1,8 @@
+== 0.4.8
+
+* Dev deps updated to latest cucumber & cucumber-rails [Ian White]
+
+
 == 0.4.7
 
 * 2 minor improvements
