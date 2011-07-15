@@ -282,10 +282,12 @@ describe Pickle::Session do
   describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\' (super_admin is factory that returns users)' do
     let(:fred) { mock("fred", :class => user_class, :id => 2) }
     let(:shirl) { mock("shirl", :class => user_class, :id => 3) }
-    let(:noname) { mock("noname", :class => user_class, :is => 4) }
-
-    let(:super_admin_factory) do
-      Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :factory_name => :super_admin))
+    let(:noname) { mock("noname", :class => user_class, :id => 4) }
+    
+    if defined? ::FactoryGirl
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :name => :super_admin)) }
+    else
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :factory_name => :super_admin)) }
     end
 
     before do
