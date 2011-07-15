@@ -1,6 +1,8 @@
 == 0.4.8
 
-* Dev deps updated to latest cucumber & cucumber-rails [Ian White]
+* 2 minor improvements
+  * Support factory_girl v1 and v2 API [Ari Epstein]
+  * Dev deps updated to latest cucumber & cucumber-rails, and test for factory_girl 2 [Ian White]
 
 
 == 0.4.7
