@@ -133,6 +133,32 @@ module Pickle
       end
     end
 
+    # fabrication adapter
+    class Fabrication < Adapter
+      def self.factories
+        if defined? ::Fabrication
+          ::Fabrication::Support.find_definitions if ::Fabrication::Fabricator.schematics.empty?
+          factories = []
+          ::Fabrication::Fabricator.schematics.each {|v| factories << new(v)}
+          factories
+        end
+      end
+
+      def initialize(factory)
+        if defined? ::Fabrication
+          @klass, @name = factory[1].klass, factory[0].to_s
+        end
+      end
+
+      def create(attrs = {})
+        if defined? ::Fabrication
+          ::Fabrication::Fabricator.generate(@name.to_sym, {
+              :save => true
+              }, attrs)
+        end
+      end
+    end
+
     # ORM adapter.  If you have no factory adapter, you can use this adapter to
     # use your orm as 'factory' - ie create objects
     class Orm < Adapter
