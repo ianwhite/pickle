@@ -138,9 +138,7 @@ module Pickle
       def self.factories
         if defined? ::Fabrication
           ::Fabrication::Support.find_definitions if ::Fabrication::Fabricator.schematics.empty?
-          factories = []
-          ::Fabrication::Fabricator.schematics.each {|v| factories << new(v)}
-          factories
+          ::Fabrication::Fabricator.schematics.collect{|v| new(v)}
         end
       end
 
