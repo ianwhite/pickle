@@ -31,6 +31,11 @@ ActiveRecord::Migration.suppress_messages do
       t.decimal :attitude_score, :precision => 4, :scale => 2
       t.boolean :has_stale_password, :default => false
     end
+
+    create_table :knives, :force => true do |t|
+      t.string :name
+      t.boolean :sharp, :null => false
+    end
   end
 end
 
@@ -56,6 +61,11 @@ end
 
 # Machinist blueprint for this
 class Spoon < ActiveRecord::Base
+  validates_presence_of :name
+end
+
+# Fabricator class
+class Knife < ActiveRecord::Base
   validates_presence_of :name
 end
 
