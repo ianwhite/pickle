@@ -138,6 +138,8 @@ module Pickle
         if defined? ::Fabrication
           ::Fabrication::Support.find_definitions if ::Fabrication::Fabricator.schematics.empty?
           ::Fabrication::Fabricator.schematics.collect{|v| new(v)}
+        else
+          []
         end
       end
 

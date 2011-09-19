@@ -1,3 +1,9 @@
+== 0.4.10
+
+* 1 bugfix
+  * Don't blow up when fabrication not present [Ian White]
+  
+
 == 0.4.9
 
 * 1 major improvement
