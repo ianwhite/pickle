@@ -1,7 +1,7 @@
 = pickle
 
-Pickle gives you cucumber steps that create your models easily from factory-girl or
-machinist factories/blueprints.  You can also just use ActiveRecord as a factory but it's not as cool.
+Pickle gives you cucumber steps that create your models easily from factory-girl,
+machinist, or fabrication.  You can also just use ActiveRecord as a factory but it's not as cool.
 
 Pickle can make use of different ORMs for finding records.  Currently ActiveRecord, DataMapper, MongoID adapters are
 provided.  More adapters welcome!
@@ -458,6 +458,7 @@ To run the specs & features do:
 
 The following people have made Pickle better:
 
+* {David Padilla}[http://github.com/dabit]
 * {Ari Epstein}[http://github.com/aepstein]
 * {Jonathan Hinkle}[http://github.com/hynkle]
 * {Devin Walters and Nick Karpenske}[http://github.com/bendyworks]
