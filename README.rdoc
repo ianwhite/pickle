@@ -397,7 +397,7 @@ Clear the email queue, e.g.
 
 When <b>[I|they]</b> follow <b>[text_or_regex|the first link]</b> the email, e.g.
 
-  When I follow the first link in the email
+  When I click the first link in the email
   When I follow "http://example.com/pickle" in the email
   When I follow "some link text" in the email
 
