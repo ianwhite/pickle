@@ -70,7 +70,7 @@ module Pickle
       def find_all_models(klass, conditions)
         klass.const_get(:PickleAdapter).find_all_models(klass, conditions)
       end
-      
+
       def create_model(klass, attributes)
         klass.const_get(:PickleAdapter).create_model(klass, attributes)
       end
