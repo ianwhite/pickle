@@ -44,6 +44,15 @@ module Pickle
       store_model(factory, label, record)
       record
     end
+
+    def build_model(pickle_ref, fields = nil)
+      factory, label = *parse_model(pickle_ref)
+      raise ArgumentError, "Can't build with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
+      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
+      record = pickle_config.factories[factory].build(fields)
+      store_model(factory, label, record)
+      record
+    end
     
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
     def create_models_from_table(plural_factory, table)
