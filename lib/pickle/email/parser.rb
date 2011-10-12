@@ -9,7 +9,7 @@ module Pickle
       def capture_email
         "(#{match_email})"
       end
-      
+
       def capture_index_in_email
         "(?:#{match_prefix}?(?:#{capture_index} )?email)"
       end

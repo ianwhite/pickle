@@ -2,29 +2,29 @@ module Pickle
   module Session
     class ModelNotKnownError < RuntimeError
       attr_reader :name
-      
+
       def initialize(name, message = nil)
         @name = name
         @message = message.presence || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
       end
-      
+
       def to_s
         @message
       end
     end
-    
+
     class ModelNotFoundError < RuntimeError
     end
-    
+
     class << self
       def included(world_class)
         proxy_to_pickle_parser(world_class)
       end
-      
+
       def extended(world_object)
         proxy_to_pickle_parser(class << world_object; self; end) # metaclass is not 2.1 compatible
       end
-      
+
     protected
       def proxy_to_pickle_parser(world_class)
         world_class.class_eval do
@@ -35,7 +35,7 @@ module Pickle
         end
       end
     end
-    
+
     def create_model(pickle_ref, fields = nil)
       factory, label = *parse_model(pickle_ref)
       raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
@@ -53,7 +53,7 @@ module Pickle
       store_model(factory, label, record)
       record
     end
-    
+
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
     def create_models_from_table(plural_factory, table)
       factory = plural_factory.singularize
@@ -77,14 +77,14 @@ module Pickle
 
       record
     end
-    
+
     def find_model!(name, fields = nil)
       find_model(name, fields) or raise ModelNotFoundError, "Can't find #{name}#{" with #{fields}" if fields.present?} from the orm in this scenario"
     end
-    
+
     def find_models(factory, fields = nil)
       factory = pickle_parser.canonical(factory)
-      
+
       models_by_index(factory).clear
 
       model_class = pickle_config.factories[factory].klass
@@ -93,7 +93,7 @@ module Pickle
 
       records.each {|record| store_model(factory, nil, record)}
     end
-    
+
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
     def find_models_from_table(plural_factory, table)
       factory = plural_factory.singularize
@@ -102,11 +102,11 @@ module Pickle
         find_model(pickle_ref, hash)
       end
     end
-    
+
     # return the original model stored by create_model or find_model
     def created_model(name)
       factory, name_or_index = *parse_model(name)
-      
+
       if name_or_index.blank?
         models_by_index(factory).last
       elsif name_or_index.is_a?(Integer)
@@ -120,45 +120,45 @@ module Pickle
     def created_model?(name)
       (created_model(name) rescue nil) ? true : false
     end
-    
+
     # return a newly selected model
     def model(name)
       model = created_model(name)
       return nil unless model
       Pickle::Adapter.get_model(model.class, model.id)
     end
-    
+
     # predicate version which raises no errors
     def model?(name)
       (model(name) rescue nil) ? true : false
     end
-    
+
     # like model, but raise an error if it can't be found
     def model!(name)
       model(name) or raise ModelNotKnownError, name
     end
-    
+
     # like created_model, but raise an error if it can't be found
     def created_model!(name)
       created_model(name) or raise ModelNotKnownError, name
     end
-    
+
     # return all original models of specified type
     def created_models(factory)
       models_by_index(factory)
     end
-      
+
     # return all models of specified type (freshly selected from the database)
     def models(factory)
       created_models(factory).map do |model|
         Pickle::Adapter.get_model(model.class, model.id)
       end
     end
-    
+
     def respond_to_with_pickle_parser?(method, include_private = false)
       respond_to_without_pickle_parser?(method, include_private) || pickle_parser.respond_to?(method, include_private)
     end
-    
+
   protected
     def method_missing_with_pickle_parser(method, *args, &block)
       if pickle_parser.respond_to?(method)
@@ -167,12 +167,12 @@ module Pickle
         method_missing_without_pickle_parser(method, *args, &block)
       end
     end
-    
+
     def pickle_parser=(parser)
       parser.session = self
       @pickle_parser = parser
     end
-    
+
     def pickle_parser
       @pickle_parser or self.pickle_parser = Pickle.parser
     end
@@ -195,23 +195,23 @@ module Pickle
       end
       conditions
     end
-    
+
     def models_by_name(factory)
       @models_by_name ||= {}
       @models_by_name[pickle_parser.canonical(factory)] ||= {}
     end
-    
+
     def models_by_index(factory)
       @models_by_index ||= {}
       @models_by_index[pickle_parser.canonical(factory)] ||= []
     end
-    
+
     # if the factory name != the model name, store under both names
     def store_model(factory, name, record)
       store_record(record.class.name, name, record) unless pickle_parser.canonical(factory) == pickle_parser.canonical(record.class.name)
       store_record(factory, name, record)
     end
-    
+
     def store_record(factory, name, record)
       models_by_name(factory)[name] = record
       models_by_index(factory) << record

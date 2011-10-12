@@ -14,11 +14,11 @@ module Pickle
     def config
       @config ||= Config.new
     end
-    
+
     def configure(&block)
       config.configure(&block)
     end
-  
+
     def parser(options = {})
       @parser ||= Parser.new({:config => config}.merge(options))
     end
