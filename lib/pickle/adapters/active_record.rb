@@ -1,7 +1,7 @@
 begin
-  require 'activerecord'
-rescue LoadError
   require 'active_record'
+rescue LoadError
+  require 'activerecord'
 end
 
 class ActiveRecord::Base
