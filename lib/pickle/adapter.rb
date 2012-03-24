@@ -108,7 +108,9 @@ module Pickle
       def self.factories
         if defined? ::FactoryGirl
           factories = []
-          ::FactoryGirl.factories.each {|v| factories << new(v)}
+          ::FactoryGirl.factories.each do |factory|
+            factory.names.each {|name| factories << ::FactoryGirl::Factory.new(name) }
+          end
           factories
         else
           (::Factory.factories.values rescue []).map {|factory| new(factory)}
