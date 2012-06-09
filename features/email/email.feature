@@ -42,7 +42,7 @@ Feature: I can test emails are sent
   	Given a user exists with name: "Fred", email: "fred@gmail.com"
   	And an email with a link "example page" to the user's page is delivered to fred@gmail.com
     Then 1 email should be delivered to the user
-		And I click the first link in the email
+		And I follow the first link in the email
 		Then I should be at the user's page
 
   Scenario: Following a link in an email by url
