@@ -1,3 +1,8 @@
+== 0.4.11
+
+* 1 minor improvement
+  * Changed find_first_model to cope with Mongoid 3.0.0 [Jules Copeland]
+
 == 0.4.10
 
 * 1 bugfix
