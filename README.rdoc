@@ -458,6 +458,7 @@ To run the specs & features do:
 
 The following people have made Pickle better:
 
+* {Jules Copeland}[http://github.com/julescopeland]
 * {David Padilla}[http://github.com/dabit]
 * {Ari Epstein}[http://github.com/aepstein]
 * {Jonathan Hinkle}[http://github.com/hynkle]
