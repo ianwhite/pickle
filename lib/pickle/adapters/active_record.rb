@@ -31,27 +31,27 @@ class ActiveRecord::Base
 
     # get a list of column names for a given class
     def self.column_names(klass)
-      klass.column_names
+      klass.unscoped { klass.column_names }
     end
 
     # Get an instance by id of the model
     def self.get_model(klass, id)
-      klass.find(id)
+      klass.unscoped { klass.find(id) }
     end
 
     # Find the first instance matching conditions
     def self.find_first_model(klass, conditions)
-      klass.find(:first, :conditions => conditions)
+      klass.unscoped { klass.where(conditions).first }
     end
 
     # Find all models matching conditions
     def self.find_all_models(klass, conditions)
-      klass.find(:all, :conditions => conditions)
+      klass.unscoped { klass.where(conditions) }
     end
-    
+
     # Create a model using attributes
     def self.create_model(klass, attributes)
-      klass.create!(attributes)
+      klass.unscoped { klass.create!(attributes) }
     end
   end
 end
