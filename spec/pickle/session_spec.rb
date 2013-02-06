@@ -429,4 +429,17 @@ describe Pickle::Session do
   it "#created_model!('unknown') should raise informative error message" do
     lambda { created_model!('unknown') }.should raise_error(Pickle::Session::ModelNotKnownError)
   end
+
+  describe "#store_record" do
+    let(:factory) { "user" }
+    let(:name) { "the admin" }
+    let(:record) { "User class" }
+
+    it "should index by canonical name" do
+      should_receive(:models_by_name).with(factory).and_return({})
+      should_receive(:models_by_index).with(factory).and_return([])
+      Pickle::Parser.any_instance.should_receive(:canonical).with(name)
+      store_record(factory, name, record)
+    end
+  end
 end

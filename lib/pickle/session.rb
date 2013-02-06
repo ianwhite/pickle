@@ -204,7 +204,7 @@ module Pickle
     end
     
     def store_record(factory, name, record)
-      models_by_name(factory)[name] = record
+      models_by_name(factory)[pickle_parser.canonical(name)] = record
       models_by_index(factory) << record
     end
   end
