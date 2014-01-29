@@ -18,10 +18,10 @@ class ActiveRecord::Base
 
     # Gets a list of the available models for this adapter
     def self.model_classes
-      begin
-        klasses = ::ActiveRecord::Base.__send__(:descendants) # Rails 3
-      rescue
-        klasses = ::ActiveRecord::Base.__send__(:subclasses) # Rails 2
+      if ::ActiveRecord::Base.respond_to?(:descendants)
+        klasses = ::ActiveRecord::Base.descendants  # Rails 3, 4
+      else
+        klasses = ::ActiveRecord::Base.subclasses   # Rails 2
       end
 
       klasses.select do |klass|
@@ -41,14 +41,24 @@ class ActiveRecord::Base
 
     # Find the first instance matching conditions
     def self.find_first_model(klass, conditions)
-      klass.find(:first, :conditions => conditions)
+      if defined? ::ActiveRecord::Relation
+        klass.where(conditions).first           # Rails 3, 4
+      else
+        klass.find(:first,
+                   :conditions => conditions)   # Rails 2
+      end
     end
 
     # Find all models matching conditions
     def self.find_all_models(klass, conditions)
-      klass.find(:all, :conditions => conditions)
+      if defined? ::ActiveRecord::Relation
+        klass.where(conditions)                 # Rails 3, 4
+      else
+        klass.find(:all,
+                   :conditions => conditions)   # Rails 2
+      end
     end
-    
+
     # Create a model using attributes
     def self.create_model(klass, attributes)
       klass.create!(attributes)
