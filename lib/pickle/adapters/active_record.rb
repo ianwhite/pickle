@@ -41,14 +41,14 @@ class ActiveRecord::Base
 
     # Find the first instance matching conditions
     def self.find_first_model(klass, conditions)
-      klass.find(:first, :conditions => conditions)
+      klass.where(conditions).first
     end
 
     # Find all models matching conditions
     def self.find_all_models(klass, conditions)
-      klass.find(:all, :conditions => conditions)
+      klass.where(conditions)
     end
-    
+
     # Create a model using attributes
     def self.create_model(klass, attributes)
       klass.create!(attributes)
