@@ -15,16 +15,16 @@ building complex givens which require a bunch of models collaborating
 This is a quickstart guide for rails apps.  Firstly, install {cucumber-rails}[http://github.com/aslakhellesoy/cucumber-rails], and its dependencies.
 Then do the following:
 
-=== Rails 3:
+=== Rails 3 / 4:
 
 Add the gem to your Gemfile:
 
   gem 'pickle'
-  
+
 Then install with:
 
   bundle install
-  
+
 Discover the options for the generator:
 
   rails g pickle --help
@@ -32,7 +32,7 @@ Discover the options for the generator:
 Run the generator, e.g:
 
   rails g pickle --paths --email
-  
+
 === For Rails 2:
 
 Add the following to config/environments/cucumber:
@@ -42,7 +42,7 @@ Add the following to config/environments/cucumber:
 Install the gem with
 
   rake gems:install RAILS_ENV=cucumber
-  
+
 Run the generator with:
 
   script/generate pickle [paths] [email]
@@ -159,7 +159,7 @@ When you run <tt>script/generate pickle</tt> you get the following steps
 
   Given a user exists with name: "Fred"
   Given a user exists with name: "Fred", activated: false
-  
+
 This last step could be better expressed by using Machinist/FactoryGirl to create an activated user.  Then you can do
 
   Given an activated user exists with name: "Fred"
@@ -172,17 +172,17 @@ You can refer to other models in the fields
   Given a person "fred" exists
   And a person "ethel" exists
   And a fatherhood exists with parent: person "fred", child: person "ethel"
-  
+
 This last step is given by the default pickle steps, but it would be better written as:
 
   And "fred" is the father of "ethel"
-  
-It is expected that you'll need to expand upon the default pickle steps to make your features readable.  To write the 
+
+It is expected that you'll need to expand upon the default pickle steps to make your features readable.  To write the
 above step, you could do something like:
 
   Given /^"(\w+)" is the father of "(\w+)"$/ do |father, child|
     Fatherhood.create! :father => model!("person: \"#{father}\""), :child => model!("person: \"#{child}\"")
-  end 
+  end
 
 "Given <b>n models</b> exist", e.g.
 
@@ -211,11 +211,11 @@ If you had the following blueprints:
     name
     email
   end
-  
+
   User.blueprint(:super_admin) do
     role { "admin" }
   end
-  
+
   User.blueprint(:activated) do
     activated { true }
   end
@@ -333,7 +333,7 @@ can build up composite objects with ease
 
 When you run <tt>rails g pickle --email</tt> you get steps for handling email.
 
-The general pattern of use is to clear the email queue (if necessary), have your app perform something that sends emails, assert that emails have been delivered, then assert 
+The general pattern of use is to clear the email queue (if necessary), have your app perform something that sends emails, assert that emails have been delivered, then assert
 those emails have particular properties.
 
 For example:
@@ -342,7 +342,7 @@ For example:
     Given a user has signed up
     And all emails have been delivered
     And the user has signed in
-    
+
   Scenario: User buys a fork
     Given I am on the fork page
     And I press "Buy Fork!"
@@ -350,11 +350,11 @@ For example:
     And the email should contain "You can haz Fork!"
     When I follow the "my account" link in the email
     Then I should be on the account page
-    
+
     And 1 email should be delivered to "sales@example.com"
     And the email should contain the user's page
     And the email should contain "User can haz Fork!"
-    
+
 You can refer to emails that were found in the <tt>Then <i>n</i> emails should be delivered</tt> in the following ways:
 
   the email (refers to last email)
@@ -383,7 +383,7 @@ For example:
     Given a site exists
     And someone buys something form the site
     Then 1 email should be delivered to the site sales team
-    
+
 More detail on the emails steps follows:
 
 ==== Given steps
@@ -481,4 +481,4 @@ The following people have made Pickle better:
 * {Myron Marston}[http://github.com/myronmarston]
 * {Stephan Hagemann}[http://github.com/xing]
 * {Chris Flipse}[http://github.com/cflipse]
-  
+
