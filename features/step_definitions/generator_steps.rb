@@ -32,21 +32,21 @@ When(/^I run "(.*)"$/) do |command|
 end
 
 Then(/^I should see "(.*)"$/) do |text|
-  @output.should include(text)
+  expect(@output).to include(text)
 end
 
 Then(/^the file (.+?) should exist$/) do |file|
-  File.exist?("#{Rails.root}/#{file}").should == true
+  expect(File.exist?("#{Rails.root}/#{file}")).to eq(true)
 end
 
 Then(/^the file (.+?) should match \/(.*?)\/$/) do |file, regexp|
-  File.read("#{Rails.root}/#{file}").should match(/#{regexp}/m)
+  expect(File.read("#{Rails.root}/#{file}")).to match(/#{regexp}/m)
 end
 
 Then(/^the file (.+?) should not match \/(.*?)\/$/) do |file, regexp|
-  File.read("#{Rails.root}/#{file}").should_not match(/#{regexp}/m)
+  expect(File.read("#{Rails.root}/#{file}")).not_to match(/#{regexp}/m)
 end
 
 Then /^the file ([^ ]+) should be identical to the local (.+)$/ do |generated_file, source_file|
-  File.read("#{Rails.root}/#{generated_file}").should == File.read("#{File.dirname(__FILE__)}/../#{source_file}")
+  expect(File.read("#{Rails.root}/#{generated_file}")).to eq(File.read("#{File.dirname(__FILE__)}/../#{source_file}"))
 end

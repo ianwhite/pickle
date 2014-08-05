@@ -2,7 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 
 Then(/^(.+?) should match route \/(.+?)$/) do |page, route|
   regexp = route.gsub(/:(\w*?)id/,'\d+')
-  path_to(page).should =~ /#{regexp}/
+  expect(path_to(page)).to match(/#{regexp}/)
 end
 
 When(/^I go to (.+)$/) do |page|
@@ -10,5 +10,5 @@ When(/^I go to (.+)$/) do |page|
 end
 
 Then(/^I should be at (.+)$/) do |page|
-  current_url.should =~ /#{path_to(page)}/
+  expect(current_url).to match(/#{path_to(page)}/)
 end

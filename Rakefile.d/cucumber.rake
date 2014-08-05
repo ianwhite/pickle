@@ -18,7 +18,7 @@ namespace :cucumber do
       rm_rf "cucumber_test_app"
       sh "rails new cucumber_test_app --skip-javascript --skip-sprockets"
       sh "echo 'gem \"cucumber-rails\", :require => false' >> #{gemfile}"
-      sh "echo 'gem \"rspec-rails\"' >> #{gemfile}"
+      sh "echo 'gem \"rspec-rails\", \"~>3.0\"' >> #{gemfile}"
       sh "echo 'gem \"capybara\"' >> #{gemfile}"
       sh "bundle install --gemfile=#{gemfile}"
       sh "ln -s ../../.. cucumber_test_app/vendor/plugins/pickle"

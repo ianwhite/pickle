@@ -8,11 +8,11 @@ require 'pickle/adapters/active_record'
 
 describe Pickle::Adapter do
   it ".factories should raise NotImplementedError" do
-    lambda { Pickle::Adapter.factories }.should raise_error(NotImplementedError)
+    expect { Pickle::Adapter.factories }.to raise_error(NotImplementedError)
   end
 
   it "#create should raise NotImplementedError" do
-    lambda { Pickle::Adapter.new.create }.should raise_error(NotImplementedError)
+    expect { Pickle::Adapter.new.create }.to raise_error(NotImplementedError)
   end
 
   describe ".model_classes" do
@@ -23,9 +23,9 @@ describe Pickle::Adapter do
 
   describe "adapters: " do
     before do
-      @klass1 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('One') }
-      @klass2 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('One::Two') }
-      @klass3 = Class.new(ActiveRecord::Base).tap { |k| k.stub!(:name).and_return('Three') }
+      @klass1 = Class.new(ActiveRecord::Base).tap { |k| allow(k).to receive(:name).and_return('One') }
+      @klass2 = Class.new(ActiveRecord::Base).tap { |k| allow(k).to receive(:name).and_return('One::Two') }
+      @klass3 = Class.new(ActiveRecord::Base).tap { |k| allow(k).to receive(:name).and_return('Three') }
     end
 
     describe 'ActiveRecord' do
@@ -34,8 +34,8 @@ describe Pickle::Adapter do
 
       describe ".model_classes" do
         it "calls .descendants" do
-          ::ActiveRecord::Base.should_receive(:descendants).and_return([])
-          ::ActiveRecord::Base.should_not_receive(:subclasses).and_return([])
+          expect(::ActiveRecord::Base).to receive(:descendants).and_return([])
+          expect(::ActiveRecord::Base).not_to receive(:subclasses)
 
           ActiveRecord::Base::PickleAdapter.model_classes
         end
@@ -43,14 +43,14 @@ describe Pickle::Adapter do
 
       describe 'with class stubs' do
         before do
-          Pickle::Adapter::Orm.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+          allow(Pickle::Adapter::Orm).to receive(:model_classes).and_return([@klass1, @klass2, @klass3])
         end
 
         it ".factories should create one for each active record class" do
-          Pickle::Adapter::Orm.should_receive(:new).with(@klass1).once
-          Pickle::Adapter::Orm.should_receive(:new).with(@klass2).once
-          Pickle::Adapter::Orm.should_receive(:new).with(@klass3).once
-          Pickle::Adapter::Orm.factories.length.should == 3
+          expect(Pickle::Adapter::Orm).to receive(:new).with(@klass1).once
+          expect(Pickle::Adapter::Orm).to receive(:new).with(@klass2).once
+          expect(Pickle::Adapter::Orm).to receive(:new).with(@klass3).once
+          expect(Pickle::Adapter::Orm.factories.length).to eq(3)
         end
 
         describe ".new(Class)" do
@@ -59,11 +59,11 @@ describe Pickle::Adapter do
           end
 
           it "should have underscored (s/_) name of Class as #name" do
-            @factory.name.should == 'one_two'
+            expect(@factory.name).to eq('one_two')
           end
 
           it "#create(attrs) should call Class.create!(attrs)" do
-            @klass2.should_receive(:create!).with({:key => "val"})
+            expect(@klass2).to receive(:create!).with({:key => "val"})
             @factory.create(:key => "val")
           end
         end
@@ -72,7 +72,7 @@ describe Pickle::Adapter do
 
     describe 'FactoryGirl' do
       before do
-        Pickle::Adapter::FactoryGirl.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+        allow(Pickle::Adapter::FactoryGirl).to receive(:model_classes).and_return([@klass1, @klass2, @klass3])
 
         if defined? ::FactoryGirl
           @orig_factories = ::FactoryGirl.factories.dup
@@ -100,8 +100,8 @@ describe Pickle::Adapter do
       end
 
       it ".factories should create one for each factory" do
-        Pickle::Adapter::FactoryGirl.should_receive(:new).with(@factory1).once
-        Pickle::Adapter::FactoryGirl.should_receive(:new).with(@factory2).once
+        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory1).once
+        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory2).once
         Pickle::Adapter::FactoryGirl.factories
       end
 
@@ -111,16 +111,16 @@ describe Pickle::Adapter do
         end
 
         it "should have name of factory_name" do
-          @factory.name.should == 'one'
+          expect(@factory.name).to eq('one')
         end
 
         it "should have klass of build_class" do
-          @factory.klass.should == @klass1
+          expect(@factory.klass).to eq(@klass1)
         end
 
         unless defined? ::FactoryGirl
           it "#create(attrs) should call Factory(<:key>, attrs)" do
-            Factory.should_receive(:create).with("one", {:key => "val"})
+            expect(Factory).to receive(:create).with("one", {:key => "val"})
             @factory.create(:key => "val")
           end
         end
@@ -131,12 +131,12 @@ describe Pickle::Adapter do
       before do
         @schematic1 = [:one, Fabrication::Schematic::Definition.new(@klass1)]
         @schematic2 = [:two, Fabrication::Schematic::Definition.new(@klass2)]
-        ::Fabrication.manager.stub(:schematics).and_return(Hash[[@schematic1, @schematic2]])
+        allow(::Fabrication.manager).to receive(:schematics).and_return(Hash[[@schematic1, @schematic2]])
       end
 
       it '.factories should create one for each fabricator' do
-        Pickle::Adapter::Fabrication.should_receive(:new).with(@schematic1)
-        Pickle::Adapter::Fabrication.should_receive(:new).with(@schematic2)
+        expect(Pickle::Adapter::Fabrication).to receive(:new).with(@schematic1)
+        expect(Pickle::Adapter::Fabrication).to receive(:new).with(@schematic2)
 
         Pickle::Adapter::Fabrication.factories
       end
@@ -147,18 +147,18 @@ describe Pickle::Adapter do
         end
 
         it ".new should have name of schematic name" do
-          @factory.name.should == 'one'
+          expect(@factory.name).to eq('one')
         end
 
         it "should have klass of build_class" do
-          @factory.klass.should == @klass1
+          expect(@factory.klass).to eq(@klass1)
         end
       end
 
       describe ".create" do
         it "returns the fabricated instance" do
           @factory = Pickle::Adapter::Fabrication.new(@schematic1)
-          Fabricate.should_receive(:create).
+          expect(Fabricate).to receive(:create).
               with(@factory.name.to_sym, {:attribute => 'value'})
           @factory.create({:attribute => 'value'})
         end
@@ -167,7 +167,7 @@ describe Pickle::Adapter do
 
     describe 'Machinist' do
       before do
-        Pickle::Adapter::Machinist.stub!(:model_classes).and_return([@klass1, @klass2, @klass3])
+        allow(Pickle::Adapter::Machinist).to receive(:model_classes).and_return([@klass1, @klass2, @klass3])
 
         @klass1.blueprint {}
         @klass3.blueprint {}
@@ -175,9 +175,9 @@ describe Pickle::Adapter do
       end
 
       it ".factories should create one for each master blueprint, and special case" do
-        Pickle::Adapter::Machinist.should_receive(:new).with(@klass1, :master).once
-        Pickle::Adapter::Machinist.should_receive(:new).with(@klass3, :master).once
-        Pickle::Adapter::Machinist.should_receive(:new).with(@klass3, :special).once
+        expect(Pickle::Adapter::Machinist).to receive(:new).with(@klass1, :master).once
+        expect(Pickle::Adapter::Machinist).to receive(:new).with(@klass3, :master).once
+        expect(Pickle::Adapter::Machinist).to receive(:new).with(@klass3, :special).once
         Pickle::Adapter::Machinist.factories
       end
 
@@ -187,11 +187,11 @@ describe Pickle::Adapter do
         end
 
         it "should have underscored (s/_) name of Class as #name" do
-          @factory.name.should == 'one'
+          expect(@factory.name).to eq('one')
         end
 
         it "#create(attrs) should call Class.make!(:master, attrs)" do
-          @klass1.should_receive(:make!).with(:master, {:key => "val"})
+          expect(@klass1).to receive(:make!).with(:master, {:key => "val"})
           @factory.create(:key => "val")
         end
       end
@@ -202,11 +202,11 @@ describe Pickle::Adapter do
         end
 
         it "should have 'special_<Class name>' as #name" do
-          @factory.name.should == 'special_three'
+          expect(@factory.name).to eq('special_three')
         end
 
         it "#create(attrs) should call Class.make!(:special, attrs)" do
-          @klass3.should_receive(:make!).with(:special, {:key => "val"})
+          expect(@klass3).to receive(:make!).with(:special, {:key => "val"})
           @factory.create(:key => "val")
         end
       end

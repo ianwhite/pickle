@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler"
   s.add_development_dependency "git"
   s.add_development_dependency "yard"
-  s.add_development_dependency "rspec-rails", "~>2.6.0"
+  s.add_development_dependency "rspec-rails", "~>3.0"
   s.add_development_dependency "rails", "~>3.1.0"
   s.add_development_dependency "cucumber-rails"
   s.add_development_dependency "factory_girl"

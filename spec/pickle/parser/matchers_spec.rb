@@ -7,9 +7,9 @@ describe Pickle::Parser::Matchers do
     def config
       @config ||= Pickle::Config.new do |c|
         c.factories = {
-          'user'      => mock('factory'),
-          'car'       => mock('factory'),
-          'fast_car'  => mock('factory')
+          'user'      => double('factory'),
+          'car'       => double('factory'),
+          'fast_car'  => double('factory')
         }
         c.predicates = %w(name status fancy? super_fancy? has_style? has_super_style?)
       end
@@ -19,7 +19,7 @@ describe Pickle::Parser::Matchers do
       def self.atom_should_match(atom, strings)
         Array(strings).each do |string|
           it "#{atom} should match '#{string}'" do
-            string.should match(/^#{send atom}$/)
+            expect(string).to match(/^#{send atom}$/)
           end
         end
       end
@@ -27,7 +27,7 @@ describe Pickle::Parser::Matchers do
       def self.atom_should_not_match(atom, strings)
         Array(strings).each do |string|
           it "#{atom} should NOT match '#{string}'" do
-            string.should_not match(/^#{send atom}$/)
+            expect(string).not_to match(/^#{send atom}$/)
           end
         end
       end
@@ -63,8 +63,8 @@ describe Pickle::Parser::Matchers do
   
   describe "capture methods" do
     it "capture_field should == '(' + match_field + ')'" do
-      should_receive(:match_field).and_return('MATCH_FIELD')
-      capture_field.should == '(MATCH_FIELD)'
+      expect(self).to receive(:match_field).and_return('MATCH_FIELD')
+      expect(capture_field).to eq('(MATCH_FIELD)')
     end
   end
 end
