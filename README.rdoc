@@ -93,12 +93,11 @@ you've written, you can just do stuff like
   Then a user should exist with name: "Fred"
   And that user should be activated # this uses rspec predicate matchers
 
-==== Machinist: require your blueprints and reset Shams
+==== Machinist: require your blueprints
 
 In your <tt>features/support/env.rb</tt> add the following lines at the bottom
 
   require "#{Rails.root}/spec/blueprints" # or wherever they live
-  Before { Sham.reset } # reset Shams in between scenarios
 
 ==== FactoryGirl: make sure factories are loaded
 

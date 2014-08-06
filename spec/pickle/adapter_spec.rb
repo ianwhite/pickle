@@ -190,8 +190,8 @@ describe Pickle::Adapter do
           @factory.name.should == 'one'
         end
 
-        it "#create(attrs) should call Class.make(:master, attrs)" do
-          @klass1.should_receive(:make).with(:master, {:key => "val"})
+        it "#create(attrs) should call Class.make!(:master, attrs)" do
+          @klass1.should_receive(:make!).with(:master, {:key => "val"})
           @factory.create(:key => "val")
         end
       end
@@ -205,8 +205,8 @@ describe Pickle::Adapter do
           @factory.name.should == 'special_three'
         end
 
-        it "#create(attrs) should call Class.make(:special, attrs)" do
-          @klass3.should_receive(:make).with(:special, {:key => "val"})
+        it "#create(attrs) should call Class.make!(:special, attrs)" do
+          @klass3.should_receive(:make!).with(:special, {:key => "val"})
           @factory.create(:key => "val")
         end
       end

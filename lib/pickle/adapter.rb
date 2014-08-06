@@ -95,11 +95,7 @@ module Pickle
       end
 
       def create(attrs = {})
-        if @klass.respond_to?('make!')
-          @klass.send(:make!, @blueprint, attrs)
-        else
-          @klass.send(:make, @blueprint, attrs)
-        end
+        @klass.send(:make!, @blueprint, attrs)
       end
     end
 
