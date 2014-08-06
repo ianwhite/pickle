@@ -136,8 +136,8 @@ module Pickle
     class Fabrication < Adapter
       def self.factories
         if defined? ::Fabrication
-          ::Fabrication::Support.find_definitions if ::Fabrication.schematics.empty?
-          ::Fabrication.schematics.schematics.map { |name, klass| new([name, klass]) }
+          ::Fabrication.manager.load_definitions if ::Fabrication.manager.schematics.empty?
+          ::Fabrication.manager.schematics.map { |name, klass| new([name, klass]) }
         else
           []
         end

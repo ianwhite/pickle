@@ -129,9 +129,9 @@ describe Pickle::Adapter do
 
     describe 'Fabrication' do
       before do
-        @schematic1 = [:one, Fabrication::Schematic.new(@klass1)]
-        @schematic2 = [:two, Fabrication::Schematic.new(@klass2)]
-        ::Fabrication::Fabricator.stub(:schematics).and_return([@schematic1, @schematic2])
+        @schematic1 = [:one, Fabrication::Schematic::Definition.new(@klass1)]
+        @schematic2 = [:two, Fabrication::Schematic::Definition.new(@klass2)]
+        ::Fabrication.manager.stub(:schematics).and_return(Hash[[@schematic1, @schematic2]])
       end
 
       it '.factories should create one for each fabricator' do
@@ -158,8 +158,8 @@ describe Pickle::Adapter do
       describe ".create" do
         it "returns the fabricated instance" do
           @factory = Pickle::Adapter::Fabrication.new(@schematic1)
-          ::Fabrication::Fabricator.should_receive(:generate).
-              with(@factory.name.to_sym, {:save => true}, {:attribute => 'value'})
+          Fabricate.should_receive(:create).
+              with(@factory.name.to_sym, {:attribute => 'value'})
           @factory.create({:attribute => 'value'})
         end
       end
