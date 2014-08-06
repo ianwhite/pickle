@@ -13,14 +13,15 @@ end
 
 namespace :cucumber do
   task :setup do
-    rm_rf "cucumber_test_app"
-    sh "rails new cucumber_test_app"
-    cd "cucumber_test_app" do
-      sh "echo 'gem \"cucumber-rails\"' >> Gemfile"
-      sh "echo 'gem \"rspec-rails\"' >> Gemfile"
-      sh "echo 'gem \"capybara\"' >> Gemfile"
-      sh "bundle install"
+    Bundler.with_clean_env do
+      gemfile = "cucumber_test_app/Gemfile"
+      rm_rf "cucumber_test_app"
+      sh "rails new cucumber_test_app --skip-javascript --skip-sprockets"
+      sh "echo 'gem \"cucumber-rails\", :require => false' >> #{gemfile}"
+      sh "echo 'gem \"rspec-rails\"' >> #{gemfile}"
+      sh "echo 'gem \"capybara\"' >> #{gemfile}"
+      sh "bundle install --gemfile=#{gemfile}"
+      sh "ln -s ../../.. cucumber_test_app/vendor/plugins/pickle"
     end
-    sh "ln -s #{File.expand_path('.')} cucumber_test_app/vendor/plugins/pickle"
   end
 end

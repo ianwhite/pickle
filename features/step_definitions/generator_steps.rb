@@ -8,11 +8,15 @@ After('@gen') do
 end
 
 Given(/^cucumber has been freshly generated$/) do
-  `cd #{Rails.root}; rails g cucumber:install -f --capybara`
+  Bundler.with_clean_env do
+    `cd #{Rails.root}; rails g cucumber:install -f --capybara`
+  end
 end
 
 Given(/^pickle path email has been freshly generated$/) do
-  `cd #{Rails.root}; rails g pickle paths email -f`
+  Bundler.with_clean_env do
+    `cd #{Rails.root}; rails g pickle paths email -f`
+  end
 end
 
 Given(/^env\.rb already requires (.+)$/) do |file|
@@ -22,7 +26,9 @@ Given(/^env\.rb already requires (.+)$/) do |file|
 end
 
 When(/^I run "(.*)"$/) do |command|
-  @output = `cd #{Rails.root}; #{command}`
+  Bundler.with_clean_env do
+    @output = `cd #{Rails.root}; #{command}`
+  end
 end
 
 Then(/^I should see "(.*)"$/) do |text|
