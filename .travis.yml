@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.1.1
+
+before_install:
+  - cp Gemfile.lock.development Gemfile.lock
+script:
+  - bundle exec rake spec
+  - bundle exec rake cucumber
