@@ -136,8 +136,8 @@ module Pickle
     class Fabrication < Adapter
       def self.factories
         if defined? ::Fabrication
-          ::Fabrication::Support.find_definitions if ::Fabrication::Fabricator.schematics.empty?
-          ::Fabrication::Fabricator.schematics.collect{|v| new(v)}
+          ::Fabrication::Support.find_definitions if ::Fabrication.schematics.empty?
+          ::Fabrication.schematics.schematics.map { |name, klass| new([name, klass]) }
         else
           []
         end
@@ -151,9 +151,7 @@ module Pickle
 
       def create(attrs = {})
         if defined? ::Fabrication
-          ::Fabrication::Fabricator.generate(@name.to_sym, {
-              :save => true
-              }, attrs)
+          Fabricate(@name.to_sym, attrs)
         end
       end
     end
