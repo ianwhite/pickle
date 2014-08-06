@@ -1,5 +1,7 @@
 = pickle
 
+{<img src="https://travis-ci.org/ianwhite/pickle.svg" alt="Build Status" />}[https://travis-ci.org/ianwhite/pickle]
+
 Pickle gives you cucumber steps that create your models easily from factory-girl,
 machinist, or fabrication.  You can also just use ActiveRecord as a factory but it's not as cool.
 
