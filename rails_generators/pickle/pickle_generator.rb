@@ -2,9 +2,7 @@ class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)
     @generate_email_steps = args.include?('email')
-    if @generate_path_steps = args.include?('path') || args.include?('paths')
-      File.exists?('features/support/paths.rb') or raise "features/support/paths.rb not found, is your cucumber up to date?"
-    end
+    @generate_path_steps = args.include?('path')
   end
   
   def manifest
