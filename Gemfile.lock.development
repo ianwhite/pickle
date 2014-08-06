@@ -69,8 +69,8 @@ GEM
     git (1.2.5)
     hike (1.2.1)
     i18n (0.6.0)
-    json (1.6.5)
-    machinist (1.0.6)
+    json (1.7.7)
+    machinist (2.0)
     mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -103,7 +103,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (0.9.2.2)
+    rake (0.9.6)
     rdoc (3.12)
       json (~> 1.4)
     rspec (2.6.0)
@@ -154,7 +154,7 @@ DEPENDENCIES
   fabrication
   factory_girl
   git
-  machinist
+  machinist (~> 2.0)
   pickle!
   rack
   rails (~> 3.1.0)
