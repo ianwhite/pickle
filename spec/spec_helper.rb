@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'bundler/setup'
 require 'rspec'
 require 'active_support'
 require 'active_record'
