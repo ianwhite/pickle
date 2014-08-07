@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rails", "~>3.1.0"
   s.add_development_dependency "cucumber-rails"
   s.add_development_dependency "factory_girl"
-  s.add_development_dependency "fabrication"
+  s.add_development_dependency "fabrication", '~> 2.0'
   s.add_development_dependency "machinist", "~>2.0"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "capybara"
