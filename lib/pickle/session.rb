@@ -189,6 +189,8 @@ module Pickle
           Pickle::Adapter.column_names(ar_class).include?("#{key}_id")
           conditions["#{key}_id"] = val.id
           conditions["#{key}_type"] = val.class.base_class.name if ar_class.column_names.include?("#{key}_type")
+        elsif val.nil? && Pickle::Adapter.column_names(ar_class).include?("#{key}_id") &&
+            !Pickle::Adapter.column_names(ar_class).include?("#{key}")
         else
           conditions[key] = val
         end
