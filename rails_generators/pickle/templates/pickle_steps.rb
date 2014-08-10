@@ -30,11 +30,6 @@ Then(/^the following #{capture_plural_factory} should exists?:?$/) do |plural_fa
   find_models_from_table(plural_factory, table).should_not be_any(&:nil?)
 end
 
-# not find models with a table
-Then(/^the following #{capture_plural_factory} should not exists?:?$/) do |plural_factory, table|
-  find_models_from_table(plural_factory, table).should_not be_nil
-end
-
 # find exactly n models
 Then(/^(\d+) #{capture_plural_factory} should exist(?: with #{capture_fields})?$/) do |count, plural_factory, fields|
   find_models(plural_factory.singularize, fields).size.should == count.to_i
