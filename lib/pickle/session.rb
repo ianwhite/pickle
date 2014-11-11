@@ -5,12 +5,15 @@ module Pickle
       
       def initialize(name, message = nil)
         @name = name
-        @message = message || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
+        @message = message.presence || "The model: '#{name}' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario."
       end
       
       def to_s
         @message
       end
+    end
+    
+    class ModelNotFoundError < RuntimeError
     end
     
     class << self
@@ -67,7 +70,7 @@ module Pickle
     end
     
     def find_model!(name, fields = nil)
-      find_model(name, fields) or raise ModelNotKnownError, name
+      find_model(name, fields) or raise ModelNotFoundError, "Can't find #{name}#{" with #{fields}" if fields.present?} from the orm in this scenario"
     end
     
     def find_models(factory, fields = nil)

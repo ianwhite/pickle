@@ -107,15 +107,55 @@ module Pickle
     # factory-girl adapter
     class FactoryGirl < Adapter
       def self.factories
-        (::Factory.factories.values rescue []).map {|factory| new(factory)}
+        if defined? ::FactoryGirl
+          factories = []
+          ::FactoryGirl.factories.each {|v| factories << new(v)}
+          factories
+        else
+          (::Factory.factories.values rescue []).map {|factory| new(factory)}
+        end
       end
 
       def initialize(factory)
-        @klass, @name = factory.build_class, factory.factory_name.to_s
+        if defined? ::FactoryGirl
+          @klass, @name = factory.build_class, factory.name.to_s
+        else
+          @klass, @name = factory.build_class, factory.factory_name.to_s
+        end
       end
 
       def create(attrs = {})
-        Factory(@name, attrs)
+        if defined? ::FactoryGirl
+          ::FactoryGirl.create(@name, attrs)
+        else
+          Factory(@name, attrs)
+        end
+      end
+    end
+
+    # fabrication adapter
+    class Fabrication < Adapter
+      def self.factories
+        if defined? ::Fabrication
+          ::Fabrication::Support.find_definitions if ::Fabrication::Fabricator.schematics.empty?
+          ::Fabrication::Fabricator.schematics.collect{|v| new(v)}
+        else
+          []
+        end
+      end
+
+      def initialize(factory)
+        if defined? ::Fabrication
+          @klass, @name = factory[1].klass, factory[0].to_s
+        end
+      end
+
+      def create(attrs = {})
+        if defined? ::Fabrication
+          ::Fabrication::Fabricator.generate(@name.to_sym, {
+              :save => true
+              }, attrs)
+        end
       end
     end
 

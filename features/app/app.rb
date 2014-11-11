@@ -1,12 +1,12 @@
 # Routes
-ActionController::Routing::Routes.draw do |map|
-  map.resources :spoons, :controller => 'default'
-  map.resources :forks, :controller => 'default' do |fork|
-    fork.resources :tines, :controller => 'default' do |tine|
-      tine.resources :comments, :controller => 'default'
+Rails.application.routes.draw do
+  resources :spoons, :controller => 'default'
+  resources :forks, :controller => 'default' do
+    resources :tines, :controller => 'default' do
+      resources :comments, :controller => 'default'
     end
   end
-  map.resources :users, :controller => 'default'
+  resources :users, :controller => 'default'
 end
 
 # Migrations
@@ -30,6 +30,11 @@ ActiveRecord::Migration.suppress_messages do
       t.string :name, :status, :email
       t.decimal :attitude_score, :precision => 4, :scale => 2
       t.boolean :has_stale_password, :default => false
+    end
+
+    create_table :knives, :force => true do |t|
+      t.string :name
+      t.boolean :sharp, :null => false
     end
   end
 end
@@ -56,6 +61,11 @@ end
 
 # Machinist blueprint for this
 class Spoon < ActiveRecord::Base
+  validates_presence_of :name
+end
+
+# Fabricator class
+class Knife < ActiveRecord::Base
   validates_presence_of :name
 end
 
@@ -98,25 +108,21 @@ end
 
 # notifiers
 class Notifier < ActionMailer::Base
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   
   # BC 2.1
-  if respond_to?(:view_paths)
-    view_paths << "#{File.dirname(__FILE__)}/views"
-  else
-    self.template_root = "#{File.dirname(__FILE__)}/views"
-  end
+  self.view_paths = "#{File.dirname(__FILE__)}/views"
   
   def user_email(user)
     @recipients  = user.email
     @subject     = 'A user email'
-    @body[:user] = user
-    @body[:path] = user_path(user)
+    @user = user
+    @path = user_path(user)
   end
   
   def email(to, subject, body)
     @recipients  = to
     @subject     = subject
-    @body[:body] = body
+    @body = body
   end
 end

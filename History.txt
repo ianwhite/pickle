@@ -1,3 +1,52 @@
+== 0.4.11
+
+* 1 minor improvement
+  * Changed find_first_model to cope with Mongoid 3.0.0 [Jules Copeland]
+
+== 0.4.10
+
+* 1 bugfix
+  * Don't blow up when fabrication not present [Ian White]
+  
+
+== 0.4.9
+
+* 1 major improvement
+  * Fabrication factory adapter [David Padilla]
+
+* 1 minor improvement
+  * Update development dependencies so tests/features run on rails 3.1 and friends
+  
+  
+== 0.4.8
+
+* 2 minor improvements
+  * Support factory_girl v1 and v2 API [Ari Epstein]
+  * Dev deps updated to latest cucumber & cucumber-rails, and test for factory_girl 2 [Ian White]
+
+
+== 0.4.7
+
+* 2 minor improvements
+  * Better error message for failing to find a model [Ian White, reported by Yuval Karmi]
+  * dev deps updated to latest cucumber & cucumber-rails [Ian White]
+  
+
+== 0.4.6
+Documentation updates
+
+* 1 minor improvement
+  * Add email steps documentation to Readme [Michael Moen, Ian White]
+
+
+== 0.4.5
+Development dependency upgrades
+
+* 2 minor improvements
+  * Simplify release process, and change Gemspec handling to facilitate faster failing when a development dep becomes incompatible [Ian White]
+  * Upgrade development to use rspec 2, and a rails 3 application for the features [Ian White]
+
+
 == 0.4.4
 large object space fix, and allow escaped quotes as string values
 

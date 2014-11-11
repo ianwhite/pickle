@@ -40,21 +40,21 @@ Feature: I can test emails are sent
 
   Scenario: Following the first link in an email
   	Given a user exists with name: "Fred", email: "fred@gmail.com"
-  	And an email "cool" with body: "some text <a href='http://example.com/users/1'>example page</a> more text" is delivered to fred@gmail.com
+  	And an email with a link "example page" to the user's page is delivered to fred@gmail.com
     Then 1 email should be delivered to the user
 		And I click the first link in the email
 		Then I should be at the user's page
 
   Scenario: Following a link in an email by url
   	Given a user exists with name: "Fred", email: "fred@gmail.com"
-  	And an email "cool" with body: "some text <a href='http://example.com/users/1'>example page</a> more text" is delivered to fred@gmail.com
+    And an email with a link "example page" to the user's page is delivered to fred@gmail.com
     Then 1 email should be delivered to the user
 		And I follow "example.com/" in the email
 		Then I should be at the user's page
 
   Scenario: Following a link in an email by the text
   	Given a user exists with name: "Fred", email: "fred@gmail.com"
-  	And an email "cool" with body: "some text <a href='http://example.com/users/1'>example page</a> more text" is delivered to fred@gmail.com
+  	And an email with a link "example page" to the user's page is delivered to fred@gmail.com
     Then 1 email should be delivered to the user
 		And I follow "example page" in the email
 		Then I should be at the user's page

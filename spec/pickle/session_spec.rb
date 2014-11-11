@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 # TODO: remove this and push AR stuff into ORM adapter
 module ActiveRecord
@@ -35,7 +35,7 @@ describe Pickle::Session do
     config.stub(:factories).and_return('user' => user_factory)
   end
 
-  describe "Pickle::Session proxy missing methods to parser", :shared => true do
+  shared_examples_for "Pickle::Session proxy missing methods to parser" do
     it "should forward to pickle_parser it responds_to them" do
       subject.pickle_parser.should_receive(:parse_model)
       subject.parse_model
@@ -56,15 +56,13 @@ describe Pickle::Session do
 
   describe "extending Pickle::Session" do
     subject do
-      returning Object.new do |object|
-        object.extend Pickle::Session
-      end
+      Object.new.tap {|object| object.extend Pickle::Session }
     end
 
     it_should_behave_like "Pickle::Session proxy missing methods to parser"
   end
 
-  describe "after storing a single user", :shared => true do
+  shared_examples_for "after storing a single user" do
     it "created_models('user') should be array containing the original user" do
       created_models('user').should == [user]
     end
@@ -85,9 +83,7 @@ describe Pickle::Session do
 
     describe "(found from db)" do
       let :user_from_db do
-        returning user.dup do |from_db|
-          from_db.stub!(:id).and_return(100)
-        end
+        user.dup.tap {|from_db| from_db.stub!(:id).and_return(100) }
       end
 
       before do
@@ -262,7 +258,7 @@ describe Pickle::Session do
 
     it "should call raise error if find_model returns nil" do
       should_receive(:find_model).with('name', 'fields').and_return(nil)
-      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::Session::ModelNotKnownError)
+      lambda { find_model!('name', 'fields') }.should raise_error(Pickle::Session::ModelNotFoundError)
     end
   end
 
@@ -291,10 +287,12 @@ describe Pickle::Session do
   describe 'creating \'a super admin: "fred"\', then \'a user: "shirl"\', \'then 1 super_admin\' (super_admin is factory that returns users)' do
     let(:fred) { mock("fred", :class => user_class, :id => 2) }
     let(:shirl) { mock("shirl", :class => user_class, :id => 3) }
-    let(:noname) { mock("noname", :class => user_class, :is => 4) }
-
-    let(:super_admin_factory) do
-      Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :factory_name => :super_admin))
+    let(:noname) { mock("noname", :class => user_class, :id => 4) }
+    
+    if defined? ::FactoryGirl
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :name => :super_admin)) }
+    else
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(mock(:build_class => user_class, :factory_name => :super_admin)) }
     end
 
     before do

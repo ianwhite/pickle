@@ -13,6 +13,8 @@
 #    require 'factory_girl'
 #    require File.dirname(__FILE__) + '/../../spec/factories' # or wherever your factories are
 #
+# For Fabrication, just include it in the adapter list when configuring pickle as explained below.
+#
 # You may also need to add gem dependencies on your factory of choice in <tt>config/environments/cucumber.rb</tt>
 
 require 'pickle/world'

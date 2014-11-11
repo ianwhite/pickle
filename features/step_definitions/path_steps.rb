@@ -10,5 +10,5 @@ When(/^I go to (.+)$/) do |page|
 end
 
 Then(/^I should be at (.+)$/) do |page|
-  request.path.should =~ /#{path_to(page)}/
+  current_url.should =~ /#{path_to(page)}/
 end

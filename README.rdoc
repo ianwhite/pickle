@@ -1,7 +1,7 @@
 = pickle
 
-Pickle gives you cucumber steps that create your models easily from factory-girl or
-machinist factories/blueprints.  You can also just use ActiveRecord as a factory but it's not as cool.
+Pickle gives you cucumber steps that create your models easily from factory-girl,
+machinist, or fabrication.  You can also just use ActiveRecord as a factory but it's not as cool.
 
 Pickle can make use of different ORMs for finding records.  Currently ActiveRecord, DataMapper, MongoID adapters are
 provided.  More adapters welcome!
@@ -329,24 +329,138 @@ can build up composite objects with ease
   Given a user exists
   And a post exists with author: the user # this step will assign the above user as :author on the post
 
+=== Email Steps
+
+When you run <tt>rails g pickle --email</tt> you get steps for handling email.
+
+The general pattern of use is to clear the email queue (if necessary), have your app perform something that sends emails, assert that emails have been delivered, then assert 
+those emails have particular properties.
+
+For example:
+
+  Background:
+    Given a user has signed up
+    And all emails have been delivered
+    And the user has signed in
+    
+  Scenario: User buys a fork
+    Given I am on the fork page
+    And I press "Buy Fork!"
+    Then 1 email should be delivered to the user
+    And the email should contain "You can haz Fork!"
+    When I follow the "my account" link in the email
+    Then I should be on the account page
+    
+    And 1 email should be delivered to "sales@example.com"
+    And the email should contain the user's page
+    And the email should contain "User can haz Fork!"
+    
+You can refer to emails that were found in the <tt>Then <i>n</i> emails should be delivered</tt> in the following ways:
+
+  the email (refers to last email)
+  the 1st email
+  the last email
+  email to: "joe@example.com"
+  email subject: "some subject"
+  email to: "joe@example.com", subject: "some subject"
+
+==== Map expressions to email addresses
+
+By default a step like
+
+  Then 2 emails should be delivered to the user "Ethel"
+
+Will look for the <tt>email</tt> attribute on the found model.  This is configurable in much the same way as
+page names for url paths.  Have a look at <tt>features/support/email.rb</tt> to add your own custom mappings.
+
+For example:
+
+  # in features/support/email.rb
+  when /^#{capture_model} sales team$/
+    model!($1).sales_email
+
+  # in a feature
+    Given a site exists
+    And someone buys something form the site
+    Then 1 email should be delivered to the site sales team
+    
+More detail on the emails steps follows:
+
+==== Given steps
+
+Clear the email queue, e.g.
+
+  Given all email has been delivered
+  Given all emails have been delivered
+
+==== When steps
+
+When <b>[I|they]</b> follow <b>[text_or_regex|the first link]</b> the email, e.g.
+
+  When I click the first link in the email
+  When I follow "http://example.com/pickle" in the email
+  When I follow "some link text" in the email
+
+==== Then steps
+
+Then <b>n</b> email(s) should be delivered to <b>address</b>, e.g.
+
+  Then 1 email should be delivered to joe@example.com
+
+Then <b>n</b> email(s) should be delivered with <b>fields</b>, e.g.
+
+  Then 2 emails should be delivered with subject: "Welcome to pickle"
+  Then 2 email should be delivered with to: "joe@example.com", from: "pickle@example.com"
+
+Then <b>fields</b> should be delivered to <b>address</b>, e.g.
+
+  Then subject: "Welcome to pickle" should be delivered to joe@example.com
+
+Then <b>fields</b> should be not delivered to <b>address</b>, e.g.
+
+  Then subject: "Welcome to pickle" should not be delivered to pickle@example.com
+
+Then <b>email</b> should have <b>fields</b>, e.g.
+
+  Then the email should have subject: "Welcome to pickle", from: "pickle@example.com"
+
+Then <b>email</b> should contain "<b>text</b>", e.g.
+
+  Then the email should contain "Thank you for choosing pickle"
+
+Then <b>email</b> should not contain "<b>text</b>", e.g.
+
+  Then the email should not contain "v1@gr@"
+
+Then <b>email</b> should link to "<b>href</b>", e.g.
+
+  Then the email should link to http://example.com/pickle
+
+Then show me the email(s), will open the email(s) in your browser (depends on OS X)
+
+  Then show me the email(s)
+
 == Run the tests
 
-To get all the dependencies required for developing pickle, do the following
+To run the specs and features, you can start from the last known good set of gem dependencies in Gemfile.lock.development:
 
-  bundle install
+  git clone http://github.com/ianwhite/pickle
+  cd pickle
+  cp Gemfile.lock.development Gemfile.lock
+  bundle
 
-To run the specs do:
+To run the specs & features do:
 
   bundle exec rake spec
-
-To run the features (rails 2.3 only ATM):
-
   bundle exec rake cucumber
 
 == Contributors
 
 The following people have made Pickle better:
 
+* {Jules Copeland}[http://github.com/julescopeland]
+* {David Padilla}[http://github.com/dabit]
+* {Ari Epstein}[http://github.com/aepstein]
 * {Jonathan Hinkle}[http://github.com/hynkle]
 * {Devin Walters and Nick Karpenske}[http://github.com/bendyworks]
 * {Marc Lee}[http://github.com/maleko]
@@ -367,3 +481,4 @@ The following people have made Pickle better:
 * {Myron Marston}[http://github.com/myronmarston]
 * {Stephan Hagemann}[http://github.com/xing]
 * {Chris Flipse}[http://github.com/cflipse]
+  
