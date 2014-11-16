@@ -51,19 +51,17 @@ Run the generator with:
 
 == Resources
 
-<b>Github</b> for code: http://github.com/ianwhite/pickle
+<b>GitHub</b> for code: https://github.com/ianwhite/pickle
 
-<b>Gemcutter</b> for the gem: http://gemcutter.org/gems/pickle
+<b>RubyGems</b> for the gem: https://rubygems.org/gems/pickle
 
-<b>Rdoc.info</b> for docs: http://rdoc.info/projects/ianwhite/pickle
+<b>RubyDoc.info</b> for docs: http://www.rubydoc.info/github/ianwhite/pickle
 
-<b>Google group</b> for questions: http://groups.google.com/group/pickle-cucumber
-
-<b>Lighthouse</b> for bugs: http://ianwhite.lighthouseapp.com/projects/25941-pickle
+<b>Google Group</b> for questions: https://groups.google.com/group/pickle-cucumber
 
 <b>Railscast</b> presentation: http://railscasts.com/episodes/186-pickle-with-cucumber
 
-<b>Blog articles</b>: {dynamic50: Integration testing with cucumber and pickle}[http://blog.dynamic50.com/index.php/2009/04/integration-testing-with-cucumber-and-pickle/], {rubyflare: pickle my cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
+<b>Blog articles</b>: {rubyflare: pickle my cucumber}[http://rubyflare.com/2009/10/28/pickle-my-cucumber/]
 
 
 == Using Pickle

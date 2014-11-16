@@ -5,11 +5,12 @@ Gem::Specification.new do |s|
   s.name = "pickle"
   s.version = Pickle::VERSION.dup
   s.platform = Gem::Platform::RUBY
-  s.authors = ["Ian White"]
+  s.licenses = ["MIT"]
+  s.authors = ["Ian White", "James Le Cuirot", "Niklas Hofer"]
   s.description = "Easy model creation and reference in your cucumber features"
   s.summary = "Easy model creation and reference in your cucumber features."
-  s.email = "ian.w.white@gmail.com"
-  s.homepage = "http://github.com/ianwhite/pickle"
+  s.email = ["ian.w.white@gmail.com", "chewi@aura-online.co.uk", "niklas+dev@lanpartei.de"]
+  s.homepage = "https://github.com/ianwhite/pickle"
 
   s.rubyforge_project = "pickle"
   s.required_rubygems_version = ">= 1.3.6"

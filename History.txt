@@ -1,3 +1,10 @@
+== 0.5.0
+
+* Drop support for Machinist 1 [James Le Cuirot]
+* Improve support for latest Fabrication and factory_girl [James Le Cuirot]
+* Fix installation under recent cucumber-rails versions [James Le Cuirot]
+* Fix up tests, including full migration to RSpec 3  [James Le Cuirot, Niklas Hofer]
+
 == 0.4.11
 
 * 1 minor improvement
