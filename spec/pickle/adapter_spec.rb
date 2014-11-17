@@ -23,18 +23,6 @@ describe Pickle::Adapter do
     end
 
     describe 'ActiveRecord' do
-
-#DEPRECATION WARNING: subclasses is deprecated and will be removed from Rails 3.0 (use descendants instead). (called from __send__ at /Users/pivotal/workspace/factorylabs/protosite/vendor/cache/ruby/1.8/gems/pickle-0.3.1/lib/pickle/adapters/active_record.rb:21)
-
-      describe ".model_classes" do
-        it "calls .descendants" do
-          expect(::ActiveRecord::Base).to receive(:descendants).and_return([])
-          expect(::ActiveRecord::Base).not_to receive(:subclasses)
-
-          ActiveRecord::Base::PickleAdapter.model_classes
-        end
-      end
-
       describe 'with class stubs' do
         before do
           allow(Pickle::Adapter::Orm).to receive(:model_classes).and_return([@klass1, @klass2, @klass3])
