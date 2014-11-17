@@ -15,12 +15,6 @@ describe Pickle::Adapter do
     expect { Pickle::Adapter.new.create }.to raise_error(NotImplementedError)
   end
 
-  describe ".model_classes" do
-    before do
-      Pickle::Adapter.model_classes = nil
-    end
-  end
-
   describe "adapters: " do
     before do
       @klass1 = Class.new(ActiveRecord::Base).tap { |k| allow(k).to receive(:name).and_return('One') }
