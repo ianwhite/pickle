@@ -137,30 +137,51 @@ describe Pickle::Email do
   end
 
   describe "following links in emails" do
+    let(:body) { 'some text <a href="http://example.com/page">example page</a> more text' }
+
     before do
       allow(self).to receive(:open_in_browser)
-      allow(@email1).to receive(:body).and_return('some text <a href="http://example.com/page">example page</a> more text')
     end
 
-    it "should find a link for http://example.com/page" do
-      expect(self).to receive(:visit).with('http://example.com/page')
-      visit_in_email(@email1, 'http://example.com/page')
+    shared_examples_for 'an email with links' do
+      it "should find a link for http://example.com/page" do
+        expect(self).to receive(:visit).with('http://example.com/page')
+        visit_in_email(@email1, 'http://example.com/page')
+      end
+
+      it "should find a link for \"example page\"" do
+        expect(self).to receive(:visit).with('http://example.com/page')
+        visit_in_email(@email1, 'example page')
+      end
+
+      it "should follow the first link in an email" do
+        expect(self).to receive(:visit).with('http://example.com/page')
+        click_first_link_in_email(@email1)
+      end
+
+      it "should not raise an error when the email body is not a string, but needs to_s [#26]" do
+        allow(self).to receive(:visit)
+        allow(@email1).to receive(:body).and_return(:a_string_body)
+        expect { click_first_link_in_email(@email1) }.not_to raise_error
+      end
     end
 
-    it "should find a link for \"example page\"" do
-      expect(self).to receive(:visit).with('http://example.com/page')
-      visit_in_email(@email1, 'example page')
+    describe "non multi-part emails" do
+      before do
+        allow(@email1).to receive(:multipart?).and_return(false)
+        allow(@email1).to receive(:body).and_return(body)
+      end
+
+      it_behaves_like 'an email with links'
     end
 
-    it "should follow the first link in an email" do
-      expect(self).to receive(:visit).with('http://example.com/page')
-      click_first_link_in_email(@email1)
-    end
-    
-    it "should not raise an error when the email body is not a string, but needs to_s [#26]" do
-      allow(self).to receive(:visit)
-      allow(@email1).to receive(:body).and_return(:a_string_body)
-      expect { click_first_link_in_email(@email1) }.not_to raise_error
+    context "multi-part emails" do
+      before do
+        allow(@email1).to receive(:multipart?).and_return(true)
+        allow(@email1).to receive_message_chain(:html_part, :body).and_return(body)
+      end
+
+      it_behaves_like 'an email with links'
     end
   end
 end
