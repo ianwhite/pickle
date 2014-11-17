@@ -26,7 +26,7 @@ Then(/^#{capture_model} should not exist(?: with #{capture_fields})?$/) do |name
 end
 
 # find models with a table
-Then(/^the following #{capture_plural_factory} should exists?:?$/) do |plural_factory, table|
+Then(/^the following #{capture_plural_factory} should exist:?$/) do |plural_factory, table|
   expect(find_models_from_table(plural_factory, table)).not_to be_any(&:nil?)
 end
 
@@ -60,7 +60,7 @@ Then(/^#{capture_model} should not be #{capture_model}(?:'s)? (\w+)$/) do |targe
   expect(model!(owner).send(association)).not_to eq(model!(target))
 end
 
-# assert model.predicate? 
+# assert model.predicate?
 Then(/^#{capture_model} should (?:be|have) (?:an? )?#{capture_predicate}$/) do |name, predicate|
   if model!(name).respond_to?("has_#{predicate.gsub(' ', '_')}")
     expect(model!(name)).to send("have_#{predicate.gsub(' ', '_')}")
@@ -83,7 +83,7 @@ end
 Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |name, attribute, expectation, expected|
   actual_value  = model(name).send(attribute)
   expectation   = expectation.gsub("should", "to").gsub(" ", "_")
-  
+
   case expected
   when 'nil', 'true', 'false'
     expect(actual_value).send(expectation, eq(eval(expected)))
