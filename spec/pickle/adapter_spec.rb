@@ -100,14 +100,14 @@ describe Pickle::Adapter do
       end
 
       it ".factories should create one for each factory" do
-        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory1).once
-        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory2).once
+        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory1, @factory1.name).once
+        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory2, @factory2.name).once
         Pickle::Adapter::FactoryGirl.factories
       end
 
-      describe ".new(factory)" do
+      describe ".new(factory, factory_name)" do
         before do
-          @factory = Pickle::Adapter::FactoryGirl.new(@factory1)
+          @factory = Pickle::Adapter::FactoryGirl.new(@factory1, @factory1.name)
         end
 
         it "should have name of factory_name" do
