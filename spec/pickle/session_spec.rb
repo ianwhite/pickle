@@ -271,7 +271,7 @@ describe Pickle::Session do
 
       it_should_behave_like "after storing a single user"
     end
-    
+
     it "should cope with spaces in the factory name (ie. it should make it canonical)" do
       allow(pickle_parser).to receive(:canonical).and_return('user')
       expect(pickle_parser).to receive(:canonical).with('u ser').and_return('user')
@@ -283,11 +283,11 @@ describe Pickle::Session do
     let(:fred) { double("fred", :class => user_class, :id => 2) }
     let(:shirl) { double("shirl", :class => user_class, :id => 3) }
     let(:noname) { double("noname", :class => user_class, :id => 4) }
-    
+
     if defined? ::FactoryGirl
-      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :name => :super_admin)) }
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :name => :super_admin), :super_admin) }
     else
-      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :factory_name => :super_admin)) }
+      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :factory_name => :super_admin), :super_admin) }
     end
 
     before do
@@ -414,7 +414,7 @@ describe Pickle::Session do
       let :ar_class do
         double('ActiveRecord', :column_names => ['user_id', 'user_type'], :const_get => ActiveRecord::Base::PickleAdapter)
       end
-            
+
       it "should return {'user_id' => <the user.id>, 'user_type' => <the user.base_class>}" do
         expect(user.class).to receive(:base_class).and_return(double('User base class', :name => 'UserBase'))
         expect(convert_models_to_attributes(ar_class, :user => user)).to eq({'user_id' => user.id, 'user_type' => 'UserBase'})
