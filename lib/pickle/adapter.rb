@@ -70,7 +70,7 @@ module Pickle
       def find_all_models(klass, conditions)
         klass.const_get(:PickleAdapter).find_all_models(klass, conditions)
       end
-      
+
       def create_model(klass, attributes)
         klass.const_get(:PickleAdapter).create_model(klass, attributes)
       end
@@ -124,6 +124,14 @@ module Pickle
           ::FactoryGirl.create(@name, attrs)
         else
           Factory(@name, attrs)
+        end
+      end
+
+      def build(attrs = {})
+        if defined? ::FactoryGirl
+          ::FactoryGirl.build(@name, attrs)
+        else
+          Factory.build(@name, attrs)
         end
       end
     end

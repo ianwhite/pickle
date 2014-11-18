@@ -18,8 +18,8 @@ module Pickle
         else
           parse_field_without_model(field)
         end
-      end    
-      
+      end
+
       def parse_hash(hash)
         hash.inject({}) do |parsed, (key, val)|
           if session && val =~ /^#{capture_model}$/
