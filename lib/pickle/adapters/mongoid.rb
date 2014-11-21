@@ -27,12 +27,20 @@ module Mongoid
 
       # Find the first instance matching conditions
       def self.find_first_model(klass, conditions)
-        klass.first(:conditions => conditions)
+        if defined? ::Mongoid::Criteria
+          klass.where(conditions).first
+        else
+          klass.first(:conditions => conditions)
+        end
       end
 
       # Find all models matching conditions
       def self.find_all_models(klass, conditions)
-        klass.all(:conditions => conditions)
+        if defined? ::Mongoid::Criteria
+          klass.where(conditions).to_a
+        else
+          klass.all(:conditions => conditions)
+        end
       end
 
       # Create a model with given attributes
