@@ -27,7 +27,7 @@ module Mongoid
 
       # Find the first instance matching conditions
       def self.find_first_model(klass, conditions)
-        klass.first(:conditions => conditions)
+        klass.where(conditions).first
       end
 
       # Find all models matching conditions
