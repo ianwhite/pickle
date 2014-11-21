@@ -12,7 +12,9 @@ module Mongoid
 
       # Gets a list of the available models for this adapter
       def self.model_classes
-        ObjectSpace.each_object(Class).to_a.select {|klass| klass.ancestors.include? Mongoid::Document}
+        ObjectSpace.each_object(Class).to_a.select do |klass|
+          klass.name && klass.ancestors.include?(Mongoid::Document)
+        end
       end
 
       # get a list of column names for a given class
