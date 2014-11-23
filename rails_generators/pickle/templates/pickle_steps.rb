@@ -7,7 +7,7 @@ end
 
 # create n models
 Given(/^(\d+) #{capture_plural_factory} exist(?: with #{capture_fields})?$/) do |count, plural_factory, fields|
-  count.to_i.times { create_model(plural_factory.singularize, fields) }
+  create_models(count, plural_factory.singularize, fields)
 end
 
 # create models from a table

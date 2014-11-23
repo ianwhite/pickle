@@ -165,6 +165,22 @@ describe Pickle::Session do
       end
     end
 
+    describe "#create_models" do
+      before do
+        allow(user_factory).to receive(:create).and_return(user)
+      end
+
+      it "should call the factory's create one time for each record" do
+        expect(user_factory).to receive(:create).exactly(10).times
+        create_models(10, "a user")
+      end
+
+      it "should parse the fields only once across all records" do
+        expect(self).to receive(:parse_fields).once
+        create_models(10, "a user")
+      end
+    end
+
     describe "with hash" do
       it "should call user_factory.create({'foo' => 'bar'})" do
         expect(user_factory).to receive(:create).with({'foo' => 'bar'})

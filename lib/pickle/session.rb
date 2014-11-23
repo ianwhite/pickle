@@ -37,21 +37,19 @@ module Pickle
     end
 
     def create_model(pickle_ref, fields = nil)
-      factory, label = *parse_model(pickle_ref)
-      raise ArgumentError, "Can't create with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
-      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
-      record = pickle_config.factories[factory].create(fields)
-      store_model(factory, label, record)
-      record
+      create_or_build_model(:create, 1, pickle_ref, fields)
+    end
+
+    def create_models(count, pickle_ref, fields = nil)
+      create_or_build_model(:create, count, pickle_ref, fields)
     end
 
     def build_model(pickle_ref, fields = nil)
-      factory, label = *parse_model(pickle_ref)
-      raise ArgumentError, "Can't build with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
-      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
-      record = pickle_config.factories[factory].build(fields)
-      store_model(factory, label, record)
-      record
+      create_or_build_model(:build, 1, pickle_ref, fields)
+    end
+
+    def build_models(count, pickle_ref, fields = nil)
+      create_or_build_model(:build, count, pickle_ref, fields)
     end
 
     # if a column exists in the table which matches the singular factory name, this is used as the pickle ref
@@ -160,6 +158,19 @@ module Pickle
     end
 
   protected
+    def create_or_build_model(method, count, pickle_ref, fields = nil)
+      factory, label = *parse_model(pickle_ref)
+      raise ArgumentError, "Can't #{method} with an ordinal (e.g. 1st user)" if label.is_a?(Integer)
+      fields = fields.is_a?(Hash) ? parse_hash(fields) : parse_fields(fields)
+
+      count.to_i.times.map do
+        record = pickle_config.factories[factory].send(method, fields)
+        store_model(factory, label, record)
+        return record if count == 1
+        record
+      end
+    end
+
     def method_missing_with_pickle_parser(method, *args, &block)
       if pickle_parser.respond_to?(method)
         pickle_parser.send(method, *args, &block)
