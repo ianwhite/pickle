@@ -1,3 +1,18 @@
+== 0.5.1
+
+* Add support to use Factory.build [Erik Peterson]
+* Support factory_girl2 aliases [Jon Kinney]
+* Better email validation messages [Kevin Ross]
+* Prefer the html_part in a multipart email [Jason Lee, Jon Kinney]
+* Fix email open_in_browser function [Daniel Zollinger]
+* Support Mongoid associations in find_model/s [Ches Martin]
+* Fix Mongoid for anonymous classes [Matt Royal]
+* Fix Mongoid finders for later versions [James Le Cuirot, Jules Copeland]
+* Fix ActiveRecord finders for later versions [Blake Thomas]
+* Support "should not exist" for models from a table [Pierre-Yves Chauveau]
+* Reduce number of queries when creating multiple models [James Le Cuirot]
+* Various test improvements [James Le Cuirot]
+
 == 0.5.0
 
 * Drop support for Machinist 1 [James Le Cuirot]
