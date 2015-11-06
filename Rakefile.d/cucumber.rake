@@ -16,7 +16,7 @@ namespace :cucumber do
     Bundler.with_clean_env do
       gemfile = "cucumber_test_app/Gemfile"
       rm_rf "cucumber_test_app"
-      sh "rails new cucumber_test_app --skip-javascript --skip-sprockets"
+      sh "bundle exec rails new cucumber_test_app --skip-javascript --skip-sprockets"
       sh "echo 'gem \"cucumber-rails\", :require => false' >> #{gemfile}"
       sh "echo 'gem \"rspec-rails\", \"~>3.0\"' >> #{gemfile}"
       sh "echo 'gem \"capybara\"' >> #{gemfile}"

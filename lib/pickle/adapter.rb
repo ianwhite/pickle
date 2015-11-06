@@ -153,7 +153,8 @@ module Pickle
 
       def initialize(factory)
         if defined? ::Fabrication
-          @klass, @name = factory[1].klass, factory[0].to_s
+          # @klass, @name = factory[1].name, factory[0].to_s
+          @klass, @name = factory[1].send(:klass), factory[0].to_s
         end
       end
 
