@@ -1,5 +1,19 @@
 module Pickle
   module Session
+    module PickleParserMethods
+      def method_missing(method, *args, &block)
+        if pickle_parser.respond_to?(method)
+          pickle_parser.send(method, *args, &block)
+        else
+          super(method, *args, &block)
+        end
+      end
+
+      def respond_to?(method, include_private = false)
+        super(method, include_private) || pickle_parser.respond_to?(method, include_private)
+      end
+    end
+
     class ModelNotKnownError < RuntimeError
       attr_reader :name
 
@@ -27,12 +41,7 @@ module Pickle
 
     protected
       def proxy_to_pickle_parser(world_class)
-        world_class.class_eval do
-          unless methods.include?('method_missing_with_pickle_parser')
-            alias_method_chain :method_missing, :pickle_parser
-            alias_method_chain :respond_to?, :pickle_parser
-          end
-        end
+        world_class.send(:prepend, PickleParserMethods)
       end
     end
 
@@ -153,10 +162,6 @@ module Pickle
       end
     end
 
-    def respond_to_with_pickle_parser?(method, include_private = false)
-      respond_to_without_pickle_parser?(method, include_private) || pickle_parser.respond_to?(method, include_private)
-    end
-
   protected
     def create_or_build_model(method, count, pickle_ref, fields = nil)
       factory, label = *parse_model(pickle_ref)
@@ -168,14 +173,6 @@ module Pickle
         store_model(factory, label, record)
         return record if count == 1
         record
-      end
-    end
-
-    def method_missing_with_pickle_parser(method, *args, &block)
-      if pickle_parser.respond_to?(method)
-        pickle_parser.send(method, *args, &block)
-      else
-        method_missing_without_pickle_parser(method, *args, &block)
       end
     end
 
