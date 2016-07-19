@@ -1,10 +1,17 @@
 language: ruby
+dist: xenial
+cache: bundler
 rvm:
   - 2.4.1
   - 2.3.4
   - 2.2.7
   - 2.1.10
   - 2.0.0
+matrix:
+  allow_failures:
+    - rvm: 2.1.10
+    - rvm: 2.0.0
+  fast_finish: true
 
 script:
   - bundle exec rake spec
