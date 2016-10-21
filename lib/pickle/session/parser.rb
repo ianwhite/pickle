@@ -13,7 +13,7 @@ module Pickle
       end
 
       def self.included(parser_class)
-        parser_class.prepend ParseFieldWithModel
+        parser_class.send(:prepend,  ParseFieldWithModel)
       end
 
       attr_accessor :session
