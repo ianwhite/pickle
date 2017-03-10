@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "pickle/version"
 
 Gem::Specification.new do |s|
-  s.name = "pickle"
+  s.name = "spbtv_pickle"
   s.version = Pickle::VERSION.dup
   s.platform = Gem::Platform::RUBY
   s.licenses = ["MIT"]
@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
-  
+
   s.add_dependency "cucumber", ">=0.8"
   s.add_dependency "rake"
-   
+
   s.add_development_dependency "rack"
   s.add_development_dependency "bundler"
   s.add_development_dependency "git"
