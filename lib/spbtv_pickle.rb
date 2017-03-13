@@ -1,1 +1,1 @@
-require_relative 'pickle'
+require 'pickle'
