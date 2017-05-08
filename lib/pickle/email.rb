@@ -20,12 +20,13 @@ module Pickle
     end
 
     def visit_in_email(email, link_text)
-      visit(parse_email_for_link(email, link_text))
+      link = parse_email_for_link(email, link_text)
+      visit URI.parse(link).path
     end
 
     def click_first_link_in_email(email)
       link = links_in_email(email).first
-      visit link
+      visit URI.parse(link).path
     end
 
   protected
