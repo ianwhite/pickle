@@ -100,6 +100,6 @@ Then(/^#{capture_model}'s (\w+) (should(?: not)?) be #{capture_value}$/) do |nam
 end
 
 # assert size of association
-Then /^#{capture_model} should have (\d+) (\w+)$/ do |name, size, association|
+Then (/^#{capture_model} should have (\d+) (\w+)$/) do |name, size, association|
   expect(model!(name).send(association).size).to eq(size.to_i)
 end
