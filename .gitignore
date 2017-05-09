@@ -4,7 +4,6 @@
 # local ruby/gems dev stuff
 .rvmrc
 .bundle
-Gemfile.lock
 cucumber_test_app
 pickle-email*
 
