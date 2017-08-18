@@ -36,7 +36,7 @@ module Pickle
     def pickle_path_for_resources_action_segment(resources, action, segment)
       action.blank? or action = action.downcase.gsub(' ','_')
       segment.blank? or segment = segment.downcase.gsub(' ','_')
-      resource_names = resources.map{|s| s.is_a?(Symbol) ? s.to_s : s.class.name.underscore}.join("_")
+      resource_names = resources.map{|s| s.is_a?(Symbol) ? s.to_s : s.class.name.underscore.gsub('/', '_')}.join("_")
       models = resources.reject{|s| s.is_a?(Symbol)}
       parts = [action, resource_names, segment].reject(&:blank?)
       send("#{parts.join('_')}_path", *models) rescue nil
