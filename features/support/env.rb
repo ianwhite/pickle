@@ -9,6 +9,10 @@ ENV["RAILS_ROOT"] ||= File.expand_path(File.dirname(__FILE__) + '/../../cucumber
 
 Bundler.setup
 
+require 'simplecov'
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 require 'capybara'
 require 'cucumber/rails'
 Capybara.default_selector = :css

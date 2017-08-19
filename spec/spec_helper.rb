@@ -3,6 +3,10 @@ require 'active_support'
 require 'active_record'
 require 'factory_girl'
 
+require 'simplecov'
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 $:.unshift(File.expand_path('../../lib', __FILE__))
 
 require 'pickle'
