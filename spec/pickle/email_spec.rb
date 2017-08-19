@@ -162,7 +162,7 @@ describe Pickle::Email do
       it "should not raise an error when the email body is not a string, but needs to_s [#26]" do
         allow(self).to receive(:visit)
         allow(@email1).to receive(:body).and_return(:a_string_body)
-        expect { click_first_link_in_email(@email1) }.not_to raise_error
+        click_first_link_in_email(@email1)
       end
     end
 

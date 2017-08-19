@@ -37,7 +37,7 @@ describe Pickle::Session do
     end
 
     it "should raise error if pickle_parser don't know about em" do
-      expect { subject.parse_infinity }.to raise_error
+      expect { subject.parse_infinity }.to raise_error(NoMethodError, /^undefined method `parse_infinity' for /)
     end
   end
 
@@ -391,7 +391,7 @@ describe Pickle::Session do
     end
 
     it "#parser.parse_fields 'author: user \"JIM\"' should raise Error, as model deos not refer" do
-      expect { pickle_parser.parse_fields('author: user "JIM"') }.to raise_error
+      expect { pickle_parser.parse_fields('author: user "JIM"') }.to raise_error(Pickle::Session::ModelNotKnownError, %q[The model: 'user "JIM"' is not known in this scenario.  Use #create_model to create, or #find_model to find, and store a reference in this scenario.])
     end
 
     it "#parser.parse_fields 'author: the user' should return {\"author\" => <user>}" do

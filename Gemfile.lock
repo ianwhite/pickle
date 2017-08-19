@@ -1,8 +1,15 @@
+GIT
+  remote: https://github.com/mathieujobin/fabrication.git
+  revision: 923cf6fcefd0566b1d6be7bd2f685b89388f4800
+  ref: 923cf6fcefd0566b1d6be7bd2f685b89388f4800
+  specs:
+    fabrication (2.16.2)
+
 PATH
   remote: .
   specs:
-    pickle (0.5.2)
-      cucumber
+    pickle (0.5.3)
+      cucumber (>= 0.8, < 3.0)
       rake
 
 GEM
@@ -74,7 +81,6 @@ GEM
     database_cleaner (1.6.1)
     diff-lcs (1.3)
     erubis (2.7.0)
-    fabrication (2.16.2)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
     gherkin (4.1.3)
@@ -167,7 +173,7 @@ DEPENDENCIES
   capybara
   cucumber-rails
   database_cleaner
-  fabrication (~> 2.0)
+  fabrication!
   factory_girl
   git
   machinist
