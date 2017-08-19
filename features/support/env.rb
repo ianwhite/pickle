@@ -7,6 +7,7 @@
 ENV["RAILS_ENV"] ||= "test"
 ENV["RAILS_ROOT"] ||= File.expand_path(File.dirname(__FILE__) + '/../../cucumber_test_app')
 
+require 'rails/all'
 require 'capybara'
 require 'cucumber/rails'
 Capybara.default_selector = :css
