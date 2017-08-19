@@ -1,3 +1,4 @@
+@wip
 Feature: I can test emails are sent
   In order write features with emails as outcomes
   As a feature writer
