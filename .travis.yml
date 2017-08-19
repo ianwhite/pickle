@@ -12,5 +12,6 @@ matrix:
   fast_finish: true
 
 script:
+  - gem install bundler
   - bundle exec rake spec
   - bundle exec rake cucumber
