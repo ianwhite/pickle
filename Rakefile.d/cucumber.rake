@@ -2,7 +2,7 @@ require 'cucumber/rake/task'
 
 desc "Run features"
 Cucumber::Rake::Task.new(:cucumber => [:cucumber_test_app]) do |t|
-  t.cucumber_opts = ['--format', 'pretty', '--require', 'features']
+  t.cucumber_opts = %w[--format pretty --require features -t ~@wip]
 end
 
 desc "setup a rails app for running cucumber"
