@@ -1,7 +1,7 @@
 require 'rails'
 require 'active_support'
 require 'active_record'
-require 'factory_girl'
+require 'factory_bot'
 
 require 'simplecov'
 require 'codecov'

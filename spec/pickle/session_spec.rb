@@ -300,10 +300,10 @@ describe Pickle::Session do
     let(:shirl) { double("shirl", :class => user_class, :id => 3) }
     let(:noname) { double("noname", :class => user_class, :id => 4) }
 
-    if defined? ::FactoryGirl
-      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :name => :super_admin), :super_admin) }
+    if defined? ::FactoryBot
+      let(:super_admin_factory) { Pickle::Adapter::FactoryBot.new(double(:build_class => user_class, :name => :super_admin), :super_admin) }
     else
-      let(:super_admin_factory) { Pickle::Adapter::FactoryGirl.new(double(:build_class => user_class, :factory_name => :super_admin), :super_admin) }
+      let(:super_admin_factory) { Pickle::Adapter::FactoryBot.new(double(:build_class => user_class, :factory_name => :super_admin), :super_admin) }
     end
 
     before do
