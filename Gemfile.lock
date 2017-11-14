@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    pickle (0.5.3)
+    pickle (0.5.4)
       cucumber (>= 0.8, < 3.0)
       rake
 
