@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 require 'active_record'
-require 'factory_girl'
+require 'factory_bot'
 require 'fabrication'
 require 'machinist/active_record'
 require 'pickle/adapters/active_record'
@@ -58,17 +58,17 @@ describe Pickle::Adapter do
       end
     end
 
-    describe 'FactoryGirl' do
+    describe 'FactoryBot' do
       before do
-        allow(Pickle::Adapter::FactoryGirl).to receive(:model_classes).and_return([One, One::Two, Three])
+        allow(Pickle::Adapter::FactoryBot).to receive(:model_classes).and_return([One, One::Two, Three])
 
-        if defined? ::FactoryGirl
-          @orig_factories = ::FactoryGirl.factories.dup
-          ::FactoryGirl.factories.clear
-          ::FactoryGirl::Syntax::Default::DSL.new.factory(:one, :class => One) {}
-          ::FactoryGirl::Syntax::Default::DSL.new.factory(:two, :class => One::Two) {}
-          @factory1 = ::FactoryGirl.factories[:one]
-          @factory2 = ::FactoryGirl.factories[:two]
+        if defined? ::FactoryBot
+          @orig_factories = ::FactoryBot.factories.dup
+          ::FactoryBot.factories.clear
+          ::FactoryBot::Syntax::Default::DSL.new.factory(:one, :class => One) {}
+          ::FactoryBot::Syntax::Default::DSL.new.factory(:two, :class => One::Two) {}
+          @factory1 = ::FactoryBot.factories[:one]
+          @factory2 = ::FactoryBot.factories[:two]
         else
           @orig_factories, Factory.factories = Factory.factories, {}
           Factory.define(:one, :class => One) {}
@@ -79,23 +79,23 @@ describe Pickle::Adapter do
       end
 
       after do
-        if defined? ::FactoryGirl
-          ::FactoryGirl.factories.clear
-          @orig_factories.each {|f| ::FactoryGirl.factories.add(f) }
+        if defined? ::FactoryBot
+          ::FactoryBot.factories.clear
+          @orig_factories.each {|f| ::FactoryBot.factories.add(f) }
         else
           Factory.factories = @orig_factories
         end
       end
 
       it ".factories should create one for each factory" do
-        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory1, @factory1.name).once
-        expect(Pickle::Adapter::FactoryGirl).to receive(:new).with(@factory2, @factory2.name).once
-        Pickle::Adapter::FactoryGirl.factories
+        expect(Pickle::Adapter::FactoryBot).to receive(:new).with(@factory1, @factory1.name).once
+        expect(Pickle::Adapter::FactoryBot).to receive(:new).with(@factory2, @factory2.name).once
+        Pickle::Adapter::FactoryBot.factories
       end
 
       describe ".new(factory, factory_name)" do
         before do
-          @factory = Pickle::Adapter::FactoryGirl.new(@factory1, @factory1.name)
+          @factory = Pickle::Adapter::FactoryBot.new(@factory1, @factory1.name)
         end
 
         it "should have name of factory_name" do
@@ -106,7 +106,7 @@ describe Pickle::Adapter do
           expect(@factory.klass).to eq(One)
         end
 
-        unless defined? ::FactoryGirl
+        unless defined? ::FactoryBot
           it "#create(attrs) should call Factory(<:key>, attrs)" do
             expect(Factory).to receive(:create).with("one", {:key => "val"})
             @factory.create(:key => "val")

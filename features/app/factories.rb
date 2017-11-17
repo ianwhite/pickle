@@ -1,13 +1,13 @@
 # Factories
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence :fork_name do |n|
     "fork %d04" % n
   end
 
   factory :fork do |f|
-    f.name { FactoryGirl.generate(:fork_name) }
+    f.name { FactoryBot.generate(:fork_name) }
   end
 
   factory :tine do |t|
@@ -20,6 +20,6 @@ FactoryGirl.define do
   end
 
   factory :fancy_fork, :class => Fork do |t|
-    t.name { "Fancy " + FactoryGirl.generate(:fork_name) }
+    t.name { "Fancy " + FactoryBot.generate(:fork_name) }
   end
 end

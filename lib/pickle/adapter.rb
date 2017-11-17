@@ -98,11 +98,11 @@ module Pickle
     end
 
     # factory-girl adapter
-    class FactoryGirl < Adapter
+    class FactoryBot < Adapter
       def self.factories
-        if defined? ::FactoryGirl
+        if defined? ::FactoryBot
           factories = []
-          ::FactoryGirl.factories.each do |factory|
+          ::FactoryBot.factories.each do |factory|
             factory.names.each do |name|
               factories << new(factory, name)
             end
@@ -114,7 +114,7 @@ module Pickle
       end
 
       def initialize(factory, factory_name)
-        if defined? ::FactoryGirl
+        if defined? ::FactoryBot
           @klass, @name = factory.build_class, factory_name.to_s
         else
           @klass, @name = factory.build_class, factory.factory_name.to_s
@@ -122,16 +122,16 @@ module Pickle
       end
 
       def create(attrs = {})
-        if defined? ::FactoryGirl
-          ::FactoryGirl.create(@name, attrs)
+        if defined? ::FactoryBot
+          ::FactoryBot.create(@name, attrs)
         else
           Factory(@name, attrs)
         end
       end
 
       def build(attrs = {})
-        if defined? ::FactoryGirl
-          ::FactoryGirl.build(@name, attrs)
+        if defined? ::FactoryBot
+          ::FactoryBot.build(@name, attrs)
         else
           Factory.build(@name, attrs)
         end

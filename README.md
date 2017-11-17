@@ -88,7 +88,7 @@ Given a post exists with title: "My Post", body: "My body"
 
 ### Using with factory-girl or machinist
 
-But you're using Machinist or FactoryGirl right?!  To leverage all of the factories/blueprints you've written, you can just do stuff like
+But you're using Machinist or FactoryBot right?!  To leverage all of the factories/blueprints you've written, you can just do stuff like
 
 ```gherkin
 Given a user exists
@@ -107,14 +107,14 @@ In your `features/support/env.rb` add the following lines at the bottom
 require "#{Rails.root}/spec/blueprints" # or wherever they live
 ```
 
-#### FactoryGirl: make sure factories are loaded
+#### FactoryBot: make sure factories are loaded
 
 In your config/environments/cucumber.rb file, make sure the factory-girl gem is included (unless it's installed as a plugin).
 
-If that doesn't solve loading issues then require your factories.rb file directly in a file called 'features/support/factory_girl.rb'
+If that doesn't solve loading issues then require your factories.rb file directly in a file called 'features/support/factory_bot.rb'
 
 ```ruby
-# example features/support/factory_girl.rb
+# example features/support/factory_bot.rb
 require File.dirname(__FILE__) + '/../../spec/factories'
 ```
 
@@ -174,7 +174,7 @@ Given a user exists with name: "Fred"
 Given a user exists with name: "Fred", activated: false
 ```
 
-This last step could be better expressed by using Machinist/FactoryGirl to create an activated user.  Then you can do
+This last step could be better expressed by using Machinist/FactoryBot to create an activated user.  Then you can do
 
 ```gherkin
 Given an activated user exists with name: "Fred"

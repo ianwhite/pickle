@@ -1,3 +1,6 @@
+== 0.5.4
+* updated FactoryGirl to FactoryBot
+
 == 0.5.3
 * small fix to pickle_path_for_resources_action_segment
 * update for fabrication adapter with protected method klass
