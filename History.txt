@@ -1,3 +1,6 @@
+== 0.5.5
+* Relax dependency on cucumber to allow usage with Rails 5.2
+
 == 0.5.4
 * updated FactoryGirl to FactoryBot
 
