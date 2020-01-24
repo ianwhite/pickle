@@ -1,3 +1,4 @@
+# typed: true
 begin
   require 'activerecord'
 rescue LoadError

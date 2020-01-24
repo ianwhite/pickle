@@ -1,3 +1,4 @@
+# typed: false
 require 'pickle'
 require 'pickle/path'
 

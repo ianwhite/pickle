@@ -1,3 +1,4 @@
+# typed: false
 Given(/^an email "(.*?)" with body: "(.*?)" is delivered to (.+?)$/) do |subject, body, to|
   Notifier.email(to, subject, body).deliver_now
 end

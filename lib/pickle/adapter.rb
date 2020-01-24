@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   # Abstract Factory adapter class, if you have a factory type setup, you
   # can easily create an adaptor to make it work with Pickle.

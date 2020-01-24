@@ -1,3 +1,4 @@
+# typed: false
 # Blueprints
 require 'machinist/active_record'
 

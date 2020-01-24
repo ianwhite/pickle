@@ -1,3 +1,4 @@
+# typed: false
 Then /^the following should raise an? ([\w:]+):$/ do |error, step|
   expect { steps step }.to raise_error(error.constantize)
 end

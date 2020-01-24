@@ -1,3 +1,4 @@
+# typed: ignore
 module EmailHelpers
   # Maps a name to an email address. Used by email_steps
 

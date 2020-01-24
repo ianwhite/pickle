@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   module Session
     # add ability to parse model names as fields, using a session

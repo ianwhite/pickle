@@ -1,3 +1,4 @@
+# typed: ignore
 class PickleGenerator < Rails::Generator::Base
   def initialize(args, options)
     super(args, options)

@@ -1,3 +1,4 @@
+# typed: false
 require 'pickle'
 
 # auto require for active record, datamapper and mongoid

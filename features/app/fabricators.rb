@@ -1,3 +1,4 @@
+# typed: false
 require 'fabrication'
 
 Fabricator(:knife) do

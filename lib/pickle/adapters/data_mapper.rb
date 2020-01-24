@@ -1,3 +1,4 @@
+# typed: true
 require 'dm-core'
 
 module DataMapper::Resource

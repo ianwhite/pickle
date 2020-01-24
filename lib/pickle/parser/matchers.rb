@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   class Parser
     module Matchers

@@ -1,3 +1,4 @@
+# typed: false
 require 'autotest/bundler'
 
 Autotest.add_hook :initialize do |autotest|

@@ -1,3 +1,4 @@
+# typed: false
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
 Then(/^(.+?) should match route \/(.+?)$/) do |page, route|

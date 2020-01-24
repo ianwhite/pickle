@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   module Session
     module PickleParserMethods

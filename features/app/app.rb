@@ -1,3 +1,4 @@
+# typed: ignore
 # Routes
 Rails.application.routes.draw do
   resources :spoons, :controller => 'default'

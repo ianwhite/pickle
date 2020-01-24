@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   module Path
     # given args of pickle model name, and an optional extra action, or segment, will attempt to find

@@ -1,3 +1,4 @@
+# typed: true
 require 'pickle/parser/matchers'
 
 module Pickle

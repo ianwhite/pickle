@@ -1,3 +1,4 @@
+# typed: ignore
 module Pickle
   class Config
     attr_writer :adapters, :factories, :mappings, :predicates

@@ -1,3 +1,4 @@
+# typed: false
 module Pickle
   module Email
     # return the deliveries array, optionally selected by the passed fields

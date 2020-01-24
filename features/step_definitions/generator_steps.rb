@@ -1,3 +1,4 @@
+# typed: false
 Before('@gen') do
   `mv #{Rails.root}/features/ #{Rails.root}/features.orig/ > /dev/null 2>&1`
 end
