@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'spec_helper'
 
 require 'pickle/email/parser'
@@ -36,17 +36,17 @@ describe Pickle::Email::Parser do
   describe "#capture_index_in_email" do
     it "should extract the '2nd' from 'the 2nd email'" do
       match = 'the 2nd email'.match(/^#{capture_index_in_email}$/)
-      expect(match[1]).to eq('2nd')
+      expect(T.must(match)[1]).to eq('2nd')
     end
     
     it "should extract nil from 'the email'" do
       match = 'the email'.match(/^#{capture_index_in_email}$/)
-      expect(match[1]).to eq(nil)
+      expect(T.must(match)[1]).to eq(nil)
     end
     
     it "should extract the 'last' from 'the last email'" do
       match = 'the last email'.match(/^#{capture_index_in_email}$/)
-      expect(match[1]).to eq('last')
+      expect(T.must(match)[1]).to eq('last')
     end
   end
 end

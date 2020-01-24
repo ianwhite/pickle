@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Pickle
   module Email
     # return the deliveries array, optionally selected by the passed fields
@@ -15,7 +15,7 @@ module Pickle
 
     def email_has_fields?(email, fields)
       parse_fields(fields).each do |key, val|
-        return false unless (Array(email.send(key)) & Array(val)).any?
+        return false unless (Array.new(email.send(key)) & Array.new(val)).any?
       end
       true
     end

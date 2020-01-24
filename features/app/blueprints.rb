@@ -1,7 +1,7 @@
-# typed: false
+# typed: true
 # Blueprints
 require 'machinist/active_record'
 
-Spoon.blueprint do
+Spoon.print do
   name { "A Spoon" }
 end

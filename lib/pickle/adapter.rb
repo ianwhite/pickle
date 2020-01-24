@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Pickle
   # Abstract Factory adapter class, if you have a factory type setup, you
   # can easily create an adaptor to make it work with Pickle.
@@ -126,7 +126,7 @@ module Pickle
         if defined? ::FactoryBot
           ::FactoryBot.create(@name, attrs)
         else
-          Factory(@name, attrs)
+          Factory.new(@name, attrs)
         end
       end
 
@@ -158,7 +158,7 @@ module Pickle
 
       def create(attrs = {})
         if defined? ::Fabrication
-          Fabricate(@name.to_sym, attrs)
+          Fabricate.new(@name.to_sym, attrs)
         end
       end
     end

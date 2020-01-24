@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #

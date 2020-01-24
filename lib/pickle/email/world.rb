@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'pickle'
 require 'pickle/email'
 require 'pickle/email/parser'

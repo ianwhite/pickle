@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Pickle
   module Email
     # add ability to parse emails

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'spec_helper'
 
 # TODO: remove this and push AR stuff into ORM adapter

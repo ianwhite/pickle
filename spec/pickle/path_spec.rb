@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'spec_helper'
 
 require 'pickle/path'

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Pickle
   module Path
     # given args of pickle model name, and an optional extra action, or segment, will attempt to find
@@ -25,7 +25,7 @@ module Pickle
 
   protected
     def find_pickle_path_using_action_segment_combinations(resources, parts)
-      path = nil
+      path = T.let(nil, T.untyped)
       (0..parts.length).each do |idx|
         action  = parts.slice(0, idx).join('_')
         segment = parts.slice(idx, parts.length).join('_')

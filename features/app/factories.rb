@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # Factories
 require 'factory_bot'
 

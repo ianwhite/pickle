@@ -1,7 +1,7 @@
-# typed: false
+# typed: true
 require 'fabrication'
 
-Fabricator(:knife) do
+Fabricate.new(:knife) do
   name 'David'
   sharp true
 end

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'pickle/version'
 require 'pickle/adapter'
 require 'pickle/config'

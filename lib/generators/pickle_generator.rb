@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'rails/generators'
 
 class PickleGenerator < Rails::Generators::Base

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'spec_helper'
 
 require 'active_record'
@@ -72,8 +72,8 @@ describe Pickle::Adapter do
           @factory2 = ::FactoryBot.factories[:two]
         else
           @orig_factories, Factory.factories = Factory.factories, {}
-          Factory.define(:one, :class => One) {}
-          Factory.define(:two, :class => One::Two) {}
+          Factory.refine(:one, :class => One) {}
+          Factory.refine(:two, :class => One::Two) {}
           @factory1 = Factory.factories[:one]
           @factory2 = Factory.factories[:two]
         end
