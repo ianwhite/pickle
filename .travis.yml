@@ -2,10 +2,11 @@ language: ruby
 dist: xenial
 cache: bundler
 rvm:
-  - 2.5.1
-  - 2.4.4
-  - 2.3.7
-  - 2.2.10
+  - 2.7.1
+  - 2.6.6
+  - 2.5.8
+  - 2.4.10
+  - 2.3.8
   - ruby-head
 matrix:
   allow_failures:
