@@ -1,3 +1,7 @@
+== 0.7.0
+* Drop support for cucumber 3.x
+* Officially support cucumber 5.0
+
 == 0.6.0
 * Drop support for cucumber < 3
 * Officially support cucumber 4.1

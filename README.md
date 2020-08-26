@@ -12,12 +12,9 @@ This is a quickstart guide for rails apps.  Firstly, install [cucumber-rails](ht
 
 ## Supported versions
 
-Rails 4.2 should still work, but it is unsupported. There is a conflict with bundler on travis I just don't want to deal
-with. Since this is no longer supported by the rails team, consider using it at you own risk.
-
 Cucumber 2.x support is dropped from release 0.6.0
-Cucumber 3.x and 4.x should work with all Rails 5.x versions
-Cucumber 5.x support is planned
+Cucumber 3.x support is dropped from release 0.7.0
+Cucumber 4.x and 5.x is supported for Rails version 5.2 and 6.0
 
 ### Rails 5 and Rails 6
 
