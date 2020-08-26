@@ -16,7 +16,7 @@ FactoryBot.define do
 
   factory :rusty_tine, :class => Tine do |t|
     t.association :fork
-    t.rusty true
+    t.rusty { true }
   end
 
   factory :fancy_fork, :class => Fork do |t|

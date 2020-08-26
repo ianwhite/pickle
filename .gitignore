@@ -14,3 +14,5 @@ doc
 # built gems
 pkg
 *.gem
+
+gemfiles/*.lock
