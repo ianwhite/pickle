@@ -1,15 +1,22 @@
+== 0.6.0
+* Drop support for cucumber < 3
+* Officially support cucumber 4.1
+* Relax dependency to support cucumber 5.x although not officially supported
+* Run tests for Rails 5.0, 5.1, 5.2 and 6.0
+
 == 0.5.5
-* Relax dependency on cucumber to allow usage with Rails 5.2
+* Relax dependency on cucumber to allow usage with Rails 5.2 [Yohei Kitamura]
 
 == 0.5.4
-* updated FactoryGirl to FactoryBot
+* updated FactoryGirl to FactoryBot [Blake McDaniel]
 
 == 0.5.3
-* small fix to pickle_path_for_resources_action_segment
-* update for fabrication adapter with protected method klass
+* small fix to pickle_path_for_resources_action_segment [Tema Bolshakov]
+* update for fabrication adapter with protected method klass [Liam Krewer]
+* Fix tests to run on travis again and codecoverage [Mathieu Jobin]
 
 == 0.5.2
-* replace alias_method_chain by Module#prepend
+* replace alias_method_chain by Module#prepend [Mathieu Jobin]
   eliminating deprecation warnings when using with Rails 5
 
 == 0.5.1
@@ -43,7 +50,7 @@
 
 * 1 bugfix
   * Don't blow up when fabrication not present [Ian White]
-  
+
 
 == 0.4.9
 
@@ -52,8 +59,8 @@
 
 * 1 minor improvement
   * Update development dependencies so tests/features run on rails 3.1 and friends
-  
-  
+
+
 == 0.4.8
 
 * 2 minor improvements
@@ -66,7 +73,7 @@
 * 2 minor improvements
   * Better error message for failing to find a model [Ian White, reported by Yuval Karmi]
   * dev deps updated to latest cucumber & cucumber-rails [Ian White]
-  
+
 
 == 0.4.6
 Documentation updates
@@ -89,7 +96,7 @@ large object space fix, and allow escaped quotes as string values
 * 1 bugfix
   * When using super-huge GC limits (for speeding up tests), occasionally we'll see abandoned Mongoid::Document classes appear in the ObjectSpace.
     This patch should fix that. [Devin Walters and Nick Karpenske]
-  
+
 * 1 improvement
   * allow escaped quotes (\") in quoted fields [Jonathan Hinkle]
 
@@ -113,7 +120,7 @@ Docfix
 
 * 1 improvement
   * documentation fixes, and example of writing your own pickle steps
-  
+
 
 == 0.4.0
 Mongoid adapter, fallback ORM adapter for those not using machinist or active_record, bugfixes
@@ -121,9 +128,9 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 * 2 major improvements
   * adapter for Mongoid [Sebastian Zuchmanski]
   * replace ActiveRecord 'factory' adapter with Orm adapter.
-  
+
       If you don't have machinist or factory_girl, the Orm factory adapter will fallback to your Orm to create classes.
-      
+
       BC: if you have a line like this:
         Pickle.configure do |config|
           config.adapters = [:active_record]
@@ -133,10 +140,10 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
         Pickle.configure do |config|
           config.adapters = [:orm]
         end
-      
+
 * 1 minor improvement
   * Pickle::Session::ModelNotKnownError is raised instead of a generic RuntimeError
-  
+
 * 1 bugfix
   * references to unknown models in fields now raise ModelNotKnownError instead of silently assigning nil
 
@@ -150,7 +157,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
 * 1 bugfix
   * find_models now works with a factory name with spaces in it [#27]
-  
+
 
 == 0.3.4
 
@@ -163,7 +170,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
 * 1 minor improvement
   * Pickle respects the default build strategy for factory girl. [Sean Hussey]
-  
+
 
 == 0.3.2
 
@@ -196,7 +203,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 == 0.2.11
 
 * 1 improvement
-  * use correct type when converting STI pickle model to attributes 
+  * use correct type when converting STI pickle model to attributes
 
 
 == 0.2.10
@@ -233,8 +240,8 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 * 2 improvements
   * running specs is now doable without being in a rails app - just do 'rake spec'
   * running features is more straightforward, 'rake cucumber' then follow the instructions
-  
-  
+
+
 == 0.2.5 - 17 Mar 2010
 
 * 2 improvements
@@ -259,7 +266,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
         | user | name        | status |
         | jack | Jack Spratt | alone  |
         | pete | Pete Sprong | dead   |
-  
+
 * 1 minor improvement
   * Fix bug in error message for when pickle ref can't be found [Myron Marston]
 
@@ -270,8 +277,8 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
   * Added ability to follow links in emails (see email_steps.rb) [Michael Moen]
   * Added a step definition for doing stuff like: Then the user's name should be "Tobi" [Tobi Knaup]
   * Docfixes, mostly about testing [Nicholas Rutherford]
-  
-  
+
+
 == 0.2.1 - 1 Dec 2009
 
 * 2 minor improvements
@@ -290,11 +297,11 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
         | Ethel |
       And the 1st user should be male
       And the 2nd user should be female
-      
+
   * tables now support pickle refs in cells (see features/pickle/create_from_factory_girl.rb#37)
-  
+
   * features/support/email.rb adds an email helper for mapping names to email addresses (similar to NavigationHelper in paths.rb)
-  
+
   * Added ability for path_to_pickle to handle arbitrary segments
     Example:
       path_to_pickle('account', 'the enquiry') => account_enquiry_path(<enquiry>)
@@ -319,7 +326,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
 * 1 minor improvement
   * docs: more links
-  
+
 
 == 0.1.22 - 7 Nov 2009
 
@@ -344,7 +351,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
 * 1 minor enhancement
   * Add support for Cucumber tables [Tobi Knaup]
-  
+
 
 == 0.1.16, 0.1.17, 0.1.18 - 13 Oct 2009
 
@@ -364,7 +371,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
   * update specs and features for latest cucumber and machinist changes
 
 
-== 0.1.13 - 16 June 2009    
+== 0.1.13 - 16 June 2009
 
 * 2 minor enhancements
   * model! and created_model! raise an error if pickle name can't be found
@@ -382,7 +389,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
 * 2 minor enhancements
   * Pickle now supports multiple machinist blueprints
-  * Fix confusing adapter/adaptor comment generator comment 
+  * Fix confusing adapter/adaptor comment generator comment
 
 
 == 0.1.10 - 13 Feb 2009
@@ -413,7 +420,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 * 2 API changes
   * script/generate pickle path[s] now amends the features/support/paths.rb file
     instead of creating pge_to_path and path_steps.
-    
+
   * pickle_email_steps is renamed email_steps
 
 
@@ -427,22 +434,22 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 
   * generate email steps with `script/generate pickle email`
     email steps allow you to do things like this:
-    
+
       Then 2 emails should be delivered
       And the first email should be delivered to fred@gmail.com
       And the 2nd email should be delivered to the user: "ethel"
-      
+
       Then 1 email should be delivered with subject: "Activate your account"
       And the email should link to the user's page
-    
+
     take a look at features/step_definitions/pickle_email_steps.rb
-      
+
   * generate path steps with `script/generate pickle path`
     path steps allow you to do things like this
-    
+
       When I go to the comment's page
       Then I should be at the user's new comment page
-    
+
     take a look at features/step_definitions/pickle_path_steps.rb, and modify page_to_path to suit your needs
 
 * 4 minor enhancements
@@ -467,7 +474,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
     for much more intuitive env.rb
 
 * 2 minor enhancement
-  * predicate matching is less prone to step conflicts because we preload a 
+  * predicate matching is less prone to step conflicts because we preload a
     big list of all the predicate and column methods
   * field values now handle booleans and numerics
 
@@ -493,7 +500,7 @@ Mongoid adapter, fallback ORM adapter for those not using machinist or active_re
 * 2 major enhancements
   * create your pickle steps with script/generate pickle
   * Adapter based architecture, supports Machinist, FactoryGirl, and vanilla ActiveRecord
-  
+
 * 1 minor enhancement
   * model_names now defaults to subclasses of AR::Base
   * #original_model => #created_model
