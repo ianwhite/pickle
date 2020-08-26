@@ -20,6 +20,8 @@ matrix:
     - rvm: ruby-head
     - rvm: 2.7.1
     - gemfile: gemfiles/Gemfile-rails.edge
+    - gemfile: gemfiles/Gemfile-rails.5.2.x-cukes-5
+    - gemfile: gemfiles/Gemfile-rails.6.0.x-cukes-5
   fast_finish: true
 
 script:
