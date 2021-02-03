@@ -2,11 +2,11 @@ language: ruby
 dist: xenial
 cache: bundler
 rvm:
-  - 3.0
+  #- 3.0
   - 2.7
   - 2.6
   - 2.5
-  - ruby-head
+  #- ruby-head
 gemfile:
   - gemfiles/Gemfile-rails.5.2.x-cukes-3
   - gemfiles/Gemfile-rails.5.2.x-cukes-4
