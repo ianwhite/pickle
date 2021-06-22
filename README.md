@@ -1,6 +1,7 @@
 # pickle
 
-[<img src="https://travis-ci.org/ianwhite/pickle.svg" alt="Build Status"/>](https://travis-ci.org/ianwhite/pickle)
+
+<img src="https://github.com/ianwhite/pickle/actions/workflows/build/badge.svg" alt="Build Status"/>
 
 Pickle gives you cucumber steps that create your models easily from factory-girl, machinist, or fabrication.  You can also just use ActiveRecord as a factory but it's not as cool. Pickle can make use of different ORMs for finding records.  Currently ActiveRecord, DataMapper, MongoID adapters are provided.  More adapters welcome!
 
@@ -12,12 +13,14 @@ This is a quickstart guide for rails apps.  Firstly, install [cucumber-rails](ht
 
 ## Supported versions
 
-Rails 4.2 should still work, but it is unsupported. There is a conflict with bundler on travis I just don't want to deal
-with. Since this is no longer supported by the rails team, consider using it at you own risk.
+Rails 4.2 should still work, but it is not supported.
+Since this is no longer supported by the rails team, consider using it at you own risk.
 
-Cucumber 2.x support is dropped from release 0.6.0
-Cucumber 3.x and 4.x should work with all Rails 5.x versions
-Cucumber 5.x support is planned
+Cucumber 2.x - support was dropped from release 0.6.0
+Cucumber 3.x - is supported as best-effort, but tests run on rails 5.0 all the way until 6.1
+Cucumber 4.x - should work with all Rails 5.x versions, tests only run for 5.2 and 6.0
+Cucumber 5.x - all tests pass for rails 5.2, 6.0 and 6.1
+Cucumber 6.x - all tests pass for rails 6.0 and 6.1
 
 ### Rails 5 and Rails 6
 
