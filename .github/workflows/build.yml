@@ -22,6 +22,7 @@ jobs:
           - 2.5
         gemfile:
           # Cucumber 3.2+
+          - Gemfile-rails.4.2.x
           - Gemfile-rails.5.0.x
           - Gemfile-rails.5.1.x
           - Gemfile-rails.5.2.x
@@ -45,6 +46,10 @@ jobs:
           ruby: 2.6
         - gemfile: Gemfile-rails.edge
           ruby: 2.5
+        - gemfile: Gemfile-rails.4.2.x
+          ruby: 2.7
+        - gemfile: Gemfile-rails.4.2.x
+          ruby: 3.0
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}
