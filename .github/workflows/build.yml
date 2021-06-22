@@ -25,15 +25,22 @@ jobs:
           - Gemfile-rails.5.0.x
           - Gemfile-rails.5.1.x
           - Gemfile-rails.5.2.x
+          - Gemfile-rails.6.0.x-cukes-3
+          - Gemfile-rails.6.1.x-cukes-3
           # Cucumber 4.1+
           - Gemfile-rails.5.2.x-cukes-4
-          - Gemfile-rails.6.0.x
+          - Gemfile-rails.6.0.x-cukes-4
           # Cucumber 5.3+
           - Gemfile-rails.5.2.x-cukes-5
           - Gemfile-rails.6.0.x-cukes-5
+          - Gemfile-rails.6.1.x-cukes-5
+          # Cucumber 6
+          - Gemfile-rails.6.0.x-cukes-6
+          - Gemfile-rails.6.1.x-cukes-6
           # Edge
           - Gemfile-rails.edge
         exclude:
+        # Rails edge is now 7.x and requires ruby 2.7
         - gemfile: Gemfile-rails.edge
           ruby: 2.6
         - gemfile: Gemfile-rails.edge
