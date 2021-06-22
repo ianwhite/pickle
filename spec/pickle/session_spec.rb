@@ -452,8 +452,8 @@ describe Pickle::Session do
     let(:record) { "User class" }
 
     it "should index by canonical name" do
-      should_receive(:models_by_name).with(factory).and_return({})
-      should_receive(:models_by_index).with(factory).and_return([])
+      expect(subject).to receive(:models_by_name).with(factory).and_return({})
+      expect(subject).to receive(:models_by_index).with(factory).and_return([])
       Pickle::Parser.any_instance.should_receive(:canonical).with(name)
       store_record(factory, name, record)
     end
