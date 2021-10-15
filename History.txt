@@ -1,3 +1,9 @@
+== 0.6.2
+* Relax dependency to support cucumber 7.x
+
+== 0.6.1
+* Relax dependency to support cucumber 6.x
+
 == 0.6.0
 * Drop support for cucumber < 3
 * Officially support cucumber 4.1
