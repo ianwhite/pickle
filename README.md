@@ -17,8 +17,8 @@ Cucumber 2.x - support was dropped from release 0.6.0
 Cucumber 3.x - support is best-effort basis, but tests run on rails 4.2 all the way until 6.1
 Cucumber 4.x - should work with all Rails 5.x versions, tests only run for 5.2 and 6.0
 Cucumber 5.x - all tests pass for rails 5.2, 6.0 and 6.1
-Cucumber 6.x - all tests pass for rails 6.0 and 6.1
-Cucumber 7.x - all tests pass for rails 6.0 and 6.1
+Cucumber 6.x - all tests pass for rails 6.0, 6.1 and 7.0
+Cucumber 7.x - all tests pass for rails 6.0, 6.1 and 7.0
 
 Please open pull-requests with fixes if you encounter any problems.
 No active development on this gem.
