@@ -3,6 +3,7 @@ require 'spec_helper'
 require 'pickle/email'
 require 'pickle/email/parser'
 require 'action_mailer'
+require 'net/smtp'
 
 describe Pickle::Email do
   include Pickle::Session
