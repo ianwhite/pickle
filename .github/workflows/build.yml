@@ -38,6 +38,9 @@ jobs:
           # Cucumber 6
           - Gemfile-rails.6.0.x-cukes-6
           - Gemfile-rails.6.1.x-cukes-6
+          # Cucumber 7
+          - Gemfile-rails.6.0.x-cukes-7
+          - Gemfile-rails.6.1.x-cukes-7
           # Edge
           - Gemfile-rails.edge
         exclude:
