@@ -25,6 +25,8 @@ module Pickle
 
     # given a string like 'foo: expr' returns {key => value}
     def parse_field(field)
+      raise ArgumentError, "Can't call parse_field on an Array" if field.is_a?(Array)
+
       if field =~ /^#{capture_key_and_value_in_field}$/
         { $1 => eval($2) }
       else
