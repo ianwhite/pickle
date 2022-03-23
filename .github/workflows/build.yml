@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         ruby:
-          - 3.0
+          - '3.0'
           - 2.7
           - 2.6
           - 2.5
@@ -62,7 +62,7 @@ jobs:
         - gemfile: Gemfile-rails.4.2.x
           ruby: 2.7
         - gemfile: Gemfile-rails.4.2.x
-          ruby: 3.0
+          ruby: '3.0'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}
