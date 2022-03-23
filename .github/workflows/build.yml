@@ -44,6 +44,9 @@ jobs:
           - Gemfile-rails.6.0.x-cukes-7
           - Gemfile-rails.6.1.x-cukes-7
           - Gemfile-rails.7.0.x-cukes-7
+          # Cucumber 8 and 9
+          - Gemfile-rails.7.0.x-cukes-8
+          - Gemfile-rails.7.0.x-cukes-9
           # Edge
           - Gemfile-rails.edge
         exclude:
