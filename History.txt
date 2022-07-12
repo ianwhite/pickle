@@ -1,3 +1,9 @@
+== 0.7.1
+* Eliminate noisy warning: =~ called on Array objects.
+
+== 0.7.0
+* Rails 7.0.x support.
+
 == 0.6.2
 * Relax dependency to support cucumber 7.x
 
