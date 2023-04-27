@@ -1,3 +1,10 @@
+== 0.8.0
+* Added support for Cucumber 8.x
+* Removed support for Rails 4.2 -> 5.2
+* Removed support for Ruby 2.0 -> 2.6
+* Clean up Gemfiles, testing Ruby 2.7 -> 3.2 and Rails 6.0 -> 7.0
+* Cucumber 3.x -> 8.x remain supported.
+
 == 0.7.2
 * Eliminate noisy warning: =~ called on anything but String objects.
 
