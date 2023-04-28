@@ -13,13 +13,13 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/ianwhite/pickle"
 
   s.rubyforge_project = "pickle"
-  s.required_rubygems_version = ">= 2.0"
+  s.required_rubygems_version = ">= 2.7"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency "cucumber", ">=3.0", "< 8.0"
+  s.add_dependency "cucumber", ">=3.0", "< 9.0"
   s.add_dependency "rake"
 
   s.add_development_dependency "rack"
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "git"
   s.add_development_dependency "yard"
   s.add_development_dependency "rspec-rails", "~>3.0"
-  s.add_development_dependency "rails", ">= 4.2.0", "< 8.0"
+  s.add_development_dependency "rails", ">= 6.0", "< 8.0"
   s.add_development_dependency "cucumber-rails"
   s.add_development_dependency "factory_bot"
   s.add_development_dependency "fabrication", '~> 2.0'
