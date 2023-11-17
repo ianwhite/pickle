@@ -17,4 +17,16 @@ require 'capybara'
 require 'cucumber/rails'
 Capybara.default_selector = :css
 ActionController::Base.allow_rescue = false
+
+require 'database_cleaner/active_record'
 DatabaseCleaner.strategy = :truncation
+
+Around do |scenario, block|
+  DatabaseCleaner.cleaning(&block)
+end
+
+# 'Fixnum' and 'Bignum' are deprecated since ruby-3.2 (both replaced by 'Integer')
+# But 'machinist' still uses 'Fixnum', so we have to use workaround:
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.2')
+  class Fixnum < Integer; end
+end

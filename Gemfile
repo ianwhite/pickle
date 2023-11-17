@@ -10,3 +10,4 @@ gem "rails", "~> #{ENV['RAILS_VERSION'] || '7.0'}.0"
 gem "cucumber", "~> #{ENV['CUKES_VERSION'] || '7.0'}"
 gem "cucumber-rails"
 gem 'fabrication', github: 'mathieujobin/fabrication', ref: '923cf6fcefd0566b1d6be7bd2f685b89388f4800'
+gem 'sprockets-rails'
