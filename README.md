@@ -19,11 +19,13 @@ Cucumber 4.x - should work with all Rails 5.x versions, tests only run for 5.2 a
 Cucumber 5.x - all tests pass for rails 5.2, 6.0 and 6.1
 Cucumber 6.x - all tests pass for rails 6.0, 6.1 and 7.0
 Cucumber 7.x - all tests pass for rails 6.0, 6.1 and 7.0
+Cucumber 8.x - all tests pass for rails 6.0, 6.1 and 7.0
+Cucumber 9.x - all tests pass for rails 6.0, 6.1 and 7.0
 
 Please open pull-requests with fixes if you encounter any problems.
 No active development on this gem.
 
-### Rails 5 and Rails 6
+### Rails 5.x, 6.x, and 7.x
 
 Add the gem to your Gemfile:
 
