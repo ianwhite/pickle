@@ -230,14 +230,14 @@ describe Pickle::Session do
       end
 
       it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with plain factory name and return the models" do
-        expect(self).to receive(:create_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
-        expect(self).to receive(:create_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+        expect(self).to receive(:create_model).with("user", {"name" => "Fred"}).once.ordered.and_return(:fred)
+        expect(self).to receive(:create_model).with("user", {"name" => "Betty"}).once.ordered.and_return(:betty)
         expect(create_models_from_table("users", table)).to eq([:fred, :betty])
       end
 
       it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with plain factory name and return the models" do
-        expect(self).to receive(:find_model).with("user", 'name' => "Fred").once.ordered.and_return(:fred)
-        expect(self).to receive(:find_model).with("user", 'name' => "Betty").once.ordered.and_return(:betty)
+        expect(self).to receive(:find_model).with("user", {"name" => "Fred"}).once.ordered.and_return(:fred)
+        expect(self).to receive(:find_model).with("user", {"name" => "Betty"}).once.ordered.and_return(:betty)
         expect(find_models_from_table("users", table)).to eq([:fred, :betty])
       end
     end
@@ -248,14 +248,14 @@ describe Pickle::Session do
       end
 
       it "#create_models_from_table(<plural factory>, <table>) should call create_model for each of the table hashes with labelled pickle ref" do
-        expect(self).to receive(:create_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
-        expect(self).to receive(:create_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+        expect(self).to receive(:create_model).with("user \"fred\"", {"name" => "Fred"}).once.ordered.and_return(:fred)
+        expect(self).to receive(:create_model).with("user \"betty\"", {"name" => "Betty"}).once.ordered.and_return(:betty)
         expect(create_models_from_table("users", table)).to eq([:fred, :betty])
       end
 
       it "#find_models_from_table(<plural factory>, <table>) should call find_model for each of the table hashes with labelled pickle ref" do
-        expect(self).to receive(:find_model).with("user \"fred\"", 'name' => "Fred").once.ordered.and_return(:fred)
-        expect(self).to receive(:find_model).with("user \"betty\"", 'name' => "Betty").once.ordered.and_return(:betty)
+        expect(self).to receive(:find_model).with("user \"fred\"", {"name" => "Fred"}).once.ordered.and_return(:fred)
+        expect(self).to receive(:find_model).with("user \"betty\"", {"name" => "Betty"}).once.ordered.and_return(:betty)
         expect(find_models_from_table("users", table)).to eq([:fred, :betty])
       end
     end

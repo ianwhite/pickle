@@ -14,13 +14,8 @@ This is a quickstart guide for rails apps.  Firstly, install [cucumber-rails](ht
 ## Supported versions
 
 Cucumber 2.x - support was dropped from release 0.6.0
-Cucumber 3.x - support is best-effort basis, but tests run on rails 4.2 all the way until 6.1
-Cucumber 4.x - should work with all Rails 5.x versions, tests only run for 5.2 and 6.0
-Cucumber 5.x - all tests pass for rails 5.2, 6.0 and 6.1
-Cucumber 6.x - all tests pass for rails 6.0, 6.1 and 7.0
-Cucumber 7.x - all tests pass for rails 6.0, 6.1 and 7.0
-Cucumber 8.x - all tests pass for rails 6.0, 6.1 and 7.0
-Cucumber 9.x - all tests pass for rails 6.0, 6.1 and 7.0
+Rails 4.x and 5.x - Support for Cucumber 3.x -> 7.x; Dropped in 0.8.0
+Rails 6.x and 7.x - Support for Cucumber 3.x -> 9.x
 
 Please open pull-requests with fixes if you encounter any problems.
 No active development on this gem.
