@@ -1,53 +1,53 @@
 == 0.9.1
 * Added support for Rails 7.1
 
-== 0.9.0
-* Added support for Cucumber 9.x
+== 0.9.0 -- 2023-11-17
+* Added support for Cucumber 9.x [vlad-psh]
 
-== 0.8.0
+== 0.8.0 -- 2023-04-28 [Mathieu Jobin]
 * Added support for Cucumber 8.x
 * Removed support for Rails 4.2 -> 5.2
 * Removed support for Ruby 2.0 -> 2.6
 * Clean up Gemfiles, testing Ruby 2.7 -> 3.2 and Rails 6.0 -> 7.0
 * Cucumber 3.x -> 8.x remain supported.
 
-== 0.7.2
-* Eliminate noisy warning: =~ called on anything but String objects.
+== 0.7.2 -- 2022-11-25
+* Eliminate noisy warning: =~ called on anything but String objects.  [Mathieu Jobin]
 
-== 0.7.1
-* Eliminate noisy warning: =~ called on Array objects.
+== 0.7.1 -- 2022-07-20
+* Eliminate noisy warning: =~ called on Array objects. [Mathieu Jobin]
 
-== 0.7.0
-* Rails 7.0.x support.
+== 0.7.0 -- 2022-03-27
+* Rails 7.0.x support. [Mathieu Jobin]
 
-== 0.6.2
-* Relax dependency to support cucumber 7.x
+== 0.6.2 -- 2021-10-19
+* Relax dependency to support cucumber 7.x [Yohei Kitamura]
 
-== 0.6.1
-* Relax dependency to support cucumber 6.x
+== 0.6.1 -- 2021-06-22
+* Relax dependency to support cucumber 6.x [Mathieu Jobin]
 
-== 0.6.0
+== 0.6.0 -- 2020-08-26 [Mathieu Jobin]
 * Drop support for cucumber < 3
 * Officially support cucumber 4.1
 * Relax dependency to support cucumber 5.x although not officially supported
 * Run tests for Rails 5.0, 5.1, 5.2 and 6.0
 
-== 0.5.5
+== 0.5.5 -- 2018-05-22
 * Relax dependency on cucumber to allow usage with Rails 5.2 [Yohei Kitamura]
 
-== 0.5.4
+== 0.5.4 -- 2017-11-17
 * updated FactoryGirl to FactoryBot [Blake McDaniel]
 
-== 0.5.3
+== 0.5.3 -- 2017-08-19
 * small fix to pickle_path_for_resources_action_segment [Tema Bolshakov]
 * update for fabrication adapter with protected method klass [Liam Krewer]
 * Fix tests to run on travis again and codecoverage [Mathieu Jobin]
 
-== 0.5.2
+== 0.5.2 -- 2017-05-09
 * replace alias_method_chain by Module#prepend [Mathieu Jobin]
   eliminating deprecation warnings when using with Rails 5
 
-== 0.5.1
+== 0.5.1 -- 2015-01-13
 
 * Add support to use Factory.build [Erik Peterson]
 * Support factory_girl2 aliases [Jon Kinney]
