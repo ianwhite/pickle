@@ -6,6 +6,7 @@ require 'factory_bot'
 require 'simplecov'
 require 'codecov'
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
+SimpleCov.minimum_coverage 85
 
 $:.unshift(File.expand_path('../../lib', __FILE__))
 
