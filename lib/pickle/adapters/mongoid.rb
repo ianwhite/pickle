@@ -13,7 +13,7 @@ module Mongoid
       # Gets a list of the available models for this adapter
       def self.model_classes
         ObjectSpace.each_object(Class).to_a.select do |klass|
-          klass.name && klass.ancestors.include?(Mongoid::Document)
+          klass.ancestors.include?(Mongoid::Document) && klass.name
         end
       end
 
